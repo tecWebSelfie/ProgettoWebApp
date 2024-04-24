@@ -10,8 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-        with:
-          node-version:
       - run: npm run build --if-present
       - run: npm test
   deploy:
@@ -26,28 +24,4 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PW }}
           script: whoami
-  publish:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    needs: ci
-    env:
-      REGISTRY: ghcr.io
-    steps:
-      - uses: actions/checkout@v4
-      - uses: docker/login-action@v3.1.0
-        with:
-          registry: ${{env.REGISTRY}}
-          username: ${{github.actor}}
-          password: ${{github.token}}
-      - uses: docker/metadata-action@v5
-        id: meta
-        with:
-          images: ${{env.REGISTRY}}/${{github.repository}}
-      - uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          tags: ${{steps.meta.outputs.tags}}
-          labels: ${{steps.meta.outputs.labels}}
+
