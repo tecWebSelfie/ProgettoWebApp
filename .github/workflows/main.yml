@@ -24,4 +24,3 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PW }}
           script: whoami
-

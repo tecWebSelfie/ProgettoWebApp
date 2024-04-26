@@ -3,6 +3,8 @@ version: "3.8"
 services:
   restapi:
     image: ghcr.io/michelegennari/progettowebapi:main
+    env_file:
+      - ./.env.compose
     environment:
       MONGO_USER_FILE: /run/secrets/mongo_user
       MONGO_PW_FILE: /run/secrets/mongo_pw
@@ -23,6 +25,8 @@ services:
   mongodb:
     restart: on-failure
     image: mongo
+    env_file:
+      - ./.env.compose
     networks:
       - selfie
     expose:
