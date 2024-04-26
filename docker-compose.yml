@@ -6,8 +6,9 @@ services:
     environment:
       MONGO_USER_FILE: /run/secrets/mongo_user
       MONGO_PW_FILE: /run/secrets/mongo_pw
+      MONGO_HOSTNAME: ${MONGO_HOSTNAME:-mongodb}
       MONGO_PORT: ${MONGO_PORT:-27017}
-    restart: on-failure 
+    restart: on-failure
     depends_on: [mongodb]
     networks:
       - selfie
@@ -32,4 +33,3 @@ secrets:
     file: ./secrets/mongo_user.txt
   mongo_pw:
     file: ./secrets/mongo_pw.txt
-  
