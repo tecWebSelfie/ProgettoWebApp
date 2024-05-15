@@ -19,7 +19,11 @@
   },
   "homepage": "https://github.com/MicheleGennari/ProgettoWebApi#readme",
   "dependencies": {
-    "pino": "^8.20.0"
+    "@headlessui/react": "^1.7.19",
+    "next": "^14.2.3",
+    "pino": "^8.20.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.1.1",
