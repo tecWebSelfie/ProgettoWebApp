@@ -1,4 +1,7 @@
 {
+  //sets prettier as default formatter
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true
+  //formatter is called when a file is saved
+  "editor.formatOnSave": true,
+  "typescript.tsdk": "node_modules\\typescript\\lib"
 }

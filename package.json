@@ -9,7 +9,7 @@
     "lint": "next lint",
     "format": "prettier . --write",
     "prepare": "husky",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "dependencies": {
     "@headlessui/react": "^2.0.3",
@@ -25,6 +25,7 @@
     "@playwright/test": "^1.44.0",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^15.0.7",
+    "@types/jest": "^29.5.12",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
