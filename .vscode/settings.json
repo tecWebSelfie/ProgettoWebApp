@@ -3,5 +3,9 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   //formatter is called when a file is saved
   "editor.formatOnSave": true,
-  "typescript.tsdk": "node_modules\\typescript\\lib"
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  //dusable default (s)css and less validator
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false
 }
