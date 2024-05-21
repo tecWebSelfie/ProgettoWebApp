@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["axe-playwright", "@types/jest"],
+    "types": ["axe-playwright", "@types/jest", "@types/ical"],
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
