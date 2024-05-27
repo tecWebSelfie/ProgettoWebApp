@@ -10,7 +10,7 @@ async function foo(): Promise<Reqres> {
 
 async function delay(func: () => Promise<Reqres>): Promise<Reqres> {
   return new Promise((resolve, reject) =>
-    setTimeout(() => resolve(foo()), 3000)
+    setTimeout(() => resolve(foo()), 3000),
   );
 }
 

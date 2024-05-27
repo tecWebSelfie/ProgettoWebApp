@@ -1,7 +1,5 @@
 import { useRouter } from "next/router";
 
-const useRouterm = jest.mock("next/router");
-
 jest.mock("next/router", () => {
   return {
     useRouter: jest.fn(() => 5),

@@ -6,10 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
     "format": "prettier . --write",
-    "prepare": "husky",
-    "test": "jest --coverage"
+    "lint": "next lint",
+    "e2etest": "playwright test",
+    "test": "jest --coverage",
+    "prepare": "husky"
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.11",
@@ -27,6 +28,7 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.9.1",
     "@playwright/test": "^1.44.0",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^15.0.7",

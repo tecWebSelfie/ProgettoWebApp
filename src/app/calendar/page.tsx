@@ -6,7 +6,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 
 export default function Calendar() {
   const cal = fetch("calendar/4").then((res) =>
-    res.text().then((cal) => console.log(cal))
+    res.text().then((cal) => console.log(cal)),
   );
   return (
     <div className="w-1/2 h-1/2">
