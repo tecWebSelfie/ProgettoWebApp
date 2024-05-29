@@ -1,7 +1,7 @@
 "use client";
 
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
-import { increment } from "../../store/slices/counterSlice";
+import { increment, decrement } from "../../store/slices/counterSlice";
 
 export default function Counter() {
   const counter = useAppSelector((state) => state.counter.value);
@@ -11,6 +11,7 @@ export default function Counter() {
     <div>
       <p>the count is currently {counter}</p>
       <button onClick={() => dispatch(increment())}>+1</button>
+      <button onClick={() => dispatch(decrement())}>-1</button>
     </div>
   );
 }
