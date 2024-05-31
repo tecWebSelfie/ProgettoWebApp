@@ -25,7 +25,8 @@
     "pino": "^9.1.0",
     "pino-pretty": "^11.0.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-icons": "^5.2.1"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.9.1",
