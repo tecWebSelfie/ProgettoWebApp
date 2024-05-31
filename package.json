@@ -10,6 +10,7 @@
     "lint": "next lint",
     "e2etest": "playwright test",
     "test": "jest --coverage",
+    "ci": "prettier . --check && next lint && jest && playwright test",
     "prepare": "husky"
   },
   "dependencies": {
