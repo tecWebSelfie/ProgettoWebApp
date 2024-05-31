@@ -4,23 +4,48 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches: [main, master]
+
 jobs:
   ci:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-      - run: npm run build --if-present
-      - run: npm test
+      - name: checkout repository
+        uses: actions/checkout@v4
+      - name: setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+      - name: installing dependencies...
+        run: npm ci
+      - name: check formatting...
+        run: npm run format
+      - name: check linting...
+        run: npm run lint
+      - name: unit testing...
+        run: npm run test
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: npx playwright test
+      - name: uploading playwright report...
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
   deploy:
-    runs-on: ubuntu-latest
     needs: ci
+    runs-on: ubuntu-latest
     environment: ercolani
     steps:
-      - name: ssh connection
+      - name: connecting to ercolani...
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOSTNAME }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PW }}
-          script: whoami
+          script: |
+            cd ${{secrets.SSH_SITE_PATH}}
+            git pull git@github.com:MicheleGennari/ProgettoWebApp.git
