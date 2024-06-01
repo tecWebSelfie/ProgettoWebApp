@@ -48,4 +48,4 @@ jobs:
           password: ${{ secrets.SSH_PW }}
           script: |
             cd ${{secrets.SSH_SITE_PATH}}
-            git pull git@github.com:MicheleGennari/ProgettoWebApp.git
+            git pull
