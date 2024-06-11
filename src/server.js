@@ -2,10 +2,20 @@ const createServer = require("http").createServer;
 const parse = require("url").parse;
 const next = require("next");
 
+/**
+ * Loads environment variables from multiple .env files, with later files overriding earlier ones.
+ * This allows for a hierarchy of environment-specific configuration files.
+ * The loaded environment variables are made available to the application through `process.env`.
+ */
+require("dotenv").configDotenv({
+  path: [".env", ".env.local", ".env.production", ".env.production.local"],
+  override: true,
+});
+
 
 const dev = false;
-const hostname = "localhost";
-const port = 8000;
+const hostname = process.env.HOSTNAME || "localhost";
+const port = parseInt(process.env.PORT) || 3000;
 // when using middleware `hostname` and `port` must be provided below
 const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();
