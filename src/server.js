@@ -3,6 +3,8 @@ const parse = require("url").parse;
 const path = require("path");
 const next = require("next");
 
+process.chdir(path.join(__dirname, "../"));
+
 /**
  * Loads environment variables from multiple .env files, with later files overriding earlier ones.
  * This allows for a hierarchy of environment-specific configuration files.
@@ -18,7 +20,7 @@ const dev = false;
 const hostname = process.env.HOSTNAME || "localhost";
 const port = parseInt(process.env.PORT) || 3000;
 // when using middleware `hostname` and `port` must be provided below
-const app = next({ dev, hostname, port, dir: path.join(__dirname, "../") });
+const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
