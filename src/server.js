@@ -4,7 +4,6 @@ const path = require("path");
 const next = require("next");
 
 process.chdir(path.join(__dirname, "../"));
-console.log("process.cwd() =", process.cwd());
 
 /**
  * Loads environment variables from multiple .env files, with later files overriding earlier ones.
@@ -14,7 +13,6 @@ console.log("process.cwd() =", process.cwd());
 require("dotenv").configDotenv({
   path: [".env", ".env.local", ".env.production", ".env.production.local"],
   override: true,
-  debug: true
 });
 
 
