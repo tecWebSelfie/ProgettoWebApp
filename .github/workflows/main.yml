@@ -50,4 +50,4 @@ jobs:
             cd ${{secrets.SSH_SITE_PATH}}
             git checkout main
             git pull
-            npm i
+            /usr/local/node/bin npm i
