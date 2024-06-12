@@ -15,7 +15,6 @@ require("dotenv").configDotenv({
   override: true,
 });
 
-
 const dev = false;
 const hostname = process.env.HOSTNAME || "localhost";
 const port = parseInt(process.env.PORT) || 3000;
