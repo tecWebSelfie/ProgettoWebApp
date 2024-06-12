@@ -1,5 +1,6 @@
 const createServer = require("http").createServer;
 const parse = require("url").parse;
+const path = require("path");
 const next = require("next");
 
 /**
@@ -17,7 +18,7 @@ const dev = false;
 const hostname = process.env.HOSTNAME || "localhost";
 const port = parseInt(process.env.PORT) || 3000;
 // when using middleware `hostname` and `port` must be provided below
-const app = next({ dev, hostname, port });
+const app = next({ dev, hostname, port, dir: path.join(__dirname, "../") });
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
