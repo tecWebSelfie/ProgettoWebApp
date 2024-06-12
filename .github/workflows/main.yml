@@ -49,3 +49,4 @@ jobs:
           script: |
             cd ${{secrets.SSH_SITE_PATH}}
             git pull
+            npm i
