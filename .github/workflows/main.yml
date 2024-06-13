@@ -51,6 +51,4 @@ jobs:
             cd ${{secrets.SSH_SITE_PATH}}
             git checkout main
             git pull
-            echo $PATH
-            node --version
             npm i
