@@ -52,3 +52,4 @@ jobs:
             git checkout main
             git pull
             npm i
+            ssh gocker -t "start node-20 site232443 ${{secrets.ERCOLANI_SERVER_PATH}}}"
