@@ -47,9 +47,10 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PW }}
           script: |
+            . ~/.bash_profile
             cd ${{secrets.SSH_SITE_PATH}}
             git checkout main
             git pull
             echo $PATH
             node --version
-            /usr/local/node/bin/npm i
+            npm i
