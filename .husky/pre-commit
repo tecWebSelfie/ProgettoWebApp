@@ -1,2 +1,1 @@
-echo "burdega"
-id
+npx lint-staged
