@@ -48,4 +48,8 @@ jobs:
           password: ${{ secrets.SSH_PW }}
           script: |
             cd ${{secrets.SSH_SITE_PATH}}
+            git checkout main
             git pull
+            echo $PATH
+            node --version
+            /usr/local/node/bin/npm i
