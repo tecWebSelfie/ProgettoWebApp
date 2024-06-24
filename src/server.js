@@ -15,7 +15,8 @@ require("dotenv").configDotenv({
   override: true,
 });
 
-const dev = false;
+//put this in e .env.local file on the host, DON'T push an .env. to repo 
+const dev = process.env.ERCOLANI_DEV || false;
 const hostname = process.env.HOSTNAME || "localhost";
 const port = parseInt(process.env.PORT) || 3000;
 // when using middleware `hostname` and `port` must be provided below
