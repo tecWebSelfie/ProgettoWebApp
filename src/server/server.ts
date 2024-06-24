@@ -1,25 +1,19 @@
-const createServer = require("http").createServer;
-const parse = require("url").parse;
-const path = require("path");
-const next = require("next");
-
-process.chdir(path.join(__dirname, "../"));
+import { createServer } from "http";
+import { parse } from "url";
+import next from "next";
+import { config as configEnv } from "dotenv";
 
 /**
- * Loads environment variables from multiple .env files, with later files overriding earlier ones.
- * This allows for a hierarchy of environment-specific configuration files.
- * The loaded environment variables are made available to the application through `process.env`.
+ * Loads environment variables from various .env files.
+ * This ensures that environment variables are available throughout the application.
  */
-require("dotenv").configDotenv({
+configEnv({
   path: [".env", ".env.local", ".env.production", ".env.production.local"],
-  override: true,
 });
 
-//put this in e .env.local file on the host, DON'T push an .env. to repo
-const dev = process.env.ERCOLANI_DEV || false;
-console.log("running on " + dev ? "dev" : "production" + " mode");
+const dev = false;
 const hostname = process.env.HOSTNAME || "localhost";
-const port = parseInt(process.env.PORT) || 3000;
+const port = parseInt(process.env.PORT) || 8000;
 // when using middleware `hostname` and `port` must be provided below
 const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();
@@ -29,7 +23,7 @@ app.prepare().then(() => {
     try {
       // Be sure to pass `true` as the second argument to `url.parse`.
       // This tells it to parse the query portion of the URL.
-      const parsedUrl = parse(req.url, true);
+      const parsedUrl = parse(req.url!!, true);
       const { pathname, query } = parsedUrl;
 
       handle(req, res, parsedUrl);
