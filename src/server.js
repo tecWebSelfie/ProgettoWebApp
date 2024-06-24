@@ -15,7 +15,7 @@ require("dotenv").configDotenv({
   override: true,
 });
 
-//put this in e .env.local file on the host, DON'T push an .env. to repo
+//put this env var in .env.local file on the host, DON'T push an .env. to repo
 const dev = process.env.ERCOLANI_DEV || false;
 console.log("running on " + dev ? "dev" : "production" + " mode");
 const hostname = process.env.HOSTNAME || "localhost";
