@@ -53,4 +53,3 @@ jobs:
             git pull
             npm i
             npm run build
-            ssh ${{secrets.SSH_USERNAME}}@${{secrets.ERCOLANI_GOCKER_HOSTNAME}} gocker "start node-20 site232443 ${{secrets.ERCOLANI_SERVER_PATH}}}"
