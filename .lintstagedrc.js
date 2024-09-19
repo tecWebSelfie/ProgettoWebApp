@@ -1,15 +1,11 @@
 const path = require("path");
 
 const buildEslintCommand = (filenames) =>
-  `npm run lint --fix --file ${filenames
+  `next lint --fix --file ${filenames
     .map((f) => path.relative(process.cwd(), f))
     .join(" --file ")}`;
 
 module.exports = {
-  "*": "prettier --write --ignore-unknown",
-  "*.t|js?(x)": [buildEslintCommand],
+  "*": "prettier --write",
+  "*.{js,jsx,ts,tsx}": [buildEslintCommand],
 };
-
-// module.exports = {
-//   '*.{js,jsx,ts,tsx}': ,
-// }
