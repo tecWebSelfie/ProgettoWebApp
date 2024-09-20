@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36" version="24.7.16">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="2327" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1932" dy="558" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
@@ -50,10 +50,10 @@
           <mxGeometry x="10" y="20" width="210" height="40" as="geometry" />
         </mxCell>
         <mxCell id="JqH5RjJsTUU8XQsT0f6L-17" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Local git repo&lt;/font&gt;" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="JqH5RjJsTUU8XQsT0f6L-15">
-          <mxGeometry x="90" y="70" width="270" height="200" as="geometry" />
+          <mxGeometry x="90" y="70" width="300" height="210" as="geometry" />
         </mxCell>
-        <mxCell id="JqH5RjJsTUU8XQsT0f6L-28" value="&lt;ul style=&quot;&quot;&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Lint-staged&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Eslint (linter)&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Typescript (language)&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Prettier (formatter)&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;stylelint (css linter)&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Redux extension&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;playwright (UI/a11y testing)&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;jest (code testing)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="JqH5RjJsTUU8XQsT0f6L-17">
-          <mxGeometry x="10" y="20" width="260" height="190" as="geometry" />
+        <mxCell id="JqH5RjJsTUU8XQsT0f6L-28" value="&lt;ul style=&quot;&quot;&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Lint-staged&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Eslint (linter)&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Typescript/javascript (language)&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Prettier (formatter)&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;stylelint (css linter)&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Redux browser extension&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;playwright (UI/a11y testing)&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;jest (code testing)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="JqH5RjJsTUU8XQsT0f6L-17">
+          <mxGeometry x="10" y="20" width="290" height="190" as="geometry" />
         </mxCell>
         <mxCell id="JqH5RjJsTUU8XQsT0f6L-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="JqH5RjJsTUU8XQsT0f6L-17" target="JqH5RjJsTUU8XQsT0f6L-8">
           <mxGeometry relative="1" as="geometry" />
