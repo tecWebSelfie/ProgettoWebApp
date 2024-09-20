@@ -1,16 +1,16 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36" version="24.7.16">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="2062" dy="624" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="2327" dy="757" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
-        <mxCell id="JqH5RjJsTUU8XQsT0f6L-1" value="Node server gocker" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="JqH5RjJsTUU8XQsT0f6L-1" value="&lt;font style=&quot;font-size: 17px;&quot;&gt;Node server gocker&lt;/font&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="200" y="220" width="250" height="150" as="geometry" />
         </mxCell>
         <mxCell id="JqH5RjJsTUU8XQsT0f6L-2" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="JqH5RjJsTUU8XQsT0f6L-1">
           <mxGeometry x="90" y="45" width="20" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="JqH5RjJsTUU8XQsT0f6L-4" value="MongoDB gocker" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="JqH5RjJsTUU8XQsT0f6L-4" value="&lt;font style=&quot;font-size: 17px;&quot;&gt;MongoDB gocker&lt;/font&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="590" y="240" width="200" height="130" as="geometry" />
         </mxCell>
         <mxCell id="JqH5RjJsTUU8XQsT0f6L-5" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="JqH5RjJsTUU8XQsT0f6L-4">
@@ -37,7 +37,7 @@
         <mxCell id="JqH5RjJsTUU8XQsT0f6L-12" value="" style="swimlane;startSize=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="-450" y="20" width="370" height="320" as="geometry" />
         </mxCell>
-        <mxCell id="JqH5RjJsTUU8XQsT0f6L-8" value="Github repo" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" vertex="1" parent="JqH5RjJsTUU8XQsT0f6L-12">
+        <mxCell id="JqH5RjJsTUU8XQsT0f6L-8" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;Github repo&lt;/font&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=23;" vertex="1" parent="JqH5RjJsTUU8XQsT0f6L-12">
           <mxGeometry x="85" y="60" width="200" height="200" as="geometry" />
         </mxCell>
         <mxCell id="JqH5RjJsTUU8XQsT0f6L-14" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Github servers&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="JqH5RjJsTUU8XQsT0f6L-12">
@@ -49,11 +49,11 @@
         <mxCell id="JqH5RjJsTUU8XQsT0f6L-16" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Local development&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="JqH5RjJsTUU8XQsT0f6L-15">
           <mxGeometry x="10" y="20" width="210" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="JqH5RjJsTUU8XQsT0f6L-17" value="Local git repo" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="JqH5RjJsTUU8XQsT0f6L-15">
-          <mxGeometry x="90" y="70" width="260" height="200" as="geometry" />
+        <mxCell id="JqH5RjJsTUU8XQsT0f6L-17" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;Local git repo&lt;/font&gt;" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="JqH5RjJsTUU8XQsT0f6L-15">
+          <mxGeometry x="90" y="70" width="270" height="200" as="geometry" />
         </mxCell>
-        <mxCell id="JqH5RjJsTUU8XQsT0f6L-28" value="&lt;ul style=&quot;&quot;&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Lint-staged&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Eslint (linter)&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Typescript (language)&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Prettier (formatter)&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;stylelint (css linter)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="JqH5RjJsTUU8XQsT0f6L-17">
-          <mxGeometry x="10" y="35" width="220" height="130" as="geometry" />
+        <mxCell id="JqH5RjJsTUU8XQsT0f6L-28" value="&lt;ul style=&quot;&quot;&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Lint-staged&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Eslint (linter)&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Typescript (language)&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Prettier (formatter)&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;stylelint (css linter)&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Redux extension&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;playwright (UI/a11y testing)&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;jest (code testing)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="JqH5RjJsTUU8XQsT0f6L-17">
+          <mxGeometry x="10" y="20" width="260" height="190" as="geometry" />
         </mxCell>
         <mxCell id="JqH5RjJsTUU8XQsT0f6L-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="JqH5RjJsTUU8XQsT0f6L-17" target="JqH5RjJsTUU8XQsT0f6L-8">
           <mxGeometry relative="1" as="geometry" />
@@ -68,16 +68,22 @@
           <mxGeometry x="-60" y="120" width="160" height="40" as="geometry" />
         </mxCell>
         <mxCell id="JqH5RjJsTUU8XQsT0f6L-24" value="" style="swimlane;startSize=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
-          <mxGeometry x="190" y="610" width="540" height="430" as="geometry" />
+          <mxGeometry x="120" y="610" width="780" height="430" as="geometry" />
         </mxCell>
         <mxCell id="JqH5RjJsTUU8XQsT0f6L-25" value="&lt;font style=&quot;font-size: 42px;&quot;&gt;User Agent&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="JqH5RjJsTUU8XQsT0f6L-24">
-          <mxGeometry x="220" y="20" width="290" height="50" as="geometry" />
+          <mxGeometry x="460" y="20" width="290" height="50" as="geometry" />
         </mxCell>
         <mxCell id="JqH5RjJsTUU8XQsT0f6L-23" value="&lt;font style=&quot;font-size: 21px;&quot;&gt;Client&lt;/font&gt;" style="swimlane;whiteSpace=wrap;html=1;startSize=40;" vertex="1" parent="JqH5RjJsTUU8XQsT0f6L-24">
           <mxGeometry x="80" y="110" width="300" height="240" as="geometry" />
         </mxCell>
         <mxCell id="JqH5RjJsTUU8XQsT0f6L-26" value="&lt;ul style=&quot;&quot;&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Redux (state management)&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;React (UI)&lt;/span&gt;&lt;/li&gt;&lt;li style=&quot;&quot;&gt;&lt;span style=&quot;font-size: 16px;&quot;&gt;Tailwind (CSS framework)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="JqH5RjJsTUU8XQsT0f6L-23">
           <mxGeometry x="20" y="70" width="260" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="JqH5RjJsTUU8XQsT0f6L-29" value="" style="swimlane;startSize=0;fillColor=#fff2cc;strokeColor=#CC6600;strokeWidth=8;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="180" y="210" width="340" height="780" as="geometry" />
+        </mxCell>
+        <mxCell id="JqH5RjJsTUU8XQsT0f6L-30" value="&lt;span style=&quot;font-size: 42px;&quot;&gt;&lt;font color=&quot;#cc6600&quot;&gt;Next.js&lt;/font&gt;&lt;/span&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="JqH5RjJsTUU8XQsT0f6L-29">
+          <mxGeometry x="25" y="310" width="290" height="50" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
