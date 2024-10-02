@@ -3,7 +3,18 @@ import { createYoga } from "graphql-yoga";
 import { graphqlschema } from "../../db/models/event";
 import mongoose from "mongoose";
 
-mongoose.connect(process.env.DATABASE_URL, { authSource: "admin" });
+const protocol = process.env.DB_PROTOCOL || "mongodb";
+const username = process.env.MONGO_INITDB_ROOT_USERNAME || "";
+const password = process.env.MONGO_INITDB_ROOT_PASSWORD || "";
+const hostname = process.env.DB_HOSTNAME || "127.0.0.1";
+const port = process.env.DB_PORT || 27017;
+const dbname = process.env.DB_NAME || "selfie";
+const dbauthsrc = process.env.DB_AUTHSRC || null;
+
+mongoose.connect(
+  `${protocol}://${username}:${password}@${hostname}:${port}/${dbname}`,
+  { authSource: dbauthsrc },
+);
 console.log(process.env.DATABASE_URL);
 
 const app = createYoga({ schema: graphqlschema });
