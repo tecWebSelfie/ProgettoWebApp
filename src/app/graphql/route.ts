@@ -15,7 +15,6 @@ mongoose.connect(
   `${protocol}://${username}:${password}@${hostname}:${port}/${dbname}`,
   { authSource: dbauthsrc },
 );
-console.log(process.env.DATABASE_URL);
 
 const app = createYoga({ schema: graphqlschema });
 
