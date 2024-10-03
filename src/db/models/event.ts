@@ -1,5 +1,6 @@
 import { composeWithMongoose } from "graphql-compose-mongoose";
 import { schemaComposer } from "graphql-compose";
+import { getMongooseResolvers } from "./graphqlComposeUtilities";
 import mongoose from "mongoose";
 
 const eventSchema = new mongoose.Schema({
@@ -14,13 +15,11 @@ const customizationOptions = {};
 const eventTC = composeWithMongoose(eventModel, customizationOptions);
 
 schemaComposer.Query.addFields({
-  eventById: eventTC.getResolver("findById"),
-  eventOne: eventTC.getResolver("findOne"),
-  events: eventTC.getResolver("findMany"),
+  ...getMongooseResolvers(eventTC, "event_").queries,
 });
 
 schemaComposer.Mutation.addFields({
-  eventCreateOne: eventTC.getResolver("createOne"),
+  ...getMongooseResolvers(eventTC, "event_").mutations,
 });
 
 export const graphqlschema = schemaComposer.buildSchema({});

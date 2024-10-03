@@ -6,6 +6,7 @@
     "strict": false,
     "noEmit": true,
     "incremental": true,
+    "target": "ESNext",
     "module": "ESNext",
     "esModuleInterop": true,
     "moduleResolution": "Node",
