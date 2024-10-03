@@ -7,7 +7,7 @@ type MongooseResolvers = {
 };
 
 /**
- * @description returns object containing all resolvers of objectTC created with composeWithMongoose()
+ * @description returns object containing all mongoose resolvers of objectTC created with composeWithMongoose()
  * @param objecTC The ObjectTypeComposer to get mongoose resolvers from
  * @param resolversPrefix the prefix that to every mongoose resolver's name
  * @returns object with properties "queries" and "mutations", each containing mongoose resolvers related to that operations
