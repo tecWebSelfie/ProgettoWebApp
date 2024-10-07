@@ -16,7 +16,7 @@ export default function ApolloTest() {
     <div>
       {loading && <h1>sto caricando</h1>}
       {error && <h1>{error.message}</h1>}
-      {data && <h1>{data.name}</h1>}
+      {data && <h1>{data.event_findById.name}</h1>}
     </div>
   );
 }
