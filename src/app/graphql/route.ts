@@ -16,7 +16,7 @@ mongoose.connect(
   { authSource: dbauthsrc },
 );
 
-const app = createYoga({ schema: graphqlschema });
+const app = createYoga({ schema: graphqlschema, logging: "debug" });
 
 export async function GET(request: NextRequest) {
   return app.handle(request);
