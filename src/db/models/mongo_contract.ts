@@ -1,0 +1,13 @@
+export const alarmModelName = "Alarm";
+export const calendarModelName = "Calendar";
+export const eventModelName = "Event";
+export const freebusyModelName = "Freebusy";
+export const groupModelName = "Group";
+export const journalModelName = "Journal";
+export const notificationModelName = "Notification";
+export const pomodoroModelName = "Pomodoro";
+export const projectModelName = "Project";
+export const resourceModelName = "Resource";
+export const timezoneModelName = "Timezone";
+export const todoModelName = "Todo";
+export const userModelName = "User";
