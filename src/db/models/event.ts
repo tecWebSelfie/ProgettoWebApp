@@ -1,5 +1,15 @@
-import { eventModelName, pomodoroModelName } from "./mongo_contract";
-import mongoose, { Schema } from "mongoose";
+import {
+  eventModelName,
+  pomodoroModelName,
+  iCalLocationSchema,
+  iCalEventJSONRepeatingDataSchema,
+  iCalDescription,
+  iCalOrganizer,
+  iCalAttendee,
+  iCalAlarm,
+  iCalCategory,
+} from "./mongo_contract";
+import mongoose, { Schema, Types } from "mongoose";
 import {
   ICalEventTransparency,
   ICalEventJSONRepeatingData,
@@ -11,42 +21,40 @@ import {
   ICalCategory,
   ICalEventStatus,
   ICalEventBusyStatus,
+  ICalEventJSONData,
 } from "ical-generator";
 
-interface ICalEventJSONData {
-  sequence: number;
-  start: string;
-  end: string | null;
-  recurrenceId: string | null;
-  timezone: string | null;
-  stamp: string;
-  allDay: boolean;
-  floating: boolean;
-  repeating: ICalEventJSONRepeatingData | string | null;
-  summary: string;
-  location: ICalLocation | null;
-  description: ICalDescription | null;
-  organizer: ICalOrganizer | null;
-  attendees: ICalAttendee[];
-  alarms: ICalAlarm[];
-  categories: ICalCategory[];
-  status: ICalEventStatus | null;
-  busystatus: ICalEventBusyStatus | null;
-  priority?: number | null;
-  url: string | null;
-  attachments: string[];
-  transparency: ICalEventTransparency | null;
-  created: string | null;
-  lastModified: string | null;
-  x: { key: string; value: string }[];
-  pomodoro: null;
+interface IEvent extends ICalEventJSONData {
+  pomodoro: Types.ObjectId;
 }
 
-const eventSchema = new Schema<ICalEventJSONData>({
+const eventSchema = new Schema<IEvent>({
+  sequence: { type: Number, required: true },
+  start: { type: String, required: true },
+  end: String,
+  recurrenceId: String,
+  timezone: String,
+  stamp: { type: String, required: true },
+  allDay: { type: Boolean, required: true },
+  floating: { type: Boolean, required: true },
+  summary: { type: String, required: true },
+  priority: Number,
+  url: String,
+  attachments: { type: [String], required: true },
+  created: String,
+  lastModified: String,
   pomodoro: { type: Schema.Types.ObjectId, ref: pomodoroModelName },
+  location: iCalLocationSchema,
+  repeating: iCalEventJSONRepeatingDataSchema,
+  description: iCalDescription,
+  organizer: iCalOrganizer,
+  attendees: { type: [iCalAttendee], required: true },
+  alarms: { type: [iCalAlarm], required: true },
+  categories: { type: [iCalCategory], required: true },
+  status: { type: String, enum: Object.values(ICalEventStatus) },
+  busystatus: { type: String, enum: Object.values(ICalEventBusyStatus) },
+  transparency: { type: String, enum: Object.values(ICalEventTransparency) },
+  x: { type: [Array], required: true }, //x: { key: string; value: string }[];
 });
 
-const eventModel = mongoose.model<ICalEventJSONData>(
-  eventModelName,
-  eventSchema,
-);
+const eventModel = mongoose.model<IEvent>(eventModelName, eventSchema);
