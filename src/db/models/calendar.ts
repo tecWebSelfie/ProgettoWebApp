@@ -50,3 +50,4 @@ schemaComposer.Query.addFields({
 schemaComposer.Mutation.addFields({
   ...getMongooseResolvers(calendarTC, "calendar_").mutations,
 });
+export const graphqlschema = schemaComposer.buildSchema();

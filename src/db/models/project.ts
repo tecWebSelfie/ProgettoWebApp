@@ -29,3 +29,4 @@ schemaComposer.Query.addFields({
 schemaComposer.Mutation.addFields({
   ...getMongooseResolvers(projectTC, "project_").mutations,
 });
+export const graphqlschema = schemaComposer.buildSchema();

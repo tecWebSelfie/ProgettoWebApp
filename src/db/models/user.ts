@@ -13,6 +13,9 @@ import {
   todoModelName,
   userModelName,
 } from "./mongo_contract";
+import { schemaComposer } from "graphql-compose";
+import { composeWithMongoose } from "graphql-compose-mongoose";
+import { getMongooseResolvers } from "./graphqlComposeUtilities";
 
 interface IUser {
   nickname: String;
@@ -81,3 +84,17 @@ const userSchema = new Schema<IUser>({
 });
 
 const userModel = mongoose.model<IUser>(userModelName, userSchema);
+
+const customizationOptions = {};
+
+const userTC = composeWithMongoose(userModel, customizationOptions);
+
+schemaComposer.Query.addFields({
+  ...getMongooseResolvers(userTC, "user_").queries,
+});
+
+schemaComposer.Mutation.addFields({
+  ...getMongooseResolvers(userTC, "user_").mutations,
+});
+
+export const graphqlschema = schemaComposer.buildSchema();

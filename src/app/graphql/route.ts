@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { createYoga } from "graphql-yoga";
-import { graphqlschema } from "../../db/models/event";
+import { graphqlschema } from "../../db/gqlschema";
 import mongoose from "mongoose";
 
 const protocol = process.env.DB_PROTOCOL || "mongodb";

@@ -31,7 +31,7 @@ const alarmSchema = new Schema<ICalAlarmJSONData>({
   x: [{ key: String, value: String }],
 });
 
-const alarmModel = mongoose.model<ICalAlarmJSONData>(
+export const alarmModel = mongoose.model<ICalAlarmJSONData>(
   alarmModelName,
   alarmSchema,
 );
@@ -47,3 +47,5 @@ schemaComposer.Query.addFields({
 schemaComposer.Mutation.addFields({
   ...getMongooseResolvers(alarmTC, "alarm_").mutations,
 });
+
+export const graphqlschema = schemaComposer.buildSchema();
