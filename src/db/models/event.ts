@@ -1,3 +1,6 @@
+import { schemaComposer } from "graphql-compose";
+import { composeWithMongoose } from "graphql-compose-mongoose";
+import { getMongooseResolvers } from "./graphqlComposeUtilities";
 import {
   eventModelName,
   pomodoroModelName,
@@ -54,7 +57,8 @@ const eventSchema = new Schema<IEvent>({
   status: { type: String, enum: Object.values(ICalEventStatus) },
   busystatus: { type: String, enum: Object.values(ICalEventBusyStatus) },
   transparency: { type: String, enum: Object.values(ICalEventTransparency) },
-  x: { type: [Array], required: true }, //x: { key: string; value: string }[];
+  x: [{ key: String, value: String }],
+  //x: { type: [Array], required: true }, //x: { key: string; value: string }[];
 });
 
 const eventModel = mongoose.model<IEvent>(eventModelName, eventSchema);
