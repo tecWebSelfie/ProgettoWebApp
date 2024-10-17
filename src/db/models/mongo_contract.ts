@@ -87,11 +87,11 @@ export const iCalAttendee = new Schema<ICalAttendeeJSONData>({
   status: { type: String, enum: Object.values(ICalAttendeeStatus) },
 });
 
-const iCalAlarmRepeatData = new Schema<ICalAlarmRepeatData>({
+export const iCalAlarmRepeatData = new Schema<ICalAlarmRepeatData>({
   times: Number,
   interval: Number,
 });
-const iCalAttachment = new Schema<ICalAttachment>({
+export const iCalAttachment = new Schema<ICalAttachment>({
   uri: String,
   mime: String,
 });

@@ -7,6 +7,9 @@ import {
   timezoneModelName,
   userModelName,
 } from "./mongo_contract";
+import { schemaComposer } from "graphql-compose";
+import { composeWithMongoose } from "graphql-compose-mongoose";
+import { getMongooseResolvers } from "./graphqlComposeUtilities";
 
 const resourceSchema = new Schema({
   nickname: String,
@@ -22,3 +25,15 @@ const resourceSchema = new Schema({
 });
 
 const resourceModel = mongoose.model(resourceModelName, resourceSchema);
+
+const customizationOptions = {};
+
+const resourceTC = composeWithMongoose(resourceModel, customizationOptions);
+
+schemaComposer.Query.addFields({
+  ...getMongooseResolvers(resourceTC, "resource_").queries,
+});
+
+schemaComposer.Mutation.addFields({
+  ...getMongooseResolvers(resourceTC, "resource_").mutations,
+});

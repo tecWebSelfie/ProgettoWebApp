@@ -4,6 +4,9 @@ import {
   journalModelName,
   pomodoroModelName,
 } from "./mongo_contract";
+import { schemaComposer } from "graphql-compose";
+import { composeWithMongoose } from "graphql-compose-mongoose";
+import { getMongooseResolvers } from "./graphqlComposeUtilities";
 
 const pomodoroSchema = new Schema({
   study_time: Number,
@@ -19,3 +22,15 @@ const pomodoroSchema = new Schema({
 });
 
 const pomodoroModel = mongoose.model(pomodoroModelName, pomodoroSchema);
+
+const customizationOptions = {};
+
+const pomodoroTC = composeWithMongoose(pomodoroModel, customizationOptions);
+
+schemaComposer.Query.addFields({
+  ...getMongooseResolvers(pomodoroTC, "pomodoro_").queries,
+});
+
+schemaComposer.Mutation.addFields({
+  ...getMongooseResolvers(pomodoroTC, "pomodoro_").mutations,
+});

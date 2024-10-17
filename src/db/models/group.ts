@@ -5,6 +5,9 @@ import {
   resourceModelName,
   userModelName,
 } from "./mongo_contract";
+import { schemaComposer } from "graphql-compose";
+import { composeWithMongoose } from "graphql-compose-mongoose";
+import { getMongooseResolvers } from "./graphqlComposeUtilities";
 
 const groupSchema = new Schema({
   calendar: { type: Schema.Types.ObjectId, ref: calendarModelName },
@@ -19,3 +22,15 @@ const groupSchema = new Schema({
 });
 
 const groupModel = mongoose.model(groupModelName, groupSchema);
+
+const customizationOptions = {};
+
+const groupTC = composeWithMongoose(groupModel, customizationOptions);
+
+schemaComposer.Query.addFields({
+  ...getMongooseResolvers(groupTC, "group_").queries,
+});
+
+schemaComposer.Mutation.addFields({
+  ...getMongooseResolvers(groupTC, "group_").mutations,
+});

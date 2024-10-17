@@ -74,5 +74,3 @@ schemaComposer.Query.addFields({
 schemaComposer.Mutation.addFields({
   ...getMongooseResolvers(eventTC, "event_").mutations,
 });
-
-export const graphqlschema = schemaComposer.buildSchema({});
