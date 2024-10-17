@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 import {
   alarmModelName,
   calendarModelName,
@@ -14,7 +14,31 @@ import {
   userModelName,
 } from "./mongo_contract";
 
-const userSchema = new Schema({
+interface IUser {
+  nickname: String;
+  email: String;
+  name: String;
+  surname: String;
+  birthday: Date;
+  residence: String;
+  photo: Buffer;
+  roles: "user" | "tech";
+  owned_resources: [Types.ObjectId];
+  freebusy: Types.ObjectId;
+  user_timezone: Types.ObjectId;
+  journals: [Types.ObjectId];
+  todos: [Types.ObjectId];
+  alarms: [Types.ObjectId];
+  pomodoros: [Types.ObjectId];
+  notification: Types.ObjectId;
+  pomodoro_tolerance_time: Number;
+  groups: [Types.ObjectId];
+  private_calendar: Types.ObjectId;
+  public_calendar: Types.ObjectId;
+  projects: [Types.ObjectId];
+}
+
+const userSchema = new Schema<IUser>({
   nickname: {
     type: String,
     required: true,
@@ -56,22 +80,4 @@ const userSchema = new Schema({
   projects: [{ type: Schema.Types.ObjectId, ref: projectModelName }],
 });
 
-const userModel = mongoose.model(userModelName, userSchema);
-
-//const userModel = mongoose.models.User || mongoose.model("User", userSchema);
-
-/*
-const customizationOptions = {};
-
-const eventTC = composeWithMongoose(eventModel, customizationOptions);
-
-schemaComposer.Query.addFields({
-  ...getMongooseResolvers(eventTC, "event_").queries,
-});
-
-schemaComposer.Mutation.addFields({
-  ...getMongooseResolvers(eventTC, "event_").mutations,
-});
-
-export const graphqlschema = schemaComposer.buildSchema({});
-*/
+const userModel = mongoose.model<IUser>(userModelName, userSchema);

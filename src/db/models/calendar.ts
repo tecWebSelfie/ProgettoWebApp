@@ -1,4 +1,8 @@
-import { ICalCalendarMethod, ICalCalendarJSONData } from "ical-generator";
+import {
+  ICalCalendarMethod,
+  ICalEventJSONData,
+  ICalCalendarJSONData,
+} from "ical-generator";
 import { calendarModelName } from "./mongo_contract";
 import mongoose, { Schema } from "mongoose";
 import {
