@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 import {
   calendarModelName,
   groupModelName,
@@ -7,9 +7,18 @@ import {
 } from "./mongo_contract";
 import { schemaComposer } from "graphql-compose";
 import { composeWithMongoose } from "graphql-compose-mongoose";
-import { getMongooseResolvers } from "./graphqlComposeUtilities";
+import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 
-const groupSchema = new Schema({
+interface IGroup {
+  calendar: Types.ObjectId;
+  name: string;
+  photo: Buffer;
+  members: [Types.ObjectId];
+  resources: [Types.ObjectId];
+  is_project: boolean;
+}
+
+const groupSchema = new Schema<IGroup>({
   calendar: { type: Schema.Types.ObjectId, ref: calendarModelName },
   name: String,
   photo: Buffer,
@@ -21,11 +30,9 @@ const groupSchema = new Schema({
   },
 });
 
-const groupModel = mongoose.model(groupModelName, groupSchema);
-
 const customizationOptions = {};
 
-const groupTC = composeWithMongoose(groupModel, customizationOptions);
+const groupTC = finalComposer<IGroup>(groupModelName, groupSchema);
 
 schemaComposer.Query.addFields({
   ...getMongooseResolvers(groupTC, "group_").queries,

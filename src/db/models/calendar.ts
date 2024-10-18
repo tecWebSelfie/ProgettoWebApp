@@ -1,19 +1,9 @@
-import {
-  ICalCalendarMethod,
-  ICalEventJSONData,
-  ICalCalendarJSONData,
-} from "ical-generator";
+import { ICalCalendarMethod, ICalCalendarJSONData } from "ical-generator";
 import { calendarModelName } from "./mongo_contract";
-import mongoose, { Schema } from "mongoose";
-import {
-  eventModelName,
-  pomodoroModelName,
-  iCalAlarmRepeatData,
-  iCalAttachment,
-} from "./mongo_contract";
-import { composeWithMongoose } from "graphql-compose-mongoose";
+import { Schema } from "mongoose";
+import { eventModelName } from "./mongo_contract";
 import { schemaComposer } from "graphql-compose";
-import { getMongooseResolvers } from "./graphqlComposeUtilities";
+import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 
 const calendarSchema = new Schema<ICalCalendarJSONData>({
   prodId: { type: String, required: true },
@@ -34,14 +24,12 @@ const calendarSchema = new Schema<ICalCalendarJSONData>({
   x: [{ key: String, value: String }],
 });
 
-const calendarModel = mongoose.model<ICalCalendarJSONData>(
+const customizationOptions = {};
+
+const calendarTC = finalComposer<ICalCalendarJSONData>(
   calendarModelName,
   calendarSchema,
 );
-
-const customizationOptions = {};
-
-const calendarTC = composeWithMongoose(calendarModel, customizationOptions);
 
 schemaComposer.Query.addFields({
   ...getMongooseResolvers(calendarTC, "calendar_").queries,

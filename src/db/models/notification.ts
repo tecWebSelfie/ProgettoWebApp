@@ -2,9 +2,15 @@ import mongoose, { Schema } from "mongoose";
 import { notificationModelName } from "./mongo_contract";
 import { schemaComposer } from "graphql-compose";
 import { composeWithMongoose } from "graphql-compose-mongoose";
-import { getMongooseResolvers } from "./graphqlComposeUtilities";
+import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 
-const notificationSchema = new Schema(
+interface INotification {
+  title: string;
+  body: string;
+  date: Date;
+}
+
+const notificationSchema = new Schema<INotification>(
   {
     title: String,
     body: String,
@@ -16,16 +22,11 @@ const notificationSchema = new Schema(
   { timestamps: { createdAt: "created_at" } },
 );
 
-const notificationModel = mongoose.model(
-  notificationModelName,
-  notificationSchema,
-);
-
 const customizationOptions = {};
 
-const notificationTC = composeWithMongoose(
-  notificationModel,
-  customizationOptions,
+const notificationTC = finalComposer<INotification>(
+  notificationModelName,
+  notificationSchema,
 );
 
 schemaComposer.Query.addFields({

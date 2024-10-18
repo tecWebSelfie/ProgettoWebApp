@@ -1,4 +1,5 @@
 import { ObjectTypeComposer, ObjMap, Resolver } from "graphql-compose";
+import { composeWithMongoose } from "graphql-compose-mongoose";
 import mongoose from "mongoose";
 
 type MongooseResolvers = {
@@ -34,4 +35,15 @@ export function getMongooseResolvers(
   }
 
   return mongooseResolvers;
+}
+
+export function finalComposer<T>(name: string, schema: mongoose.Schema) {
+  const model = mongoose.model<T>(name, schema);
+
+  type documentType =
+    typeof model extends mongoose.Model<infer T>
+      ? mongoose.HydratedDocument<T>
+      : never;
+
+  return composeWithMongoose<documentType>(model);
 }

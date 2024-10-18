@@ -4,24 +4,13 @@ import {
   ICalLocation,
   ICalDescription,
   ICalOrganizer,
-  ICalAlarm,
-  ICalAttendee,
-  ICalAttendeeJSONData,
-  ICalAttendeeRole,
-  ICalAttendeeStatus,
-  ICalCategory,
   ICalGeo,
-  ICalEventJSONData,
   ICalEventRepeatingFreq,
-  ICalDateTimeValue,
   ICalWeekday,
-  ICalAlarmJSONData,
-  ICalAlarmType,
-  ICalAlarmRelatesTo,
   ICalAttachment,
   ICalAlarmRepeatData,
   ICalCategoryJSONData,
-  ICalEventStatus,
+  ICalAttendeeJSONData,
 } from "ical-generator";
 
 export const alarmModelName = "Alarm";
@@ -75,18 +64,6 @@ export const iCalOrganizer = new Schema<ICalOrganizer>({
   sentBy: String,
 });
 
-export const iCalAttendee = new Schema<ICalAttendeeJSONData>({
-  email: { type: String, required: true },
-  mailto: String,
-  sentBy: String,
-  rsvp: Boolean,
-  name: String,
-  delegatedFrom: String,
-  delegatedTo: String,
-  role: { type: String, enum: Object.values(ICalAttendeeRole) },
-  status: { type: String, enum: Object.values(ICalAttendeeStatus) },
-});
-
 export const iCalAlarmRepeatData = new Schema<ICalAlarmRepeatData>({
   times: Number,
   interval: Number,
@@ -94,18 +71,6 @@ export const iCalAlarmRepeatData = new Schema<ICalAlarmRepeatData>({
 export const iCalAttachment = new Schema<ICalAttachment>({
   uri: String,
   mime: String,
-});
-export const iCalAlarm = new Schema<ICalAlarmJSONData>({
-  type: { type: String, enum: Object.values(ICalAlarmType) },
-  trigger: String,
-  relatesTo: { type: String, enum: Object.values(ICalAlarmRelatesTo) },
-  repeat: iCalAlarmRepeatData,
-  interval: Number,
-  attach: iCalAttachment,
-  description: String,
-  summary: String,
-  attendees: [iCalAttendee],
-  x: [Array], //x: { key: string; value: string }[];
 });
 
 export const iCalCategory = new Schema<ICalCategoryJSONData>({

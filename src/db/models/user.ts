@@ -1,4 +1,4 @@
-import mongoose, { Schema, Types } from "mongoose";
+import { Schema, Types } from "mongoose";
 import {
   alarmModelName,
   calendarModelName,
@@ -14,16 +14,16 @@ import {
   userModelName,
 } from "./mongo_contract";
 import { schemaComposer } from "graphql-compose";
-import { composeWithMongoose } from "graphql-compose-mongoose";
-import { getMongooseResolvers } from "./graphqlComposeUtilities";
+import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
+import { ICalAttendeeJSONData } from "ical-generator";
 
-interface IUser {
-  nickname: String;
-  email: String;
-  name: String;
-  surname: String;
+interface IUser extends ICalAttendeeJSONData {
+  nickname: string;
+  email: string;
+  name: string;
+  surname: string;
   birthday: Date;
-  residence: String;
+  residence: string;
   photo: Buffer;
   roles: "user" | "tech";
   owned_resources: [Types.ObjectId];
@@ -34,7 +34,7 @@ interface IUser {
   alarms: [Types.ObjectId];
   pomodoros: [Types.ObjectId];
   notification: Types.ObjectId;
-  pomodoro_tolerance_time: Number;
+  pomodoro_tolerance_time: number;
   groups: [Types.ObjectId];
   private_calendar: Types.ObjectId;
   public_calendar: Types.ObjectId;
@@ -83,11 +83,9 @@ const userSchema = new Schema<IUser>({
   projects: [{ type: Schema.Types.ObjectId, ref: projectModelName }],
 });
 
-const userModel = mongoose.model<IUser>(userModelName, userSchema);
-
 const customizationOptions = {};
 
-const userTC = composeWithMongoose(userModel, customizationOptions);
+const userTC = finalComposer<IUser>(userModelName, userSchema);
 
 schemaComposer.Query.addFields({
   ...getMongooseResolvers(userTC, "user_").queries,

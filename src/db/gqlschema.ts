@@ -10,7 +10,7 @@ import { graphqlschema as pomodoroSchema } from "./models/pomodoro";
 import { graphqlschema as projectSchema } from "./models/project";
 import { graphqlschema as resourceSchema } from "./models/resource";
 //import * as todoModel from "./models/todo";
-import { graphqlschema as userModel } from "./models/user";
+import { graphqlschema as userSchema } from "./models/user";
 
 schemaComposer.merge(alarmSchema);
 schemaComposer.merge(calendarSchema);
@@ -20,5 +20,5 @@ schemaComposer.merge(notificationSchema);
 schemaComposer.merge(pomodoroSchema);
 schemaComposer.merge(projectSchema);
 schemaComposer.merge(resourceSchema);
-
+schemaComposer.merge(userSchema);
 export const graphqlschema = schemaComposer.buildSchema();

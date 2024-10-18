@@ -1,22 +1,13 @@
 import { schemaComposer } from "graphql-compose";
-import { composeWithMongoose } from "graphql-compose-mongoose";
-import { getMongooseResolvers } from "./graphqlComposeUtilities";
+import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 import {
   ICalAlarmType,
   ICalAlarmRelatesTo,
-  ICalAlarmRepeatData,
-  ICalAttendee,
-  ICalAttachment,
   ICalAlarmJSONData,
 } from "ical-generator";
-import { alarmModelName, iCalAttendee } from "./mongo_contract";
-import mongoose, { Schema } from "mongoose";
-import {
-  eventModelName,
-  pomodoroModelName,
-  iCalAlarmRepeatData,
-  iCalAttachment,
-} from "./mongo_contract";
+import { alarmModelName, userModelName } from "./mongo_contract";
+import { Schema } from "mongoose";
+import { iCalAlarmRepeatData, iCalAttachment } from "./mongo_contract";
 
 const alarmSchema = new Schema<ICalAlarmJSONData>({
   type: { type: String, enum: Object.values(ICalAlarmType), required: true },
@@ -27,18 +18,19 @@ const alarmSchema = new Schema<ICalAlarmJSONData>({
   attach: iCalAttachment,
   description: String,
   summary: String,
-  attendees: { type: [iCalAttendee], required: true },
+  attendees: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: userModelName,
+      required: true,
+    },
+  ],
   x: [{ key: String, value: String }],
 });
 
-export const alarmModel = mongoose.model<ICalAlarmJSONData>(
-  alarmModelName,
-  alarmSchema,
-);
-
 const customizationOptions = {};
 
-const alarmTC = composeWithMongoose(alarmModel, customizationOptions);
+const alarmTC = finalComposer<ICalAlarmJSONData>(alarmModelName, alarmSchema);
 
 schemaComposer.Query.addFields({
   ...getMongooseResolvers(alarmTC, "alarm_").queries,

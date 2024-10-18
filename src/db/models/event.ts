@@ -1,6 +1,5 @@
 import { schemaComposer } from "graphql-compose";
-import { composeWithMongoose } from "graphql-compose-mongoose";
-import { getMongooseResolvers } from "./graphqlComposeUtilities";
+import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 import {
   eventModelName,
   pomodoroModelName,
@@ -8,27 +7,21 @@ import {
   iCalEventJSONRepeatingDataSchema,
   iCalDescription,
   iCalOrganizer,
-  iCalAttendee,
-  iCalAlarm,
   iCalCategory,
+  userModelName,
+  alarmModelName,
 } from "./mongo_contract";
-import mongoose, { Schema, Types } from "mongoose";
+import { Schema, Types } from "mongoose";
 import {
   ICalEventTransparency,
-  ICalEventJSONRepeatingData,
-  ICalLocation,
-  ICalDescription,
-  ICalOrganizer,
-  ICalAlarm,
-  ICalAttendee,
-  ICalCategory,
   ICalEventStatus,
   ICalEventBusyStatus,
   ICalEventJSONData,
 } from "ical-generator";
+import { pomodoroTC } from "./pomodoro";
 
 interface IEvent extends ICalEventJSONData {
-  pomodoro: Types.ObjectId;
+  pomodoroId: Types.ObjectId;
 }
 
 const eventSchema = new Schema<IEvent>({
@@ -46,26 +39,37 @@ const eventSchema = new Schema<IEvent>({
   attachments: { type: [String], required: true },
   created: String,
   lastModified: String,
-  pomodoro: { type: Schema.Types.ObjectId, ref: pomodoroModelName },
+  pomodoroId: { type: Schema.Types.ObjectId, ref: pomodoroModelName },
   location: iCalLocationSchema,
   repeating: iCalEventJSONRepeatingDataSchema,
   description: iCalDescription,
   organizer: iCalOrganizer,
-  attendees: { type: [iCalAttendee], required: true },
-  alarms: { type: [iCalAlarm], required: true },
+  attendees: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: userModelName,
+      required: true,
+    },
+  ],
+  alarms: [{ type: Schema.Types.ObjectId, ref: alarmModelName }],
   categories: { type: [iCalCategory], required: true },
   status: { type: String, enum: Object.values(ICalEventStatus) },
   busystatus: { type: String, enum: Object.values(ICalEventBusyStatus) },
   transparency: { type: String, enum: Object.values(ICalEventTransparency) },
   x: [{ key: String, value: String }],
-  //x: { type: [Array], required: true }, //x: { key: string; value: string }[];
 });
 
-const eventModel = mongoose.model<IEvent>(eventModelName, eventSchema);
+const eventTC = finalComposer<IEvent>(eventModelName, eventSchema);
 
-const customizationOptions = {};
-
-const eventTC = composeWithMongoose(eventModel, customizationOptions);
+eventTC.addRelation("pomodoro", {
+  resolver: () => pomodoroTC.getResolver("findById"),
+  prepareArgs: {
+    _id: (event) => event.pomodoroId,
+  },
+  projection: {
+    pomodoroId: true,
+  },
+});
 
 schemaComposer.Query.addFields({
   ...getMongooseResolvers(eventTC, "event_").queries,

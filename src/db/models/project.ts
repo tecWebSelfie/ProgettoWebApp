@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 import {
   groupModelName,
   projectModelName,
@@ -7,7 +7,14 @@ import {
 } from "./mongo_contract";
 import { schemaComposer } from "graphql-compose";
 import { composeWithMongoose } from "graphql-compose-mongoose";
-import { getMongooseResolvers } from "./graphqlComposeUtilities";
+import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
+
+interface IProject {
+  pm_id: Types.ObjectId;
+  members: [Types.ObjectId];
+  todos: [Types.ObjectId];
+  group_id: Types.ObjectId;
+}
 
 const projectSchema = new Schema({
   pm_id: { type: Schema.Types.ObjectId, ref: userModelName },
@@ -16,11 +23,9 @@ const projectSchema = new Schema({
   group_id: { type: Schema.Types.ObjectId, ref: groupModelName }, //required???
 });
 
-const projectModel = mongoose.model(projectModelName, projectSchema);
-
 const customizationOptions = {};
 
-const projectTC = composeWithMongoose(projectModel, customizationOptions);
+const projectTC = finalComposer<IProject>(projectModelName, projectSchema);
 
 schemaComposer.Query.addFields({
   ...getMongooseResolvers(projectTC, "project_").queries,

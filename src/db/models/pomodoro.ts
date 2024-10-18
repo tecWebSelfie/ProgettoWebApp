@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 import {
   eventModelName,
   journalModelName,
@@ -6,9 +6,22 @@ import {
 } from "./mongo_contract";
 import { schemaComposer } from "graphql-compose";
 import { composeWithMongoose } from "graphql-compose-mongoose";
-import { getMongooseResolvers } from "./graphqlComposeUtilities";
+import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 
-const pomodoroSchema = new Schema({
+interface IPomodoro {
+  study_time: number;
+  remaining_study_time: number;
+  rest_time: number;
+  remaining_rest_time: number;
+  repetition: number;
+  remaining_repetition: number;
+  is_studying_time: boolean;
+  is_over: boolean;
+  journals: [Types.ObjectId];
+  event: Types.ObjectId;
+}
+
+const pomodoroSchema = new Schema<IPomodoro>({
   study_time: Number,
   remaining_study_time: Number,
   rest_time: Number,
@@ -21,11 +34,12 @@ const pomodoroSchema = new Schema({
   event: { type: Schema.Types.ObjectId, ref: eventModelName },
 });
 
-const pomodoroModel = mongoose.model(pomodoroModelName, pomodoroSchema);
-
 const customizationOptions = {};
 
-const pomodoroTC = composeWithMongoose(pomodoroModel, customizationOptions);
+export const pomodoroTC = finalComposer<IPomodoro>(
+  pomodoroModelName,
+  pomodoroSchema,
+);
 
 schemaComposer.Query.addFields({
   ...getMongooseResolvers(pomodoroTC, "pomodoro_").queries,

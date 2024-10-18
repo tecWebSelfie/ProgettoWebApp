@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 import {
   calendarModelName,
   freebusyModelName,
@@ -9,9 +9,22 @@ import {
 } from "./mongo_contract";
 import { schemaComposer } from "graphql-compose";
 import { composeWithMongoose } from "graphql-compose-mongoose";
-import { getMongooseResolvers } from "./graphqlComposeUtilities";
+import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 
-const resourceSchema = new Schema({
+interface IResource {
+  nickname: string;
+  description: string;
+  location: string;
+  geo_location: string;
+  photo: Buffer;
+  calendar: Types.ObjectId;
+  owners: [Types.ObjectId];
+  freebusy: Types.ObjectId;
+  journals: [Types.ObjectId];
+  timezone: Types.ObjectId;
+}
+
+const resourceSchema = new Schema<IResource>({
   nickname: String,
   description: String,
   location: String,
@@ -24,11 +37,9 @@ const resourceSchema = new Schema({
   timezone: { type: Schema.Types.ObjectId, ref: timezoneModelName },
 });
 
-const resourceModel = mongoose.model(resourceModelName, resourceSchema);
-
 const customizationOptions = {};
 
-const resourceTC = composeWithMongoose(resourceModel, customizationOptions);
+const resourceTC = finalComposer<IResource>(resourceModelName, resourceSchema);
 
 schemaComposer.Query.addFields({
   ...getMongooseResolvers(resourceTC, "resource_").queries,
