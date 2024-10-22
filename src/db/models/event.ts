@@ -1,4 +1,4 @@
-import { schemaComposer } from "graphql-compose";
+import { ObjectTypeComposer, schemaComposer } from "graphql-compose";
 import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 import {
   eventModelName,
@@ -11,7 +11,7 @@ import {
   userModelName,
   alarmModelName,
 } from "./mongo_contract";
-import { Schema, Types } from "mongoose";
+import { model, Schema, SchemaType, Types } from "mongoose";
 import {
   ICalEventTransparency,
   ICalEventStatus,
@@ -70,7 +70,6 @@ eventTC.addRelation("pomodoro", {
     pomodoroId: true,
   },
 });
-
 schemaComposer.Query.addFields({
   ...getMongooseResolvers(eventTC, "event_").queries,
 });

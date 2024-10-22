@@ -1,6 +1,11 @@
-import { ObjectTypeComposer, ObjMap, Resolver } from "graphql-compose";
+import {
+  ObjectTypeComposer,
+  ObjMap,
+  Resolver,
+  schemaComposer,
+} from "graphql-compose";
 import { composeWithMongoose } from "graphql-compose-mongoose";
-import mongoose from "mongoose";
+import mongoose, { GetLeanResultType, Schema, SchemaType } from "mongoose";
 
 type MongooseResolvers = {
   queries: ObjMap<Resolver<any, any, any, any>>;
@@ -38,7 +43,7 @@ export function getMongooseResolvers(
 }
 
 export function finalComposer<T>(name: string, schema: mongoose.Schema) {
-  const model = mongoose.model<T>(name, schema);
+  const model = mongoose.models[name] || mongoose.model<T>(name, schema);
 
   type documentType =
     typeof model extends mongoose.Model<infer T>
