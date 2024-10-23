@@ -36,6 +36,9 @@ export const alarmTC = finalComposer<ICalAlarmJSONData>(
   alarmSchema,
 );
 
+//export const alarmQueries = getMongooseResolvers(alarmTC, "alarm_").queries;
+//export const alarmMutations = getMongooseResolvers(alarmTC, "alarm_").mutations;
+
 schemaComposer.Query.addFields({
   ...getMongooseResolvers(alarmTC, "alarm_").queries,
 });
