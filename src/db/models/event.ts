@@ -19,9 +19,11 @@ import {
   ICalEventJSONData,
 } from "ical-generator";
 import { pomodoroTC } from "./pomodoro";
+import { userTC } from "./user";
+import { alarmTC } from "./alarm";
 
 interface IEvent extends ICalEventJSONData {
-  pomodoroId: Types.ObjectId;
+  pomodoro: Types.ObjectId;
 }
 
 const eventSchema = new Schema<IEvent>({
@@ -39,7 +41,6 @@ const eventSchema = new Schema<IEvent>({
   attachments: { type: [String], required: true },
   created: String,
   lastModified: String,
-  pomodoroId: { type: Schema.Types.ObjectId, ref: pomodoroModelName },
   location: iCalLocationSchema,
   repeating: iCalEventJSONRepeatingDataSchema,
   description: iCalDescription,
@@ -56,20 +57,43 @@ const eventSchema = new Schema<IEvent>({
   status: { type: String, enum: Object.values(ICalEventStatus) },
   busystatus: { type: String, enum: Object.values(ICalEventBusyStatus) },
   transparency: { type: String, enum: Object.values(ICalEventTransparency) },
+  pomodoro: { type: Schema.Types.ObjectId, ref: pomodoroModelName },
   x: [{ key: String, value: String }],
 });
 
-const eventTC = finalComposer<IEvent>(eventModelName, eventSchema);
+export const eventTC = finalComposer<IEvent>(eventModelName, eventSchema);
 
-eventTC.addRelation("pomodoro", {
-  resolver: () => pomodoroTC.getResolver("findById"),
-  prepareArgs: {
-    _id: (event) => event.pomodoroId,
+/*
+[
+  {
+    relTC: userTC,
+    idField: "attendees",
+    relField: "Attendees",
+    resolver: "findByIds",
+    prepareArgs: {
+      _ids: (source) => source.attendees,
+    },
   },
-  projection: {
-    pomodoroId: true,
+  {
+    relTC: alarmTC,
+    idField: "alarms",
+    relField: "Alarms",
+    resolver: "findByIds",
+    prepareArgs: {
+      _ids: (source) => source.alarms,
+    },
   },
-});
+  {
+    relTC: pomodoroTC,
+    idField: "pomodoro",
+    relField: "Pomodoro",
+    resolver: "findById",
+    prepareArgs: {
+      _id: (source) => source.pomodoro,
+    },
+  },
+]
+  */
 
 schemaComposer.Query.addFields({
   ...getMongooseResolvers(eventTC, "event_").queries,
@@ -78,4 +102,5 @@ schemaComposer.Query.addFields({
 schemaComposer.Mutation.addFields({
   ...getMongooseResolvers(eventTC, "event_").mutations,
 });
+
 export const graphqlschema = schemaComposer.buildSchema();

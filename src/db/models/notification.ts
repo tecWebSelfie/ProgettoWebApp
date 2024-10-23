@@ -24,7 +24,7 @@ const notificationSchema = new Schema<INotification>(
 
 const customizationOptions = {};
 
-const notificationTC = finalComposer<INotification>(
+export const notificationTC = finalComposer<INotification>(
   notificationModelName,
   notificationSchema,
 );
