@@ -15,7 +15,6 @@
   },
   "dependencies": {
     "@envelop/generic-auth": "^8.0.0",
-    "@envelop/generic-auth": "^8.0.0",
     "@fullcalendar/core": "^6.1.11",
     "@fullcalendar/daygrid": "^6.1.11",
     "@fullcalendar/icalendar": "^6.1.11",
