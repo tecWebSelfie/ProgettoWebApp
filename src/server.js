@@ -2,6 +2,7 @@ const createServer = require("http").createServer;
 const parse = require("url").parse;
 const path = require("path");
 const next = require("next");
+const mongoose = require("./db/dbconfig");
 
 process.chdir(path.join(__dirname, "../"));
 

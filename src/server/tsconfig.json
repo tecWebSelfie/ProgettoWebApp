@@ -4,6 +4,7 @@
     "moduleResolution": "Bundler",
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "allowJs": true
+    "allowJs": true,
+    "strict": true
   }
 }
