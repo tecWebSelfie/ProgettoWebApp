@@ -7,6 +7,7 @@ import {
 import { schemaComposer } from "graphql-compose";
 import { composeWithMongoose } from "graphql-compose-mongoose";
 import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
+import { eventTC } from "./event";
 
 interface IPomodoro {
   study_time: number;
@@ -41,6 +42,19 @@ export const pomodoroTC = finalComposer<IPomodoro>(
   pomodoroSchema,
 );
 
+/*[
+    {
+      relTC: eventTC,
+      idField: "event",
+      relField: "Event",
+      resolver: "findById",
+      prepareArgs: {
+        _id: (source) => source.event,
+      },
+    },
+  ]
+    */
+
 schemaComposer.Query.addFields({
   ...getMongooseResolvers(pomodoroTC, "pomodoro_").queries,
 });
@@ -48,4 +62,5 @@ schemaComposer.Query.addFields({
 schemaComposer.Mutation.addFields({
   ...getMongooseResolvers(pomodoroTC, "pomodoro_").mutations,
 });
+
 export const graphqlschema = schemaComposer.buildSchema();

@@ -8,6 +8,7 @@ import {
 import { alarmModelName, userModelName } from "./mongo_contract";
 import { Schema } from "mongoose";
 import { iCalAlarmRepeatData, iCalAttachment } from "./mongo_contract";
+import { userTC } from "./user";
 
 const alarmSchema = new Schema<ICalAlarmJSONData>({
   type: { type: String, enum: Object.values(ICalAlarmType), required: true },
@@ -30,7 +31,10 @@ const alarmSchema = new Schema<ICalAlarmJSONData>({
 
 const customizationOptions = {};
 
-const alarmTC = finalComposer<ICalAlarmJSONData>(alarmModelName, alarmSchema);
+export const alarmTC = finalComposer<ICalAlarmJSONData>(
+  alarmModelName,
+  alarmSchema,
+);
 
 schemaComposer.Query.addFields({
   ...getMongooseResolvers(alarmTC, "alarm_").queries,

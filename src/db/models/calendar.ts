@@ -4,6 +4,7 @@ import { Schema } from "mongoose";
 import { eventModelName } from "./mongo_contract";
 import { schemaComposer } from "graphql-compose";
 import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
+import { eventTC } from "./event";
 
 const calendarSchema = new Schema<ICalCalendarJSONData>({
   prodId: { type: String, required: true },
@@ -26,10 +27,23 @@ const calendarSchema = new Schema<ICalCalendarJSONData>({
 
 const customizationOptions = {};
 
-const calendarTC = finalComposer<ICalCalendarJSONData>(
+export const calendarTC = finalComposer<ICalCalendarJSONData>(
   calendarModelName,
   calendarSchema,
 );
+/*
+[
+    {
+      relTC: eventTC,
+      idField: "events",
+      relField: "Events",
+      resolver: "findByIds",
+      prepareArgs: {
+        _ids: (source) => source.events,
+      },
+    },
+  ]
+  */
 
 schemaComposer.Query.addFields({
   ...getMongooseResolvers(calendarTC, "calendar_").queries,
@@ -38,4 +52,5 @@ schemaComposer.Query.addFields({
 schemaComposer.Mutation.addFields({
   ...getMongooseResolvers(calendarTC, "calendar_").mutations,
 });
+
 export const graphqlschema = schemaComposer.buildSchema();

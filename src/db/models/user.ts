@@ -16,6 +16,13 @@ import {
 import { schemaComposer } from "graphql-compose";
 import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 import { ICalAttendeeJSONData } from "ical-generator";
+import { resourceTC } from "./resource";
+import { alarmTC } from "./alarm";
+import { pomodoroTC } from "./pomodoro";
+import { groupTC } from "./group";
+import { notificationTC } from "./notification";
+import { calendarTC } from "./calendar";
+import { projectTC } from "./project";
 
 interface IUser extends ICalAttendeeJSONData {
   nickname: string;
@@ -28,12 +35,12 @@ interface IUser extends ICalAttendeeJSONData {
   roles: "user" | "tech";
   owned_resources: [Types.ObjectId];
   freebusy: Types.ObjectId;
-  user_timezone: Types.ObjectId;
+  timezone: Types.ObjectId;
   journals: [Types.ObjectId];
   todos: [Types.ObjectId];
   alarms: [Types.ObjectId];
   pomodoros: [Types.ObjectId];
-  notification: Types.ObjectId;
+  notifications: [Types.ObjectId];
   pomodoro_tolerance_time: number;
   groups: [Types.ObjectId];
   private_calendar: Types.ObjectId;
@@ -70,12 +77,12 @@ const userSchema = new Schema<IUser>({
   },
   owned_resources: [{ type: Schema.Types.ObjectId, ref: resourceModelName }],
   freebusy: { type: Schema.Types.ObjectId, ref: freebusyModelName },
-  user_timezone: { type: Schema.Types.ObjectId, ref: timezoneModelName },
+  timezone: { type: Schema.Types.ObjectId, ref: timezoneModelName },
   journals: [{ type: Schema.Types.ObjectId, ref: journalModelName }],
   todos: [{ type: Schema.Types.ObjectId, ref: todoModelName }],
   alarms: [{ type: Schema.Types.ObjectId, ref: alarmModelName }],
   pomodoros: [{ type: Schema.Types.ObjectId, ref: pomodoroModelName }],
-  notification: [{ type: Schema.Types.ObjectId, ref: notificationModelName }],
+  notifications: [{ type: Schema.Types.ObjectId, ref: notificationModelName }],
   pomodoro_tolerance_time: Number,
   groups: [{ type: Schema.Types.ObjectId, ref: groupModelName }],
   private_calendar: { type: Schema.Types.ObjectId, ref: calendarModelName },
@@ -85,7 +92,76 @@ const userSchema = new Schema<IUser>({
 
 const customizationOptions = {};
 
-const userTC = finalComposer<IUser>(userModelName, userSchema);
+export const userTC = finalComposer<IUser>(userModelName, userSchema);
+
+/*
+[
+  {
+    relTC: alarmTC,
+    idField: "alarms",
+    relField: "Alarms",
+    resolver: "findByIds",
+    prepareArgs: {
+      _ids: (source) => source.alarms,
+    },
+  },
+  {
+    relTC: pomodoroTC,
+    idField: "pomodoros",
+    relField: "Pomodoros",
+    resolver: "findByIds",
+    prepareArgs: {
+      _ids: (source) => source.pomodoros,
+    },
+  },
+  {
+    relTC: notificationTC,
+    idField: "notifications",
+    relField: "Notifications",
+    resolver: "findByIds",
+    prepareArgs: {
+      _ids: (source) => source.notifications,
+    },
+  },
+  {
+    relTC: groupTC,
+    idField: "groups",
+    relField: "Groups",
+    resolver: "findByIds",
+    prepareArgs: {
+      _ids: (source) => source.groups,
+    },
+  },
+  {
+    relTC: projectTC,
+    idField: "projects",
+    relField: "Projects",
+    resolver: "findByIds",
+    prepareArgs: {
+      _ids: (source) => source.projects,
+    },
+  },
+
+  {
+    relTC: calendarTC,
+    idField: "private_calendar",
+    relField: "PrivateCalendar",
+    resolver: "findById",
+    prepareArgs: {
+      _ids: (source) => source.private_calendar,
+    },
+  },
+  {
+    relTC: calendarTC,
+    idField: "public_calendar",
+    relField: "PublicCalendar",
+    resolver: "findById",
+    prepareArgs: {
+      _ids: (source) => source.public_calendar,
+    },
+  },
+]
+*/
 
 schemaComposer.Query.addFields({
   ...getMongooseResolvers(userTC, "user_").queries,

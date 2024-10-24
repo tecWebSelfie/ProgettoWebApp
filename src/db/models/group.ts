@@ -8,6 +8,9 @@ import {
 import { schemaComposer } from "graphql-compose";
 import { composeWithMongoose } from "graphql-compose-mongoose";
 import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
+import { calendarTC } from "./calendar";
+import { userTC } from "./user";
+import { resourceTC } from "./resource";
 
 interface IGroup {
   calendar: Types.ObjectId;
@@ -32,7 +35,39 @@ const groupSchema = new Schema<IGroup>({
 
 const customizationOptions = {};
 
-const groupTC = finalComposer<IGroup>(groupModelName, groupSchema);
+export const groupTC = finalComposer<IGroup>(groupModelName, groupSchema);
+
+/*
+[
+  {
+    relTC: calendarTC,
+    idField: "calendar",
+    relField: "Calendar",
+    resolver: "findById",
+    prepareArgs: {
+      _id: (source) => source.calendar,
+    },
+  },
+  {
+    relTC: userTC,
+    idField: "members",
+    relField: "Users",
+    resolver: "findByIds",
+    prepareArgs: {
+      _ids: (source) => source.members,
+    },
+  },
+  {
+    relTC: resourceTC,
+    idField: "resources",
+    relField: "Resources",
+    resolver: "findByIds",
+    prepareArgs: {
+      _ids: (source) => source.resources,
+    },
+  },
+]
+  */
 
 schemaComposer.Query.addFields({
   ...getMongooseResolvers(groupTC, "group_").queries,
@@ -41,4 +76,5 @@ schemaComposer.Query.addFields({
 schemaComposer.Mutation.addFields({
   ...getMongooseResolvers(groupTC, "group_").mutations,
 });
+
 export const graphqlschema = schemaComposer.buildSchema();

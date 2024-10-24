@@ -5,9 +5,20 @@ import {
   todoModelName,
   userModelName,
 } from "./mongo_contract";
-import { schemaComposer } from "graphql-compose";
+import {
+  ObjectTypeComposer,
+  ObjectTypeComposerRelationArgsMapper,
+  Resolver,
+  SchemaComposer,
+  schemaComposer,
+  ThunkWithSchemaComposer,
+} from "graphql-compose";
 import { composeWithMongoose } from "graphql-compose-mongoose";
 import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
+import { calendarTC } from "./calendar";
+import { resourceTC } from "./resource";
+import { userTC } from "./user";
+import { groupTC } from "./group";
 
 interface IProject {
   pm_id: Types.ObjectId;
@@ -25,7 +36,41 @@ const projectSchema = new Schema({
 
 const customizationOptions = {};
 
-const projectTC = finalComposer<IProject>(projectModelName, projectSchema);
+export const projectTC = finalComposer<IProject>(
+  projectModelName,
+  projectSchema,
+);
+/*
+[
+    {
+      relTC: userTC,
+      idField: "pm_id",
+      relField: "Pm",
+      resolver: "findById",
+      prepareArgs: {
+        _id: (source) => source.pm_id,
+      },
+    },
+    {
+      relTC: userTC,
+      idField: "members",
+      relField: "Members",
+      resolver: "findByIds",
+      prepareArgs: {
+        _ids: (source) => source.members,
+      },
+    },
+    {
+      relTC: groupTC,
+      idField: "group_id",
+      relField: "Group",
+      resolver: "findByIds",
+      prepareArgs: {
+        _ids: (source) => source.group_id,
+      },
+    },
+  ]
+  */
 
 schemaComposer.Query.addFields({
   ...getMongooseResolvers(projectTC, "project_").queries,
@@ -34,4 +79,5 @@ schemaComposer.Query.addFields({
 schemaComposer.Mutation.addFields({
   ...getMongooseResolvers(projectTC, "project_").mutations,
 });
+
 export const graphqlschema = schemaComposer.buildSchema();
