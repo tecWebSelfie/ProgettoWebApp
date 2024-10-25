@@ -13,6 +13,7 @@ const resolveUserFn: ResolveUserFn<
   User,
   typeof context & YogaInitialContext & { request: NextAuthRequest }
 > = async function (context) {
+  console.log(context.request.auth?.user);
   return context.request.auth?.user;
 };
 
@@ -21,7 +22,7 @@ export const yoga = createYoga({
   plugins: [
     // eslint-disable-next-line
     useGenericAuth({
-      mode: "protect-granular",
+      mode: "protect-all",
       resolveUserFn,
     }),
   ],

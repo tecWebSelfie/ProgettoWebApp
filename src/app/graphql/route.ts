@@ -1,7 +1,9 @@
-import { handlers, auth } from "@/auth";
+import { auth } from "@/auth";
 import { yoga } from "./yogaServer";
-import { NextRequest } from "next/server";
 
-const routeHandler = auth(async (request) => await yoga.handle(request));
+const routeHandler = auth(async (request) => {
+  console.log(request.auth?.user);
+  return await yoga.handle(request);
+});
 
 export { routeHandler as GET, routeHandler as POST, routeHandler as OPTIONS };
