@@ -1,4 +1,4 @@
-import { Schema, Types } from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 import {
   alarmModelName,
   calendarModelName,
@@ -91,6 +91,10 @@ const userSchema = new Schema<IUser>({
 });
 
 const customizationOptions = {};
+
+export const userModel =
+  (mongoose.models[userModelName] as mongoose.Model<IUser>) ||
+  mongoose.model<IUser>(userModelName, userSchema);
 
 export const userTC = finalComposer<IUser>(userModelName, userSchema);
 
