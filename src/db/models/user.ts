@@ -16,14 +16,6 @@ import {
 import { schemaComposer } from "graphql-compose";
 import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 import { ICalAttendeeJSONData } from "ical-generator";
-import { resourceTC } from "./resource";
-import { alarmTC } from "./alarm";
-import { pomodoroTC } from "./pomodoro";
-import { groupTC } from "./group";
-import { notificationTC } from "./notification";
-import { calendarTC } from "./calendar";
-import { projectTC } from "./project";
-
 interface IUser extends ICalAttendeeJSONData {
   nickname: string;
   email: string;
@@ -97,75 +89,6 @@ export const userModel =
   mongoose.model<IUser>(userModelName, userSchema);
 
 export const userTC = finalComposer<IUser>(userModelName, userSchema);
-
-/*
-[
-  {
-    relTC: alarmTC,
-    idField: "alarms",
-    relField: "Alarms",
-    resolver: "findByIds",
-    prepareArgs: {
-      _ids: (source) => source.alarms,
-    },
-  },
-  {
-    relTC: pomodoroTC,
-    idField: "pomodoros",
-    relField: "Pomodoros",
-    resolver: "findByIds",
-    prepareArgs: {
-      _ids: (source) => source.pomodoros,
-    },
-  },
-  {
-    relTC: notificationTC,
-    idField: "notifications",
-    relField: "Notifications",
-    resolver: "findByIds",
-    prepareArgs: {
-      _ids: (source) => source.notifications,
-    },
-  },
-  {
-    relTC: groupTC,
-    idField: "groups",
-    relField: "Groups",
-    resolver: "findByIds",
-    prepareArgs: {
-      _ids: (source) => source.groups,
-    },
-  },
-  {
-    relTC: projectTC,
-    idField: "projects",
-    relField: "Projects",
-    resolver: "findByIds",
-    prepareArgs: {
-      _ids: (source) => source.projects,
-    },
-  },
-
-  {
-    relTC: calendarTC,
-    idField: "private_calendar",
-    relField: "PrivateCalendar",
-    resolver: "findById",
-    prepareArgs: {
-      _ids: (source) => source.private_calendar,
-    },
-  },
-  {
-    relTC: calendarTC,
-    idField: "public_calendar",
-    relField: "PublicCalendar",
-    resolver: "findById",
-    prepareArgs: {
-      _ids: (source) => source.public_calendar,
-    },
-  },
-]
-*/
 
 schemaComposer.Query.addFields({
   ...getMongooseResolvers(userTC, "user_").queries,

@@ -1,5 +1,6 @@
 import { schemaComposer } from "graphql-compose";
-
+import fs from "fs";
+import path from "path";
 import { graphqlschema as alarmSchema } from "./models/alarm";
 import { graphqlschema as calendarSchema } from "./models/calendar";
 import { graphqlschema as eventSchema } from "./models/event";
@@ -23,6 +24,13 @@ import { notificationTC } from "./models/notification";
 import { groupTC } from "./models/group";
 import { resourceTC } from "./models/resource";
 import { eventTC } from "./models/event";
+import {
+  GraphQLDirective,
+  DirectiveLocation,
+  GraphQLList,
+  GraphQLString,
+  GraphQLNonNull,
+} from "graphql";
 
 alarmTC.addRelation("Attendees", {
   resolver: () => userTC.getResolver("findByIds"),
@@ -151,6 +159,28 @@ userTC.addRelation("Alarms", {
   },
 });
 
+schemaComposer.addDirective(
+  new GraphQLDirective({
+    name: "requiresScopes",
+    locations: [
+      DirectiveLocation.FIELD_DEFINITION,
+      DirectiveLocation.OBJECT,
+      DirectiveLocation.INTERFACE,
+    ],
+    args: {
+      scopes: {
+        type: new GraphQLNonNull(
+          new GraphQLList(
+            new GraphQLNonNull(
+              new GraphQLList(new GraphQLNonNull(GraphQLString)),
+            ),
+          ),
+        ),
+      },
+    },
+  }),
+);
+
 userTC.addRelation("Pomodoros", {
   resolver: () => pomodoroTC.getResolver("findByIds"),
   prepareArgs: {
@@ -160,6 +190,10 @@ userTC.addRelation("Pomodoros", {
     pomodoros: true,
   },
 });
+
+userTC.getField("Pomodoros").directives = [
+  { name: "requiresScopes", args: { scopes: ["read:user"] } },
+];
 
 userTC.addRelation("Notifications", {
   resolver: () => notificationTC.getResolver("findByIds"),
@@ -220,4 +254,10 @@ schemaComposer.merge(pomodoroSchema);
 schemaComposer.merge(projectSchema);
 schemaComposer.merge(resourceSchema);
 schemaComposer.merge(userSchema);
+
+fs.writeFileSync(
+  path.join(process.cwd(), "schema.graphql"),
+  schemaComposer.toSDL(),
+);
+
 export const graphqlschema = schemaComposer.buildSchema();
