@@ -57,7 +57,9 @@ export function finalComposer<T>(
   schema: mongoose.Schema,
   relationOptions?: RelationOption<T>[],
 ) {
-  const model = mongoose.model<T>(name, schema);
+  const model =
+    (mongoose.models[name] as mongoose.Model<T>) ||
+    mongoose.model<T>(name, schema);
 
   type documentType =
     typeof model extends mongoose.Model<infer T>
