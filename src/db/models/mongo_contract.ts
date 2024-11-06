@@ -10,7 +10,6 @@ import {
   ICalAttachment,
   ICalAlarmRepeatData,
   ICalCategoryJSONData,
-  ICalAttendeeJSONData,
 } from "ical-generator";
 
 export const alarmModelName = "Alarm";
@@ -23,7 +22,6 @@ export const notificationModelName = "Notification";
 export const pomodoroModelName = "Pomodoro";
 export const projectModelName = "Project";
 export const resourceModelName = "Resource";
-export const timezoneModelName = "Timezone";
 export const todoModelName = "Todo";
 export const userModelName = "User";
 
@@ -76,3 +74,45 @@ export const iCalAttachment = new Schema<ICalAttachment>({
 export const iCalCategory = new Schema<ICalCategoryJSONData>({
   name: String,
 });
+
+export const iCalEventJSONRepeatingData =
+  new Schema<ICalEventJSONRepeatingData>({
+    freq: { type: String, enum: Object.values(ICalEventRepeatingFreq) },
+    count: Number,
+    interval: Number,
+    until: Date,
+    byDay: [{ type: String, enum: Object.values(ICalWeekday) }],
+    byMonth: [Number],
+    byMonthDay: [Number],
+    bySetPos: [Number],
+    exclude: [Date],
+    startOfWeek: { type: String, enum: Object.values(ICalWeekday) },
+  });
+
+enum fbType {
+  FREE = "FREE",
+  BUSY_UNAVAILABLE = "BUSY-UNAVAILABLE",
+  BUSY = "BUSY",
+  BUSY_TENTATIVE = "BUSY-TENTATIVE",
+}
+export interface IfbDateTime {
+  date: string;
+  type: string;
+}
+export const ifbDateTime = new Schema<IfbDateTime>({
+  date: String,
+  type: { type: String, enum: Object.values(fbType), default: fbType.BUSY },
+});
+
+export enum journalStatus {
+  DRAFT = "DRAFT",
+  FINAL = "FINAL",
+  CANCELLED = "CANCELLED",
+}
+
+export enum todoStatus {
+  NEEDS_ACTION = "NEEDS-ACTION",
+  COMPLETED = "COMPLETED",
+  IN_PROGRESS = "IN-PROGRESS",
+  CANCELLED = "CANCELLED",
+}
