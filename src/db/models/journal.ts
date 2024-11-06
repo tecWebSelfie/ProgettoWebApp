@@ -4,6 +4,7 @@ import {
   journalModelName,
   journalStatus,
   pomodoroModelName,
+  todoModelName,
   userModelName,
 } from "./mongo_contract";
 import { Schema, Types } from "mongoose";
@@ -24,7 +25,11 @@ interface IJournal {
   status: journalStatus;
   categories: [string];
   attendees: [Types.ObjectId];
-  related: [Types.ObjectId];
+
+  //in_todos and out_todos are the todos that are related to the journal,
+  //in_todos are todos that take this journal as input, out_todos are todos that produced this journal as output
+  in_todos: [Types.ObjectId];
+  out_todos: [Types.ObjectId];
   attachments: [string];
   request_status: string;
 }
@@ -45,7 +50,8 @@ const journalSchema = new Schema<IJournal>({
   status: { type: String, enum: journalStatus },
   categories: [{ type: String }],
   attendees: [{ type: Schema.Types.ObjectId, ref: userModelName }],
-  related: [{ type: Schema.Types.ObjectId, ref: pomodoroModelName }],
+  in_todos: [{ type: Schema.Types.ObjectId, ref: todoModelName }],
+  out_todos: [{ type: Schema.Types.ObjectId, ref: todoModelName }],
   attachments: [{ type: String }],
   request_status: { type: String },
 });
