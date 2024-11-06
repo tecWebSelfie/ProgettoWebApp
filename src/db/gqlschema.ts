@@ -1,28 +1,24 @@
 import { schemaComposer } from "graphql-compose";
 
-import { graphqlschema as alarmSchema } from "./models/alarm";
-import { graphqlschema as calendarSchema } from "./models/calendar";
-import { graphqlschema as eventSchema } from "./models/event";
-import { graphqlschema as groupSchema } from "./models/group";
+import { graphqlschema as alarmSchema, alarmTC } from "./models/alarm";
+import { graphqlschema as calendarSchema, calendarTC } from "./models/calendar";
+import { graphqlschema as eventSchema, eventTC } from "./models/event";
+import { graphqlschema as groupSchema, groupTC } from "./models/group";
 //import * as journalModel from "./models/journal";
-import { graphqlschema as notificationSchema } from "./models/notification";
-import { graphqlschema as pomodoroSchema } from "./models/pomodoro";
-import { graphqlschema as projectSchema } from "./models/project";
-import { graphqlschema as resourceSchema } from "./models/resource";
+import {
+  graphqlschema as notificationSchema,
+  notificationTC,
+} from "./models/notification";
+import { graphqlschema as pomodoroSchema, pomodoroTC } from "./models/pomodoro";
+import { graphqlschema as projectSchema, projectTC } from "./models/project";
+import { graphqlschema as resourceSchema, resourceTC } from "./models/resource";
 //import * as todoModel from "./models/todo";
-import { graphqlschema as userSchema } from "./models/user";
+import { graphqlschema as userSchema, userTC } from "./models/user";
+import { graphqlschema as todoSchema, todoTC } from "./models/todo";
+import { graphqlschema as journalSchema, journalTC } from "./models/journal";
+import { graphqlschema as freebusySchema, freebusyTC } from "./models/freebusy";
 import { getMongooseResolvers } from "./models/graphqlComposeUtilities";
 //import * as relations from "./models/relationsTmp";
-
-import { alarmTC } from "./models/alarm";
-import { userTC } from "./models/user";
-import { calendarTC } from "./models/calendar";
-import { projectTC } from "./models/project";
-import { pomodoroTC } from "./models/pomodoro";
-import { notificationTC } from "./models/notification";
-import { groupTC } from "./models/group";
-import { resourceTC } from "./models/resource";
-import { eventTC } from "./models/event";
 
 alarmTC.addRelation("Attendees", {
   resolver: () => userTC.getResolver("findByIds"),
@@ -44,6 +40,53 @@ calendarTC.addRelation("Events", {
   },
 });
 
+eventTC.addRelation("Attendees", {
+  resolver: () => userTC.getResolver("findByIds"),
+  prepareArgs: {
+    _ids: (object) => object.attendees,
+  },
+  projection: {
+    attendees: true,
+  },
+});
+eventTC.addRelation("Alarms", {
+  resolver: () => alarmTC.getResolver("findByIds"),
+  prepareArgs: {
+    _ids: (object) => object.alarms,
+  },
+  projection: {
+    alarms: true,
+  },
+});
+eventTC.addRelation("Pomodoro", {
+  resolver: () => pomodoroTC.getResolver("findById"),
+  prepareArgs: {
+    _id: (object) => object.pomodoro,
+  },
+  projection: {
+    pomodoro: true,
+  },
+});
+
+freebusyTC.addRelation("Organizer", {
+  resolver: () => userTC.getResolver("findById"),
+  prepareArgs: {
+    _id: (object) => object.organizer,
+  },
+  projection: {
+    organizer: true,
+  },
+});
+freebusyTC.addRelation("Attendees", {
+  resolver: () => userTC.getResolver("findByIds"),
+  prepareArgs: {
+    _ids: (object) => object.attendees,
+  },
+  projection: {
+    attendees: true,
+  },
+});
+
 groupTC.addRelation("Calendar", {
   resolver: () => calendarTC.getResolver("findById"),
   prepareArgs: {
@@ -53,7 +96,6 @@ groupTC.addRelation("Calendar", {
     calendar: true,
   },
 });
-
 groupTC.addRelation("Users", {
   resolver: () => userTC.getResolver("findByIds"),
   prepareArgs: {
@@ -73,6 +115,34 @@ groupTC.addRelation("Resources", {
   },
 });
 
+journalTC.addRelation("Organizer", {
+  resolver: () => userTC.getResolver("findById"),
+  prepareArgs: {
+    _id: (object) => object.organizer,
+  },
+  projection: {
+    organizer: true,
+  },
+});
+journalTC.addRelation("Attendees", {
+  resolver: () => userTC.getResolver("findByIds"),
+  prepareArgs: {
+    _ids: (object) => object.attendees,
+  },
+  projection: {
+    attendees: true,
+  },
+});
+journalTC.addRelation("Pomodoros", {
+  resolver: () => userTC.getResolver("findByIds"),
+  prepareArgs: {
+    _ids: (object) => object.related,
+  },
+  projection: {
+    related: true,
+  },
+});
+
 pomodoroTC.addRelation("Event", {
   resolver: () => eventTC.getResolver("findById"),
   prepareArgs: {
@@ -80,6 +150,15 @@ pomodoroTC.addRelation("Event", {
   },
   projection: {
     event: true,
+  },
+});
+pomodoroTC.addRelation("Journals", {
+  resolver: () => journalTC.getResolver("findByIds"),
+  prepareArgs: {
+    _ids: (object) => object.journals,
+  },
+  projection: {
+    journals: true,
   },
 });
 
@@ -101,6 +180,15 @@ projectTC.addRelation("Members", {
     members: true,
   },
 });
+projectTC.addRelation("Todos", {
+  resolver: () => todoTC.getResolver("findByIds"),
+  prepareArgs: {
+    _ids: (object) => object.todos,
+  },
+  projection: {
+    todos: true,
+  },
+});
 projectTC.addRelation("Group", {
   resolver: () => groupTC.getResolver("findById"),
   prepareArgs: {
@@ -120,7 +208,6 @@ resourceTC.addRelation("Calendar", {
     calendar: true,
   },
 });
-
 resourceTC.addRelation("Owners", {
   resolver: () => userTC.getResolver("findByIds"),
   prepareArgs: {
@@ -128,6 +215,52 @@ resourceTC.addRelation("Owners", {
   },
   projection: {
     owners: true,
+  },
+});
+resourceTC.addRelation("Freebusy", {
+  resolver: () => freebusyTC.getResolver("findById"),
+  prepareArgs: {
+    _id: (object) => object.freebusy,
+  },
+  projection: {
+    freebusy: true,
+  },
+});
+resourceTC.addRelation("Journals", {
+  resolver: () => journalTC.getResolver("findByIds"),
+  prepareArgs: {
+    _ids: (object) => object.journals,
+  },
+  projection: {
+    journals: true,
+  },
+});
+
+todoTC.addRelation("Organizer", {
+  resolver: () => userTC.getResolver("findById"),
+  prepareArgs: {
+    _id: (object) => object.organizer,
+  },
+  projection: {
+    organizer: true,
+  },
+});
+todoTC.addRelation("Resources", {
+  resolver: () => resourceTC.getResolver("findByIds"),
+  prepareArgs: {
+    _ids: (object) => object.resources,
+  },
+  projection: {
+    resources: true,
+  },
+});
+todoTC.addRelation("Attendees", {
+  resolver: () => userTC.getResolver("findByIds"),
+  prepareArgs: {
+    _ids: (object) => object.attendees,
+  },
+  projection: {
+    attendees: true,
   },
 });
 
@@ -140,7 +273,33 @@ userTC.addRelation("OwnedResources", {
     owned_resources: true,
   },
 });
-
+userTC.addRelation("Freebusy", {
+  resolver: () => freebusyTC.getResolver("findById"),
+  prepareArgs: {
+    _id: (object) => object.freebusy,
+  },
+  projection: {
+    freebusy: true,
+  },
+});
+userTC.addRelation("Journals", {
+  resolver: () => journalTC.getResolver("findByIds"),
+  prepareArgs: {
+    _ids: (object) => object.journals,
+  },
+  projection: {
+    journals: true,
+  },
+});
+userTC.addRelation("Todos", {
+  resolver: () => todoTC.getResolver("findByIds"),
+  prepareArgs: {
+    _ids: (object) => object.todos,
+  },
+  projection: {
+    todos: true,
+  },
+});
 userTC.addRelation("Alarms", {
   resolver: () => alarmTC.getResolver("findByIds"),
   prepareArgs: {
@@ -150,7 +309,6 @@ userTC.addRelation("Alarms", {
     alarms: true,
   },
 });
-
 userTC.addRelation("Pomodoros", {
   resolver: () => pomodoroTC.getResolver("findByIds"),
   prepareArgs: {
@@ -160,7 +318,6 @@ userTC.addRelation("Pomodoros", {
     pomodoros: true,
   },
 });
-
 userTC.addRelation("Notifications", {
   resolver: () => notificationTC.getResolver("findByIds"),
   prepareArgs: {
@@ -170,7 +327,6 @@ userTC.addRelation("Notifications", {
     notifications: true,
   },
 });
-
 userTC.addRelation("Groups", {
   resolver: () => groupTC.getResolver("findByIds"),
   prepareArgs: {
@@ -180,7 +336,6 @@ userTC.addRelation("Groups", {
     groups: true,
   },
 });
-
 userTC.addRelation("PrivateCalendar", {
   resolver: () => calendarTC.getResolver("findByIds"),
   prepareArgs: {
@@ -190,7 +345,6 @@ userTC.addRelation("PrivateCalendar", {
     private_calendar: true,
   },
 });
-
 userTC.addRelation("PublicCalendar", {
   resolver: () => calendarTC.getResolver("findByIds"),
   prepareArgs: {
@@ -200,7 +354,6 @@ userTC.addRelation("PublicCalendar", {
     public_calendar: true,
   },
 });
-
 userTC.addRelation("Projects", {
   resolver: () => projectTC.getResolver("findByIds"),
   prepareArgs: {
@@ -214,10 +367,14 @@ userTC.addRelation("Projects", {
 schemaComposer.merge(alarmSchema);
 schemaComposer.merge(calendarSchema);
 schemaComposer.merge(eventSchema);
+schemaComposer.merge(freebusySchema);
 schemaComposer.merge(groupSchema);
+schemaComposer.merge(journalSchema);
 schemaComposer.merge(notificationSchema);
 schemaComposer.merge(pomodoroSchema);
 schemaComposer.merge(projectSchema);
 schemaComposer.merge(resourceSchema);
+schemaComposer.merge(todoSchema);
 schemaComposer.merge(userSchema);
+
 export const graphqlschema = schemaComposer.buildSchema();
