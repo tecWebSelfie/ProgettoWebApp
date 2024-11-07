@@ -14,9 +14,18 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "paths": {
+      "@/db/*": ["./src/db/*"],
+      "@/*": ["./*"],
+      "@/gql/*": ["./src/gql/*"]
+    },
     "plugins": [
       {
         "name": "next"
+      },
+      {
+        "name": "@0no-co/graphqlsp",
+        "schema": "./schema.graphql"
       }
     ]
   },
