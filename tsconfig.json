@@ -15,11 +15,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "paths": {
-      "@/db/*": ["./src/db/*"],
-      "@/*": ["./*"],
-      "@/gql/*": ["./src/gql/*"]
-    },
     "plugins": [
       {
         "name": "next"
@@ -31,8 +26,9 @@
     ],
     "baseUrl": ".",
     "paths": {
+      "@/db/*": ["./src/db/*"],
       "@/*": ["./*"],
-      "@/db/*": ["./src/db/*"]
+      "@/gql/*": ["./src/gql/*"]
     }
   },
   "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
