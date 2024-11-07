@@ -46,3 +46,5 @@ next-env.d.ts
 /playwright/.cache/
 
 __generated__
+graphql.schema.json
+src/gql
