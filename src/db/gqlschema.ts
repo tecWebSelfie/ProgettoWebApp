@@ -133,7 +133,6 @@ journalTC.addRelation("Attendees", {
     attendees: true,
   },
 });
-
 journalTC.addRelation("InTodos", {
   resolver: () => todoTC.getResolver("findByIds"),
   prepareArgs: {
@@ -143,7 +142,6 @@ journalTC.addRelation("InTodos", {
     in_todos: true,
   },
 });
-
 journalTC.addRelation("OutTodos", {
   resolver: () => todoTC.getResolver("findByIds"),
   prepareArgs: {
@@ -161,15 +159,6 @@ pomodoroTC.addRelation("Event", {
   },
   projection: {
     event: true,
-  },
-});
-pomodoroTC.addRelation("Journals", {
-  resolver: () => journalTC.getResolver("findByIds"),
-  prepareArgs: {
-    _ids: (object) => object.journals,
-  },
-  projection: {
-    journals: true,
   },
 });
 

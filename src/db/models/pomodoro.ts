@@ -16,7 +16,6 @@ interface IPomodoro {
   remaining_repetition: number;
   is_studying_time: boolean;
   is_over: boolean;
-  journals: [Types.ObjectId];
   event: Types.ObjectId;
 }
 
@@ -29,7 +28,6 @@ const pomodoroSchema = new Schema<IPomodoro>({
   remaining_repetition: Number,
   is_studying_time: Boolean,
   is_over: Boolean,
-  journals: [{ type: Schema.Types.ObjectId, ref: journalModelName }],
   event: { type: Schema.Types.ObjectId, ref: eventModelName },
 });
 
