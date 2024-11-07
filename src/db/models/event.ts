@@ -1,4 +1,4 @@
-import { ObjectTypeComposer, schemaComposer } from "graphql-compose";
+import { schemaComposer } from "graphql-compose";
 import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 import {
   eventModelName,

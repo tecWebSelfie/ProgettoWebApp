@@ -1,17 +1,22 @@
 import {
   ObjectTypeComposer,
+  ObjectTypeComposerFieldConfigDefinition,
   ObjectTypeComposerRelationArgsMapper,
   ObjMap,
   Resolver,
+  ResolverResolveParams,
   schemaComposer,
 } from "graphql-compose";
-import { composeWithMongoose } from "graphql-compose-mongoose";
+import {
+  composeWithMongoose,
+  ComposeWithMongooseOpts,
+} from "graphql-compose-mongoose";
 import mongoose, { Types } from "mongoose";
 
-type MongooseResolvers = {
+interface MongooseResolvers {
   queries: ObjMap<Resolver<any, any, any, any>>;
   mutations: ObjMap<Resolver<any, any, any, any>>;
-};
+}
 
 /**
  * @description returns object containing all mongoose resolvers of objectTC created with composeWithMongoose()
@@ -51,10 +56,10 @@ interface RelationOption<T> {
   prepareArgs: ObjectTypeComposerRelationArgsMapper<T, any, any>;
 }
 
-export function finalComposer<T>(
+export function finalComposer<T, TContext = any>(
   name: string,
   schema: mongoose.Schema,
-  relationOptions?: RelationOption<T>[],
+  opts?: ComposeWithMongooseOpts<TContext>,
 ) {
   const model =
     (mongoose.models[name] as mongoose.Model<T>) ||
@@ -65,8 +70,8 @@ export function finalComposer<T>(
       ? mongoose.HydratedDocument<T>
       : never;
 
-  //return addRelations(composeWithMongoose<documentType>(model), schema);
-  return composeWithMongoose<documentType>(model);
+  //return addRelations(composeWithMongoose<documentType>(model));
+  return composeWithMongoose<documentType>(model, opts);
 }
 
 function addRel(

@@ -1,17 +1,14 @@
-import { NextRequest } from "next/server";
-import { createYoga } from "graphql-yoga";
-import { graphqlschema } from "../../db/gqlschema";
-import dbConfig from "../../db/dbconfig";
+import { auth } from "@/auth";
+import { yoga } from "./yogaServer";
+import { dbConfig } from "@/db/dbconfig";
 import mongoose from "mongoose";
 
-mongoose.connect(dbConfig.uri, { authSource: dbConfig.authSource });
+console.log(dbConfig.uri);
+mongoose.connect(dbConfig.uri);
 
-const app = createYoga({ schema: graphqlschema, logging: "debug" });
+const routeHandler = auth(async (request) => {
+  console.log("I'm in route handler, user is: " + request.auth?.user);
+  return await yoga.handle(request);
+});
 
-export async function GET(request: NextRequest) {
-  return app.handle(request);
-}
-
-export async function POST(request: NextRequest) {
-  return app.handle(request);
-}
+export { routeHandler as GET, routeHandler as POST, routeHandler as OPTIONS };

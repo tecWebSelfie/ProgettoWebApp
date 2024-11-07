@@ -2,6 +2,8 @@ import { createServer } from "http";
 import { parse } from "url";
 import next from "next";
 import { config as configEnv } from "dotenv";
+import { dbConfig } from "../db/dbconfig";
+import mongoose from "mongoose";
 
 /**
  * Loads environment variables from various .env files.
@@ -11,9 +13,11 @@ configEnv({
   path: [".env", ".env.local", ".env.production", ".env.production.local"],
 });
 
+mongoose.connect(dbConfig.uri);
+
 const dev = false;
 const hostname = process.env.HOSTNAME || "localhost";
-const port = parseInt(process.env.PORT) || 8000;
+const port = Number(process.env.PORT) || 8000;
 // when using middleware `hostname` and `port` must be provided below
 const app = next({ dev, hostname, port });
 const handle = app.getRequestHandler();

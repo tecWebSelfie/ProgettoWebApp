@@ -1,5 +1,6 @@
 import { schemaComposer } from "graphql-compose";
-
+import fs from "fs";
+import path from "path";
 import { graphqlschema as alarmSchema, alarmTC } from "./models/alarm";
 import { graphqlschema as calendarSchema, calendarTC } from "./models/calendar";
 import { graphqlschema as eventSchema, eventTC } from "./models/event";
@@ -18,6 +19,13 @@ import { graphqlschema as todoSchema, todoTC } from "./models/todo";
 import { graphqlschema as journalSchema, journalTC } from "./models/journal";
 import { graphqlschema as freebusySchema, freebusyTC } from "./models/freebusy";
 import { getMongooseResolvers } from "./models/graphqlComposeUtilities";
+import {
+  GraphQLDirective,
+  DirectiveLocation,
+  GraphQLNonNull,
+  GraphQLList,
+  GraphQLString,
+} from "graphql";
 //import * as relations from "./models/relationsTmp";
 
 alarmTC.addRelation("Attendees", {
@@ -309,6 +317,29 @@ userTC.addRelation("Alarms", {
     alarms: true,
   },
 });
+
+schemaComposer.addDirective(
+  new GraphQLDirective({
+    name: "requiresScopes",
+    locations: [
+      DirectiveLocation.FIELD_DEFINITION,
+      DirectiveLocation.OBJECT,
+      DirectiveLocation.INTERFACE,
+    ],
+    args: {
+      scopes: {
+        type: new GraphQLNonNull(
+          new GraphQLList(
+            new GraphQLNonNull(
+              new GraphQLList(new GraphQLNonNull(GraphQLString)),
+            ),
+          ),
+        ),
+      },
+    },
+  }),
+);
+
 userTC.addRelation("Pomodoros", {
   resolver: () => pomodoroTC.getResolver("findByIds"),
   prepareArgs: {
@@ -318,6 +349,11 @@ userTC.addRelation("Pomodoros", {
     pomodoros: true,
   },
 });
+
+userTC.getField("Pomodoros").directives = [
+  { name: "requiresScopes", args: { scopes: ["read:user"] } },
+];
+
 userTC.addRelation("Notifications", {
   resolver: () => notificationTC.getResolver("findByIds"),
   prepareArgs: {
@@ -376,5 +412,10 @@ schemaComposer.merge(projectSchema);
 schemaComposer.merge(resourceSchema);
 schemaComposer.merge(todoSchema);
 schemaComposer.merge(userSchema);
+
+fs.writeFileSync(
+  path.join(process.cwd(), "schema.graphql"),
+  schemaComposer.toSDL(),
+);
 
 export const graphqlschema = schemaComposer.buildSchema();

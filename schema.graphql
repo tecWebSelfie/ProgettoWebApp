@@ -1,0 +1,8491 @@
+directive @requiresScopes(
+  scopes: [[String!]!]!
+) on FIELD_DEFINITION | OBJECT | INTERFACE
+
+type Query {
+  user_count(
+    """
+    Filter by fields
+    """
+    filter: FilterCountUserInput
+  ): Int
+  user_findById(_id: MongoID!): User
+  user_findByIds(
+    _ids: [MongoID!]!
+    limit: Int = 100
+    sort: SortFindByIdsUserInput
+  ): [User!]!
+  user_findOne(
+    """
+    Filter by fields
+    """
+    filter: FilterFindOneUserInput
+    skip: Int
+    sort: SortFindOneUserInput
+  ): User
+  user_findMany(
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyUserInput
+    skip: Int
+    limit: Int = 100
+    sort: SortFindManyUserInput
+  ): [User!]!
+  user_dataLoader(_id: MongoID!): User
+  user_dataLoaderMany(_ids: [MongoID!]!): [User]!
+  user_pagination(
+    """
+    Page number for displaying
+    """
+    page: Int
+
+    """
+    """
+    perPage: Int = 20
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyUserInput
+    sort: SortFindManyUserInput
+  ): UserPagination
+  user_connection(
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    first: Int
+
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    after: String
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    last: Int
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    before: String
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyUserInput
+
+    """
+    Sort argument for data ordering
+    """
+    sort: SortConnectionUserEnum = _ID_DESC
+  ): UserConnection
+  alarm_count(
+    """
+    Filter by fields
+    """
+    filter: FilterCountAlarmInput
+  ): Int
+  alarm_findById(_id: MongoID!): Alarm
+  alarm_findByIds(
+    _ids: [MongoID!]!
+    limit: Int = 100
+    sort: SortFindByIdsAlarmInput
+  ): [Alarm!]!
+  alarm_findOne(
+    """
+    Filter by fields
+    """
+    filter: FilterFindOneAlarmInput
+    skip: Int
+    sort: SortFindOneAlarmInput
+  ): Alarm
+  alarm_findMany(
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyAlarmInput
+    skip: Int
+    limit: Int = 100
+    sort: SortFindManyAlarmInput
+  ): [Alarm!]!
+  alarm_dataLoader(_id: MongoID!): Alarm
+  alarm_dataLoaderMany(_ids: [MongoID!]!): [Alarm]!
+  alarm_pagination(
+    """
+    Page number for displaying
+    """
+    page: Int
+
+    """
+    """
+    perPage: Int = 20
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyAlarmInput
+    sort: SortFindManyAlarmInput
+  ): AlarmPagination
+  alarm_connection(
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    first: Int
+
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    after: String
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    last: Int
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    before: String
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyAlarmInput
+
+    """
+    Sort argument for data ordering
+    """
+    sort: SortConnectionAlarmEnum = _ID_DESC
+  ): AlarmConnection
+  calendar_count(
+    """
+    Filter by fields
+    """
+    filter: FilterCountCalendarInput
+  ): Int
+  calendar_findById(_id: MongoID!): Calendar
+  calendar_findByIds(
+    _ids: [MongoID!]!
+    limit: Int = 100
+    sort: SortFindByIdsCalendarInput
+  ): [Calendar!]!
+  calendar_findOne(
+    """
+    Filter by fields
+    """
+    filter: FilterFindOneCalendarInput
+    skip: Int
+    sort: SortFindOneCalendarInput
+  ): Calendar
+  calendar_findMany(
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyCalendarInput
+    skip: Int
+    limit: Int = 100
+    sort: SortFindManyCalendarInput
+  ): [Calendar!]!
+  calendar_dataLoader(_id: MongoID!): Calendar
+  calendar_dataLoaderMany(_ids: [MongoID!]!): [Calendar]!
+  calendar_pagination(
+    """
+    Page number for displaying
+    """
+    page: Int
+
+    """
+    """
+    perPage: Int = 20
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyCalendarInput
+    sort: SortFindManyCalendarInput
+  ): CalendarPagination
+  calendar_connection(
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    first: Int
+
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    after: String
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    last: Int
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    before: String
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyCalendarInput
+
+    """
+    Sort argument for data ordering
+    """
+    sort: SortConnectionCalendarEnum = _ID_DESC
+  ): CalendarConnection
+  event_count(
+    """
+    Filter by fields
+    """
+    filter: FilterCountEventInput
+  ): Int
+  event_findById(_id: MongoID!): Event
+  event_findByIds(
+    _ids: [MongoID!]!
+    limit: Int = 100
+    sort: SortFindByIdsEventInput
+  ): [Event!]!
+  event_findOne(
+    """
+    Filter by fields
+    """
+    filter: FilterFindOneEventInput
+    skip: Int
+    sort: SortFindOneEventInput
+  ): Event
+  event_findMany(
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyEventInput
+    skip: Int
+    limit: Int = 100
+    sort: SortFindManyEventInput
+  ): [Event!]!
+  event_dataLoader(_id: MongoID!): Event
+  event_dataLoaderMany(_ids: [MongoID!]!): [Event]!
+  event_pagination(
+    """
+    Page number for displaying
+    """
+    page: Int
+
+    """
+    """
+    perPage: Int = 20
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyEventInput
+    sort: SortFindManyEventInput
+  ): EventPagination
+  event_connection(
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    first: Int
+
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    after: String
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    last: Int
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    before: String
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyEventInput
+
+    """
+    Sort argument for data ordering
+    """
+    sort: SortConnectionEventEnum = _ID_DESC
+  ): EventConnection
+  group_count(
+    """
+    Filter by fields
+    """
+    filter: FilterCountGroupInput
+  ): Int
+  group_findById(_id: MongoID!): Group
+  group_findByIds(
+    _ids: [MongoID!]!
+    limit: Int = 100
+    sort: SortFindByIdsGroupInput
+  ): [Group!]!
+  group_findOne(
+    """
+    Filter by fields
+    """
+    filter: FilterFindOneGroupInput
+    skip: Int
+    sort: SortFindOneGroupInput
+  ): Group
+  group_findMany(
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyGroupInput
+    skip: Int
+    limit: Int = 100
+    sort: SortFindManyGroupInput
+  ): [Group!]!
+  group_dataLoader(_id: MongoID!): Group
+  group_dataLoaderMany(_ids: [MongoID!]!): [Group]!
+  group_pagination(
+    """
+    Page number for displaying
+    """
+    page: Int
+
+    """
+    """
+    perPage: Int = 20
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyGroupInput
+    sort: SortFindManyGroupInput
+  ): GroupPagination
+  group_connection(
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    first: Int
+
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    after: String
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    last: Int
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    before: String
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyGroupInput
+
+    """
+    Sort argument for data ordering
+    """
+    sort: SortConnectionGroupEnum = _ID_DESC
+  ): GroupConnection
+  notification_count(
+    """
+    Filter by fields
+    """
+    filter: FilterCountNotificationInput
+  ): Int
+  notification_findById(_id: MongoID!): Notification
+  notification_findByIds(
+    _ids: [MongoID!]!
+    limit: Int = 100
+    sort: SortFindByIdsNotificationInput
+  ): [Notification!]!
+  notification_findOne(
+    """
+    Filter by fields
+    """
+    filter: FilterFindOneNotificationInput
+    skip: Int
+    sort: SortFindOneNotificationInput
+  ): Notification
+  notification_findMany(
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyNotificationInput
+    skip: Int
+    limit: Int = 100
+    sort: SortFindManyNotificationInput
+  ): [Notification!]!
+  notification_dataLoader(_id: MongoID!): Notification
+  notification_dataLoaderMany(_ids: [MongoID!]!): [Notification]!
+  notification_pagination(
+    """
+    Page number for displaying
+    """
+    page: Int
+
+    """
+    """
+    perPage: Int = 20
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyNotificationInput
+    sort: SortFindManyNotificationInput
+  ): NotificationPagination
+  notification_connection(
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    first: Int
+
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    after: String
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    last: Int
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    before: String
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyNotificationInput
+
+    """
+    Sort argument for data ordering
+    """
+    sort: SortConnectionNotificationEnum = _ID_DESC
+  ): NotificationConnection
+  pomodoro_count(
+    """
+    Filter by fields
+    """
+    filter: FilterCountPomodoroInput
+  ): Int
+  pomodoro_findById(_id: MongoID!): Pomodoro
+  pomodoro_findByIds(
+    _ids: [MongoID!]!
+    limit: Int = 100
+    sort: SortFindByIdsPomodoroInput
+  ): [Pomodoro!]!
+  pomodoro_findOne(
+    """
+    Filter by fields
+    """
+    filter: FilterFindOnePomodoroInput
+    skip: Int
+    sort: SortFindOnePomodoroInput
+  ): Pomodoro
+  pomodoro_findMany(
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyPomodoroInput
+    skip: Int
+    limit: Int = 100
+    sort: SortFindManyPomodoroInput
+  ): [Pomodoro!]!
+  pomodoro_dataLoader(_id: MongoID!): Pomodoro
+  pomodoro_dataLoaderMany(_ids: [MongoID!]!): [Pomodoro]!
+  pomodoro_pagination(
+    """
+    Page number for displaying
+    """
+    page: Int
+
+    """
+    """
+    perPage: Int = 20
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyPomodoroInput
+    sort: SortFindManyPomodoroInput
+  ): PomodoroPagination
+  pomodoro_connection(
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    first: Int
+
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    after: String
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    last: Int
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    before: String
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyPomodoroInput
+
+    """
+    Sort argument for data ordering
+    """
+    sort: SortConnectionPomodoroEnum = _ID_DESC
+  ): PomodoroConnection
+  project_count(
+    """
+    Filter by fields
+    """
+    filter: FilterCountProjectInput
+  ): Int
+  project_findById(_id: MongoID!): Project
+  project_findByIds(
+    _ids: [MongoID!]!
+    limit: Int = 100
+    sort: SortFindByIdsProjectInput
+  ): [Project!]!
+  project_findOne(
+    """
+    Filter by fields
+    """
+    filter: FilterFindOneProjectInput
+    skip: Int
+    sort: SortFindOneProjectInput
+  ): Project
+  project_findMany(
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyProjectInput
+    skip: Int
+    limit: Int = 100
+    sort: SortFindManyProjectInput
+  ): [Project!]!
+  project_dataLoader(_id: MongoID!): Project
+  project_dataLoaderMany(_ids: [MongoID!]!): [Project]!
+  project_pagination(
+    """
+    Page number for displaying
+    """
+    page: Int
+
+    """
+    """
+    perPage: Int = 20
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyProjectInput
+    sort: SortFindManyProjectInput
+  ): ProjectPagination
+  project_connection(
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    first: Int
+
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    after: String
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    last: Int
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    before: String
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyProjectInput
+
+    """
+    Sort argument for data ordering
+    """
+    sort: SortConnectionProjectEnum = _ID_DESC
+  ): ProjectConnection
+  resource_count(
+    """
+    Filter by fields
+    """
+    filter: FilterCountResourceInput
+  ): Int
+  resource_findById(_id: MongoID!): Resource
+  resource_findByIds(
+    _ids: [MongoID!]!
+    limit: Int = 100
+    sort: SortFindByIdsResourceInput
+  ): [Resource!]!
+  resource_findOne(
+    """
+    Filter by fields
+    """
+    filter: FilterFindOneResourceInput
+    skip: Int
+    sort: SortFindOneResourceInput
+  ): Resource
+  resource_findMany(
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyResourceInput
+    skip: Int
+    limit: Int = 100
+    sort: SortFindManyResourceInput
+  ): [Resource!]!
+  resource_dataLoader(_id: MongoID!): Resource
+  resource_dataLoaderMany(_ids: [MongoID!]!): [Resource]!
+  resource_pagination(
+    """
+    Page number for displaying
+    """
+    page: Int
+
+    """
+    """
+    perPage: Int = 20
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyResourceInput
+    sort: SortFindManyResourceInput
+  ): ResourcePagination
+  resource_connection(
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    first: Int
+
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    after: String
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    last: Int
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    before: String
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyResourceInput
+
+    """
+    Sort argument for data ordering
+    """
+    sort: SortConnectionResourceEnum = _ID_DESC
+  ): ResourceConnection
+}
+
+type Mutation {
+  """
+  Create one document with mongoose defaults, setters, hooks and validation
+  """
+  user_createOne(record: CreateOneUserInput!): CreateOneUserPayload
+
+  """
+  Creates Many documents with mongoose defaults, setters, hooks and validation
+  """
+  user_createMany(records: [CreateManyUserInput!]!): CreateManyUserPayload
+
+  """
+  Update one document: 1) Retrieve one document by findById. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  user_updateById(
+    _id: MongoID!
+    record: UpdateByIdUserInput!
+  ): UpdateByIdUserPayload
+
+  """
+  Update one document: 1) Retrieve one document via findOne. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  user_updateOne(
+    record: UpdateOneUserInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateOneUserInput
+    sort: SortUpdateOneUserInput
+    skip: Int
+  ): UpdateOneUserPayload
+
+  """
+  Update many documents without returning them: Use Query.update mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  user_updateMany(
+    record: UpdateManyUserInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateManyUserInput
+    sort: SortUpdateManyUserInput
+    skip: Int
+    limit: Int = 100
+  ): UpdateManyUserPayload
+
+  """
+  Remove one document: 1) Retrieve one document and remove with hooks via findByIdAndRemove. 2) Return removed document.
+  """
+  user_removeById(_id: MongoID!): RemoveByIdUserPayload
+
+  """
+  Remove one document: 1) Remove with hooks via findOneAndRemove. 2) Return removed document.
+  """
+  user_removeOne(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveOneUserInput
+    sort: SortRemoveOneUserInput
+  ): RemoveOneUserPayload
+
+  """
+  Remove many documents without returning them: Use Query.remove mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  user_removeMany(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveManyUserInput!
+    limit: Int = 100
+  ): RemoveManyUserPayload
+
+  """
+  Create one document with mongoose defaults, setters, hooks and validation
+  """
+  alarm_createOne(record: CreateOneAlarmInput!): CreateOneAlarmPayload
+
+  """
+  Creates Many documents with mongoose defaults, setters, hooks and validation
+  """
+  alarm_createMany(records: [CreateManyAlarmInput!]!): CreateManyAlarmPayload
+
+  """
+  Update one document: 1) Retrieve one document by findById. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  alarm_updateById(
+    _id: MongoID!
+    record: UpdateByIdAlarmInput!
+  ): UpdateByIdAlarmPayload
+
+  """
+  Update one document: 1) Retrieve one document via findOne. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  alarm_updateOne(
+    record: UpdateOneAlarmInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateOneAlarmInput
+    sort: SortUpdateOneAlarmInput
+    skip: Int
+  ): UpdateOneAlarmPayload
+
+  """
+  Update many documents without returning them: Use Query.update mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  alarm_updateMany(
+    record: UpdateManyAlarmInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateManyAlarmInput
+    sort: SortUpdateManyAlarmInput
+    skip: Int
+    limit: Int = 100
+  ): UpdateManyAlarmPayload
+
+  """
+  Remove one document: 1) Retrieve one document and remove with hooks via findByIdAndRemove. 2) Return removed document.
+  """
+  alarm_removeById(_id: MongoID!): RemoveByIdAlarmPayload
+
+  """
+  Remove one document: 1) Remove with hooks via findOneAndRemove. 2) Return removed document.
+  """
+  alarm_removeOne(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveOneAlarmInput
+    sort: SortRemoveOneAlarmInput
+  ): RemoveOneAlarmPayload
+
+  """
+  Remove many documents without returning them: Use Query.remove mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  alarm_removeMany(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveManyAlarmInput!
+    limit: Int = 100
+  ): RemoveManyAlarmPayload
+
+  """
+  Create one document with mongoose defaults, setters, hooks and validation
+  """
+  calendar_createOne(record: CreateOneCalendarInput!): CreateOneCalendarPayload
+
+  """
+  Creates Many documents with mongoose defaults, setters, hooks and validation
+  """
+  calendar_createMany(
+    records: [CreateManyCalendarInput!]!
+  ): CreateManyCalendarPayload
+
+  """
+  Update one document: 1) Retrieve one document by findById. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  calendar_updateById(
+    _id: MongoID!
+    record: UpdateByIdCalendarInput!
+  ): UpdateByIdCalendarPayload
+
+  """
+  Update one document: 1) Retrieve one document via findOne. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  calendar_updateOne(
+    record: UpdateOneCalendarInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateOneCalendarInput
+    sort: SortUpdateOneCalendarInput
+    skip: Int
+  ): UpdateOneCalendarPayload
+
+  """
+  Update many documents without returning them: Use Query.update mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  calendar_updateMany(
+    record: UpdateManyCalendarInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateManyCalendarInput
+    sort: SortUpdateManyCalendarInput
+    skip: Int
+    limit: Int = 100
+  ): UpdateManyCalendarPayload
+
+  """
+  Remove one document: 1) Retrieve one document and remove with hooks via findByIdAndRemove. 2) Return removed document.
+  """
+  calendar_removeById(_id: MongoID!): RemoveByIdCalendarPayload
+
+  """
+  Remove one document: 1) Remove with hooks via findOneAndRemove. 2) Return removed document.
+  """
+  calendar_removeOne(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveOneCalendarInput
+    sort: SortRemoveOneCalendarInput
+  ): RemoveOneCalendarPayload
+
+  """
+  Remove many documents without returning them: Use Query.remove mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  calendar_removeMany(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveManyCalendarInput!
+    limit: Int = 100
+  ): RemoveManyCalendarPayload
+
+  """
+  Create one document with mongoose defaults, setters, hooks and validation
+  """
+  event_createOne(record: CreateOneEventInput!): CreateOneEventPayload
+
+  """
+  Creates Many documents with mongoose defaults, setters, hooks and validation
+  """
+  event_createMany(records: [CreateManyEventInput!]!): CreateManyEventPayload
+
+  """
+  Update one document: 1) Retrieve one document by findById. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  event_updateById(
+    _id: MongoID!
+    record: UpdateByIdEventInput!
+  ): UpdateByIdEventPayload
+
+  """
+  Update one document: 1) Retrieve one document via findOne. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  event_updateOne(
+    record: UpdateOneEventInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateOneEventInput
+    sort: SortUpdateOneEventInput
+    skip: Int
+  ): UpdateOneEventPayload
+
+  """
+  Update many documents without returning them: Use Query.update mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  event_updateMany(
+    record: UpdateManyEventInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateManyEventInput
+    sort: SortUpdateManyEventInput
+    skip: Int
+    limit: Int = 100
+  ): UpdateManyEventPayload
+
+  """
+  Remove one document: 1) Retrieve one document and remove with hooks via findByIdAndRemove. 2) Return removed document.
+  """
+  event_removeById(_id: MongoID!): RemoveByIdEventPayload
+
+  """
+  Remove one document: 1) Remove with hooks via findOneAndRemove. 2) Return removed document.
+  """
+  event_removeOne(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveOneEventInput
+    sort: SortRemoveOneEventInput
+  ): RemoveOneEventPayload
+
+  """
+  Remove many documents without returning them: Use Query.remove mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  event_removeMany(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveManyEventInput!
+    limit: Int = 100
+  ): RemoveManyEventPayload
+
+  """
+  Create one document with mongoose defaults, setters, hooks and validation
+  """
+  group_createOne(record: CreateOneGroupInput!): CreateOneGroupPayload
+
+  """
+  Creates Many documents with mongoose defaults, setters, hooks and validation
+  """
+  group_createMany(records: [CreateManyGroupInput!]!): CreateManyGroupPayload
+
+  """
+  Update one document: 1) Retrieve one document by findById. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  group_updateById(
+    _id: MongoID!
+    record: UpdateByIdGroupInput!
+  ): UpdateByIdGroupPayload
+
+  """
+  Update one document: 1) Retrieve one document via findOne. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  group_updateOne(
+    record: UpdateOneGroupInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateOneGroupInput
+    sort: SortUpdateOneGroupInput
+    skip: Int
+  ): UpdateOneGroupPayload
+
+  """
+  Update many documents without returning them: Use Query.update mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  group_updateMany(
+    record: UpdateManyGroupInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateManyGroupInput
+    sort: SortUpdateManyGroupInput
+    skip: Int
+    limit: Int = 100
+  ): UpdateManyGroupPayload
+
+  """
+  Remove one document: 1) Retrieve one document and remove with hooks via findByIdAndRemove. 2) Return removed document.
+  """
+  group_removeById(_id: MongoID!): RemoveByIdGroupPayload
+
+  """
+  Remove one document: 1) Remove with hooks via findOneAndRemove. 2) Return removed document.
+  """
+  group_removeOne(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveOneGroupInput
+    sort: SortRemoveOneGroupInput
+  ): RemoveOneGroupPayload
+
+  """
+  Remove many documents without returning them: Use Query.remove mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  group_removeMany(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveManyGroupInput!
+    limit: Int = 100
+  ): RemoveManyGroupPayload
+
+  """
+  Create one document with mongoose defaults, setters, hooks and validation
+  """
+  notification_createOne(
+    record: CreateOneNotificationInput!
+  ): CreateOneNotificationPayload
+
+  """
+  Creates Many documents with mongoose defaults, setters, hooks and validation
+  """
+  notification_createMany(
+    records: [CreateManyNotificationInput!]!
+  ): CreateManyNotificationPayload
+
+  """
+  Update one document: 1) Retrieve one document by findById. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  notification_updateById(
+    _id: MongoID!
+    record: UpdateByIdNotificationInput!
+  ): UpdateByIdNotificationPayload
+
+  """
+  Update one document: 1) Retrieve one document via findOne. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  notification_updateOne(
+    record: UpdateOneNotificationInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateOneNotificationInput
+    sort: SortUpdateOneNotificationInput
+    skip: Int
+  ): UpdateOneNotificationPayload
+
+  """
+  Update many documents without returning them: Use Query.update mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  notification_updateMany(
+    record: UpdateManyNotificationInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateManyNotificationInput
+    sort: SortUpdateManyNotificationInput
+    skip: Int
+    limit: Int = 100
+  ): UpdateManyNotificationPayload
+
+  """
+  Remove one document: 1) Retrieve one document and remove with hooks via findByIdAndRemove. 2) Return removed document.
+  """
+  notification_removeById(_id: MongoID!): RemoveByIdNotificationPayload
+
+  """
+  Remove one document: 1) Remove with hooks via findOneAndRemove. 2) Return removed document.
+  """
+  notification_removeOne(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveOneNotificationInput
+    sort: SortRemoveOneNotificationInput
+  ): RemoveOneNotificationPayload
+
+  """
+  Remove many documents without returning them: Use Query.remove mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  notification_removeMany(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveManyNotificationInput!
+    limit: Int = 100
+  ): RemoveManyNotificationPayload
+
+  """
+  Create one document with mongoose defaults, setters, hooks and validation
+  """
+  pomodoro_createOne(record: CreateOnePomodoroInput!): CreateOnePomodoroPayload
+
+  """
+  Creates Many documents with mongoose defaults, setters, hooks and validation
+  """
+  pomodoro_createMany(
+    records: [CreateManyPomodoroInput!]!
+  ): CreateManyPomodoroPayload
+
+  """
+  Update one document: 1) Retrieve one document by findById. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  pomodoro_updateById(
+    _id: MongoID!
+    record: UpdateByIdPomodoroInput!
+  ): UpdateByIdPomodoroPayload
+
+  """
+  Update one document: 1) Retrieve one document via findOne. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  pomodoro_updateOne(
+    record: UpdateOnePomodoroInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateOnePomodoroInput
+    sort: SortUpdateOnePomodoroInput
+    skip: Int
+  ): UpdateOnePomodoroPayload
+
+  """
+  Update many documents without returning them: Use Query.update mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  pomodoro_updateMany(
+    record: UpdateManyPomodoroInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateManyPomodoroInput
+    sort: SortUpdateManyPomodoroInput
+    skip: Int
+    limit: Int = 100
+  ): UpdateManyPomodoroPayload
+
+  """
+  Remove one document: 1) Retrieve one document and remove with hooks via findByIdAndRemove. 2) Return removed document.
+  """
+  pomodoro_removeById(_id: MongoID!): RemoveByIdPomodoroPayload
+
+  """
+  Remove one document: 1) Remove with hooks via findOneAndRemove. 2) Return removed document.
+  """
+  pomodoro_removeOne(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveOnePomodoroInput
+    sort: SortRemoveOnePomodoroInput
+  ): RemoveOnePomodoroPayload
+
+  """
+  Remove many documents without returning them: Use Query.remove mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  pomodoro_removeMany(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveManyPomodoroInput!
+    limit: Int = 100
+  ): RemoveManyPomodoroPayload
+
+  """
+  Create one document with mongoose defaults, setters, hooks and validation
+  """
+  project_createOne(record: CreateOneProjectInput!): CreateOneProjectPayload
+
+  """
+  Creates Many documents with mongoose defaults, setters, hooks and validation
+  """
+  project_createMany(
+    records: [CreateManyProjectInput!]!
+  ): CreateManyProjectPayload
+
+  """
+  Update one document: 1) Retrieve one document by findById. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  project_updateById(
+    _id: MongoID!
+    record: UpdateByIdProjectInput!
+  ): UpdateByIdProjectPayload
+
+  """
+  Update one document: 1) Retrieve one document via findOne. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  project_updateOne(
+    record: UpdateOneProjectInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateOneProjectInput
+    sort: SortUpdateOneProjectInput
+    skip: Int
+  ): UpdateOneProjectPayload
+
+  """
+  Update many documents without returning them: Use Query.update mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  project_updateMany(
+    record: UpdateManyProjectInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateManyProjectInput
+    sort: SortUpdateManyProjectInput
+    skip: Int
+    limit: Int = 100
+  ): UpdateManyProjectPayload
+
+  """
+  Remove one document: 1) Retrieve one document and remove with hooks via findByIdAndRemove. 2) Return removed document.
+  """
+  project_removeById(_id: MongoID!): RemoveByIdProjectPayload
+
+  """
+  Remove one document: 1) Remove with hooks via findOneAndRemove. 2) Return removed document.
+  """
+  project_removeOne(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveOneProjectInput
+    sort: SortRemoveOneProjectInput
+  ): RemoveOneProjectPayload
+
+  """
+  Remove many documents without returning them: Use Query.remove mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  project_removeMany(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveManyProjectInput!
+    limit: Int = 100
+  ): RemoveManyProjectPayload
+
+  """
+  Create one document with mongoose defaults, setters, hooks and validation
+  """
+  resource_createOne(record: CreateOneResourceInput!): CreateOneResourcePayload
+
+  """
+  Creates Many documents with mongoose defaults, setters, hooks and validation
+  """
+  resource_createMany(
+    records: [CreateManyResourceInput!]!
+  ): CreateManyResourcePayload
+
+  """
+  Update one document: 1) Retrieve one document by findById. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  resource_updateById(
+    _id: MongoID!
+    record: UpdateByIdResourceInput!
+  ): UpdateByIdResourcePayload
+
+  """
+  Update one document: 1) Retrieve one document via findOne. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  resource_updateOne(
+    record: UpdateOneResourceInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateOneResourceInput
+    sort: SortUpdateOneResourceInput
+    skip: Int
+  ): UpdateOneResourcePayload
+
+  """
+  Update many documents without returning them: Use Query.update mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  resource_updateMany(
+    record: UpdateManyResourceInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateManyResourceInput
+    sort: SortUpdateManyResourceInput
+    skip: Int
+    limit: Int = 100
+  ): UpdateManyResourcePayload
+
+  """
+  Remove one document: 1) Retrieve one document and remove with hooks via findByIdAndRemove. 2) Return removed document.
+  """
+  resource_removeById(_id: MongoID!): RemoveByIdResourcePayload
+
+  """
+  Remove one document: 1) Remove with hooks via findOneAndRemove. 2) Return removed document.
+  """
+  resource_removeOne(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveOneResourceInput
+    sort: SortRemoveOneResourceInput
+  ): RemoveOneResourcePayload
+
+  """
+  Remove many documents without returning them: Use Query.remove mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  resource_removeMany(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveManyResourceInput!
+    limit: Int = 100
+  ): RemoveManyResourcePayload
+}
+
+type Subscription
+
+"""
+The `Boolean` scalar type represents `true` or `false`.
+"""
+scalar Boolean
+
+"""
+The `Boolean` scalar type represents `true` or `false`.
+"""
+scalar Boolean
+
+"""
+The `Boolean` scalar type represents `true` or `false`.
+"""
+scalar Boolean
+
+scalar Buffer
+
+scalar Date
+
+"""
+The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
+"""
+scalar Float
+
+"""
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
+"""
+scalar Int
+
+"""
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
+"""
+scalar Int
+
+"""
+The `ID` scalar type represents a unique MongoDB identifier in collection. MongoDB by default use 12-byte ObjectId value (https://docs.mongodb.com/manual/reference/bson-types/#objectid). But MongoDB also may accepts string or integer as correct values for _id field.
+"""
+scalar MongoID
+
+"""
+The string representation of JavaScript regexp. You may provide it with flags "/^abc.*/i" or without flags like "^abc.*". More info about RegExp characters and flags: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions
+"""
+scalar RegExpAsString
+  @specifiedBy(
+    url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-262.pdf"
+  )
+
+"""
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+"""
+scalar String
+
+"""
+The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
+"""
+scalar String
+
+enum EnumAlarmRelatesTo {
+  END
+  START
+}
+
+enum EnumAlarmType {
+  display
+  audio
+  email
+}
+
+enum EnumCalendarMethod {
+  PUBLISH
+  REQUEST
+  REPLY
+  ADD
+  CANCEL
+  REFRESH
+  COUNTER
+  DECLINECOUNTER
+}
+
+enum EnumEventBusystatus {
+  FREE
+  TENTATIVE
+  BUSY
+  OOF
+}
+
+enum EnumEventRepeatingByDay {
+  SU
+  MO
+  TU
+  WE
+  TH
+  FR
+  SA
+}
+
+enum EnumEventRepeatingFreq {
+  SECONDLY
+  MINUTELY
+  HOURLY
+  DAILY
+  WEEKLY
+  MONTHLY
+  YEARLY
+}
+
+enum EnumEventRepeatingStartOfWeek {
+  SU
+  MO
+  TU
+  WE
+  TH
+  FR
+  SA
+}
+
+enum EnumEventStatus {
+  CONFIRMED
+  TENTATIVE
+  CANCELLED
+}
+
+enum EnumEventTransparency {
+  TRANSPARENT
+  OPAQUE
+}
+
+enum EnumUserRoles {
+  user
+  tech
+}
+
+enum SortConnectionAlarmEnum {
+  _ID_DESC
+  _ID_ASC
+}
+
+enum SortConnectionCalendarEnum {
+  _ID_DESC
+  _ID_ASC
+}
+
+enum SortConnectionEventEnum {
+  _ID_DESC
+  _ID_ASC
+}
+
+enum SortConnectionGroupEnum {
+  _ID_DESC
+  _ID_ASC
+}
+
+enum SortConnectionNotificationEnum {
+  _ID_DESC
+  _ID_ASC
+}
+
+enum SortConnectionPomodoroEnum {
+  _ID_DESC
+  _ID_ASC
+}
+
+enum SortConnectionProjectEnum {
+  _ID_DESC
+  _ID_ASC
+}
+
+enum SortConnectionResourceEnum {
+  _ID_DESC
+  _ID_ASC
+}
+
+enum SortConnectionUserEnum {
+  _ID_DESC
+  _ID_ASC
+  NICKNAME_DESC
+  NICKNAME_ASC
+  EMAIL_DESC
+  EMAIL_ASC
+}
+
+enum SortFindByIdsAlarmInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindByIdsCalendarInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindByIdsEventInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindByIdsGroupInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindByIdsNotificationInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindByIdsPomodoroInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindByIdsProjectInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindByIdsResourceInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindByIdsUserInput {
+  _ID_ASC
+  _ID_DESC
+  NICKNAME_ASC
+  NICKNAME_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+}
+
+enum SortFindManyAlarmInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindManyCalendarInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindManyEventInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindManyGroupInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindManyNotificationInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindManyPomodoroInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindManyProjectInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindManyResourceInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindManyUserInput {
+  _ID_ASC
+  _ID_DESC
+  NICKNAME_ASC
+  NICKNAME_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+}
+
+enum SortFindOneAlarmInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindOneCalendarInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindOneEventInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindOneGroupInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindOneNotificationInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindOnePomodoroInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindOneProjectInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindOneResourceInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindOneUserInput {
+  _ID_ASC
+  _ID_DESC
+  NICKNAME_ASC
+  NICKNAME_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+}
+
+enum SortRemoveOneAlarmInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortRemoveOneCalendarInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortRemoveOneEventInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortRemoveOneGroupInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortRemoveOneNotificationInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortRemoveOnePomodoroInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortRemoveOneProjectInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortRemoveOneResourceInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortRemoveOneUserInput {
+  _ID_ASC
+  _ID_DESC
+  NICKNAME_ASC
+  NICKNAME_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+}
+
+enum SortUpdateManyAlarmInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortUpdateManyCalendarInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortUpdateManyEventInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortUpdateManyGroupInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortUpdateManyNotificationInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortUpdateManyPomodoroInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortUpdateManyProjectInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortUpdateManyResourceInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortUpdateManyUserInput {
+  _ID_ASC
+  _ID_DESC
+  NICKNAME_ASC
+  NICKNAME_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+}
+
+enum SortUpdateOneAlarmInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortUpdateOneCalendarInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortUpdateOneEventInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortUpdateOneGroupInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortUpdateOneNotificationInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortUpdateOnePomodoroInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortUpdateOneProjectInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortUpdateOneResourceInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortUpdateOneUserInput {
+  _ID_ASC
+  _ID_DESC
+  NICKNAME_ASC
+  NICKNAME_DESC
+  EMAIL_ASC
+  EMAIL_DESC
+}
+
+interface ErrorInterface {
+  """
+  Generic error message
+  """
+  message: String
+}
+
+type Alarm {
+  type: EnumAlarmType!
+  trigger: String!
+  relatesTo: EnumAlarmRelatesTo
+  repeat: AlarmRepeat
+  interval: Float
+  attach: AlarmAttach
+  description: String
+  summary: String
+  attendees: [MongoID]
+  x: [AlarmX]
+  _id: MongoID!
+  Attendees(limit: Int = 100, sort: SortFindByIdsUserInput): [User!]!
+}
+
+type AlarmAttach {
+  uri: String
+  mime: String
+  _id: MongoID
+}
+
+"""
+A connection to a list of items.
+"""
+type AlarmConnection {
+  """
+  Total object count.
+  """
+  count: Int!
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  Information to aid in pagination.
+  """
+  edges: [AlarmEdge!]!
+}
+
+"""
+An edge in a connection.
+"""
+type AlarmEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Alarm!
+
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+"""
+List of items with pagination.
+"""
+type AlarmPagination {
+  """
+  Total object count.
+  """
+  count: Int
+
+  """
+  Array of objects.
+  """
+  items: [Alarm!]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PaginationInfo!
+}
+
+type AlarmRepeat {
+  times: Float
+  interval: Float
+  _id: MongoID
+}
+
+type AlarmX {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+type Calendar {
+  prodId: String!
+  method: EnumCalendarMethod
+  name: String
+  description: String
+  timezone: String
+  source: String
+  url: String
+  scale: String
+  ttl: Float
+  events: [MongoID]
+  x: [CalendarX]
+  _id: MongoID!
+  Events(limit: Int = 100, sort: SortFindByIdsEventInput): [Event!]!
+}
+
+"""
+A connection to a list of items.
+"""
+type CalendarConnection {
+  """
+  Total object count.
+  """
+  count: Int!
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  Information to aid in pagination.
+  """
+  edges: [CalendarEdge!]!
+}
+
+"""
+An edge in a connection.
+"""
+type CalendarEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Calendar!
+
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+"""
+List of items with pagination.
+"""
+type CalendarPagination {
+  """
+  Total object count.
+  """
+  count: Int
+
+  """
+  Array of objects.
+  """
+  items: [Calendar!]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PaginationInfo!
+}
+
+type CalendarX {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+type CreateManyAlarmPayload {
+  """
+  Documents IDs
+  """
+  recordIds: [MongoID!]!
+
+  """
+  Created documents
+  """
+  records: [Alarm!]
+
+  """
+  Number of created documents
+  """
+  createdCount: Int!
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type CreateManyCalendarPayload {
+  """
+  Documents IDs
+  """
+  recordIds: [MongoID!]!
+
+  """
+  Created documents
+  """
+  records: [Calendar!]
+
+  """
+  Number of created documents
+  """
+  createdCount: Int!
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type CreateManyEventPayload {
+  """
+  Documents IDs
+  """
+  recordIds: [MongoID!]!
+
+  """
+  Created documents
+  """
+  records: [Event!]
+
+  """
+  Number of created documents
+  """
+  createdCount: Int!
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type CreateManyGroupPayload {
+  """
+  Documents IDs
+  """
+  recordIds: [MongoID!]!
+
+  """
+  Created documents
+  """
+  records: [Group!]
+
+  """
+  Number of created documents
+  """
+  createdCount: Int!
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type CreateManyNotificationPayload {
+  """
+  Documents IDs
+  """
+  recordIds: [MongoID!]!
+
+  """
+  Created documents
+  """
+  records: [Notification!]
+
+  """
+  Number of created documents
+  """
+  createdCount: Int!
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type CreateManyPomodoroPayload {
+  """
+  Documents IDs
+  """
+  recordIds: [MongoID!]!
+
+  """
+  Created documents
+  """
+  records: [Pomodoro!]
+
+  """
+  Number of created documents
+  """
+  createdCount: Int!
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type CreateManyProjectPayload {
+  """
+  Documents IDs
+  """
+  recordIds: [MongoID!]!
+
+  """
+  Created documents
+  """
+  records: [Project!]
+
+  """
+  Number of created documents
+  """
+  createdCount: Int!
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type CreateManyResourcePayload {
+  """
+  Documents IDs
+  """
+  recordIds: [MongoID!]!
+
+  """
+  Created documents
+  """
+  records: [Resource!]
+
+  """
+  Number of created documents
+  """
+  createdCount: Int!
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type CreateManyUserPayload {
+  """
+  Documents IDs
+  """
+  recordIds: [MongoID!]!
+
+  """
+  Created documents
+  """
+  records: [User!]
+
+  """
+  Number of created documents
+  """
+  createdCount: Int!
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type CreateOneAlarmPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Created document
+  """
+  record: Alarm
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type CreateOneCalendarPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Created document
+  """
+  record: Calendar
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type CreateOneEventPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Created document
+  """
+  record: Event
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type CreateOneGroupPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Created document
+  """
+  record: Group
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type CreateOneNotificationPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Created document
+  """
+  record: Notification
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type CreateOnePomodoroPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Created document
+  """
+  record: Pomodoro
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type CreateOneProjectPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Created document
+  """
+  record: Project
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type CreateOneResourcePayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Created document
+  """
+  record: Resource
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type CreateOneUserPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Created document
+  """
+  record: User
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type Event {
+  sequence: Float!
+  start: String!
+  end: String
+  recurrenceId: String
+  timezone: String
+  stamp: String!
+  allDay: Boolean!
+  floating: Boolean!
+  summary: String!
+  priority: Float
+  url: String
+  attachments: [String]!
+  created: String
+  lastModified: String
+  location: EventLocation
+  repeating: EventRepeating
+  description: EventDescription
+  organizer: EventOrganizer
+  attendees: [MongoID]
+  alarms: [MongoID]
+  categories: [EventCategories]!
+  status: EnumEventStatus
+  busystatus: EnumEventBusystatus
+  transparency: EnumEventTransparency
+  pomodoro: MongoID
+  x: [EventX]
+  _id: MongoID!
+}
+
+type EventCategories {
+  name: String
+  _id: MongoID
+}
+
+"""
+A connection to a list of items.
+"""
+type EventConnection {
+  """
+  Total object count.
+  """
+  count: Int!
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  Information to aid in pagination.
+  """
+  edges: [EventEdge!]!
+}
+
+type EventDescription {
+  plain: String
+  html: String
+  _id: MongoID
+}
+
+"""
+An edge in a connection.
+"""
+type EventEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Event!
+
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+type EventLocation {
+  title: String
+  address: String
+  radius: String
+  geo: EventLocationGeo
+  _id: MongoID
+}
+
+type EventLocationGeo {
+  lat: Float
+  lon: Float
+  _id: MongoID
+}
+
+type EventOrganizer {
+  email: String
+  name: String
+  mailto: String
+  sentBy: String
+  _id: MongoID
+}
+
+"""
+List of items with pagination.
+"""
+type EventPagination {
+  """
+  Total object count.
+  """
+  count: Int
+
+  """
+  Array of objects.
+  """
+  items: [Event!]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PaginationInfo!
+}
+
+type EventRepeating {
+  freq: EnumEventRepeatingFreq
+  count: Float
+  interval: Float
+  until: Date
+  byDay: [EnumEventRepeatingByDay]
+  byMonth: [Float]
+  byMonthDay: [Float]
+  bySetPos: [Float]
+  exclude: [Date]
+  startOfWeek: EnumEventRepeatingStartOfWeek
+  _id: MongoID
+}
+
+type EventX {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+type Group {
+  calendar: MongoID
+  name: String
+  photo: Buffer
+  members: [MongoID]
+  resources: [MongoID]
+  is_project: Boolean
+  _id: MongoID!
+  Calendar: Calendar
+  Users(limit: Int = 100, sort: SortFindByIdsUserInput): [User!]!
+  Resources(limit: Int = 100, sort: SortFindByIdsResourceInput): [Resource!]!
+}
+
+"""
+A connection to a list of items.
+"""
+type GroupConnection {
+  """
+  Total object count.
+  """
+  count: Int!
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  Information to aid in pagination.
+  """
+  edges: [GroupEdge!]!
+}
+
+"""
+An edge in a connection.
+"""
+type GroupEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Group!
+
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+"""
+List of items with pagination.
+"""
+type GroupPagination {
+  """
+  Total object count.
+  """
+  count: Int
+
+  """
+  Array of objects.
+  """
+  items: [Group!]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PaginationInfo!
+}
+
+type Notification {
+  title: String
+  body: String
+  date: Date
+  _id: MongoID!
+  created_at: Date
+  updatedAt: Date
+}
+
+"""
+A connection to a list of items.
+"""
+type NotificationConnection {
+  """
+  Total object count.
+  """
+  count: Int!
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  Information to aid in pagination.
+  """
+  edges: [NotificationEdge!]!
+}
+
+"""
+An edge in a connection.
+"""
+type NotificationEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Notification!
+
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+"""
+List of items with pagination.
+"""
+type NotificationPagination {
+  """
+  Total object count.
+  """
+  count: Int
+
+  """
+  Array of objects.
+  """
+  items: [Notification!]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PaginationInfo!
+}
+
+"""
+Information about pagination in a connection.
+"""
+type PageInfo {
+  """
+  When paginating forwards, are there more items?
+  """
+  hasNextPage: Boolean!
+
+  """
+  When paginating backwards, are there more items?
+  """
+  hasPreviousPage: Boolean!
+
+  """
+  When paginating backwards, the cursor to continue.
+  """
+  startCursor: String
+
+  """
+  When paginating forwards, the cursor to continue.
+  """
+  endCursor: String
+}
+
+type PaginationInfo {
+  currentPage: Int!
+  perPage: Int!
+  pageCount: Int
+  itemCount: Int
+  hasNextPage: Boolean
+  hasPreviousPage: Boolean
+}
+
+type Pomodoro {
+  study_time: Float
+  remaining_study_time: Float
+  rest_time: Float
+  remaining_rest_time: Float
+  repetition: Float
+  remaining_repetition: Float
+  is_studying_time: Boolean
+  is_over: Boolean
+  journals: [MongoID]
+  event: MongoID
+  _id: MongoID!
+  Event: Event
+}
+
+"""
+A connection to a list of items.
+"""
+type PomodoroConnection {
+  """
+  Total object count.
+  """
+  count: Int!
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  Information to aid in pagination.
+  """
+  edges: [PomodoroEdge!]!
+}
+
+"""
+An edge in a connection.
+"""
+type PomodoroEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Pomodoro!
+
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+"""
+List of items with pagination.
+"""
+type PomodoroPagination {
+  """
+  Total object count.
+  """
+  count: Int
+
+  """
+  Array of objects.
+  """
+  items: [Pomodoro!]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PaginationInfo!
+}
+
+type Project {
+  pm_id: MongoID
+  members: [MongoID]
+  todos: [MongoID]
+  group_id: MongoID
+  _id: MongoID!
+  Pm: User
+  Members(limit: Int = 100, sort: SortFindByIdsUserInput): [User!]!
+  Group: Group
+}
+
+"""
+A connection to a list of items.
+"""
+type ProjectConnection {
+  """
+  Total object count.
+  """
+  count: Int!
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  Information to aid in pagination.
+  """
+  edges: [ProjectEdge!]!
+}
+
+"""
+An edge in a connection.
+"""
+type ProjectEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Project!
+
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+"""
+List of items with pagination.
+"""
+type ProjectPagination {
+  """
+  Total object count.
+  """
+  count: Int
+
+  """
+  Array of objects.
+  """
+  items: [Project!]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PaginationInfo!
+}
+
+type RemoveByIdAlarmPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Removed document
+  """
+  record: Alarm
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveByIdCalendarPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Removed document
+  """
+  record: Calendar
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveByIdEventPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Removed document
+  """
+  record: Event
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveByIdGroupPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Removed document
+  """
+  record: Group
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveByIdNotificationPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Removed document
+  """
+  record: Notification
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveByIdPomodoroPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Removed document
+  """
+  record: Pomodoro
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveByIdProjectPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Removed document
+  """
+  record: Project
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveByIdResourcePayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Removed document
+  """
+  record: Resource
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveByIdUserPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Removed document
+  """
+  record: User
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveManyAlarmPayload {
+  """
+  Affected documents number
+  """
+  numAffected: Int
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveManyCalendarPayload {
+  """
+  Affected documents number
+  """
+  numAffected: Int
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveManyEventPayload {
+  """
+  Affected documents number
+  """
+  numAffected: Int
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveManyGroupPayload {
+  """
+  Affected documents number
+  """
+  numAffected: Int
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveManyNotificationPayload {
+  """
+  Affected documents number
+  """
+  numAffected: Int
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveManyPomodoroPayload {
+  """
+  Affected documents number
+  """
+  numAffected: Int
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveManyProjectPayload {
+  """
+  Affected documents number
+  """
+  numAffected: Int
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveManyResourcePayload {
+  """
+  Affected documents number
+  """
+  numAffected: Int
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveManyUserPayload {
+  """
+  Affected documents number
+  """
+  numAffected: Int
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveOneAlarmPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Removed document
+  """
+  record: Alarm
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveOneCalendarPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Removed document
+  """
+  record: Calendar
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveOneEventPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Removed document
+  """
+  record: Event
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveOneGroupPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Removed document
+  """
+  record: Group
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveOneNotificationPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Removed document
+  """
+  record: Notification
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveOnePomodoroPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Removed document
+  """
+  record: Pomodoro
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveOneProjectPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Removed document
+  """
+  record: Project
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveOneResourcePayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Removed document
+  """
+  record: Resource
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveOneUserPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Removed document
+  """
+  record: User
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type Resource {
+  nickname: String
+  description: String
+  location: String
+  geo_location: String
+  photo: Buffer
+  calendar: MongoID
+  owners: [MongoID]
+  freebusy: MongoID
+  journals: [MongoID]
+  timezone: MongoID
+  _id: MongoID!
+  Calendar: Calendar
+  Owners(limit: Int = 100, sort: SortFindByIdsUserInput): [User!]!
+}
+
+"""
+A connection to a list of items.
+"""
+type ResourceConnection {
+  """
+  Total object count.
+  """
+  count: Int!
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  Information to aid in pagination.
+  """
+  edges: [ResourceEdge!]!
+}
+
+"""
+An edge in a connection.
+"""
+type ResourceEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Resource!
+
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+"""
+List of items with pagination.
+"""
+type ResourcePagination {
+  """
+  Total object count.
+  """
+  count: Int
+
+  """
+  Array of objects.
+  """
+  items: [Resource!]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PaginationInfo!
+}
+
+type UpdateByIdAlarmPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Updated document
+  """
+  record: Alarm
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateByIdCalendarPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Updated document
+  """
+  record: Calendar
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateByIdEventPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Updated document
+  """
+  record: Event
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateByIdGroupPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Updated document
+  """
+  record: Group
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateByIdNotificationPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Updated document
+  """
+  record: Notification
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateByIdPomodoroPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Updated document
+  """
+  record: Pomodoro
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateByIdProjectPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Updated document
+  """
+  record: Project
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateByIdResourcePayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Updated document
+  """
+  record: Resource
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateByIdUserPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Updated document
+  """
+  record: User
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateManyAlarmPayload {
+  """
+  Affected documents number
+  """
+  numAffected: Int
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateManyCalendarPayload {
+  """
+  Affected documents number
+  """
+  numAffected: Int
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateManyEventPayload {
+  """
+  Affected documents number
+  """
+  numAffected: Int
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateManyGroupPayload {
+  """
+  Affected documents number
+  """
+  numAffected: Int
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateManyNotificationPayload {
+  """
+  Affected documents number
+  """
+  numAffected: Int
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateManyPomodoroPayload {
+  """
+  Affected documents number
+  """
+  numAffected: Int
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateManyProjectPayload {
+  """
+  Affected documents number
+  """
+  numAffected: Int
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateManyResourcePayload {
+  """
+  Affected documents number
+  """
+  numAffected: Int
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateManyUserPayload {
+  """
+  Affected documents number
+  """
+  numAffected: Int
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateOneAlarmPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Updated document
+  """
+  record: Alarm
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateOneCalendarPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Updated document
+  """
+  record: Calendar
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateOneEventPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Updated document
+  """
+  record: Event
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateOneGroupPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Updated document
+  """
+  record: Group
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateOneNotificationPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Updated document
+  """
+  record: Notification
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateOnePomodoroPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Updated document
+  """
+  record: Pomodoro
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateOneProjectPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Updated document
+  """
+  record: Project
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateOneResourcePayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Updated document
+  """
+  record: Resource
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateOneUserPayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Updated document
+  """
+  record: User
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type User {
+  nickname: String!
+  email: String!
+  name: String
+  surname: String
+  birthday: Date
+  residence: String
+  photo: Buffer
+  roles: EnumUserRoles
+  owned_resources: [MongoID] @requiresScope(scopes: ["read:user"])
+  freebusy: MongoID
+  timezone: MongoID
+  journals: [MongoID]
+  todos: [MongoID]
+  alarms: [MongoID]
+  pomodoros: [MongoID]
+  notifications: [MongoID]
+  pomodoro_tolerance_time: Float
+  groups: [MongoID]
+  private_calendar: MongoID
+  public_calendar: MongoID
+  projects: [MongoID]
+  _id: MongoID!
+  OwnedResources(
+    limit: Int = 100
+    sort: SortFindByIdsResourceInput
+  ): [Resource!]!
+  Alarms(limit: Int = 100, sort: SortFindByIdsAlarmInput): [Alarm!]!
+  Pomodoros(limit: Int = 100, sort: SortFindByIdsPomodoroInput): [Pomodoro!]!
+    @requiresScopes(scopes: ["read:user"])
+  Notifications(
+    limit: Int = 100
+    sort: SortFindByIdsNotificationInput
+  ): [Notification!]!
+  Groups(limit: Int = 100, sort: SortFindByIdsGroupInput): [Group!]!
+  PrivateCalendar(
+    limit: Int = 100
+    sort: SortFindByIdsCalendarInput
+  ): [Calendar!]!
+  PublicCalendar(
+    limit: Int = 100
+    sort: SortFindByIdsCalendarInput
+  ): [Calendar!]!
+  Projects(limit: Int = 100, sort: SortFindByIdsProjectInput): [Project!]!
+}
+
+"""
+A connection to a list of items.
+"""
+type UserConnection {
+  """
+  Total object count.
+  """
+  count: Int!
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  Information to aid in pagination.
+  """
+  edges: [UserEdge!]!
+}
+
+"""
+An edge in a connection.
+"""
+type UserEdge {
+  """
+  The item at the end of the edge
+  """
+  node: User!
+
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+"""
+List of items with pagination.
+"""
+type UserPagination {
+  """
+  Total object count.
+  """
+  count: Int
+
+  """
+  Array of objects.
+  """
+  items: [User!]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PaginationInfo!
+}
+
+input AlarmAttachInput {
+  uri: String
+  mime: String
+  _id: MongoID
+}
+
+input AlarmRepeatInput {
+  times: Float
+  interval: Float
+  _id: MongoID
+}
+
+input AlarmXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+input CalendarXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+"""
+"""
+input CreateManyAlarmInput {
+  type: EnumAlarmType!
+  trigger: String!
+  relatesTo: EnumAlarmRelatesTo
+  repeat: AlarmRepeatInput
+  interval: Float
+  attach: AlarmAttachInput
+  description: String
+  summary: String
+  attendees: [MongoID]
+  x: [AlarmXInput]
+}
+
+"""
+"""
+input CreateManyCalendarInput {
+  prodId: String!
+  method: EnumCalendarMethod
+  name: String
+  description: String
+  timezone: String
+  source: String
+  url: String
+  scale: String
+  ttl: Float
+  events: [MongoID]
+  x: [CalendarXInput]
+}
+
+"""
+"""
+input CreateManyEventInput {
+  sequence: Float!
+  start: String!
+  end: String
+  recurrenceId: String
+  timezone: String
+  stamp: String!
+  allDay: Boolean!
+  floating: Boolean!
+  summary: String!
+  priority: Float
+  url: String
+  attachments: [String]!
+  created: String
+  lastModified: String
+  location: EventLocationInput
+  repeating: EventRepeatingInput
+  description: EventDescriptionInput
+  organizer: EventOrganizerInput
+  attendees: [MongoID]
+  alarms: [MongoID]
+  categories: [EventCategoriesInput]!
+  status: EnumEventStatus
+  busystatus: EnumEventBusystatus
+  transparency: EnumEventTransparency
+  pomodoro: MongoID
+  x: [EventXInput]
+}
+
+"""
+"""
+input CreateManyGroupInput {
+  calendar: MongoID
+  name: String
+  photo: Buffer
+  members: [MongoID]
+  resources: [MongoID]
+  is_project: Boolean
+}
+
+"""
+"""
+input CreateManyNotificationInput {
+  title: String
+  body: String
+  date: Date
+  created_at: Date
+  updatedAt: Date
+}
+
+"""
+"""
+input CreateManyPomodoroInput {
+  study_time: Float
+  remaining_study_time: Float
+  rest_time: Float
+  remaining_rest_time: Float
+  repetition: Float
+  remaining_repetition: Float
+  is_studying_time: Boolean
+  is_over: Boolean
+  journals: [MongoID]
+  event: MongoID
+}
+
+"""
+"""
+input CreateManyProjectInput {
+  pm_id: MongoID
+  members: [MongoID]
+  todos: [MongoID]
+  group_id: MongoID
+}
+
+"""
+"""
+input CreateManyResourceInput {
+  nickname: String
+  description: String
+  location: String
+  geo_location: String
+  photo: Buffer
+  calendar: MongoID
+  owners: [MongoID]
+  freebusy: MongoID
+  journals: [MongoID]
+  timezone: MongoID
+}
+
+"""
+"""
+input CreateManyUserInput {
+  nickname: String!
+  email: String!
+  name: String
+  surname: String
+  birthday: Date
+  residence: String
+  photo: Buffer
+  roles: EnumUserRoles
+  owned_resources: [MongoID]
+  freebusy: MongoID
+  timezone: MongoID
+  journals: [MongoID]
+  todos: [MongoID]
+  alarms: [MongoID]
+  pomodoros: [MongoID]
+  notifications: [MongoID]
+  pomodoro_tolerance_time: Float
+  groups: [MongoID]
+  private_calendar: MongoID
+  public_calendar: MongoID
+  projects: [MongoID]
+}
+
+"""
+"""
+input CreateOneAlarmInput {
+  type: EnumAlarmType!
+  trigger: String!
+  relatesTo: EnumAlarmRelatesTo
+  repeat: AlarmRepeatInput
+  interval: Float
+  attach: AlarmAttachInput
+  description: String
+  summary: String
+  attendees: [MongoID]
+  x: [AlarmXInput]
+}
+
+"""
+"""
+input CreateOneCalendarInput {
+  prodId: String!
+  method: EnumCalendarMethod
+  name: String
+  description: String
+  timezone: String
+  source: String
+  url: String
+  scale: String
+  ttl: Float
+  events: [MongoID]
+  x: [CalendarXInput]
+}
+
+"""
+"""
+input CreateOneEventInput {
+  sequence: Float!
+  start: String!
+  end: String
+  recurrenceId: String
+  timezone: String
+  stamp: String!
+  allDay: Boolean!
+  floating: Boolean!
+  summary: String!
+  priority: Float
+  url: String
+  attachments: [String]!
+  created: String
+  lastModified: String
+  location: EventLocationInput
+  repeating: EventRepeatingInput
+  description: EventDescriptionInput
+  organizer: EventOrganizerInput
+  attendees: [MongoID]
+  alarms: [MongoID]
+  categories: [EventCategoriesInput]!
+  status: EnumEventStatus
+  busystatus: EnumEventBusystatus
+  transparency: EnumEventTransparency
+  pomodoro: MongoID
+  x: [EventXInput]
+}
+
+"""
+"""
+input CreateOneGroupInput {
+  calendar: MongoID
+  name: String
+  photo: Buffer
+  members: [MongoID]
+  resources: [MongoID]
+  is_project: Boolean
+}
+
+"""
+"""
+input CreateOneNotificationInput {
+  title: String
+  body: String
+  date: Date
+  created_at: Date
+  updatedAt: Date
+}
+
+"""
+"""
+input CreateOnePomodoroInput {
+  study_time: Float
+  remaining_study_time: Float
+  rest_time: Float
+  remaining_rest_time: Float
+  repetition: Float
+  remaining_repetition: Float
+  is_studying_time: Boolean
+  is_over: Boolean
+  journals: [MongoID]
+  event: MongoID
+}
+
+"""
+"""
+input CreateOneProjectInput {
+  pm_id: MongoID
+  members: [MongoID]
+  todos: [MongoID]
+  group_id: MongoID
+}
+
+"""
+"""
+input CreateOneResourceInput {
+  nickname: String
+  description: String
+  location: String
+  geo_location: String
+  photo: Buffer
+  calendar: MongoID
+  owners: [MongoID]
+  freebusy: MongoID
+  journals: [MongoID]
+  timezone: MongoID
+}
+
+"""
+"""
+input CreateOneUserInput {
+  nickname: String!
+  email: String!
+  name: String
+  surname: String
+  birthday: Date
+  residence: String
+  photo: Buffer
+  roles: EnumUserRoles
+  owned_resources: [MongoID]
+  freebusy: MongoID
+  timezone: MongoID
+  journals: [MongoID]
+  todos: [MongoID]
+  alarms: [MongoID]
+  pomodoros: [MongoID]
+  notifications: [MongoID]
+  pomodoro_tolerance_time: Float
+  groups: [MongoID]
+  private_calendar: MongoID
+  public_calendar: MongoID
+  projects: [MongoID]
+}
+
+input EventCategoriesInput {
+  name: String
+  _id: MongoID
+}
+
+input EventDescriptionInput {
+  plain: String
+  html: String
+  _id: MongoID
+}
+
+input EventLocationGeoInput {
+  lat: Float
+  lon: Float
+  _id: MongoID
+}
+
+input EventLocationInput {
+  title: String
+  address: String
+  radius: String
+  geo: EventLocationGeoInput
+  _id: MongoID
+}
+
+input EventOrganizerInput {
+  email: String
+  name: String
+  mailto: String
+  sentBy: String
+  _id: MongoID
+}
+
+input EventRepeatingInput {
+  freq: EnumEventRepeatingFreq
+  count: Float
+  interval: Float
+  until: Date
+  byDay: [EnumEventRepeatingByDay]
+  byMonth: [Float]
+  byMonthDay: [Float]
+  bySetPos: [Float]
+  exclude: [Date]
+  startOfWeek: EnumEventRepeatingStartOfWeek
+  _id: MongoID
+}
+
+input EventXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+input FilterCountAlarm_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterCountAlarmAttachInput {
+  uri: String
+  mime: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterCountAlarmInput {
+  type: EnumAlarmType
+  trigger: String
+  relatesTo: EnumAlarmRelatesTo
+  repeat: FilterCountAlarmRepeatInput
+  interval: Float
+  attach: FilterCountAlarmAttachInput
+  description: String
+  summary: String
+  attendees: [MongoID]
+  x: [FilterCountAlarmXInput]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterCountAlarmOperatorsInput
+  OR: [FilterCountAlarmInput!]
+  AND: [FilterCountAlarmInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterCountAlarmOperatorsInput {
+  _id: FilterCountAlarm_idOperatorsInput
+}
+
+"""
+"""
+input FilterCountAlarmRepeatInput {
+  times: Float
+  interval: Float
+  _id: MongoID
+}
+
+"""
+"""
+input FilterCountAlarmXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+input FilterCountCalendar_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterCountCalendarInput {
+  prodId: String
+  method: EnumCalendarMethod
+  name: String
+  description: String
+  timezone: String
+  source: String
+  url: String
+  scale: String
+  ttl: Float
+  events: [MongoID]
+  x: [FilterCountCalendarXInput]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterCountCalendarOperatorsInput
+  OR: [FilterCountCalendarInput!]
+  AND: [FilterCountCalendarInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterCountCalendarOperatorsInput {
+  _id: FilterCountCalendar_idOperatorsInput
+}
+
+"""
+"""
+input FilterCountCalendarXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+input FilterCountEvent_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterCountEventCategoriesInput {
+  name: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterCountEventDescriptionInput {
+  plain: String
+  html: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterCountEventInput {
+  sequence: Float
+  start: String
+  end: String
+  recurrenceId: String
+  timezone: String
+  stamp: String
+  allDay: Boolean
+  floating: Boolean
+  summary: String
+  priority: Float
+  url: String
+  attachments: [String]
+  created: String
+  lastModified: String
+  location: FilterCountEventLocationInput
+  repeating: FilterCountEventRepeatingInput
+  description: FilterCountEventDescriptionInput
+  organizer: FilterCountEventOrganizerInput
+  attendees: [MongoID]
+  alarms: [MongoID]
+  categories: [FilterCountEventCategoriesInput]
+  status: EnumEventStatus
+  busystatus: EnumEventBusystatus
+  transparency: EnumEventTransparency
+  pomodoro: MongoID
+  x: [FilterCountEventXInput]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterCountEventOperatorsInput
+  OR: [FilterCountEventInput!]
+  AND: [FilterCountEventInput!]
+}
+
+"""
+"""
+input FilterCountEventLocationGeoInput {
+  lat: Float
+  lon: Float
+  _id: MongoID
+}
+
+"""
+"""
+input FilterCountEventLocationInput {
+  title: String
+  address: String
+  radius: String
+  geo: FilterCountEventLocationGeoInput
+  _id: MongoID
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterCountEventOperatorsInput {
+  _id: FilterCountEvent_idOperatorsInput
+}
+
+"""
+"""
+input FilterCountEventOrganizerInput {
+  email: String
+  name: String
+  mailto: String
+  sentBy: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterCountEventRepeatingInput {
+  freq: EnumEventRepeatingFreq
+  count: Float
+  interval: Float
+  until: Date
+  byDay: [EnumEventRepeatingByDay]
+  byMonth: [Float]
+  byMonthDay: [Float]
+  bySetPos: [Float]
+  exclude: [Date]
+  startOfWeek: EnumEventRepeatingStartOfWeek
+  _id: MongoID
+}
+
+"""
+"""
+input FilterCountEventXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+input FilterCountGroup_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterCountGroupInput {
+  calendar: MongoID
+  name: String
+  photo: Buffer
+  members: [MongoID]
+  resources: [MongoID]
+  is_project: Boolean
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterCountGroupOperatorsInput
+  OR: [FilterCountGroupInput!]
+  AND: [FilterCountGroupInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterCountGroupOperatorsInput {
+  _id: FilterCountGroup_idOperatorsInput
+}
+
+input FilterCountNotification_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterCountNotificationInput {
+  title: String
+  body: String
+  date: Date
+  _id: MongoID
+  created_at: Date
+  updatedAt: Date
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterCountNotificationOperatorsInput
+  OR: [FilterCountNotificationInput!]
+  AND: [FilterCountNotificationInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterCountNotificationOperatorsInput {
+  _id: FilterCountNotification_idOperatorsInput
+}
+
+input FilterCountPomodoro_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterCountPomodoroInput {
+  study_time: Float
+  remaining_study_time: Float
+  rest_time: Float
+  remaining_rest_time: Float
+  repetition: Float
+  remaining_repetition: Float
+  is_studying_time: Boolean
+  is_over: Boolean
+  journals: [MongoID]
+  event: MongoID
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterCountPomodoroOperatorsInput
+  OR: [FilterCountPomodoroInput!]
+  AND: [FilterCountPomodoroInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterCountPomodoroOperatorsInput {
+  _id: FilterCountPomodoro_idOperatorsInput
+}
+
+input FilterCountProject_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterCountProjectInput {
+  pm_id: MongoID
+  members: [MongoID]
+  todos: [MongoID]
+  group_id: MongoID
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterCountProjectOperatorsInput
+  OR: [FilterCountProjectInput!]
+  AND: [FilterCountProjectInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterCountProjectOperatorsInput {
+  _id: FilterCountProject_idOperatorsInput
+}
+
+input FilterCountResource_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterCountResourceInput {
+  nickname: String
+  description: String
+  location: String
+  geo_location: String
+  photo: Buffer
+  calendar: MongoID
+  owners: [MongoID]
+  freebusy: MongoID
+  journals: [MongoID]
+  timezone: MongoID
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterCountResourceOperatorsInput
+  OR: [FilterCountResourceInput!]
+  AND: [FilterCountResourceInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterCountResourceOperatorsInput {
+  _id: FilterCountResource_idOperatorsInput
+}
+
+input FilterCountUser_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+input FilterCountUserEmailOperatorsInput {
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  ne: String
+  in: [String]
+  nin: [String]
+  regex: RegExpAsString
+  exists: Boolean
+}
+
+"""
+"""
+input FilterCountUserInput {
+  nickname: String
+  email: String
+  name: String
+  surname: String
+  birthday: Date
+  residence: String
+  photo: Buffer
+  roles: EnumUserRoles
+  owned_resources: [MongoID]
+  freebusy: MongoID
+  timezone: MongoID
+  journals: [MongoID]
+  todos: [MongoID]
+  alarms: [MongoID]
+  pomodoros: [MongoID]
+  notifications: [MongoID]
+  pomodoro_tolerance_time: Float
+  groups: [MongoID]
+  private_calendar: MongoID
+  public_calendar: MongoID
+  projects: [MongoID]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterCountUserOperatorsInput
+  OR: [FilterCountUserInput!]
+  AND: [FilterCountUserInput!]
+}
+
+input FilterCountUserNicknameOperatorsInput {
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  ne: String
+  in: [String]
+  nin: [String]
+  regex: RegExpAsString
+  exists: Boolean
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterCountUserOperatorsInput {
+  nickname: FilterCountUserNicknameOperatorsInput
+  email: FilterCountUserEmailOperatorsInput
+  _id: FilterCountUser_idOperatorsInput
+}
+
+input FilterFindManyAlarm_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterFindManyAlarmAttachInput {
+  uri: String
+  mime: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterFindManyAlarmInput {
+  type: EnumAlarmType
+  trigger: String
+  relatesTo: EnumAlarmRelatesTo
+  repeat: FilterFindManyAlarmRepeatInput
+  interval: Float
+  attach: FilterFindManyAlarmAttachInput
+  description: String
+  summary: String
+  attendees: [MongoID]
+  x: [FilterFindManyAlarmXInput]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterFindManyAlarmOperatorsInput
+  OR: [FilterFindManyAlarmInput!]
+  AND: [FilterFindManyAlarmInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterFindManyAlarmOperatorsInput {
+  _id: FilterFindManyAlarm_idOperatorsInput
+}
+
+"""
+"""
+input FilterFindManyAlarmRepeatInput {
+  times: Float
+  interval: Float
+  _id: MongoID
+}
+
+"""
+"""
+input FilterFindManyAlarmXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+input FilterFindManyCalendar_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterFindManyCalendarInput {
+  prodId: String
+  method: EnumCalendarMethod
+  name: String
+  description: String
+  timezone: String
+  source: String
+  url: String
+  scale: String
+  ttl: Float
+  events: [MongoID]
+  x: [FilterFindManyCalendarXInput]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterFindManyCalendarOperatorsInput
+  OR: [FilterFindManyCalendarInput!]
+  AND: [FilterFindManyCalendarInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterFindManyCalendarOperatorsInput {
+  _id: FilterFindManyCalendar_idOperatorsInput
+}
+
+"""
+"""
+input FilterFindManyCalendarXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+input FilterFindManyEvent_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterFindManyEventCategoriesInput {
+  name: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterFindManyEventDescriptionInput {
+  plain: String
+  html: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterFindManyEventInput {
+  sequence: Float
+  start: String
+  end: String
+  recurrenceId: String
+  timezone: String
+  stamp: String
+  allDay: Boolean
+  floating: Boolean
+  summary: String
+  priority: Float
+  url: String
+  attachments: [String]
+  created: String
+  lastModified: String
+  location: FilterFindManyEventLocationInput
+  repeating: FilterFindManyEventRepeatingInput
+  description: FilterFindManyEventDescriptionInput
+  organizer: FilterFindManyEventOrganizerInput
+  attendees: [MongoID]
+  alarms: [MongoID]
+  categories: [FilterFindManyEventCategoriesInput]
+  status: EnumEventStatus
+  busystatus: EnumEventBusystatus
+  transparency: EnumEventTransparency
+  pomodoro: MongoID
+  x: [FilterFindManyEventXInput]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterFindManyEventOperatorsInput
+  OR: [FilterFindManyEventInput!]
+  AND: [FilterFindManyEventInput!]
+}
+
+"""
+"""
+input FilterFindManyEventLocationGeoInput {
+  lat: Float
+  lon: Float
+  _id: MongoID
+}
+
+"""
+"""
+input FilterFindManyEventLocationInput {
+  title: String
+  address: String
+  radius: String
+  geo: FilterFindManyEventLocationGeoInput
+  _id: MongoID
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterFindManyEventOperatorsInput {
+  _id: FilterFindManyEvent_idOperatorsInput
+}
+
+"""
+"""
+input FilterFindManyEventOrganizerInput {
+  email: String
+  name: String
+  mailto: String
+  sentBy: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterFindManyEventRepeatingInput {
+  freq: EnumEventRepeatingFreq
+  count: Float
+  interval: Float
+  until: Date
+  byDay: [EnumEventRepeatingByDay]
+  byMonth: [Float]
+  byMonthDay: [Float]
+  bySetPos: [Float]
+  exclude: [Date]
+  startOfWeek: EnumEventRepeatingStartOfWeek
+  _id: MongoID
+}
+
+"""
+"""
+input FilterFindManyEventXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+input FilterFindManyGroup_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterFindManyGroupInput {
+  calendar: MongoID
+  name: String
+  photo: Buffer
+  members: [MongoID]
+  resources: [MongoID]
+  is_project: Boolean
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterFindManyGroupOperatorsInput
+  OR: [FilterFindManyGroupInput!]
+  AND: [FilterFindManyGroupInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterFindManyGroupOperatorsInput {
+  _id: FilterFindManyGroup_idOperatorsInput
+}
+
+input FilterFindManyNotification_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterFindManyNotificationInput {
+  title: String
+  body: String
+  date: Date
+  _id: MongoID
+  created_at: Date
+  updatedAt: Date
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterFindManyNotificationOperatorsInput
+  OR: [FilterFindManyNotificationInput!]
+  AND: [FilterFindManyNotificationInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterFindManyNotificationOperatorsInput {
+  _id: FilterFindManyNotification_idOperatorsInput
+}
+
+input FilterFindManyPomodoro_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterFindManyPomodoroInput {
+  study_time: Float
+  remaining_study_time: Float
+  rest_time: Float
+  remaining_rest_time: Float
+  repetition: Float
+  remaining_repetition: Float
+  is_studying_time: Boolean
+  is_over: Boolean
+  journals: [MongoID]
+  event: MongoID
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterFindManyPomodoroOperatorsInput
+  OR: [FilterFindManyPomodoroInput!]
+  AND: [FilterFindManyPomodoroInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterFindManyPomodoroOperatorsInput {
+  _id: FilterFindManyPomodoro_idOperatorsInput
+}
+
+input FilterFindManyProject_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterFindManyProjectInput {
+  pm_id: MongoID
+  members: [MongoID]
+  todos: [MongoID]
+  group_id: MongoID
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterFindManyProjectOperatorsInput
+  OR: [FilterFindManyProjectInput!]
+  AND: [FilterFindManyProjectInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterFindManyProjectOperatorsInput {
+  _id: FilterFindManyProject_idOperatorsInput
+}
+
+input FilterFindManyResource_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterFindManyResourceInput {
+  nickname: String
+  description: String
+  location: String
+  geo_location: String
+  photo: Buffer
+  calendar: MongoID
+  owners: [MongoID]
+  freebusy: MongoID
+  journals: [MongoID]
+  timezone: MongoID
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterFindManyResourceOperatorsInput
+  OR: [FilterFindManyResourceInput!]
+  AND: [FilterFindManyResourceInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterFindManyResourceOperatorsInput {
+  _id: FilterFindManyResource_idOperatorsInput
+}
+
+input FilterFindManyUser_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+input FilterFindManyUserEmailOperatorsInput {
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  ne: String
+  in: [String]
+  nin: [String]
+  regex: RegExpAsString
+  exists: Boolean
+}
+
+"""
+"""
+input FilterFindManyUserInput {
+  nickname: String
+  email: String
+  name: String
+  surname: String
+  birthday: Date
+  residence: String
+  photo: Buffer
+  roles: EnumUserRoles
+  owned_resources: [MongoID]
+  freebusy: MongoID
+  timezone: MongoID
+  journals: [MongoID]
+  todos: [MongoID]
+  alarms: [MongoID]
+  pomodoros: [MongoID]
+  notifications: [MongoID]
+  pomodoro_tolerance_time: Float
+  groups: [MongoID]
+  private_calendar: MongoID
+  public_calendar: MongoID
+  projects: [MongoID]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterFindManyUserOperatorsInput
+  OR: [FilterFindManyUserInput!]
+  AND: [FilterFindManyUserInput!]
+}
+
+input FilterFindManyUserNicknameOperatorsInput {
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  ne: String
+  in: [String]
+  nin: [String]
+  regex: RegExpAsString
+  exists: Boolean
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterFindManyUserOperatorsInput {
+  nickname: FilterFindManyUserNicknameOperatorsInput
+  email: FilterFindManyUserEmailOperatorsInput
+  _id: FilterFindManyUser_idOperatorsInput
+}
+
+input FilterFindOneAlarm_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterFindOneAlarmAttachInput {
+  uri: String
+  mime: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterFindOneAlarmInput {
+  type: EnumAlarmType
+  trigger: String
+  relatesTo: EnumAlarmRelatesTo
+  repeat: FilterFindOneAlarmRepeatInput
+  interval: Float
+  attach: FilterFindOneAlarmAttachInput
+  description: String
+  summary: String
+  attendees: [MongoID]
+  x: [FilterFindOneAlarmXInput]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterFindOneAlarmOperatorsInput
+  OR: [FilterFindOneAlarmInput!]
+  AND: [FilterFindOneAlarmInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterFindOneAlarmOperatorsInput {
+  _id: FilterFindOneAlarm_idOperatorsInput
+}
+
+"""
+"""
+input FilterFindOneAlarmRepeatInput {
+  times: Float
+  interval: Float
+  _id: MongoID
+}
+
+"""
+"""
+input FilterFindOneAlarmXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+input FilterFindOneCalendar_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterFindOneCalendarInput {
+  prodId: String
+  method: EnumCalendarMethod
+  name: String
+  description: String
+  timezone: String
+  source: String
+  url: String
+  scale: String
+  ttl: Float
+  events: [MongoID]
+  x: [FilterFindOneCalendarXInput]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterFindOneCalendarOperatorsInput
+  OR: [FilterFindOneCalendarInput!]
+  AND: [FilterFindOneCalendarInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterFindOneCalendarOperatorsInput {
+  _id: FilterFindOneCalendar_idOperatorsInput
+}
+
+"""
+"""
+input FilterFindOneCalendarXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+input FilterFindOneEvent_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterFindOneEventCategoriesInput {
+  name: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterFindOneEventDescriptionInput {
+  plain: String
+  html: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterFindOneEventInput {
+  sequence: Float
+  start: String
+  end: String
+  recurrenceId: String
+  timezone: String
+  stamp: String
+  allDay: Boolean
+  floating: Boolean
+  summary: String
+  priority: Float
+  url: String
+  attachments: [String]
+  created: String
+  lastModified: String
+  location: FilterFindOneEventLocationInput
+  repeating: FilterFindOneEventRepeatingInput
+  description: FilterFindOneEventDescriptionInput
+  organizer: FilterFindOneEventOrganizerInput
+  attendees: [MongoID]
+  alarms: [MongoID]
+  categories: [FilterFindOneEventCategoriesInput]
+  status: EnumEventStatus
+  busystatus: EnumEventBusystatus
+  transparency: EnumEventTransparency
+  pomodoro: MongoID
+  x: [FilterFindOneEventXInput]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterFindOneEventOperatorsInput
+  OR: [FilterFindOneEventInput!]
+  AND: [FilterFindOneEventInput!]
+}
+
+"""
+"""
+input FilterFindOneEventLocationGeoInput {
+  lat: Float
+  lon: Float
+  _id: MongoID
+}
+
+"""
+"""
+input FilterFindOneEventLocationInput {
+  title: String
+  address: String
+  radius: String
+  geo: FilterFindOneEventLocationGeoInput
+  _id: MongoID
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterFindOneEventOperatorsInput {
+  _id: FilterFindOneEvent_idOperatorsInput
+}
+
+"""
+"""
+input FilterFindOneEventOrganizerInput {
+  email: String
+  name: String
+  mailto: String
+  sentBy: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterFindOneEventRepeatingInput {
+  freq: EnumEventRepeatingFreq
+  count: Float
+  interval: Float
+  until: Date
+  byDay: [EnumEventRepeatingByDay]
+  byMonth: [Float]
+  byMonthDay: [Float]
+  bySetPos: [Float]
+  exclude: [Date]
+  startOfWeek: EnumEventRepeatingStartOfWeek
+  _id: MongoID
+}
+
+"""
+"""
+input FilterFindOneEventXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+input FilterFindOneGroup_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterFindOneGroupInput {
+  calendar: MongoID
+  name: String
+  photo: Buffer
+  members: [MongoID]
+  resources: [MongoID]
+  is_project: Boolean
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterFindOneGroupOperatorsInput
+  OR: [FilterFindOneGroupInput!]
+  AND: [FilterFindOneGroupInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterFindOneGroupOperatorsInput {
+  _id: FilterFindOneGroup_idOperatorsInput
+}
+
+input FilterFindOneNotification_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterFindOneNotificationInput {
+  title: String
+  body: String
+  date: Date
+  _id: MongoID
+  created_at: Date
+  updatedAt: Date
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterFindOneNotificationOperatorsInput
+  OR: [FilterFindOneNotificationInput!]
+  AND: [FilterFindOneNotificationInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterFindOneNotificationOperatorsInput {
+  _id: FilterFindOneNotification_idOperatorsInput
+}
+
+input FilterFindOnePomodoro_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterFindOnePomodoroInput {
+  study_time: Float
+  remaining_study_time: Float
+  rest_time: Float
+  remaining_rest_time: Float
+  repetition: Float
+  remaining_repetition: Float
+  is_studying_time: Boolean
+  is_over: Boolean
+  journals: [MongoID]
+  event: MongoID
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterFindOnePomodoroOperatorsInput
+  OR: [FilterFindOnePomodoroInput!]
+  AND: [FilterFindOnePomodoroInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterFindOnePomodoroOperatorsInput {
+  _id: FilterFindOnePomodoro_idOperatorsInput
+}
+
+input FilterFindOneProject_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterFindOneProjectInput {
+  pm_id: MongoID
+  members: [MongoID]
+  todos: [MongoID]
+  group_id: MongoID
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterFindOneProjectOperatorsInput
+  OR: [FilterFindOneProjectInput!]
+  AND: [FilterFindOneProjectInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterFindOneProjectOperatorsInput {
+  _id: FilterFindOneProject_idOperatorsInput
+}
+
+input FilterFindOneResource_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterFindOneResourceInput {
+  nickname: String
+  description: String
+  location: String
+  geo_location: String
+  photo: Buffer
+  calendar: MongoID
+  owners: [MongoID]
+  freebusy: MongoID
+  journals: [MongoID]
+  timezone: MongoID
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterFindOneResourceOperatorsInput
+  OR: [FilterFindOneResourceInput!]
+  AND: [FilterFindOneResourceInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterFindOneResourceOperatorsInput {
+  _id: FilterFindOneResource_idOperatorsInput
+}
+
+input FilterFindOneUser_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+input FilterFindOneUserEmailOperatorsInput {
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  ne: String
+  in: [String]
+  nin: [String]
+  regex: RegExpAsString
+  exists: Boolean
+}
+
+"""
+"""
+input FilterFindOneUserInput {
+  nickname: String
+  email: String
+  name: String
+  surname: String
+  birthday: Date
+  residence: String
+  photo: Buffer
+  roles: EnumUserRoles
+  owned_resources: [MongoID]
+  freebusy: MongoID
+  timezone: MongoID
+  journals: [MongoID]
+  todos: [MongoID]
+  alarms: [MongoID]
+  pomodoros: [MongoID]
+  notifications: [MongoID]
+  pomodoro_tolerance_time: Float
+  groups: [MongoID]
+  private_calendar: MongoID
+  public_calendar: MongoID
+  projects: [MongoID]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterFindOneUserOperatorsInput
+  OR: [FilterFindOneUserInput!]
+  AND: [FilterFindOneUserInput!]
+}
+
+input FilterFindOneUserNicknameOperatorsInput {
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  ne: String
+  in: [String]
+  nin: [String]
+  regex: RegExpAsString
+  exists: Boolean
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterFindOneUserOperatorsInput {
+  nickname: FilterFindOneUserNicknameOperatorsInput
+  email: FilterFindOneUserEmailOperatorsInput
+  _id: FilterFindOneUser_idOperatorsInput
+}
+
+input FilterRemoveManyAlarm_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterRemoveManyAlarmAttachInput {
+  uri: String
+  mime: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterRemoveManyAlarmInput {
+  type: EnumAlarmType
+  trigger: String
+  relatesTo: EnumAlarmRelatesTo
+  repeat: FilterRemoveManyAlarmRepeatInput
+  interval: Float
+  attach: FilterRemoveManyAlarmAttachInput
+  description: String
+  summary: String
+  attendees: [MongoID]
+  x: [FilterRemoveManyAlarmXInput]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterRemoveManyAlarmOperatorsInput
+  OR: [FilterRemoveManyAlarmInput!]
+  AND: [FilterRemoveManyAlarmInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterRemoveManyAlarmOperatorsInput {
+  _id: FilterRemoveManyAlarm_idOperatorsInput
+}
+
+"""
+"""
+input FilterRemoveManyAlarmRepeatInput {
+  times: Float
+  interval: Float
+  _id: MongoID
+}
+
+"""
+"""
+input FilterRemoveManyAlarmXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+input FilterRemoveManyCalendar_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterRemoveManyCalendarInput {
+  prodId: String
+  method: EnumCalendarMethod
+  name: String
+  description: String
+  timezone: String
+  source: String
+  url: String
+  scale: String
+  ttl: Float
+  events: [MongoID]
+  x: [FilterRemoveManyCalendarXInput]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterRemoveManyCalendarOperatorsInput
+  OR: [FilterRemoveManyCalendarInput!]
+  AND: [FilterRemoveManyCalendarInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterRemoveManyCalendarOperatorsInput {
+  _id: FilterRemoveManyCalendar_idOperatorsInput
+}
+
+"""
+"""
+input FilterRemoveManyCalendarXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+input FilterRemoveManyEvent_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterRemoveManyEventCategoriesInput {
+  name: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterRemoveManyEventDescriptionInput {
+  plain: String
+  html: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterRemoveManyEventInput {
+  sequence: Float
+  start: String
+  end: String
+  recurrenceId: String
+  timezone: String
+  stamp: String
+  allDay: Boolean
+  floating: Boolean
+  summary: String
+  priority: Float
+  url: String
+  attachments: [String]
+  created: String
+  lastModified: String
+  location: FilterRemoveManyEventLocationInput
+  repeating: FilterRemoveManyEventRepeatingInput
+  description: FilterRemoveManyEventDescriptionInput
+  organizer: FilterRemoveManyEventOrganizerInput
+  attendees: [MongoID]
+  alarms: [MongoID]
+  categories: [FilterRemoveManyEventCategoriesInput]
+  status: EnumEventStatus
+  busystatus: EnumEventBusystatus
+  transparency: EnumEventTransparency
+  pomodoro: MongoID
+  x: [FilterRemoveManyEventXInput]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterRemoveManyEventOperatorsInput
+  OR: [FilterRemoveManyEventInput!]
+  AND: [FilterRemoveManyEventInput!]
+}
+
+"""
+"""
+input FilterRemoveManyEventLocationGeoInput {
+  lat: Float
+  lon: Float
+  _id: MongoID
+}
+
+"""
+"""
+input FilterRemoveManyEventLocationInput {
+  title: String
+  address: String
+  radius: String
+  geo: FilterRemoveManyEventLocationGeoInput
+  _id: MongoID
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterRemoveManyEventOperatorsInput {
+  _id: FilterRemoveManyEvent_idOperatorsInput
+}
+
+"""
+"""
+input FilterRemoveManyEventOrganizerInput {
+  email: String
+  name: String
+  mailto: String
+  sentBy: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterRemoveManyEventRepeatingInput {
+  freq: EnumEventRepeatingFreq
+  count: Float
+  interval: Float
+  until: Date
+  byDay: [EnumEventRepeatingByDay]
+  byMonth: [Float]
+  byMonthDay: [Float]
+  bySetPos: [Float]
+  exclude: [Date]
+  startOfWeek: EnumEventRepeatingStartOfWeek
+  _id: MongoID
+}
+
+"""
+"""
+input FilterRemoveManyEventXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+input FilterRemoveManyGroup_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterRemoveManyGroupInput {
+  calendar: MongoID
+  name: String
+  photo: Buffer
+  members: [MongoID]
+  resources: [MongoID]
+  is_project: Boolean
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterRemoveManyGroupOperatorsInput
+  OR: [FilterRemoveManyGroupInput!]
+  AND: [FilterRemoveManyGroupInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterRemoveManyGroupOperatorsInput {
+  _id: FilterRemoveManyGroup_idOperatorsInput
+}
+
+input FilterRemoveManyNotification_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterRemoveManyNotificationInput {
+  title: String
+  body: String
+  date: Date
+  _id: MongoID
+  created_at: Date
+  updatedAt: Date
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterRemoveManyNotificationOperatorsInput
+  OR: [FilterRemoveManyNotificationInput!]
+  AND: [FilterRemoveManyNotificationInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterRemoveManyNotificationOperatorsInput {
+  _id: FilterRemoveManyNotification_idOperatorsInput
+}
+
+input FilterRemoveManyPomodoro_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterRemoveManyPomodoroInput {
+  study_time: Float
+  remaining_study_time: Float
+  rest_time: Float
+  remaining_rest_time: Float
+  repetition: Float
+  remaining_repetition: Float
+  is_studying_time: Boolean
+  is_over: Boolean
+  journals: [MongoID]
+  event: MongoID
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterRemoveManyPomodoroOperatorsInput
+  OR: [FilterRemoveManyPomodoroInput!]
+  AND: [FilterRemoveManyPomodoroInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterRemoveManyPomodoroOperatorsInput {
+  _id: FilterRemoveManyPomodoro_idOperatorsInput
+}
+
+input FilterRemoveManyProject_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterRemoveManyProjectInput {
+  pm_id: MongoID
+  members: [MongoID]
+  todos: [MongoID]
+  group_id: MongoID
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterRemoveManyProjectOperatorsInput
+  OR: [FilterRemoveManyProjectInput!]
+  AND: [FilterRemoveManyProjectInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterRemoveManyProjectOperatorsInput {
+  _id: FilterRemoveManyProject_idOperatorsInput
+}
+
+input FilterRemoveManyResource_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterRemoveManyResourceInput {
+  nickname: String
+  description: String
+  location: String
+  geo_location: String
+  photo: Buffer
+  calendar: MongoID
+  owners: [MongoID]
+  freebusy: MongoID
+  journals: [MongoID]
+  timezone: MongoID
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterRemoveManyResourceOperatorsInput
+  OR: [FilterRemoveManyResourceInput!]
+  AND: [FilterRemoveManyResourceInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterRemoveManyResourceOperatorsInput {
+  _id: FilterRemoveManyResource_idOperatorsInput
+}
+
+input FilterRemoveManyUser_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+input FilterRemoveManyUserEmailOperatorsInput {
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  ne: String
+  in: [String]
+  nin: [String]
+  regex: RegExpAsString
+  exists: Boolean
+}
+
+"""
+"""
+input FilterRemoveManyUserInput {
+  nickname: String
+  email: String
+  name: String
+  surname: String
+  birthday: Date
+  residence: String
+  photo: Buffer
+  roles: EnumUserRoles
+  owned_resources: [MongoID]
+  freebusy: MongoID
+  timezone: MongoID
+  journals: [MongoID]
+  todos: [MongoID]
+  alarms: [MongoID]
+  pomodoros: [MongoID]
+  notifications: [MongoID]
+  pomodoro_tolerance_time: Float
+  groups: [MongoID]
+  private_calendar: MongoID
+  public_calendar: MongoID
+  projects: [MongoID]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterRemoveManyUserOperatorsInput
+  OR: [FilterRemoveManyUserInput!]
+  AND: [FilterRemoveManyUserInput!]
+}
+
+input FilterRemoveManyUserNicknameOperatorsInput {
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  ne: String
+  in: [String]
+  nin: [String]
+  regex: RegExpAsString
+  exists: Boolean
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterRemoveManyUserOperatorsInput {
+  nickname: FilterRemoveManyUserNicknameOperatorsInput
+  email: FilterRemoveManyUserEmailOperatorsInput
+  _id: FilterRemoveManyUser_idOperatorsInput
+}
+
+input FilterRemoveOneAlarm_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterRemoveOneAlarmAttachInput {
+  uri: String
+  mime: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterRemoveOneAlarmInput {
+  type: EnumAlarmType
+  trigger: String
+  relatesTo: EnumAlarmRelatesTo
+  repeat: FilterRemoveOneAlarmRepeatInput
+  interval: Float
+  attach: FilterRemoveOneAlarmAttachInput
+  description: String
+  summary: String
+  attendees: [MongoID]
+  x: [FilterRemoveOneAlarmXInput]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterRemoveOneAlarmOperatorsInput
+  OR: [FilterRemoveOneAlarmInput!]
+  AND: [FilterRemoveOneAlarmInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterRemoveOneAlarmOperatorsInput {
+  _id: FilterRemoveOneAlarm_idOperatorsInput
+}
+
+"""
+"""
+input FilterRemoveOneAlarmRepeatInput {
+  times: Float
+  interval: Float
+  _id: MongoID
+}
+
+"""
+"""
+input FilterRemoveOneAlarmXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+input FilterRemoveOneCalendar_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterRemoveOneCalendarInput {
+  prodId: String
+  method: EnumCalendarMethod
+  name: String
+  description: String
+  timezone: String
+  source: String
+  url: String
+  scale: String
+  ttl: Float
+  events: [MongoID]
+  x: [FilterRemoveOneCalendarXInput]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterRemoveOneCalendarOperatorsInput
+  OR: [FilterRemoveOneCalendarInput!]
+  AND: [FilterRemoveOneCalendarInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterRemoveOneCalendarOperatorsInput {
+  _id: FilterRemoveOneCalendar_idOperatorsInput
+}
+
+"""
+"""
+input FilterRemoveOneCalendarXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+input FilterRemoveOneEvent_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterRemoveOneEventCategoriesInput {
+  name: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterRemoveOneEventDescriptionInput {
+  plain: String
+  html: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterRemoveOneEventInput {
+  sequence: Float
+  start: String
+  end: String
+  recurrenceId: String
+  timezone: String
+  stamp: String
+  allDay: Boolean
+  floating: Boolean
+  summary: String
+  priority: Float
+  url: String
+  attachments: [String]
+  created: String
+  lastModified: String
+  location: FilterRemoveOneEventLocationInput
+  repeating: FilterRemoveOneEventRepeatingInput
+  description: FilterRemoveOneEventDescriptionInput
+  organizer: FilterRemoveOneEventOrganizerInput
+  attendees: [MongoID]
+  alarms: [MongoID]
+  categories: [FilterRemoveOneEventCategoriesInput]
+  status: EnumEventStatus
+  busystatus: EnumEventBusystatus
+  transparency: EnumEventTransparency
+  pomodoro: MongoID
+  x: [FilterRemoveOneEventXInput]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterRemoveOneEventOperatorsInput
+  OR: [FilterRemoveOneEventInput!]
+  AND: [FilterRemoveOneEventInput!]
+}
+
+"""
+"""
+input FilterRemoveOneEventLocationGeoInput {
+  lat: Float
+  lon: Float
+  _id: MongoID
+}
+
+"""
+"""
+input FilterRemoveOneEventLocationInput {
+  title: String
+  address: String
+  radius: String
+  geo: FilterRemoveOneEventLocationGeoInput
+  _id: MongoID
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterRemoveOneEventOperatorsInput {
+  _id: FilterRemoveOneEvent_idOperatorsInput
+}
+
+"""
+"""
+input FilterRemoveOneEventOrganizerInput {
+  email: String
+  name: String
+  mailto: String
+  sentBy: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterRemoveOneEventRepeatingInput {
+  freq: EnumEventRepeatingFreq
+  count: Float
+  interval: Float
+  until: Date
+  byDay: [EnumEventRepeatingByDay]
+  byMonth: [Float]
+  byMonthDay: [Float]
+  bySetPos: [Float]
+  exclude: [Date]
+  startOfWeek: EnumEventRepeatingStartOfWeek
+  _id: MongoID
+}
+
+"""
+"""
+input FilterRemoveOneEventXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+input FilterRemoveOneGroup_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterRemoveOneGroupInput {
+  calendar: MongoID
+  name: String
+  photo: Buffer
+  members: [MongoID]
+  resources: [MongoID]
+  is_project: Boolean
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterRemoveOneGroupOperatorsInput
+  OR: [FilterRemoveOneGroupInput!]
+  AND: [FilterRemoveOneGroupInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterRemoveOneGroupOperatorsInput {
+  _id: FilterRemoveOneGroup_idOperatorsInput
+}
+
+input FilterRemoveOneNotification_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterRemoveOneNotificationInput {
+  title: String
+  body: String
+  date: Date
+  _id: MongoID
+  created_at: Date
+  updatedAt: Date
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterRemoveOneNotificationOperatorsInput
+  OR: [FilterRemoveOneNotificationInput!]
+  AND: [FilterRemoveOneNotificationInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterRemoveOneNotificationOperatorsInput {
+  _id: FilterRemoveOneNotification_idOperatorsInput
+}
+
+input FilterRemoveOnePomodoro_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterRemoveOnePomodoroInput {
+  study_time: Float
+  remaining_study_time: Float
+  rest_time: Float
+  remaining_rest_time: Float
+  repetition: Float
+  remaining_repetition: Float
+  is_studying_time: Boolean
+  is_over: Boolean
+  journals: [MongoID]
+  event: MongoID
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterRemoveOnePomodoroOperatorsInput
+  OR: [FilterRemoveOnePomodoroInput!]
+  AND: [FilterRemoveOnePomodoroInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterRemoveOnePomodoroOperatorsInput {
+  _id: FilterRemoveOnePomodoro_idOperatorsInput
+}
+
+input FilterRemoveOneProject_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterRemoveOneProjectInput {
+  pm_id: MongoID
+  members: [MongoID]
+  todos: [MongoID]
+  group_id: MongoID
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterRemoveOneProjectOperatorsInput
+  OR: [FilterRemoveOneProjectInput!]
+  AND: [FilterRemoveOneProjectInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterRemoveOneProjectOperatorsInput {
+  _id: FilterRemoveOneProject_idOperatorsInput
+}
+
+input FilterRemoveOneResource_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterRemoveOneResourceInput {
+  nickname: String
+  description: String
+  location: String
+  geo_location: String
+  photo: Buffer
+  calendar: MongoID
+  owners: [MongoID]
+  freebusy: MongoID
+  journals: [MongoID]
+  timezone: MongoID
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterRemoveOneResourceOperatorsInput
+  OR: [FilterRemoveOneResourceInput!]
+  AND: [FilterRemoveOneResourceInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterRemoveOneResourceOperatorsInput {
+  _id: FilterRemoveOneResource_idOperatorsInput
+}
+
+input FilterRemoveOneUser_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+input FilterRemoveOneUserEmailOperatorsInput {
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  ne: String
+  in: [String]
+  nin: [String]
+  regex: RegExpAsString
+  exists: Boolean
+}
+
+"""
+"""
+input FilterRemoveOneUserInput {
+  nickname: String
+  email: String
+  name: String
+  surname: String
+  birthday: Date
+  residence: String
+  photo: Buffer
+  roles: EnumUserRoles
+  owned_resources: [MongoID]
+  freebusy: MongoID
+  timezone: MongoID
+  journals: [MongoID]
+  todos: [MongoID]
+  alarms: [MongoID]
+  pomodoros: [MongoID]
+  notifications: [MongoID]
+  pomodoro_tolerance_time: Float
+  groups: [MongoID]
+  private_calendar: MongoID
+  public_calendar: MongoID
+  projects: [MongoID]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterRemoveOneUserOperatorsInput
+  OR: [FilterRemoveOneUserInput!]
+  AND: [FilterRemoveOneUserInput!]
+}
+
+input FilterRemoveOneUserNicknameOperatorsInput {
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  ne: String
+  in: [String]
+  nin: [String]
+  regex: RegExpAsString
+  exists: Boolean
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterRemoveOneUserOperatorsInput {
+  nickname: FilterRemoveOneUserNicknameOperatorsInput
+  email: FilterRemoveOneUserEmailOperatorsInput
+  _id: FilterRemoveOneUser_idOperatorsInput
+}
+
+input FilterUpdateManyAlarm_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterUpdateManyAlarmAttachInput {
+  uri: String
+  mime: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterUpdateManyAlarmInput {
+  type: EnumAlarmType
+  trigger: String
+  relatesTo: EnumAlarmRelatesTo
+  repeat: FilterUpdateManyAlarmRepeatInput
+  interval: Float
+  attach: FilterUpdateManyAlarmAttachInput
+  description: String
+  summary: String
+  attendees: [MongoID]
+  x: [FilterUpdateManyAlarmXInput]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterUpdateManyAlarmOperatorsInput
+  OR: [FilterUpdateManyAlarmInput!]
+  AND: [FilterUpdateManyAlarmInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterUpdateManyAlarmOperatorsInput {
+  _id: FilterUpdateManyAlarm_idOperatorsInput
+}
+
+"""
+"""
+input FilterUpdateManyAlarmRepeatInput {
+  times: Float
+  interval: Float
+  _id: MongoID
+}
+
+"""
+"""
+input FilterUpdateManyAlarmXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+input FilterUpdateManyCalendar_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterUpdateManyCalendarInput {
+  prodId: String
+  method: EnumCalendarMethod
+  name: String
+  description: String
+  timezone: String
+  source: String
+  url: String
+  scale: String
+  ttl: Float
+  events: [MongoID]
+  x: [FilterUpdateManyCalendarXInput]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterUpdateManyCalendarOperatorsInput
+  OR: [FilterUpdateManyCalendarInput!]
+  AND: [FilterUpdateManyCalendarInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterUpdateManyCalendarOperatorsInput {
+  _id: FilterUpdateManyCalendar_idOperatorsInput
+}
+
+"""
+"""
+input FilterUpdateManyCalendarXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+input FilterUpdateManyEvent_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterUpdateManyEventCategoriesInput {
+  name: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterUpdateManyEventDescriptionInput {
+  plain: String
+  html: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterUpdateManyEventInput {
+  sequence: Float
+  start: String
+  end: String
+  recurrenceId: String
+  timezone: String
+  stamp: String
+  allDay: Boolean
+  floating: Boolean
+  summary: String
+  priority: Float
+  url: String
+  attachments: [String]
+  created: String
+  lastModified: String
+  location: FilterUpdateManyEventLocationInput
+  repeating: FilterUpdateManyEventRepeatingInput
+  description: FilterUpdateManyEventDescriptionInput
+  organizer: FilterUpdateManyEventOrganizerInput
+  attendees: [MongoID]
+  alarms: [MongoID]
+  categories: [FilterUpdateManyEventCategoriesInput]
+  status: EnumEventStatus
+  busystatus: EnumEventBusystatus
+  transparency: EnumEventTransparency
+  pomodoro: MongoID
+  x: [FilterUpdateManyEventXInput]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterUpdateManyEventOperatorsInput
+  OR: [FilterUpdateManyEventInput!]
+  AND: [FilterUpdateManyEventInput!]
+}
+
+"""
+"""
+input FilterUpdateManyEventLocationGeoInput {
+  lat: Float
+  lon: Float
+  _id: MongoID
+}
+
+"""
+"""
+input FilterUpdateManyEventLocationInput {
+  title: String
+  address: String
+  radius: String
+  geo: FilterUpdateManyEventLocationGeoInput
+  _id: MongoID
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterUpdateManyEventOperatorsInput {
+  _id: FilterUpdateManyEvent_idOperatorsInput
+}
+
+"""
+"""
+input FilterUpdateManyEventOrganizerInput {
+  email: String
+  name: String
+  mailto: String
+  sentBy: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterUpdateManyEventRepeatingInput {
+  freq: EnumEventRepeatingFreq
+  count: Float
+  interval: Float
+  until: Date
+  byDay: [EnumEventRepeatingByDay]
+  byMonth: [Float]
+  byMonthDay: [Float]
+  bySetPos: [Float]
+  exclude: [Date]
+  startOfWeek: EnumEventRepeatingStartOfWeek
+  _id: MongoID
+}
+
+"""
+"""
+input FilterUpdateManyEventXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+input FilterUpdateManyGroup_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterUpdateManyGroupInput {
+  calendar: MongoID
+  name: String
+  photo: Buffer
+  members: [MongoID]
+  resources: [MongoID]
+  is_project: Boolean
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterUpdateManyGroupOperatorsInput
+  OR: [FilterUpdateManyGroupInput!]
+  AND: [FilterUpdateManyGroupInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterUpdateManyGroupOperatorsInput {
+  _id: FilterUpdateManyGroup_idOperatorsInput
+}
+
+input FilterUpdateManyNotification_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterUpdateManyNotificationInput {
+  title: String
+  body: String
+  date: Date
+  _id: MongoID
+  created_at: Date
+  updatedAt: Date
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterUpdateManyNotificationOperatorsInput
+  OR: [FilterUpdateManyNotificationInput!]
+  AND: [FilterUpdateManyNotificationInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterUpdateManyNotificationOperatorsInput {
+  _id: FilterUpdateManyNotification_idOperatorsInput
+}
+
+input FilterUpdateManyPomodoro_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterUpdateManyPomodoroInput {
+  study_time: Float
+  remaining_study_time: Float
+  rest_time: Float
+  remaining_rest_time: Float
+  repetition: Float
+  remaining_repetition: Float
+  is_studying_time: Boolean
+  is_over: Boolean
+  journals: [MongoID]
+  event: MongoID
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterUpdateManyPomodoroOperatorsInput
+  OR: [FilterUpdateManyPomodoroInput!]
+  AND: [FilterUpdateManyPomodoroInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterUpdateManyPomodoroOperatorsInput {
+  _id: FilterUpdateManyPomodoro_idOperatorsInput
+}
+
+input FilterUpdateManyProject_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterUpdateManyProjectInput {
+  pm_id: MongoID
+  members: [MongoID]
+  todos: [MongoID]
+  group_id: MongoID
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterUpdateManyProjectOperatorsInput
+  OR: [FilterUpdateManyProjectInput!]
+  AND: [FilterUpdateManyProjectInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterUpdateManyProjectOperatorsInput {
+  _id: FilterUpdateManyProject_idOperatorsInput
+}
+
+input FilterUpdateManyResource_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterUpdateManyResourceInput {
+  nickname: String
+  description: String
+  location: String
+  geo_location: String
+  photo: Buffer
+  calendar: MongoID
+  owners: [MongoID]
+  freebusy: MongoID
+  journals: [MongoID]
+  timezone: MongoID
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterUpdateManyResourceOperatorsInput
+  OR: [FilterUpdateManyResourceInput!]
+  AND: [FilterUpdateManyResourceInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterUpdateManyResourceOperatorsInput {
+  _id: FilterUpdateManyResource_idOperatorsInput
+}
+
+input FilterUpdateManyUser_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+input FilterUpdateManyUserEmailOperatorsInput {
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  ne: String
+  in: [String]
+  nin: [String]
+  regex: RegExpAsString
+  exists: Boolean
+}
+
+"""
+"""
+input FilterUpdateManyUserInput {
+  nickname: String
+  email: String
+  name: String
+  surname: String
+  birthday: Date
+  residence: String
+  photo: Buffer
+  roles: EnumUserRoles
+  owned_resources: [MongoID]
+  freebusy: MongoID
+  timezone: MongoID
+  journals: [MongoID]
+  todos: [MongoID]
+  alarms: [MongoID]
+  pomodoros: [MongoID]
+  notifications: [MongoID]
+  pomodoro_tolerance_time: Float
+  groups: [MongoID]
+  private_calendar: MongoID
+  public_calendar: MongoID
+  projects: [MongoID]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterUpdateManyUserOperatorsInput
+  OR: [FilterUpdateManyUserInput!]
+  AND: [FilterUpdateManyUserInput!]
+}
+
+input FilterUpdateManyUserNicknameOperatorsInput {
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  ne: String
+  in: [String]
+  nin: [String]
+  regex: RegExpAsString
+  exists: Boolean
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterUpdateManyUserOperatorsInput {
+  nickname: FilterUpdateManyUserNicknameOperatorsInput
+  email: FilterUpdateManyUserEmailOperatorsInput
+  _id: FilterUpdateManyUser_idOperatorsInput
+}
+
+input FilterUpdateOneAlarm_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterUpdateOneAlarmAttachInput {
+  uri: String
+  mime: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterUpdateOneAlarmInput {
+  type: EnumAlarmType
+  trigger: String
+  relatesTo: EnumAlarmRelatesTo
+  repeat: FilterUpdateOneAlarmRepeatInput
+  interval: Float
+  attach: FilterUpdateOneAlarmAttachInput
+  description: String
+  summary: String
+  attendees: [MongoID]
+  x: [FilterUpdateOneAlarmXInput]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterUpdateOneAlarmOperatorsInput
+  OR: [FilterUpdateOneAlarmInput!]
+  AND: [FilterUpdateOneAlarmInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterUpdateOneAlarmOperatorsInput {
+  _id: FilterUpdateOneAlarm_idOperatorsInput
+}
+
+"""
+"""
+input FilterUpdateOneAlarmRepeatInput {
+  times: Float
+  interval: Float
+  _id: MongoID
+}
+
+"""
+"""
+input FilterUpdateOneAlarmXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+input FilterUpdateOneCalendar_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterUpdateOneCalendarInput {
+  prodId: String
+  method: EnumCalendarMethod
+  name: String
+  description: String
+  timezone: String
+  source: String
+  url: String
+  scale: String
+  ttl: Float
+  events: [MongoID]
+  x: [FilterUpdateOneCalendarXInput]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterUpdateOneCalendarOperatorsInput
+  OR: [FilterUpdateOneCalendarInput!]
+  AND: [FilterUpdateOneCalendarInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterUpdateOneCalendarOperatorsInput {
+  _id: FilterUpdateOneCalendar_idOperatorsInput
+}
+
+"""
+"""
+input FilterUpdateOneCalendarXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+input FilterUpdateOneEvent_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterUpdateOneEventCategoriesInput {
+  name: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterUpdateOneEventDescriptionInput {
+  plain: String
+  html: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterUpdateOneEventInput {
+  sequence: Float
+  start: String
+  end: String
+  recurrenceId: String
+  timezone: String
+  stamp: String
+  allDay: Boolean
+  floating: Boolean
+  summary: String
+  priority: Float
+  url: String
+  attachments: [String]
+  created: String
+  lastModified: String
+  location: FilterUpdateOneEventLocationInput
+  repeating: FilterUpdateOneEventRepeatingInput
+  description: FilterUpdateOneEventDescriptionInput
+  organizer: FilterUpdateOneEventOrganizerInput
+  attendees: [MongoID]
+  alarms: [MongoID]
+  categories: [FilterUpdateOneEventCategoriesInput]
+  status: EnumEventStatus
+  busystatus: EnumEventBusystatus
+  transparency: EnumEventTransparency
+  pomodoro: MongoID
+  x: [FilterUpdateOneEventXInput]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterUpdateOneEventOperatorsInput
+  OR: [FilterUpdateOneEventInput!]
+  AND: [FilterUpdateOneEventInput!]
+}
+
+"""
+"""
+input FilterUpdateOneEventLocationGeoInput {
+  lat: Float
+  lon: Float
+  _id: MongoID
+}
+
+"""
+"""
+input FilterUpdateOneEventLocationInput {
+  title: String
+  address: String
+  radius: String
+  geo: FilterUpdateOneEventLocationGeoInput
+  _id: MongoID
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterUpdateOneEventOperatorsInput {
+  _id: FilterUpdateOneEvent_idOperatorsInput
+}
+
+"""
+"""
+input FilterUpdateOneEventOrganizerInput {
+  email: String
+  name: String
+  mailto: String
+  sentBy: String
+  _id: MongoID
+}
+
+"""
+"""
+input FilterUpdateOneEventRepeatingInput {
+  freq: EnumEventRepeatingFreq
+  count: Float
+  interval: Float
+  until: Date
+  byDay: [EnumEventRepeatingByDay]
+  byMonth: [Float]
+  byMonthDay: [Float]
+  bySetPos: [Float]
+  exclude: [Date]
+  startOfWeek: EnumEventRepeatingStartOfWeek
+  _id: MongoID
+}
+
+"""
+"""
+input FilterUpdateOneEventXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+input FilterUpdateOneGroup_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterUpdateOneGroupInput {
+  calendar: MongoID
+  name: String
+  photo: Buffer
+  members: [MongoID]
+  resources: [MongoID]
+  is_project: Boolean
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterUpdateOneGroupOperatorsInput
+  OR: [FilterUpdateOneGroupInput!]
+  AND: [FilterUpdateOneGroupInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterUpdateOneGroupOperatorsInput {
+  _id: FilterUpdateOneGroup_idOperatorsInput
+}
+
+input FilterUpdateOneNotification_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterUpdateOneNotificationInput {
+  title: String
+  body: String
+  date: Date
+  _id: MongoID
+  created_at: Date
+  updatedAt: Date
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterUpdateOneNotificationOperatorsInput
+  OR: [FilterUpdateOneNotificationInput!]
+  AND: [FilterUpdateOneNotificationInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterUpdateOneNotificationOperatorsInput {
+  _id: FilterUpdateOneNotification_idOperatorsInput
+}
+
+input FilterUpdateOnePomodoro_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterUpdateOnePomodoroInput {
+  study_time: Float
+  remaining_study_time: Float
+  rest_time: Float
+  remaining_rest_time: Float
+  repetition: Float
+  remaining_repetition: Float
+  is_studying_time: Boolean
+  is_over: Boolean
+  journals: [MongoID]
+  event: MongoID
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterUpdateOnePomodoroOperatorsInput
+  OR: [FilterUpdateOnePomodoroInput!]
+  AND: [FilterUpdateOnePomodoroInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterUpdateOnePomodoroOperatorsInput {
+  _id: FilterUpdateOnePomodoro_idOperatorsInput
+}
+
+input FilterUpdateOneProject_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterUpdateOneProjectInput {
+  pm_id: MongoID
+  members: [MongoID]
+  todos: [MongoID]
+  group_id: MongoID
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterUpdateOneProjectOperatorsInput
+  OR: [FilterUpdateOneProjectInput!]
+  AND: [FilterUpdateOneProjectInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterUpdateOneProjectOperatorsInput {
+  _id: FilterUpdateOneProject_idOperatorsInput
+}
+
+input FilterUpdateOneResource_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterUpdateOneResourceInput {
+  nickname: String
+  description: String
+  location: String
+  geo_location: String
+  photo: Buffer
+  calendar: MongoID
+  owners: [MongoID]
+  freebusy: MongoID
+  journals: [MongoID]
+  timezone: MongoID
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterUpdateOneResourceOperatorsInput
+  OR: [FilterUpdateOneResourceInput!]
+  AND: [FilterUpdateOneResourceInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterUpdateOneResourceOperatorsInput {
+  _id: FilterUpdateOneResource_idOperatorsInput
+}
+
+input FilterUpdateOneUser_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+input FilterUpdateOneUserEmailOperatorsInput {
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  ne: String
+  in: [String]
+  nin: [String]
+  regex: RegExpAsString
+  exists: Boolean
+}
+
+"""
+"""
+input FilterUpdateOneUserInput {
+  nickname: String
+  email: String
+  name: String
+  surname: String
+  birthday: Date
+  residence: String
+  photo: Buffer
+  roles: EnumUserRoles
+  owned_resources: [MongoID]
+  freebusy: MongoID
+  timezone: MongoID
+  journals: [MongoID]
+  todos: [MongoID]
+  alarms: [MongoID]
+  pomodoros: [MongoID]
+  notifications: [MongoID]
+  pomodoro_tolerance_time: Float
+  groups: [MongoID]
+  private_calendar: MongoID
+  public_calendar: MongoID
+  projects: [MongoID]
+  _id: MongoID
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterUpdateOneUserOperatorsInput
+  OR: [FilterUpdateOneUserInput!]
+  AND: [FilterUpdateOneUserInput!]
+}
+
+input FilterUpdateOneUserNicknameOperatorsInput {
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  ne: String
+  in: [String]
+  nin: [String]
+  regex: RegExpAsString
+  exists: Boolean
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterUpdateOneUserOperatorsInput {
+  nickname: FilterUpdateOneUserNicknameOperatorsInput
+  email: FilterUpdateOneUserEmailOperatorsInput
+  _id: FilterUpdateOneUser_idOperatorsInput
+}
+
+"""
+"""
+input UpdateByIdAlarmAttachInput {
+  uri: String
+  mime: String
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateByIdAlarmInput {
+  type: EnumAlarmType
+  trigger: String
+  relatesTo: EnumAlarmRelatesTo
+  repeat: UpdateByIdAlarmRepeatInput
+  interval: Float
+  attach: UpdateByIdAlarmAttachInput
+  description: String
+  summary: String
+  attendees: [MongoID]
+  x: [UpdateByIdAlarmXInput]
+}
+
+"""
+"""
+input UpdateByIdAlarmRepeatInput {
+  times: Float
+  interval: Float
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateByIdAlarmXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateByIdCalendarInput {
+  prodId: String
+  method: EnumCalendarMethod
+  name: String
+  description: String
+  timezone: String
+  source: String
+  url: String
+  scale: String
+  ttl: Float
+  events: [MongoID]
+  x: [UpdateByIdCalendarXInput]
+}
+
+"""
+"""
+input UpdateByIdCalendarXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateByIdEventCategoriesInput {
+  name: String
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateByIdEventDescriptionInput {
+  plain: String
+  html: String
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateByIdEventInput {
+  sequence: Float
+  start: String
+  end: String
+  recurrenceId: String
+  timezone: String
+  stamp: String
+  allDay: Boolean
+  floating: Boolean
+  summary: String
+  priority: Float
+  url: String
+  attachments: [String]
+  created: String
+  lastModified: String
+  location: UpdateByIdEventLocationInput
+  repeating: UpdateByIdEventRepeatingInput
+  description: UpdateByIdEventDescriptionInput
+  organizer: UpdateByIdEventOrganizerInput
+  attendees: [MongoID]
+  alarms: [MongoID]
+  categories: [UpdateByIdEventCategoriesInput]
+  status: EnumEventStatus
+  busystatus: EnumEventBusystatus
+  transparency: EnumEventTransparency
+  pomodoro: MongoID
+  x: [UpdateByIdEventXInput]
+}
+
+"""
+"""
+input UpdateByIdEventLocationGeoInput {
+  lat: Float
+  lon: Float
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateByIdEventLocationInput {
+  title: String
+  address: String
+  radius: String
+  geo: UpdateByIdEventLocationGeoInput
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateByIdEventOrganizerInput {
+  email: String
+  name: String
+  mailto: String
+  sentBy: String
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateByIdEventRepeatingInput {
+  freq: EnumEventRepeatingFreq
+  count: Float
+  interval: Float
+  until: Date
+  byDay: [EnumEventRepeatingByDay]
+  byMonth: [Float]
+  byMonthDay: [Float]
+  bySetPos: [Float]
+  exclude: [Date]
+  startOfWeek: EnumEventRepeatingStartOfWeek
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateByIdEventXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateByIdGroupInput {
+  calendar: MongoID
+  name: String
+  photo: Buffer
+  members: [MongoID]
+  resources: [MongoID]
+  is_project: Boolean
+}
+
+"""
+"""
+input UpdateByIdNotificationInput {
+  title: String
+  body: String
+  date: Date
+  created_at: Date
+  updatedAt: Date
+}
+
+"""
+"""
+input UpdateByIdPomodoroInput {
+  study_time: Float
+  remaining_study_time: Float
+  rest_time: Float
+  remaining_rest_time: Float
+  repetition: Float
+  remaining_repetition: Float
+  is_studying_time: Boolean
+  is_over: Boolean
+  journals: [MongoID]
+  event: MongoID
+}
+
+"""
+"""
+input UpdateByIdProjectInput {
+  pm_id: MongoID
+  members: [MongoID]
+  todos: [MongoID]
+  group_id: MongoID
+}
+
+"""
+"""
+input UpdateByIdResourceInput {
+  nickname: String
+  description: String
+  location: String
+  geo_location: String
+  photo: Buffer
+  calendar: MongoID
+  owners: [MongoID]
+  freebusy: MongoID
+  journals: [MongoID]
+  timezone: MongoID
+}
+
+"""
+"""
+input UpdateByIdUserInput {
+  nickname: String
+  email: String
+  name: String
+  surname: String
+  birthday: Date
+  residence: String
+  photo: Buffer
+  roles: EnumUserRoles
+  owned_resources: [MongoID]
+  freebusy: MongoID
+  timezone: MongoID
+  journals: [MongoID]
+  todos: [MongoID]
+  alarms: [MongoID]
+  pomodoros: [MongoID]
+  notifications: [MongoID]
+  pomodoro_tolerance_time: Float
+  groups: [MongoID]
+  private_calendar: MongoID
+  public_calendar: MongoID
+  projects: [MongoID]
+}
+
+"""
+"""
+input UpdateManyAlarmAttachInput {
+  uri: String
+  mime: String
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateManyAlarmInput {
+  type: EnumAlarmType
+  trigger: String
+  relatesTo: EnumAlarmRelatesTo
+  repeat: UpdateManyAlarmRepeatInput
+  interval: Float
+  attach: UpdateManyAlarmAttachInput
+  description: String
+  summary: String
+  attendees: [MongoID]
+  x: [UpdateManyAlarmXInput]
+}
+
+"""
+"""
+input UpdateManyAlarmRepeatInput {
+  times: Float
+  interval: Float
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateManyAlarmXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateManyCalendarInput {
+  prodId: String
+  method: EnumCalendarMethod
+  name: String
+  description: String
+  timezone: String
+  source: String
+  url: String
+  scale: String
+  ttl: Float
+  events: [MongoID]
+  x: [UpdateManyCalendarXInput]
+}
+
+"""
+"""
+input UpdateManyCalendarXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateManyEventCategoriesInput {
+  name: String
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateManyEventDescriptionInput {
+  plain: String
+  html: String
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateManyEventInput {
+  sequence: Float
+  start: String
+  end: String
+  recurrenceId: String
+  timezone: String
+  stamp: String
+  allDay: Boolean
+  floating: Boolean
+  summary: String
+  priority: Float
+  url: String
+  attachments: [String]
+  created: String
+  lastModified: String
+  location: UpdateManyEventLocationInput
+  repeating: UpdateManyEventRepeatingInput
+  description: UpdateManyEventDescriptionInput
+  organizer: UpdateManyEventOrganizerInput
+  attendees: [MongoID]
+  alarms: [MongoID]
+  categories: [UpdateManyEventCategoriesInput]
+  status: EnumEventStatus
+  busystatus: EnumEventBusystatus
+  transparency: EnumEventTransparency
+  pomodoro: MongoID
+  x: [UpdateManyEventXInput]
+}
+
+"""
+"""
+input UpdateManyEventLocationGeoInput {
+  lat: Float
+  lon: Float
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateManyEventLocationInput {
+  title: String
+  address: String
+  radius: String
+  geo: UpdateManyEventLocationGeoInput
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateManyEventOrganizerInput {
+  email: String
+  name: String
+  mailto: String
+  sentBy: String
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateManyEventRepeatingInput {
+  freq: EnumEventRepeatingFreq
+  count: Float
+  interval: Float
+  until: Date
+  byDay: [EnumEventRepeatingByDay]
+  byMonth: [Float]
+  byMonthDay: [Float]
+  bySetPos: [Float]
+  exclude: [Date]
+  startOfWeek: EnumEventRepeatingStartOfWeek
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateManyEventXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateManyGroupInput {
+  calendar: MongoID
+  name: String
+  photo: Buffer
+  members: [MongoID]
+  resources: [MongoID]
+  is_project: Boolean
+}
+
+"""
+"""
+input UpdateManyNotificationInput {
+  title: String
+  body: String
+  date: Date
+  created_at: Date
+  updatedAt: Date
+}
+
+"""
+"""
+input UpdateManyPomodoroInput {
+  study_time: Float
+  remaining_study_time: Float
+  rest_time: Float
+  remaining_rest_time: Float
+  repetition: Float
+  remaining_repetition: Float
+  is_studying_time: Boolean
+  is_over: Boolean
+  journals: [MongoID]
+  event: MongoID
+}
+
+"""
+"""
+input UpdateManyProjectInput {
+  pm_id: MongoID
+  members: [MongoID]
+  todos: [MongoID]
+  group_id: MongoID
+}
+
+"""
+"""
+input UpdateManyResourceInput {
+  nickname: String
+  description: String
+  location: String
+  geo_location: String
+  photo: Buffer
+  calendar: MongoID
+  owners: [MongoID]
+  freebusy: MongoID
+  journals: [MongoID]
+  timezone: MongoID
+}
+
+"""
+"""
+input UpdateManyUserInput {
+  nickname: String
+  email: String
+  name: String
+  surname: String
+  birthday: Date
+  residence: String
+  photo: Buffer
+  roles: EnumUserRoles
+  owned_resources: [MongoID]
+  freebusy: MongoID
+  timezone: MongoID
+  journals: [MongoID]
+  todos: [MongoID]
+  alarms: [MongoID]
+  pomodoros: [MongoID]
+  notifications: [MongoID]
+  pomodoro_tolerance_time: Float
+  groups: [MongoID]
+  private_calendar: MongoID
+  public_calendar: MongoID
+  projects: [MongoID]
+}
+
+"""
+"""
+input UpdateOneAlarmAttachInput {
+  uri: String
+  mime: String
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateOneAlarmInput {
+  type: EnumAlarmType
+  trigger: String
+  relatesTo: EnumAlarmRelatesTo
+  repeat: UpdateOneAlarmRepeatInput
+  interval: Float
+  attach: UpdateOneAlarmAttachInput
+  description: String
+  summary: String
+  attendees: [MongoID]
+  x: [UpdateOneAlarmXInput]
+}
+
+"""
+"""
+input UpdateOneAlarmRepeatInput {
+  times: Float
+  interval: Float
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateOneAlarmXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateOneCalendarInput {
+  prodId: String
+  method: EnumCalendarMethod
+  name: String
+  description: String
+  timezone: String
+  source: String
+  url: String
+  scale: String
+  ttl: Float
+  events: [MongoID]
+  x: [UpdateOneCalendarXInput]
+}
+
+"""
+"""
+input UpdateOneCalendarXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateOneEventCategoriesInput {
+  name: String
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateOneEventDescriptionInput {
+  plain: String
+  html: String
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateOneEventInput {
+  sequence: Float
+  start: String
+  end: String
+  recurrenceId: String
+  timezone: String
+  stamp: String
+  allDay: Boolean
+  floating: Boolean
+  summary: String
+  priority: Float
+  url: String
+  attachments: [String]
+  created: String
+  lastModified: String
+  location: UpdateOneEventLocationInput
+  repeating: UpdateOneEventRepeatingInput
+  description: UpdateOneEventDescriptionInput
+  organizer: UpdateOneEventOrganizerInput
+  attendees: [MongoID]
+  alarms: [MongoID]
+  categories: [UpdateOneEventCategoriesInput]
+  status: EnumEventStatus
+  busystatus: EnumEventBusystatus
+  transparency: EnumEventTransparency
+  pomodoro: MongoID
+  x: [UpdateOneEventXInput]
+}
+
+"""
+"""
+input UpdateOneEventLocationGeoInput {
+  lat: Float
+  lon: Float
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateOneEventLocationInput {
+  title: String
+  address: String
+  radius: String
+  geo: UpdateOneEventLocationGeoInput
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateOneEventOrganizerInput {
+  email: String
+  name: String
+  mailto: String
+  sentBy: String
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateOneEventRepeatingInput {
+  freq: EnumEventRepeatingFreq
+  count: Float
+  interval: Float
+  until: Date
+  byDay: [EnumEventRepeatingByDay]
+  byMonth: [Float]
+  byMonthDay: [Float]
+  bySetPos: [Float]
+  exclude: [Date]
+  startOfWeek: EnumEventRepeatingStartOfWeek
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateOneEventXInput {
+  key: String
+  value: String
+  _id: MongoID
+}
+
+"""
+"""
+input UpdateOneGroupInput {
+  calendar: MongoID
+  name: String
+  photo: Buffer
+  members: [MongoID]
+  resources: [MongoID]
+  is_project: Boolean
+}
+
+"""
+"""
+input UpdateOneNotificationInput {
+  title: String
+  body: String
+  date: Date
+  created_at: Date
+  updatedAt: Date
+}
+
+"""
+"""
+input UpdateOnePomodoroInput {
+  study_time: Float
+  remaining_study_time: Float
+  rest_time: Float
+  remaining_rest_time: Float
+  repetition: Float
+  remaining_repetition: Float
+  is_studying_time: Boolean
+  is_over: Boolean
+  journals: [MongoID]
+  event: MongoID
+}
+
+"""
+"""
+input UpdateOneProjectInput {
+  pm_id: MongoID
+  members: [MongoID]
+  todos: [MongoID]
+  group_id: MongoID
+}
+
+"""
+"""
+input UpdateOneResourceInput {
+  nickname: String
+  description: String
+  location: String
+  geo_location: String
+  photo: Buffer
+  calendar: MongoID
+  owners: [MongoID]
+  freebusy: MongoID
+  journals: [MongoID]
+  timezone: MongoID
+}
+
+"""
+"""
+input UpdateOneUserInput {
+  nickname: String
+  email: String
+  name: String
+  surname: String
+  birthday: Date
+  residence: String
+  photo: Buffer
+  roles: EnumUserRoles
+  owned_resources: [MongoID]
+  freebusy: MongoID
+  timezone: MongoID
+  journals: [MongoID]
+  todos: [MongoID]
+  alarms: [MongoID]
+  pomodoros: [MongoID]
+  notifications: [MongoID]
+  pomodoro_tolerance_time: Float
+  groups: [MongoID]
+  private_calendar: MongoID
+  public_calendar: MongoID
+  projects: [MongoID]
+}
