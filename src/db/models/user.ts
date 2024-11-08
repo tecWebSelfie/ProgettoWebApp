@@ -82,6 +82,11 @@ const userSchema = new Schema<IUser>({
   projects: [{ type: Schema.Types.ObjectId, ref: projectModelName }],
 });
 
+//used in auth.ts to check if the user is authenticated
+export const userModel =
+  (mongoose.models[userModelName] as mongoose.Model<IUser>) ||
+  mongoose.model<IUser>(userModelName, userSchema);
+
 export const userTC = finalComposer<IUser>(userModelName, userSchema);
 
 schemaComposer.Query.addFields({
