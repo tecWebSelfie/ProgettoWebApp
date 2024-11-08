@@ -18,7 +18,6 @@ import { graphqlschema as userSchema, userTC } from "./models/user";
 import { graphqlschema as todoSchema, todoTC } from "./models/todo";
 import { graphqlschema as journalSchema, journalTC } from "./models/journal";
 import { graphqlschema as freebusySchema, freebusyTC } from "./models/freebusy";
-import { getMongooseResolvers } from "./models/graphqlComposeUtilities";
 import {
   GraphQLDirective,
   DirectiveLocation,
@@ -413,9 +412,13 @@ schemaComposer.merge(resourceSchema);
 schemaComposer.merge(todoSchema);
 schemaComposer.merge(userSchema);
 
+schemaComposer.Subscription.addFields({
+  pippo: userTC.getResolver("findById"),
+});
+
 fs.writeFileSync(
   path.join(process.cwd(), "schema.graphql"),
   schemaComposer.toSDL(),
 );
 
-export const graphqlschema = schemaComposer.buildSchema();
+export const schema = schemaComposer.buildSchema();
