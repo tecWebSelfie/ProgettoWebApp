@@ -1,6 +1,6 @@
 import { ResolveUserFn, useGenericAuth } from "@envelop/generic-auth";
 import { YogaInitialContext, createYoga } from "graphql-yoga";
-import { graphqlschema } from "../../db/gqlschema";
+import { schema } from "@/db/gqlschema";
 import { User } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { NextAuthRequest } from "next-auth/lib";
@@ -20,7 +20,7 @@ const resolveUserFn: ResolveUserFn<
 };
 
 export const yoga = createYoga({
-  schema: graphqlschema,
+  schema: schema,
   plugins: [
     // eslint-disable-next-line
     useGenericAuth({
