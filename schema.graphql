@@ -1,4 +1,86 @@
+directive @requiresScopes(
+  scopes: [[String!]!]!
+) on FIELD_DEFINITION | OBJECT | INTERFACE
+
 type Query {
+  user_count(
+    """
+    Filter by fields
+    """
+    filter: FilterCountUserInput
+  ): Int
+  user_findById(_id: MongoID!): User
+  user_findByIds(
+    _ids: [MongoID!]!
+    limit: Int = 100
+    sort: SortFindByIdsUserInput
+  ): [User!]!
+  user_findOne(
+    """
+    Filter by fields
+    """
+    filter: FilterFindOneUserInput
+    skip: Int
+    sort: SortFindOneUserInput
+  ): User
+  user_findMany(
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyUserInput
+    skip: Int
+    limit: Int = 100
+    sort: SortFindManyUserInput
+  ): [User!]!
+  user_dataLoader(_id: MongoID!): User
+  user_dataLoaderMany(_ids: [MongoID!]!): [User]!
+  user_pagination(
+    """
+    Page number for displaying
+    """
+    page: Int
+
+    """
+    """
+    perPage: Int = 20
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyUserInput
+    sort: SortFindManyUserInput
+  ): UserPagination
+  user_connection(
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    first: Int
+
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    after: String
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    last: Int
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    before: String
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyUserInput
+
+    """
+    Sort argument for data ordering
+    """
+    sort: SortConnectionUserEnum = _ID_DESC
+  ): UserConnection
   alarm_count(
     """
     Filter by fields
@@ -623,84 +705,6 @@ type Query {
     """
     sort: SortConnectionResourceEnum = _ID_DESC
   ): ResourceConnection
-  user_count(
-    """
-    Filter by fields
-    """
-    filter: FilterCountUserInput
-  ): Int
-  user_findById(_id: MongoID!): User
-  user_findByIds(
-    _ids: [MongoID!]!
-    limit: Int = 100
-    sort: SortFindByIdsUserInput
-  ): [User!]!
-  user_findOne(
-    """
-    Filter by fields
-    """
-    filter: FilterFindOneUserInput
-    skip: Int
-    sort: SortFindOneUserInput
-  ): User
-  user_findMany(
-    """
-    Filter by fields
-    """
-    filter: FilterFindManyUserInput
-    skip: Int
-    limit: Int = 100
-    sort: SortFindManyUserInput
-  ): [User!]!
-  user_dataLoader(_id: MongoID!): User
-  user_dataLoaderMany(_ids: [MongoID!]!): [User]!
-  user_pagination(
-    """
-    Page number for displaying
-    """
-    page: Int
-
-    """
-    """
-    perPage: Int = 20
-
-    """
-    Filter by fields
-    """
-    filter: FilterFindManyUserInput
-    sort: SortFindManyUserInput
-  ): UserPagination
-  user_connection(
-    """
-    Forward pagination argument for returning at most first edges
-    """
-    first: Int
-
-    """
-    Forward pagination argument for returning at most first edges
-    """
-    after: String
-
-    """
-    Backward pagination argument for returning at most last edges
-    """
-    last: Int
-
-    """
-    Backward pagination argument for returning at most last edges
-    """
-    before: String
-
-    """
-    Filter by fields
-    """
-    filter: FilterFindManyUserInput
-
-    """
-    Sort argument for data ordering
-    """
-    sort: SortConnectionUserEnum = _ID_DESC
-  ): UserConnection
   todo_count(
     """
     Filter by fields
@@ -938,6 +942,80 @@ type Query {
 }
 
 type Mutation {
+  """
+  Create one document with mongoose defaults, setters, hooks and validation
+  """
+  user_createOne(record: CreateOneUserInput!): CreateOneUserPayload
+
+  """
+  Creates Many documents with mongoose defaults, setters, hooks and validation
+  """
+  user_createMany(records: [CreateManyUserInput!]!): CreateManyUserPayload
+
+  """
+  Update one document: 1) Retrieve one document by findById. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  user_updateById(
+    _id: MongoID!
+    record: UpdateByIdUserInput!
+  ): UpdateByIdUserPayload
+
+  """
+  Update one document: 1) Retrieve one document via findOne. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  user_updateOne(
+    record: UpdateOneUserInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateOneUserInput
+    sort: SortUpdateOneUserInput
+    skip: Int
+  ): UpdateOneUserPayload
+
+  """
+  Update many documents without returning them: Use Query.update mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  user_updateMany(
+    record: UpdateManyUserInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateManyUserInput
+    sort: SortUpdateManyUserInput
+    skip: Int
+    limit: Int = 100
+  ): UpdateManyUserPayload
+
+  """
+  Remove one document: 1) Retrieve one document and remove with hooks via findByIdAndRemove. 2) Return removed document.
+  """
+  user_removeById(_id: MongoID!): RemoveByIdUserPayload
+
+  """
+  Remove one document: 1) Remove with hooks via findOneAndRemove. 2) Return removed document.
+  """
+  user_removeOne(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveOneUserInput
+    sort: SortRemoveOneUserInput
+  ): RemoveOneUserPayload
+
+  """
+  Remove many documents without returning them: Use Query.remove mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  user_removeMany(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveManyUserInput!
+    limit: Int = 100
+  ): RemoveManyUserPayload
+
   """
   Create one document with mongoose defaults, setters, hooks and validation
   """
@@ -1541,80 +1619,6 @@ type Mutation {
     filter: FilterRemoveManyResourceInput!
     limit: Int = 100
   ): RemoveManyResourcePayload
-
-  """
-  Create one document with mongoose defaults, setters, hooks and validation
-  """
-  user_createOne(record: CreateOneUserInput!): CreateOneUserPayload
-
-  """
-  Creates Many documents with mongoose defaults, setters, hooks and validation
-  """
-  user_createMany(records: [CreateManyUserInput!]!): CreateManyUserPayload
-
-  """
-  Update one document: 1) Retrieve one document by findById. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
-  """
-  user_updateById(
-    _id: MongoID!
-    record: UpdateByIdUserInput!
-  ): UpdateByIdUserPayload
-
-  """
-  Update one document: 1) Retrieve one document via findOne. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
-  """
-  user_updateOne(
-    record: UpdateOneUserInput!
-
-    """
-    Filter by fields
-    """
-    filter: FilterUpdateOneUserInput
-    sort: SortUpdateOneUserInput
-    skip: Int
-  ): UpdateOneUserPayload
-
-  """
-  Update many documents without returning them: Use Query.update mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
-  """
-  user_updateMany(
-    record: UpdateManyUserInput!
-
-    """
-    Filter by fields
-    """
-    filter: FilterUpdateManyUserInput
-    sort: SortUpdateManyUserInput
-    skip: Int
-    limit: Int = 100
-  ): UpdateManyUserPayload
-
-  """
-  Remove one document: 1) Retrieve one document and remove with hooks via findByIdAndRemove. 2) Return removed document.
-  """
-  user_removeById(_id: MongoID!): RemoveByIdUserPayload
-
-  """
-  Remove one document: 1) Remove with hooks via findOneAndRemove. 2) Return removed document.
-  """
-  user_removeOne(
-    """
-    Filter by fields
-    """
-    filter: FilterRemoveOneUserInput
-    sort: SortRemoveOneUserInput
-  ): RemoveOneUserPayload
-
-  """
-  Remove many documents without returning them: Use Query.remove mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
-  """
-  user_removeMany(
-    """
-    Filter by fields
-    """
-    filter: FilterRemoveManyUserInput!
-    limit: Int = 100
-  ): RemoveManyUserPayload
 
   """
   Create one document with mongoose defaults, setters, hooks and validation
@@ -5017,6 +5021,7 @@ type User {
   Todos(limit: Int = 100, sort: SortFindByIdsTodoInput): [Todo!]!
   Alarms(limit: Int = 100, sort: SortFindByIdsAlarmInput): [Alarm!]!
   Pomodoros(limit: Int = 100, sort: SortFindByIdsPomodoroInput): [Pomodoro!]!
+    @requiresScopes(scopes: ["read:user"])
   Notifications(
     limit: Int = 100
     sort: SortFindByIdsNotificationInput
