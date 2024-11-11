@@ -2,12 +2,28 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  gql,
+  split,
+  Operation,
+  HttpLink,
 } from "@apollo/client";
-import { ReactElement } from "react";
+import { sselink } from "../apolloLinks/sseLink";
+import { getMainDefinition } from "@apollo/client/utilities";
+
+const checkIfOperationIsSubscription = ({ query }: Operation) => {
+  const definition = getMainDefinition(query);
+  return (
+    definition.kind === "OperationDefinition" &&
+    definition.operation === "subscription"
+  );
+};
 
 const client = new ApolloClient({
   uri: "http://localhost:3000/graphql",
+  link: split(
+    checkIfOperationIsSubscription,
+    sselink,
+    new HttpLink({ uri: "http://localhost:3000/graphql" }),
+  ),
   cache: new InMemoryCache(),
 });
 
