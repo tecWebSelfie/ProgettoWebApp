@@ -18,8 +18,8 @@ interface IFreebusy {
   organizer: Types.ObjectId;
   url: string;
   request_status: string; //rstatus
-  attendees: [Types.ObjectId]; //attendee
-  freebusy_infos: [IfbDateTime];
+  attendees: Types.ObjectId[]; //attendee
+  freebusy_infos: IfbDateTime[];
 }
 
 const freebusySchema = new Schema<IFreebusy>({

@@ -25,19 +25,19 @@ interface IUser extends ICalAttendeeJSONData {
   residence: string;
   photo: Buffer;
   roles: "user" | "tech";
-  owned_resources: [Types.ObjectId];
+  owned_resources: Types.ObjectId[];
   freebusy: Types.ObjectId;
   timezone: string;
-  journals: [Types.ObjectId];
-  todos: [Types.ObjectId];
-  alarms: [Types.ObjectId];
-  pomodoros: [Types.ObjectId];
-  notifications: [Types.ObjectId];
+  journals: Types.ObjectId[];
+  todos: Types.ObjectId[];
+  alarms: Types.ObjectId[];
+  pomodoros: Types.ObjectId[];
+  notifications: Types.ObjectId[];
   pomodoro_tolerance_time: number;
-  groups: [Types.ObjectId];
+  groups: Types.ObjectId[];
   private_calendar: Types.ObjectId;
   public_calendar: Types.ObjectId;
-  projects: [Types.ObjectId];
+  projects: Types.ObjectId[];
 }
 
 const userSchema = new Schema<IUser>({

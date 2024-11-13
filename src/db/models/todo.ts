@@ -1,5 +1,9 @@
 import { schemaComposer } from "graphql-compose";
-import { ICalEventJSONRepeatingData, ICalGeo } from "ical-generator";
+import {
+  ICalEventClass,
+  ICalEventJSONRepeatingData,
+  ICalGeo,
+} from "ical-generator";
 import { Schema, Types } from "mongoose";
 import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 import {
@@ -27,10 +31,11 @@ interface ITodo {
   url: string;
   repeating: ICalEventJSONRepeatingData;
   due: string;
-  resources: [Types.ObjectId];
-  attendees: [Types.ObjectId];
-  categories: [string];
-  attachments: [string];
+  resources: Types.ObjectId[];
+  attendees: Types.ObjectId[];
+  categories: string[];
+  attachments: string[];
+  class: ICalEventClass;
 }
 
 const todoSchema = new Schema<ITodo>({
@@ -54,6 +59,7 @@ const todoSchema = new Schema<ITodo>({
   attendees: [{ type: Types.ObjectId, ref: userModelName }],
   categories: [{ type: String }],
   attachments: [{ type: String }],
+  class: { type: String, enum: Object.values(ICalEventClass) },
 });
 
 export const todoTC = finalComposer<ITodo>(todoModelName, todoSchema);

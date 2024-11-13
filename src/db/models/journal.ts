@@ -8,6 +8,7 @@ import {
   userModelName,
 } from "./mongo_contract";
 import { Schema, Types } from "mongoose";
+import { ICalEventClass } from "ical-generator";
 
 //class
 //rrule
@@ -23,15 +24,16 @@ interface IJournal {
   description: string;
   url: string;
   status: journalStatus;
-  categories: [string];
-  attendees: [Types.ObjectId];
+  categories: string[];
+  attendees: Types.ObjectId[];
 
   //in_todos and out_todos are the todos that are related to the journal,
   //in_todos are todos that take this journal as input, out_todos are todos that produced this journal as output
-  in_todos: [Types.ObjectId];
-  out_todos: [Types.ObjectId];
-  attachments: [string];
+  in_todos: Types.ObjectId[];
+  out_todos: Types.ObjectId[];
+  attachments: string[];
   request_status: string;
+  class: ICalEventClass;
 }
 
 const journalSchema = new Schema<IJournal>({
@@ -54,6 +56,7 @@ const journalSchema = new Schema<IJournal>({
   out_todos: [{ type: Schema.Types.ObjectId, ref: todoModelName }],
   attachments: [{ type: String }],
   request_status: { type: String },
+  class: { type: String, enum: Object.values(ICalEventClass) },
 });
 
 export const journalTC = finalComposer<IJournal>(

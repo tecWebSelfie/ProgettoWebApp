@@ -8,14 +8,16 @@ import {
 import { schemaComposer } from "graphql-compose";
 import { composeWithMongoose } from "graphql-compose-mongoose";
 import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
+import { ICalEventClass } from "ical-generator";
 
 interface IGroup {
   calendar: Types.ObjectId;
   name: string;
   photo: Buffer;
-  members: [Types.ObjectId];
-  resources: [Types.ObjectId];
+  members: Types.ObjectId[];
+  resources: Types.ObjectId[];
   is_project: boolean;
+  class: ICalEventClass;
 }
 
 const groupSchema = new Schema<IGroup>({
@@ -28,6 +30,7 @@ const groupSchema = new Schema<IGroup>({
     type: Boolean,
     default: false,
   },
+  class: { type: String, enum: Object.values(ICalEventClass) },
 });
 
 export const groupTC = finalComposer<IGroup>(groupModelName, groupSchema);

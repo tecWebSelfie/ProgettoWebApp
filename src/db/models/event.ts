@@ -17,10 +17,12 @@ import {
   ICalEventStatus,
   ICalEventBusyStatus,
   ICalEventJSONData,
+  ICalEventClass,
 } from "ical-generator";
 
 interface IEvent extends ICalEventJSONData {
   pomodoro: Types.ObjectId;
+  class: ICalEventClass;
 }
 
 const eventSchema = new Schema<IEvent>({
@@ -55,6 +57,7 @@ const eventSchema = new Schema<IEvent>({
   busystatus: { type: String, enum: Object.values(ICalEventBusyStatus) },
   transparency: { type: String, enum: Object.values(ICalEventTransparency) },
   pomodoro: { type: Schema.Types.ObjectId, ref: pomodoroModelName },
+  class: { type: String, enum: Object.values(ICalEventClass) },
   x: [{ key: String, value: String }],
 });
 

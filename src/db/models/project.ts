@@ -16,8 +16,8 @@ import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 
 interface IProject {
   pm_id: Types.ObjectId;
-  members: [Types.ObjectId];
-  todos: [Types.ObjectId];
+  members: Types.ObjectId[];
+  todos: Types.ObjectId[];
   group_id: Types.ObjectId;
 }
 

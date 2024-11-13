@@ -17,9 +17,9 @@ interface IResource {
   geo_location: string;
   photo: Buffer;
   calendar: Types.ObjectId;
-  owners: [Types.ObjectId];
+  owners: Types.ObjectId[];
   freebusy: Types.ObjectId;
-  journals: [Types.ObjectId];
+  journals: Types.ObjectId[];
   timezone: string;
 }
 

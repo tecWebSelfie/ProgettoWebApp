@@ -1,11 +1,19 @@
-import { ICalCalendarMethod, ICalCalendarJSONData } from "ical-generator";
-import { calendarModelName } from "./mongo_contract";
-import { Schema } from "mongoose";
+import {
+  ICalCalendarMethod,
+  ICalCalendarJSONData,
+  ICalEventJSONData,
+} from "ical-generator";
+import { calendarModelName, todoModelName } from "./mongo_contract";
+import { Schema, Types } from "mongoose";
 import { eventModelName } from "./mongo_contract";
 import { schemaComposer } from "graphql-compose";
 import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 
-const calendarSchema = new Schema<ICalCalendarJSONData>({
+interface ICalendar extends ICalCalendarJSONData {
+  todos: Types.ObjectId[];
+}
+
+const calendarSchema = new Schema<ICalendar>({
   prodId: { type: String, required: true },
   method: { type: String, enum: Object.values(ICalCalendarMethod) },
   name: String,
@@ -21,10 +29,16 @@ const calendarSchema = new Schema<ICalCalendarJSONData>({
       ref: eventModelName,
     },
   ],
+  todos: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: todoModelName,
+    },
+  ],
   x: [{ key: String, value: String }],
 });
 
-export const calendarTC = finalComposer<ICalCalendarJSONData>(
+export const calendarTC = finalComposer<ICalendar>(
   calendarModelName,
   calendarSchema,
 );

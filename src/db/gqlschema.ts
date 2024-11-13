@@ -46,6 +46,15 @@ calendarTC.addRelation("Events", {
     events: true,
   },
 });
+calendarTC.addRelation("Todos", {
+  resolver: () => todoTC.getResolver("findByIds"),
+  prepareArgs: {
+    _ids: (object) => object.todos,
+  },
+  projection: {
+    todos: true,
+  },
+});
 
 eventTC.addRelation("Attendees", {
   resolver: () => userTC.getResolver("findByIds"),
