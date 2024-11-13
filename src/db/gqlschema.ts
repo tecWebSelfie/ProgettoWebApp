@@ -380,22 +380,13 @@ userTC.addRelation("Groups", {
     groups: true,
   },
 });
-userTC.addRelation("PrivateCalendar", {
+userTC.addRelation("Calendar", {
   resolver: () => calendarTC.getResolver("findByIds"),
   prepareArgs: {
-    _ids: (object) => object.private_calendar,
+    _ids: (object) => object.calendar,
   },
   projection: {
-    private_calendar: true,
-  },
-});
-userTC.addRelation("PublicCalendar", {
-  resolver: () => calendarTC.getResolver("findByIds"),
-  prepareArgs: {
-    _ids: (object) => object.public_calendar,
-  },
-  projection: {
-    public_calendar: true,
+    calendar: true,
   },
 });
 userTC.addRelation("Projects", {

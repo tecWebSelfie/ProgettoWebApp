@@ -35,8 +35,7 @@ interface IUser extends ICalAttendeeJSONData {
   notifications: Types.ObjectId[];
   pomodoro_tolerance_time: number;
   groups: Types.ObjectId[];
-  private_calendar: Types.ObjectId;
-  public_calendar: Types.ObjectId;
+  calendar: Types.ObjectId;
   projects: Types.ObjectId[];
 }
 
@@ -67,18 +66,17 @@ const userSchema = new Schema<IUser>({
     enum: ["user", "tech"],
     default: "user",
   },
+  timezone: String,
+  pomodoro_tolerance_time: Number,
   owned_resources: [{ type: Schema.Types.ObjectId, ref: resourceModelName }],
   freebusy: { type: Schema.Types.ObjectId, ref: freebusyModelName },
-  timezone: String,
   journals: [{ type: Schema.Types.ObjectId, ref: journalModelName }],
   todos: [{ type: Schema.Types.ObjectId, ref: todoModelName }],
   alarms: [{ type: Schema.Types.ObjectId, ref: alarmModelName }],
   pomodoros: [{ type: Schema.Types.ObjectId, ref: pomodoroModelName }],
   notifications: [{ type: Schema.Types.ObjectId, ref: notificationModelName }],
-  pomodoro_tolerance_time: Number,
   groups: [{ type: Schema.Types.ObjectId, ref: groupModelName }],
-  private_calendar: { type: Schema.Types.ObjectId, ref: calendarModelName },
-  public_calendar: { type: Schema.Types.ObjectId, ref: calendarModelName },
+  calendar: { type: Schema.Types.ObjectId, ref: calendarModelName },
   projects: [{ type: Schema.Types.ObjectId, ref: projectModelName }],
 });
 

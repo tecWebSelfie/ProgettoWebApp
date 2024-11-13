@@ -9,6 +9,7 @@ import {
 } from "./mongo_contract";
 import { schemaComposer } from "graphql-compose";
 import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
+import { ICalEventClass } from "ical-generator";
 
 interface IResource {
   nickname: string;
@@ -21,6 +22,7 @@ interface IResource {
   freebusy: Types.ObjectId;
   journals: Types.ObjectId[];
   timezone: string;
+  class: ICalEventClass;
 }
 
 const resourceSchema = new Schema<IResource>({
@@ -34,6 +36,7 @@ const resourceSchema = new Schema<IResource>({
   freebusy: { type: Schema.Types.ObjectId, ref: freebusyModelName },
   journals: [{ type: Schema.Types.ObjectId, ref: journalModelName }],
   timezone: String,
+  class: { type: String, enum: Object.values(ICalEventClass) },
 });
 
 export const resourceTC = finalComposer<IResource>(
