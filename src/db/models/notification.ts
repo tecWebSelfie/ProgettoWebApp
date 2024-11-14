@@ -1,5 +1,5 @@
-import mongoose, { Schema } from "mongoose";
-import { notificationModelName } from "./mongo_contract";
+import mongoose, { Schema, Types } from "mongoose";
+import { notificationModelName, userModelName } from "./mongo_contract";
 import { schemaComposer } from "graphql-compose";
 import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 
@@ -7,6 +7,7 @@ interface INotification {
   title: string;
   body: string;
   date: string;
+  attendees: Types.ObjectId[];
 }
 
 const notificationSchema = new Schema<INotification>(
@@ -17,6 +18,7 @@ const notificationSchema = new Schema<INotification>(
       type: String,
       default: Date.now().toString,
     },
+    attendees: [{ type: Schema.Types.ObjectId, ref: userModelName }],
   },
   { timestamps: { createdAt: "created_at" } },
 );

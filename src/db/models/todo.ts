@@ -1,5 +1,6 @@
 import { schemaComposer } from "graphql-compose";
 import {
+  ICalDescription,
   ICalEventClass,
   ICalEventJSONRepeatingData,
   ICalGeo,
@@ -13,13 +14,14 @@ import {
   userModelName,
   resourceModelName,
   alarmModelName,
+  iCalDescription,
 } from "./mongo_contract";
 
 interface ITodo {
   completed: boolean;
   status: todoStatus;
   created: string;
-  description: string;
+  description: ICalDescription;
   summary: string;
   start_date: string;
   geo_location: string;
@@ -44,7 +46,7 @@ const todoSchema = new Schema<ITodo>({
   completed: { type: Boolean, default: false },
   status: { type: String, enum: todoStatus },
   created: { type: String, default: Date.now().toString },
-  description: { type: String },
+  description: iCalDescription,
   summary: { type: String, required: true },
   start_date: { type: String, default: Date.now().toString },
   geo_location: { type: String },
@@ -57,8 +59,8 @@ const todoSchema = new Schema<ITodo>({
   url: { type: String },
   repeating: { type: iCalEventJSONRepeatingData },
   due: { type: String },
-  resources: [{ type: Types.ObjectId, ref: resourceModelName }],
-  attendees: [{ type: Types.ObjectId, ref: userModelName }],
+  resources: [{ type: Schema.Types.ObjectId, ref: resourceModelName }],
+  attendees: [{ type: Schema.Types.ObjectId, ref: userModelName }],
   alarms: [{ type: Schema.Types.ObjectId, ref: alarmModelName }],
   categories: [{ type: String }],
   attachments: [{ type: String }],

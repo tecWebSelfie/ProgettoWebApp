@@ -10,6 +10,7 @@ import {
   iCalCategory,
   userModelName,
   alarmModelName,
+  resourceModelName,
 } from "./mongo_contract";
 import { model, Schema, SchemaType, Types } from "mongoose";
 import {
@@ -21,7 +22,8 @@ import {
 } from "ical-generator";
 
 interface IEvent extends ICalEventJSONData {
-  pomodoro: Types.ObjectId;
+  pomodoros: Types.ObjectId[];
+  resources: Types.ObjectId[];
   class: ICalEventClass;
 }
 
@@ -35,6 +37,7 @@ const eventSchema = new Schema<IEvent>({
   allDay: { type: Boolean, required: true },
   floating: { type: Boolean, required: true },
   summary: { type: String, required: true },
+  description: iCalDescription,
   priority: Number,
   url: String,
   attachments: { type: [String], required: true },
@@ -42,7 +45,6 @@ const eventSchema = new Schema<IEvent>({
   lastModified: String,
   location: iCalLocationSchema,
   repeating: iCalEventJSONRepeatingDataSchema,
-  description: iCalDescription,
   organizer: iCalOrganizer,
   attendees: [
     {
@@ -51,12 +53,13 @@ const eventSchema = new Schema<IEvent>({
       required: true,
     },
   ],
+  resources: [{ type: Schema.Types.ObjectId, ref: resourceModelName }],
   alarms: [{ type: Schema.Types.ObjectId, ref: alarmModelName }],
   categories: { type: [iCalCategory], required: true },
   status: { type: String, enum: Object.values(ICalEventStatus) },
   busystatus: { type: String, enum: Object.values(ICalEventBusyStatus) },
   transparency: { type: String, enum: Object.values(ICalEventTransparency) },
-  pomodoro: { type: Schema.Types.ObjectId, ref: pomodoroModelName },
+  pomodoros: [{ type: Schema.Types.ObjectId, ref: pomodoroModelName }],
   class: { type: String, enum: Object.values(ICalEventClass) },
   x: [{ key: String, value: String }],
 });

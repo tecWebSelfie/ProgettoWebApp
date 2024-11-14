@@ -92,13 +92,22 @@ eventTC.addRelation("Alarms", {
     alarms: true,
   },
 });
-eventTC.addRelation("Pomodoro", {
-  resolver: () => pomodoroTC.getResolver("findById"),
+eventTC.addRelation("Pomodoros", {
+  resolver: () => pomodoroTC.getResolver("findByIds"),
   prepareArgs: {
-    _id: (object) => object.pomodoro,
+    _ids: (object) => object.pomodoros,
   },
   projection: {
-    pomodoro: true,
+    pomodoros: true,
+  },
+});
+eventTC.addRelation("Resources", {
+  resolver: () => resourceTC.getResolver("findByIds"),
+  prepareArgs: {
+    _ids: (object) => object.resources,
+  },
+  projection: {
+    resources: true,
   },
 });
 
@@ -183,6 +192,16 @@ journalTC.addRelation("OutTodos", {
   },
   projection: {
     out_todos: true,
+  },
+});
+
+notificationTC.addRelation("Attendees", {
+  resolver: () => userTC.getResolver("findByIds"),
+  prepareArgs: {
+    _ids: (object) => object.attendees,
+  },
+  projection: {
+    attendees: true,
   },
 });
 
