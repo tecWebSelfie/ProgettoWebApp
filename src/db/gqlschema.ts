@@ -36,6 +36,24 @@ alarmTC.addRelation("Attendees", {
     attendees: true,
   },
 });
+alarmTC.addRelation("Event", {
+  resolver: () => eventTC.getResolver("findById"),
+  prepareArgs: {
+    _id: (object) => object.related_event,
+  },
+  projection: {
+    related_event: true,
+  },
+});
+alarmTC.addRelation("Todo", {
+  resolver: () => eventTC.getResolver("findById"),
+  prepareArgs: {
+    _id: (object) => object.related_todo,
+  },
+  projection: {
+    related_todo: true,
+  },
+});
 
 calendarTC.addRelation("Events", {
   resolver: () => eventTC.getResolver("findByIds"),
