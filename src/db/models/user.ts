@@ -30,7 +30,6 @@ interface IUser extends ICalAttendeeJSONData {
   timezone: string;
   journals: Types.ObjectId[];
   todos: Types.ObjectId[];
-  alarms: Types.ObjectId[];
   pomodoros: Types.ObjectId[];
   notifications: Types.ObjectId[];
   pomodoro_tolerance_time: number;
@@ -72,7 +71,6 @@ const userSchema = new Schema<IUser>({
   freebusy: { type: Schema.Types.ObjectId, ref: freebusyModelName },
   journals: [{ type: Schema.Types.ObjectId, ref: journalModelName }],
   todos: [{ type: Schema.Types.ObjectId, ref: todoModelName }],
-  alarms: [{ type: Schema.Types.ObjectId, ref: alarmModelName }],
   pomodoros: [{ type: Schema.Types.ObjectId, ref: pomodoroModelName }],
   notifications: [{ type: Schema.Types.ObjectId, ref: notificationModelName }],
   groups: [{ type: Schema.Types.ObjectId, ref: groupModelName }],

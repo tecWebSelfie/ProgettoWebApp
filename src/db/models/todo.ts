@@ -12,6 +12,7 @@ import {
   todoStatus,
   userModelName,
   resourceModelName,
+  alarmModelName,
 } from "./mongo_contract";
 
 interface ITodo {
@@ -33,6 +34,7 @@ interface ITodo {
   due: string;
   resources: Types.ObjectId[];
   attendees: Types.ObjectId[];
+  alarms: Types.ObjectId[];
   categories: string[];
   attachments: string[];
   class: ICalEventClass;
@@ -57,6 +59,7 @@ const todoSchema = new Schema<ITodo>({
   due: { type: String },
   resources: [{ type: Types.ObjectId, ref: resourceModelName }],
   attendees: [{ type: Types.ObjectId, ref: userModelName }],
+  alarms: [{ type: Schema.Types.ObjectId, ref: alarmModelName }],
   categories: [{ type: String }],
   attachments: [{ type: String }],
   class: { type: String, enum: Object.values(ICalEventClass) },

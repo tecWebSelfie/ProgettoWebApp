@@ -279,6 +279,15 @@ todoTC.addRelation("Attendees", {
     attendees: true,
   },
 });
+todoTC.addRelation("Alarms", {
+  resolver: () => alarmTC.getResolver("findByIds"),
+  prepareArgs: {
+    _ids: (object) => object.alarms,
+  },
+  projection: {
+    alarms: true,
+  },
+});
 
 userTC.addRelation("OwnedResources", {
   resolver: () => resourceTC.getResolver("findByIds"),
@@ -314,15 +323,6 @@ userTC.addRelation("Todos", {
   },
   projection: {
     todos: true,
-  },
-});
-userTC.addRelation("Alarms", {
-  resolver: () => alarmTC.getResolver("findByIds"),
-  prepareArgs: {
-    _ids: (object) => object.alarms,
-  },
-  projection: {
-    alarms: true,
   },
 });
 
