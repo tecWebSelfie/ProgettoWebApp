@@ -15,6 +15,7 @@ import {
   resourceModelName,
   alarmModelName,
   iCalDescription,
+  journalModelName,
 } from "./mongo_contract";
 
 interface ITodo {
@@ -37,6 +38,8 @@ interface ITodo {
   resources: Types.ObjectId[];
   attendees: Types.ObjectId[];
   alarms: Types.ObjectId[];
+  in_journals: Types.ObjectId[];
+  out_journals: Types.ObjectId[];
   categories: string[];
   attachments: string[];
   class: ICalEventClass;
@@ -62,6 +65,8 @@ const todoSchema = new Schema<ITodo>({
   resources: [{ type: Schema.Types.ObjectId, ref: resourceModelName }],
   attendees: [{ type: Schema.Types.ObjectId, ref: userModelName }],
   alarms: [{ type: Schema.Types.ObjectId, ref: alarmModelName }],
+  in_journals: [{ type: Schema.Types.ObjectId, ref: journalModelName }],
+  out_journals: [{ type: Schema.Types.ObjectId, ref: journalModelName }],
   categories: [{ type: String }],
   attachments: [{ type: String }],
   class: { type: String, enum: Object.values(ICalEventClass) },
