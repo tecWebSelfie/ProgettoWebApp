@@ -14,6 +14,7 @@ interface IGroup {
   calendar: Types.ObjectId;
   name: string;
   photo: Buffer;
+  organizer: Types.ObjectId;
   members: Types.ObjectId[];
   resources: Types.ObjectId[];
   is_project: boolean;
@@ -24,6 +25,7 @@ const groupSchema = new Schema<IGroup>({
   calendar: { type: Schema.Types.ObjectId, ref: calendarModelName },
   name: String,
   photo: Buffer,
+  organizer: { type: Schema.Types.ObjectId, ref: userModelName },
   members: [{ type: Schema.Types.ObjectId, ref: userModelName }],
   resources: [{ type: Schema.Types.ObjectId, ref: resourceModelName }],
   is_project: {
