@@ -157,6 +157,15 @@ groupTC.addRelation("Resources", {
     resources: true,
   },
 });
+groupTC.addRelation("Organizer", {
+  resolver: () => calendarTC.getResolver("findById"),
+  prepareArgs: {
+    _id: (object) => object.organizer,
+  },
+  projection: {
+    organizer: true,
+  },
+});
 
 journalTC.addRelation("Organizer", {
   resolver: () => userTC.getResolver("findById"),
@@ -176,7 +185,7 @@ journalTC.addRelation("Attendees", {
     attendees: true,
   },
 });
-journalTC.addRelation("InTodos", {
+journalTC.addRelation("InputTodos", {
   resolver: () => todoTC.getResolver("findByIds"),
   prepareArgs: {
     _ids: (object) => object.in_todos,
@@ -185,7 +194,7 @@ journalTC.addRelation("InTodos", {
     in_todos: true,
   },
 });
-journalTC.addRelation("OutTodos", {
+journalTC.addRelation("OutputTodos", {
   resolver: () => todoTC.getResolver("findByIds"),
   prepareArgs: {
     _ids: (object) => object.out_todos,
@@ -218,10 +227,10 @@ pomodoroTC.addRelation("Event", {
 projectTC.addRelation("Pm", {
   resolver: () => userTC.getResolver("findById"),
   prepareArgs: {
-    _id: (object) => object.pm_id,
+    _id: (object) => object.organizer,
   },
   projection: {
-    pm_id: true,
+    organizer: true,
   },
 });
 projectTC.addRelation("Members", {
@@ -323,6 +332,24 @@ todoTC.addRelation("Alarms", {
   },
   projection: {
     alarms: true,
+  },
+});
+todoTC.addRelation("InputJournals", {
+  resolver: () => journalTC.getResolver("findByIds"),
+  prepareArgs: {
+    _ids: (object) => object.in_journals,
+  },
+  projection: {
+    in_journals: true,
+  },
+});
+todoTC.addRelation("OutputJournals", {
+  resolver: () => journalTC.getResolver("findByIds"),
+  prepareArgs: {
+    _ids: (object) => object.out_journals,
+  },
+  projection: {
+    out_journals: true,
   },
 });
 
