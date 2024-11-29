@@ -48,3 +48,4 @@ next-env.d.ts
 __generated__
 graphql.schema.json
 src/gql
+*storybook.log

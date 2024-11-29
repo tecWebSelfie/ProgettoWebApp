@@ -3,3 +3,6 @@
 .prettierignore
 *.drawio
 .env*
+*.png
+*.svg
+*.jpg
