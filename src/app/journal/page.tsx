@@ -1,3 +1,3 @@
-export default function Note() {
+export default function Journal() {
   return <div></div>;
 }
