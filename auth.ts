@@ -6,13 +6,13 @@ import bcrypt from "bcrypt";
 import { userModel } from "./src/db/models/user";
 
 export const credentialsValidator = z.object({
-  email: z.string().email("Email doesn't have an email format"),
+  email: z.string().email("Invalid email address"),
   password: z
     .string()
     .min(8, "Password must be at least 8 characters long")
     .regex(
-      /^(?!password$|1234$|qwerty$).+$/,
-      "Password must not contain known weak words (es. '1234','password')",
+      /^(?!.*(password|1234|qwerty)).*$/i,
+      "Password must not contain known weak words (es. '1234','password') ",
     )
     .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
     .regex(/[a-z]/, "Password must contain at least one lowercase letter")

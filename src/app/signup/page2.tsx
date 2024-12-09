@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { date, z } from "zod";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -25,34 +25,31 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 
-const formSchema = z.object({
-  name: z.string(),
-  surname: z.string(),
-  birthday: z.string().date(),
-  location: z.string(),
-  photo: z
-    .any()
-    .refine((file) => file.size < 5000000, {
-      message: "File can't be bigger than 5MB.",
-    })
-    .refine(
-      (file) => ["image/jpeg", "image/png", "image/jpg"].includes(file.type),
-      {
-        message: "File format must be either jpg, jpeg lub png.",
-      },
-    ),
-  is_tech: z.boolean(),
-});
+const formSchema = z
+  .object({
+    username: z
+      .string()
+      .min(5, { message: "Username must be at least 5 characters long" }),
+    email: z.string().email({ message: "Invalid email address" }),
+    password: z
+      .string()
+      .min(6, { message: "Password must be at least 6 characters long" })
+      .regex(/[a-zA-Z0-9]/, { message: "Password must be alphanumeric" }),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    path: ["confirmPassword"],
+    message: "Passwords do not match",
+  });
 
 export default function Signup() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      surname: "",
-      birthday: "",
-      location: "",
-      is_tech: false,
+      username: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
     },
   });
 
@@ -84,45 +81,61 @@ export default function Signup() {
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
               <div className="grid gap-4">
-                {/* Name Field */}
+                {/* username Field */}
                 <FormField
                   control={form.control}
-                  name="name"
+                  name="username"
                   render={({ field }) => (
                     <FormItem className="grid gap-2">
-                      <FormLabel htmlFor="name">Name*</FormLabel>
+                      <FormLabel htmlFor="username">Username*</FormLabel>
                       <FormControl>
-                        <Input id="name" placeholder="Mario" {...field} />
+                        <Input
+                          id="username"
+                          placeholder="JohnDoe1"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
 
-                {/* Surname Field */}
+                {/* Email Field */}
                 <FormField
                   control={form.control}
-                  name="surname"
+                  name="email"
                   render={({ field }) => (
                     <FormItem className="grid gap-2">
-                      <FormLabel htmlFor="surname">Surname*</FormLabel>
+                      <FormLabel htmlFor="email">Email*</FormLabel>
                       <FormControl>
-                        <Input id="surname" placeholder="Rossi" {...field} />
+                        <Input
+                          id="email"
+                          placeholder="johndoe@mail.com"
+                          type="email"
+                          autoComplete="email"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
 
-                {/* Birthday Field */}
+                {/* Password Field */}
                 <FormField
                   control={form.control}
-                  name="birthday"
+                  name="password"
                   render={({ field }) => (
                     <FormItem className="grid gap-2">
-                      <FormLabel htmlFor="birthday">Birthday*</FormLabel>
+                      <FormLabel htmlFor="password">Password</FormLabel>
                       <FormControl>
-                        <Input id="birthday" type="date" {...field} />
+                        <Input
+                          id="password"
+                          type="password"
+                          placeholder="******"
+                          autoComplete="new-password"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
