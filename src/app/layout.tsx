@@ -2,9 +2,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+
+import { AppBar } from "../components/AppBar";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { DarkModeToggle } from "@/components/DarkModeToggle";
-import { AppBarButton } from "@/components/AppBarButton";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -19,20 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="flex w-full h-1/3 items-center space-x-2 bg-red-600">
-            <AppBarButton />
-            <DarkModeToggle />
-          </div>
-          {children}
-        </ThemeProvider>
-      </body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }
