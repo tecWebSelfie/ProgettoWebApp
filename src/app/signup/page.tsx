@@ -73,7 +73,7 @@ export default function Signup() {
 
   return (
     <div className="flex min-h-[60vh] h-full w-full items-center justify-center px-4 py-7">
-      <Card className="mx-auto max-w-sm">
+      <Card className="mx-auto max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl">Register</CardTitle>
           <CardDescription>
