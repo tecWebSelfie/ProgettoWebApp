@@ -5,6 +5,7 @@ import "./globals.css";
 
 import { AppBar } from "../components/AppBar";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,6 +31,7 @@ export default function RootLayout({
           <AppBar />
 
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
