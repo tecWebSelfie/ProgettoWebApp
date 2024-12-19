@@ -4,6 +4,14 @@ import "./globals.css";
 
 import { AppBar } from "../components/AppBar";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "../components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { Button } from "../components/ui/button";
+import { TimeMachine } from "../components/TimeMachine";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,8 +35,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <AppBar />
-
-          {children}
+          <div>{children}</div>
+          <div className="fixed bottom-5 left-5">
+            <TimeMachine />
+          </div>
         </ThemeProvider>
       </body>
     </html>
