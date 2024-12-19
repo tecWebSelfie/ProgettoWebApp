@@ -29,7 +29,8 @@
       "@/db/*": ["./src/db/*"],
       "@/*": ["./*"],
       "@/gql/*": ["./src/gql/*"],
-      "@/components/*": ["./src/components/*"]
+      "@/components/*": ["./src/components/*"],
+      "@/serverActions/*": ["./src/serverActions/*"]
     }
   },
   "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
