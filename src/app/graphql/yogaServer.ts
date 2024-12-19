@@ -1,6 +1,7 @@
 import { ResolveUserFn, useGenericAuth } from "@envelop/generic-auth";
 import { YogaInitialContext, createYoga } from "graphql-yoga";
 import { schema } from "@/db/gqlschema";
+import { addMocksToSchema } from "@graphql-tools/mock";
 import { User } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { NextAuthRequest } from "next-auth/lib";
@@ -20,7 +21,7 @@ const resolveUserFn: ResolveUserFn<
 };
 
 export const yoga = createYoga({
-  schema: schema,
+  schema: process.env.MOCKING ? addMocksToSchema({ schema }) : schema,
   plugins: [
     // eslint-disable-next-line
     useGenericAuth({
