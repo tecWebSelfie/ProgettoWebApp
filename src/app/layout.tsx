@@ -12,6 +12,7 @@ import {
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "../components/ui/button";
 import { TimeMachine } from "../components/TimeMachine";
+import Apollo from "./Apollo";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,11 +35,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AppBar />
-          <div>{children}</div>
-          <div className="fixed bottom-5 left-5">
-            <TimeMachine />
-          </div>
+          <Apollo>
+            <AppBar />
+            <div>{children}</div>
+            <div className="fixed bottom-5 left-5">
+              <TimeMachine />
+            </div>
+          </Apollo>
         </ThemeProvider>
       </body>
     </html>
