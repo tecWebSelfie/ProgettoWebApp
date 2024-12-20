@@ -22,9 +22,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { emailSchema } from "../../validator";
 
 const formSchema = z.object({
-  email: z.string().email("Invalid email address"),
+  email: emailSchema,
 });
 
 export function ForgotPasswordForm() {
