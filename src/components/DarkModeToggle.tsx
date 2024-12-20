@@ -2,6 +2,7 @@
 import { useTheme } from "next-themes";
 import { FaSun, FaMoon } from "react-icons/fa6";
 import { Button } from "@/components/ui/button";
+import { useQuery } from "@apollo/client";
 
 export function DarkModeToggle() {
   const { theme, setTheme } = useTheme();

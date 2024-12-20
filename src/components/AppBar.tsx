@@ -13,6 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { SignUpOrLoginButton } from "./SignUpOrLoginButton";
 import { DarkModeToggle } from "./DarkModeToggle";
 import { ProfileBadge } from "./ProfileBadge";
+import { TimeMachine } from "./TimeMachine";
 
 export function AppBar() {
   return (
@@ -46,6 +47,7 @@ export function AppBar() {
         </NavigationMenuList>
       </NavigationMenu>
       <div className="flex gap-3 items-center">
+        <TimeMachine />
         <DarkModeToggle />
         <ProfileBadge />
       </div>
