@@ -6,7 +6,6 @@ import {
   ApolloProvider,
   gql,
 } from "@apollo/client";
-import { loadFilesSync } from "@graphql-tools/load-files";
 
 const localTypeDefs = gql`
   extend type Query {
