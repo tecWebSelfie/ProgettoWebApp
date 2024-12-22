@@ -38,9 +38,7 @@ export default function RootLayout({
           <Apollo>
             <AppBar />
             <div>{children}</div>
-            <div className="fixed bottom-5 left-5">
-              <TimeMachine />
-            </div>
+            <div className="fixed bottom-5 left-5"></div>
           </Apollo>
         </ThemeProvider>
       </body>
