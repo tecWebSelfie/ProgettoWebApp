@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { emailSchema } from "../../validator";
+import { useState, useEffect } from "react";
 
 const formSchema = z.object({
   email: emailSchema,
@@ -30,6 +31,28 @@ const formSchema = z.object({
 
 export function ForgotPasswordForm() {
   const { toast } = useToast();
+
+  const [formData, setFormData] = useState(() => {
+    const storedData = localStorage.getItem("forgot_pw_form_data");
+    return storedData ? JSON.parse(storedData) : { email: "" };
+  });
+
+  useEffect(() => {
+    localStorage.setItem("forgot_pw_form_data", JSON.stringify(formData));
+  }, [formData]);
+
+  const handleChange = (e: {
+    target: {
+      name: any;
+      value: any;
+    };
+  }) => {
+    const { name, value } = e.target;
+    setFormData((prevState: any) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -42,6 +65,7 @@ export function ForgotPasswordForm() {
     try {
       // Function to send reset email
       console.log(values);
+      localStorage.removeItem("forgot_pw_form_data");
       toast({
         title: "Password reset email sent. Please check your inbox.",
       });
@@ -82,7 +106,9 @@ export function ForgotPasswordForm() {
                           placeholder="mario.rossi@mail.com"
                           type="email"
                           autoComplete="email"
-                          {...field}
+                          value={formData.email}
+                          name="email"
+                          onChange={handleChange}
                         />
                       </FormControl>
                       <FormMessage />

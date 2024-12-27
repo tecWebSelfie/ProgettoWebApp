@@ -25,6 +25,7 @@ import {
 import { Input } from "@/components/ui/input";
 import * as React from "react";
 import { emailSchema, passwordSchema } from "../../validator";
+import { useState, useEffect } from "react";
 
 export const formSchema = z.object({
   email: emailSchema,
@@ -33,6 +34,28 @@ export const formSchema = z.object({
 
 export function LoginForm() {
   const { toast } = useToast();
+
+  const [formData, setFormData] = useState(() => {
+    const storedData = localStorage.getItem("login_form_data");
+    return storedData ? JSON.parse(storedData) : { email: "" };
+  });
+
+  useEffect(() => {
+    localStorage.setItem("login_form_data", JSON.stringify(formData));
+  }, [formData]);
+
+  const handleChange = (e: {
+    target: {
+      name: any;
+      value: any;
+    };
+  }) => {
+    const { name, value } = e.target;
+    setFormData((prevState: any) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -46,6 +69,7 @@ export function LoginForm() {
     try {
       // Assuming an async login function
       console.log(values);
+      localStorage.removeItem("login_form_data");
       toast({
         title: "Toast window",
         description: "Check se utile",
@@ -89,7 +113,9 @@ export function LoginForm() {
                             placeholder="mario.rossi@mail.com"
                             type="email"
                             autoComplete="email"
-                            {...field}
+                            value={formData.email}
+                            name="email"
+                            onChange={handleChange}
                           />
                         </FormControl>
                         <FormMessage />
