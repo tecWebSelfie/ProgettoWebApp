@@ -7,9 +7,12 @@ import { Input } from "@/src/components/ui/input";
 import { JournalsList } from "@/src/components/JournalsList";
 import { graphql, useFragment } from "@/src/gql";
 import { useQuery } from "@apollo/client";
+import { JournalTextArea } from "@/src/components/JournalTextArea";
+import { Types } from "mongoose";
 
 const journalPageQuery = graphql(`
-  query journalPageQuery {
+  query journalPageQuery($journalId: MongoID!) {
+    ...journalTextAreaFragment
     ...journalsListFragment
   }
 `);
@@ -17,14 +20,10 @@ const journalPageQuery = graphql(`
 export default function Journal() {
   const { data, loading, error } = useQuery(journalPageQuery);
   return (
-    <div className="flex flex-col md:flex-row gap-4 p-5">
-      <div>
-        <Label className="">Journal</Label>
-        <Textarea />
-        <Button>Save Note</Button>
-      </div>
-      <div>
-        <Input placeholder="Search for a note..." />
+    <div className="md:w-full  flex flex-col md:flex-row md:justify-center gap-4 p-5">
+      {data && <JournalTextArea journal={data} />}
+      <div className="flex flex-col gap-4">
+        <Input placeholder="Search for a journal..." />
         {data && <JournalsList journalsList={data} />}
       </div>
     </div>
