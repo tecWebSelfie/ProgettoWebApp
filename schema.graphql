@@ -3,84 +3,6 @@ directive @requiresScopes(
 ) on FIELD_DEFINITION | OBJECT | INTERFACE
 
 type Query {
-  user_count(
-    """
-    Filter by fields
-    """
-    filter: FilterCountUserInput
-  ): Int
-  user_findById(_id: MongoID!): User
-  user_findByIds(
-    _ids: [MongoID!]!
-    limit: Int = 100
-    sort: SortFindByIdsUserInput
-  ): [User!]!
-  user_findOne(
-    """
-    Filter by fields
-    """
-    filter: FilterFindOneUserInput
-    skip: Int
-    sort: SortFindOneUserInput
-  ): User
-  user_findMany(
-    """
-    Filter by fields
-    """
-    filter: FilterFindManyUserInput
-    skip: Int
-    limit: Int = 100
-    sort: SortFindManyUserInput
-  ): [User!]!
-  user_dataLoader(_id: MongoID!): User
-  user_dataLoaderMany(_ids: [MongoID!]!): [User]!
-  user_pagination(
-    """
-    Page number for displaying
-    """
-    page: Int
-
-    """
-    """
-    perPage: Int = 20
-
-    """
-    Filter by fields
-    """
-    filter: FilterFindManyUserInput
-    sort: SortFindManyUserInput
-  ): UserPagination
-  user_connection(
-    """
-    Forward pagination argument for returning at most first edges
-    """
-    first: Int
-
-    """
-    Forward pagination argument for returning at most first edges
-    """
-    after: String
-
-    """
-    Backward pagination argument for returning at most last edges
-    """
-    last: Int
-
-    """
-    Backward pagination argument for returning at most last edges
-    """
-    before: String
-
-    """
-    Filter by fields
-    """
-    filter: FilterFindManyUserInput
-
-    """
-    Sort argument for data ordering
-    """
-    sort: SortConnectionUserEnum = _ID_DESC
-  ): UserConnection
   alarm_count(
     """
     Filter by fields
@@ -705,6 +627,84 @@ type Query {
     """
     sort: SortConnectionResourceEnum = _ID_DESC
   ): ResourceConnection
+  user_count(
+    """
+    Filter by fields
+    """
+    filter: FilterCountUserInput
+  ): Int
+  user_findById(_id: MongoID!): User
+  user_findByIds(
+    _ids: [MongoID!]!
+    limit: Int = 100
+    sort: SortFindByIdsUserInput
+  ): [User!]!
+  user_findOne(
+    """
+    Filter by fields
+    """
+    filter: FilterFindOneUserInput
+    skip: Int
+    sort: SortFindOneUserInput
+  ): User
+  user_findMany(
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyUserInput
+    skip: Int
+    limit: Int = 100
+    sort: SortFindManyUserInput
+  ): [User!]!
+  user_dataLoader(_id: MongoID!): User
+  user_dataLoaderMany(_ids: [MongoID!]!): [User]!
+  user_pagination(
+    """
+    Page number for displaying
+    """
+    page: Int
+
+    """
+    """
+    perPage: Int = 20
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyUserInput
+    sort: SortFindManyUserInput
+  ): UserPagination
+  user_connection(
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    first: Int
+
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    after: String
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    last: Int
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    before: String
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyUserInput
+
+    """
+    Sort argument for data ordering
+    """
+    sort: SortConnectionUserEnum = _ID_DESC
+  ): UserConnection
   todo_count(
     """
     Filter by fields
@@ -942,80 +942,6 @@ type Query {
 }
 
 type Mutation {
-  """
-  Create one document with mongoose defaults, setters, hooks and validation
-  """
-  user_createOne(record: CreateOneUserInput!): CreateOneUserPayload
-
-  """
-  Creates Many documents with mongoose defaults, setters, hooks and validation
-  """
-  user_createMany(records: [CreateManyUserInput!]!): CreateManyUserPayload
-
-  """
-  Update one document: 1) Retrieve one document by findById. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
-  """
-  user_updateById(
-    _id: MongoID!
-    record: UpdateByIdUserInput!
-  ): UpdateByIdUserPayload
-
-  """
-  Update one document: 1) Retrieve one document via findOne. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
-  """
-  user_updateOne(
-    record: UpdateOneUserInput!
-
-    """
-    Filter by fields
-    """
-    filter: FilterUpdateOneUserInput
-    sort: SortUpdateOneUserInput
-    skip: Int
-  ): UpdateOneUserPayload
-
-  """
-  Update many documents without returning them: Use Query.update mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
-  """
-  user_updateMany(
-    record: UpdateManyUserInput!
-
-    """
-    Filter by fields
-    """
-    filter: FilterUpdateManyUserInput
-    sort: SortUpdateManyUserInput
-    skip: Int
-    limit: Int = 100
-  ): UpdateManyUserPayload
-
-  """
-  Remove one document: 1) Retrieve one document and remove with hooks via findByIdAndRemove. 2) Return removed document.
-  """
-  user_removeById(_id: MongoID!): RemoveByIdUserPayload
-
-  """
-  Remove one document: 1) Remove with hooks via findOneAndRemove. 2) Return removed document.
-  """
-  user_removeOne(
-    """
-    Filter by fields
-    """
-    filter: FilterRemoveOneUserInput
-    sort: SortRemoveOneUserInput
-  ): RemoveOneUserPayload
-
-  """
-  Remove many documents without returning them: Use Query.remove mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
-  """
-  user_removeMany(
-    """
-    Filter by fields
-    """
-    filter: FilterRemoveManyUserInput!
-    limit: Int = 100
-  ): RemoveManyUserPayload
-
   """
   Create one document with mongoose defaults, setters, hooks and validation
   """
@@ -1623,6 +1549,80 @@ type Mutation {
   """
   Create one document with mongoose defaults, setters, hooks and validation
   """
+  user_createOne(record: CreateOneUserInput!): CreateOneUserPayload
+
+  """
+  Creates Many documents with mongoose defaults, setters, hooks and validation
+  """
+  user_createMany(records: [CreateManyUserInput!]!): CreateManyUserPayload
+
+  """
+  Update one document: 1) Retrieve one document by findById. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  user_updateById(
+    _id: MongoID!
+    record: UpdateByIdUserInput!
+  ): UpdateByIdUserPayload
+
+  """
+  Update one document: 1) Retrieve one document via findOne. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  user_updateOne(
+    record: UpdateOneUserInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateOneUserInput
+    sort: SortUpdateOneUserInput
+    skip: Int
+  ): UpdateOneUserPayload
+
+  """
+  Update many documents without returning them: Use Query.update mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  user_updateMany(
+    record: UpdateManyUserInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateManyUserInput
+    sort: SortUpdateManyUserInput
+    skip: Int
+    limit: Int = 100
+  ): UpdateManyUserPayload
+
+  """
+  Remove one document: 1) Retrieve one document and remove with hooks via findByIdAndRemove. 2) Return removed document.
+  """
+  user_removeById(_id: MongoID!): RemoveByIdUserPayload
+
+  """
+  Remove one document: 1) Remove with hooks via findOneAndRemove. 2) Return removed document.
+  """
+  user_removeOne(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveOneUserInput
+    sort: SortRemoveOneUserInput
+  ): RemoveOneUserPayload
+
+  """
+  Remove many documents without returning them: Use Query.remove mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  user_removeMany(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveManyUserInput!
+    limit: Int = 100
+  ): RemoveManyUserPayload
+
+  """
+  Create one document with mongoose defaults, setters, hooks and validation
+  """
   todo_createOne(record: CreateOneTodoInput!): CreateOneTodoPayload
 
   """
@@ -1937,6 +1937,12 @@ enum EnumEventBusystatus {
   OOF
 }
 
+enum EnumEventClass {
+  PUBLIC
+  PRIVATE
+  CONFIDENTIAL
+}
+
 enum EnumEventRepeatingByDay {
   SU
   MO
@@ -1985,10 +1991,34 @@ enum EnumFreebusyFreebusy_infosType {
   BUSY_TENTATIVE
 }
 
+enum EnumGroupClass {
+  PUBLIC
+  PRIVATE
+  CONFIDENTIAL
+}
+
+enum EnumJournalClass {
+  PUBLIC
+  PRIVATE
+  CONFIDENTIAL
+}
+
 enum EnumJournalStatus {
   CANCELLED
   FINAL
   DRAFT
+}
+
+enum EnumResourceClass {
+  PUBLIC
+  PRIVATE
+  CONFIDENTIAL
+}
+
+enum EnumTodoClass {
+  PUBLIC
+  PRIVATE
+  CONFIDENTIAL
 }
 
 enum EnumTodoRepeatingByDay {
@@ -2498,9 +2528,13 @@ type Alarm {
   description: String
   summary: String
   attendees: [MongoID]
+  related_event: MongoID
+  related_todo: MongoID
   x: [AlarmX]
   _id: MongoID!
   Attendees(limit: Int = 100, sort: SortFindByIdsUserInput): [User!]!
+  Event: Event
+  Todo: Event
 }
 
 type AlarmAttach {
@@ -2587,9 +2621,11 @@ type Calendar {
   scale: String
   ttl: Float
   events: [MongoID]
+  todos: [MongoID]
   x: [CalendarX]
   _id: MongoID!
   Events(limit: Int = 100, sort: SortFindByIdsEventInput): [Event!]!
+  Todos(limit: Int = 100, sort: SortFindByIdsTodoInput): [Todo!]!
 }
 
 """
@@ -3131,6 +3167,7 @@ type Event {
   allDay: Boolean!
   floating: Boolean!
   summary: String!
+  description: EventDescription
   priority: Float
   url: String
   attachments: [String]!
@@ -3138,20 +3175,22 @@ type Event {
   lastModified: String
   location: EventLocation
   repeating: EventRepeating
-  description: EventDescription
   organizer: EventOrganizer
   attendees: [MongoID]
+  resources: [MongoID]
   alarms: [MongoID]
   categories: [EventCategories]!
   status: EnumEventStatus
   busystatus: EnumEventBusystatus
   transparency: EnumEventTransparency
-  pomodoro: MongoID
+  pomodoros: [MongoID]
+  class: EnumEventClass
   x: [EventX]
   _id: MongoID!
   Attendees(limit: Int = 100, sort: SortFindByIdsUserInput): [User!]!
   Alarms(limit: Int = 100, sort: SortFindByIdsAlarmInput): [Alarm!]!
-  Pomodoro: Pomodoro
+  Pomodoros(limit: Int = 100, sort: SortFindByIdsPomodoroInput): [Pomodoro!]!
+  Resources(limit: Int = 100, sort: SortFindByIdsResourceInput): [Resource!]!
 }
 
 type EventCategories {
@@ -3340,13 +3379,16 @@ type Group {
   calendar: MongoID
   name: String
   photo: Buffer
+  organizer: MongoID
   members: [MongoID]
   resources: [MongoID]
   is_project: Boolean
+  class: EnumGroupClass
   _id: MongoID!
   Calendar: Calendar
   Users(limit: Int = 100, sort: SortFindByIdsUserInput): [User!]!
   Resources(limit: Int = 100, sort: SortFindByIdsResourceInput): [Resource!]!
+  Organizer: Calendar
 }
 
 """
@@ -3420,11 +3462,12 @@ type Journal {
   out_todos: [MongoID]
   attachments: [String]
   request_status: String
+  class: EnumJournalClass
   _id: MongoID!
   Organizer: User
   Attendees(limit: Int = 100, sort: SortFindByIdsUserInput): [User!]!
-  InTodos(limit: Int = 100, sort: SortFindByIdsTodoInput): [Todo!]!
-  OutTodos(limit: Int = 100, sort: SortFindByIdsTodoInput): [Todo!]!
+  InputTodos(limit: Int = 100, sort: SortFindByIdsTodoInput): [Todo!]!
+  OutputTodos(limit: Int = 100, sort: SortFindByIdsTodoInput): [Todo!]!
 }
 
 """
@@ -3486,9 +3529,11 @@ type Notification {
   title: String
   body: String
   date: String
+  attendees: [MongoID]
   _id: MongoID!
   created_at: Date
   updatedAt: Date
+  Attendees(limit: Int = 100, sort: SortFindByIdsUserInput): [User!]!
 }
 
 """
@@ -3650,7 +3695,7 @@ type PomodoroPagination {
 }
 
 type Project {
-  pm_id: MongoID
+  organizer: MongoID
   members: [MongoID]
   todos: [MongoID]
   group_id: MongoID
@@ -4279,6 +4324,7 @@ type Resource {
   freebusy: MongoID
   journals: [MongoID]
   timezone: String
+  class: EnumResourceClass
   _id: MongoID!
   Calendar: Calendar
   Owners(limit: Int = 100, sort: SortFindByIdsUserInput): [User!]!
@@ -4345,7 +4391,7 @@ type Todo {
   completed: Boolean
   status: EnumTodoStatus
   created: String
-  description: String
+  description: EventDescription
   summary: String!
   start_date: String
   geo_location: String
@@ -4360,12 +4406,19 @@ type Todo {
   due: String
   resources: [MongoID]
   attendees: [MongoID]
+  alarms: [MongoID]
+  in_journals: [MongoID]
+  out_journals: [MongoID]
   categories: [String]
   attachments: [String]
+  class: EnumTodoClass
   _id: MongoID!
   Organizer: User
   Resources(limit: Int = 100, sort: SortFindByIdsResourceInput): [Resource!]!
   Attendees(limit: Int = 100, sort: SortFindByIdsUserInput): [User!]!
+  Alarms(limit: Int = 100, sort: SortFindByIdsAlarmInput): [Alarm!]!
+  InputJournals(limit: Int = 100, sort: SortFindByIdsJournalInput): [Journal!]!
+  OutputJournals(limit: Int = 100, sort: SortFindByIdsJournalInput): [Journal!]!
 }
 
 """
@@ -4998,18 +5051,16 @@ type User {
   residence: String
   photo: Buffer
   roles: EnumUserRoles
+  timezone: String
+  pomodoro_tolerance_time: Float
   owned_resources: [MongoID]
   freebusy: MongoID
-  timezone: String
   journals: [MongoID]
   todos: [MongoID]
-  alarms: [MongoID]
   pomodoros: [MongoID]
   notifications: [MongoID]
-  pomodoro_tolerance_time: Float
   groups: [MongoID]
-  private_calendar: MongoID
-  public_calendar: MongoID
+  calendar: MongoID
   projects: [MongoID]
   _id: MongoID!
   OwnedResources(
@@ -5019,7 +5070,6 @@ type User {
   Freebusy: Freebusy
   Journals(limit: Int = 100, sort: SortFindByIdsJournalInput): [Journal!]!
   Todos(limit: Int = 100, sort: SortFindByIdsTodoInput): [Todo!]!
-  Alarms(limit: Int = 100, sort: SortFindByIdsAlarmInput): [Alarm!]!
   Pomodoros(limit: Int = 100, sort: SortFindByIdsPomodoroInput): [Pomodoro!]!
     @requiresScopes(scopes: ["read:user"])
   Notifications(
@@ -5027,14 +5077,7 @@ type User {
     sort: SortFindByIdsNotificationInput
   ): [Notification!]!
   Groups(limit: Int = 100, sort: SortFindByIdsGroupInput): [Group!]!
-  PrivateCalendar(
-    limit: Int = 100
-    sort: SortFindByIdsCalendarInput
-  ): [Calendar!]!
-  PublicCalendar(
-    limit: Int = 100
-    sort: SortFindByIdsCalendarInput
-  ): [Calendar!]!
+  Calendar(limit: Int = 100, sort: SortFindByIdsCalendarInput): [Calendar!]!
   Projects(limit: Int = 100, sort: SortFindByIdsProjectInput): [Project!]!
 }
 
@@ -5129,6 +5172,8 @@ input CreateManyAlarmInput {
   description: String
   summary: String
   attendees: [MongoID]
+  related_event: MongoID
+  related_todo: MongoID
   x: [AlarmXInput]
 }
 
@@ -5145,6 +5190,7 @@ input CreateManyCalendarInput {
   scale: String
   ttl: Float
   events: [MongoID]
+  todos: [MongoID]
   x: [CalendarXInput]
 }
 
@@ -5160,6 +5206,7 @@ input CreateManyEventInput {
   allDay: Boolean!
   floating: Boolean!
   summary: String!
+  description: EventDescriptionInput
   priority: Float
   url: String
   attachments: [String]!
@@ -5167,15 +5214,16 @@ input CreateManyEventInput {
   lastModified: String
   location: EventLocationInput
   repeating: EventRepeatingInput
-  description: EventDescriptionInput
   organizer: EventOrganizerInput
   attendees: [MongoID]
+  resources: [MongoID]
   alarms: [MongoID]
   categories: [EventCategoriesInput]!
   status: EnumEventStatus
   busystatus: EnumEventBusystatus
   transparency: EnumEventTransparency
-  pomodoro: MongoID
+  pomodoros: [MongoID]
+  class: EnumEventClass
   x: [EventXInput]
 }
 
@@ -5197,9 +5245,11 @@ input CreateManyGroupInput {
   calendar: MongoID
   name: String
   photo: Buffer
+  organizer: MongoID
   members: [MongoID]
   resources: [MongoID]
   is_project: Boolean
+  class: EnumGroupClass
 }
 
 """
@@ -5220,6 +5270,7 @@ input CreateManyJournalInput {
   out_todos: [MongoID]
   attachments: [String]
   request_status: String
+  class: EnumJournalClass
 }
 
 """
@@ -5228,6 +5279,7 @@ input CreateManyNotificationInput {
   title: String
   body: String
   date: String
+  attendees: [MongoID]
   created_at: Date
   updatedAt: Date
 }
@@ -5249,7 +5301,7 @@ input CreateManyPomodoroInput {
 """
 """
 input CreateManyProjectInput {
-  pm_id: MongoID
+  organizer: MongoID
   members: [MongoID]
   todos: [MongoID]
   group_id: MongoID
@@ -5268,6 +5320,7 @@ input CreateManyResourceInput {
   freebusy: MongoID
   journals: [MongoID]
   timezone: String
+  class: EnumResourceClass
 }
 
 """
@@ -5276,7 +5329,7 @@ input CreateManyTodoInput {
   completed: Boolean
   status: EnumTodoStatus
   created: String
-  description: String
+  description: EventDescriptionInput
   summary: String!
   start_date: String
   geo_location: String
@@ -5291,8 +5344,12 @@ input CreateManyTodoInput {
   due: String
   resources: [MongoID]
   attendees: [MongoID]
+  alarms: [MongoID]
+  in_journals: [MongoID]
+  out_journals: [MongoID]
   categories: [String]
   attachments: [String]
+  class: EnumTodoClass
 }
 
 """
@@ -5306,18 +5363,16 @@ input CreateManyUserInput {
   residence: String
   photo: Buffer
   roles: EnumUserRoles
+  timezone: String
+  pomodoro_tolerance_time: Float
   owned_resources: [MongoID]
   freebusy: MongoID
-  timezone: String
   journals: [MongoID]
   todos: [MongoID]
-  alarms: [MongoID]
   pomodoros: [MongoID]
   notifications: [MongoID]
-  pomodoro_tolerance_time: Float
   groups: [MongoID]
-  private_calendar: MongoID
-  public_calendar: MongoID
+  calendar: MongoID
   projects: [MongoID]
 }
 
@@ -5333,6 +5388,8 @@ input CreateOneAlarmInput {
   description: String
   summary: String
   attendees: [MongoID]
+  related_event: MongoID
+  related_todo: MongoID
   x: [AlarmXInput]
 }
 
@@ -5349,6 +5406,7 @@ input CreateOneCalendarInput {
   scale: String
   ttl: Float
   events: [MongoID]
+  todos: [MongoID]
   x: [CalendarXInput]
 }
 
@@ -5364,6 +5422,7 @@ input CreateOneEventInput {
   allDay: Boolean!
   floating: Boolean!
   summary: String!
+  description: EventDescriptionInput
   priority: Float
   url: String
   attachments: [String]!
@@ -5371,15 +5430,16 @@ input CreateOneEventInput {
   lastModified: String
   location: EventLocationInput
   repeating: EventRepeatingInput
-  description: EventDescriptionInput
   organizer: EventOrganizerInput
   attendees: [MongoID]
+  resources: [MongoID]
   alarms: [MongoID]
   categories: [EventCategoriesInput]!
   status: EnumEventStatus
   busystatus: EnumEventBusystatus
   transparency: EnumEventTransparency
-  pomodoro: MongoID
+  pomodoros: [MongoID]
+  class: EnumEventClass
   x: [EventXInput]
 }
 
@@ -5401,9 +5461,11 @@ input CreateOneGroupInput {
   calendar: MongoID
   name: String
   photo: Buffer
+  organizer: MongoID
   members: [MongoID]
   resources: [MongoID]
   is_project: Boolean
+  class: EnumGroupClass
 }
 
 """
@@ -5424,6 +5486,7 @@ input CreateOneJournalInput {
   out_todos: [MongoID]
   attachments: [String]
   request_status: String
+  class: EnumJournalClass
 }
 
 """
@@ -5432,6 +5495,7 @@ input CreateOneNotificationInput {
   title: String
   body: String
   date: String
+  attendees: [MongoID]
   created_at: Date
   updatedAt: Date
 }
@@ -5453,7 +5517,7 @@ input CreateOnePomodoroInput {
 """
 """
 input CreateOneProjectInput {
-  pm_id: MongoID
+  organizer: MongoID
   members: [MongoID]
   todos: [MongoID]
   group_id: MongoID
@@ -5472,6 +5536,7 @@ input CreateOneResourceInput {
   freebusy: MongoID
   journals: [MongoID]
   timezone: String
+  class: EnumResourceClass
 }
 
 """
@@ -5480,7 +5545,7 @@ input CreateOneTodoInput {
   completed: Boolean
   status: EnumTodoStatus
   created: String
-  description: String
+  description: EventDescriptionInput
   summary: String!
   start_date: String
   geo_location: String
@@ -5495,8 +5560,12 @@ input CreateOneTodoInput {
   due: String
   resources: [MongoID]
   attendees: [MongoID]
+  alarms: [MongoID]
+  in_journals: [MongoID]
+  out_journals: [MongoID]
   categories: [String]
   attachments: [String]
+  class: EnumTodoClass
 }
 
 """
@@ -5510,18 +5579,16 @@ input CreateOneUserInput {
   residence: String
   photo: Buffer
   roles: EnumUserRoles
+  timezone: String
+  pomodoro_tolerance_time: Float
   owned_resources: [MongoID]
   freebusy: MongoID
-  timezone: String
   journals: [MongoID]
   todos: [MongoID]
-  alarms: [MongoID]
   pomodoros: [MongoID]
   notifications: [MongoID]
-  pomodoro_tolerance_time: Float
   groups: [MongoID]
-  private_calendar: MongoID
-  public_calendar: MongoID
+  calendar: MongoID
   projects: [MongoID]
 }
 
@@ -5609,6 +5676,8 @@ input FilterCountAlarmInput {
   description: String
   summary: String
   attendees: [MongoID]
+  related_event: MongoID
+  related_todo: MongoID
   x: [FilterCountAlarmXInput]
   _id: MongoID
 
@@ -5667,6 +5736,7 @@ input FilterCountCalendarInput {
   scale: String
   ttl: Float
   events: [MongoID]
+  todos: [MongoID]
   x: [FilterCountCalendarXInput]
   _id: MongoID
 
@@ -5731,6 +5801,7 @@ input FilterCountEventInput {
   allDay: Boolean
   floating: Boolean
   summary: String
+  description: FilterCountEventDescriptionInput
   priority: Float
   url: String
   attachments: [String]
@@ -5738,15 +5809,16 @@ input FilterCountEventInput {
   lastModified: String
   location: FilterCountEventLocationInput
   repeating: FilterCountEventRepeatingInput
-  description: FilterCountEventDescriptionInput
   organizer: FilterCountEventOrganizerInput
   attendees: [MongoID]
+  resources: [MongoID]
   alarms: [MongoID]
   categories: [FilterCountEventCategoriesInput]
   status: EnumEventStatus
   busystatus: EnumEventBusystatus
   transparency: EnumEventTransparency
-  pomodoro: MongoID
+  pomodoros: [MongoID]
+  class: EnumEventClass
   x: [FilterCountEventXInput]
   _id: MongoID
 
@@ -5880,9 +5952,11 @@ input FilterCountGroupInput {
   calendar: MongoID
   name: String
   photo: Buffer
+  organizer: MongoID
   members: [MongoID]
   resources: [MongoID]
   is_project: Boolean
+  class: EnumGroupClass
   _id: MongoID
 
   """
@@ -5929,6 +6003,7 @@ input FilterCountJournalInput {
   out_todos: [MongoID]
   attachments: [String]
   request_status: String
+  class: EnumJournalClass
   _id: MongoID
 
   """
@@ -5963,6 +6038,7 @@ input FilterCountNotificationInput {
   title: String
   body: String
   date: String
+  attendees: [MongoID]
   _id: MongoID
   created_at: Date
   updatedAt: Date
@@ -6036,7 +6112,7 @@ input FilterCountProject_idOperatorsInput {
 """
 """
 input FilterCountProjectInput {
-  pm_id: MongoID
+  organizer: MongoID
   members: [MongoID]
   todos: [MongoID]
   group_id: MongoID
@@ -6081,6 +6157,7 @@ input FilterCountResourceInput {
   freebusy: MongoID
   journals: [MongoID]
   timezone: String
+  class: EnumResourceClass
   _id: MongoID
 
   """
@@ -6115,7 +6192,7 @@ input FilterCountTodoInput {
   completed: Boolean
   status: EnumTodoStatus
   created: String
-  description: String
+  description: FilterCountEventDescriptionInput
   summary: String
   start_date: String
   geo_location: String
@@ -6130,8 +6207,12 @@ input FilterCountTodoInput {
   due: String
   resources: [MongoID]
   attendees: [MongoID]
+  alarms: [MongoID]
+  in_journals: [MongoID]
+  out_journals: [MongoID]
   categories: [String]
   attachments: [String]
+  class: EnumTodoClass
   _id: MongoID
 
   """
@@ -6199,18 +6280,16 @@ input FilterCountUserInput {
   residence: String
   photo: Buffer
   roles: EnumUserRoles
+  timezone: String
+  pomodoro_tolerance_time: Float
   owned_resources: [MongoID]
   freebusy: MongoID
-  timezone: String
   journals: [MongoID]
   todos: [MongoID]
-  alarms: [MongoID]
   pomodoros: [MongoID]
   notifications: [MongoID]
-  pomodoro_tolerance_time: Float
   groups: [MongoID]
-  private_calendar: MongoID
-  public_calendar: MongoID
+  calendar: MongoID
   projects: [MongoID]
   _id: MongoID
 
@@ -6274,6 +6353,8 @@ input FilterFindManyAlarmInput {
   description: String
   summary: String
   attendees: [MongoID]
+  related_event: MongoID
+  related_todo: MongoID
   x: [FilterFindManyAlarmXInput]
   _id: MongoID
 
@@ -6332,6 +6413,7 @@ input FilterFindManyCalendarInput {
   scale: String
   ttl: Float
   events: [MongoID]
+  todos: [MongoID]
   x: [FilterFindManyCalendarXInput]
   _id: MongoID
 
@@ -6396,6 +6478,7 @@ input FilterFindManyEventInput {
   allDay: Boolean
   floating: Boolean
   summary: String
+  description: FilterFindManyEventDescriptionInput
   priority: Float
   url: String
   attachments: [String]
@@ -6403,15 +6486,16 @@ input FilterFindManyEventInput {
   lastModified: String
   location: FilterFindManyEventLocationInput
   repeating: FilterFindManyEventRepeatingInput
-  description: FilterFindManyEventDescriptionInput
   organizer: FilterFindManyEventOrganizerInput
   attendees: [MongoID]
+  resources: [MongoID]
   alarms: [MongoID]
   categories: [FilterFindManyEventCategoriesInput]
   status: EnumEventStatus
   busystatus: EnumEventBusystatus
   transparency: EnumEventTransparency
-  pomodoro: MongoID
+  pomodoros: [MongoID]
+  class: EnumEventClass
   x: [FilterFindManyEventXInput]
   _id: MongoID
 
@@ -6545,9 +6629,11 @@ input FilterFindManyGroupInput {
   calendar: MongoID
   name: String
   photo: Buffer
+  organizer: MongoID
   members: [MongoID]
   resources: [MongoID]
   is_project: Boolean
+  class: EnumGroupClass
   _id: MongoID
 
   """
@@ -6594,6 +6680,7 @@ input FilterFindManyJournalInput {
   out_todos: [MongoID]
   attachments: [String]
   request_status: String
+  class: EnumJournalClass
   _id: MongoID
 
   """
@@ -6628,6 +6715,7 @@ input FilterFindManyNotificationInput {
   title: String
   body: String
   date: String
+  attendees: [MongoID]
   _id: MongoID
   created_at: Date
   updatedAt: Date
@@ -6701,7 +6789,7 @@ input FilterFindManyProject_idOperatorsInput {
 """
 """
 input FilterFindManyProjectInput {
-  pm_id: MongoID
+  organizer: MongoID
   members: [MongoID]
   todos: [MongoID]
   group_id: MongoID
@@ -6746,6 +6834,7 @@ input FilterFindManyResourceInput {
   freebusy: MongoID
   journals: [MongoID]
   timezone: String
+  class: EnumResourceClass
   _id: MongoID
 
   """
@@ -6780,7 +6869,7 @@ input FilterFindManyTodoInput {
   completed: Boolean
   status: EnumTodoStatus
   created: String
-  description: String
+  description: FilterFindManyEventDescriptionInput
   summary: String
   start_date: String
   geo_location: String
@@ -6795,8 +6884,12 @@ input FilterFindManyTodoInput {
   due: String
   resources: [MongoID]
   attendees: [MongoID]
+  alarms: [MongoID]
+  in_journals: [MongoID]
+  out_journals: [MongoID]
   categories: [String]
   attachments: [String]
+  class: EnumTodoClass
   _id: MongoID
 
   """
@@ -6864,18 +6957,16 @@ input FilterFindManyUserInput {
   residence: String
   photo: Buffer
   roles: EnumUserRoles
+  timezone: String
+  pomodoro_tolerance_time: Float
   owned_resources: [MongoID]
   freebusy: MongoID
-  timezone: String
   journals: [MongoID]
   todos: [MongoID]
-  alarms: [MongoID]
   pomodoros: [MongoID]
   notifications: [MongoID]
-  pomodoro_tolerance_time: Float
   groups: [MongoID]
-  private_calendar: MongoID
-  public_calendar: MongoID
+  calendar: MongoID
   projects: [MongoID]
   _id: MongoID
 
@@ -6939,6 +7030,8 @@ input FilterFindOneAlarmInput {
   description: String
   summary: String
   attendees: [MongoID]
+  related_event: MongoID
+  related_todo: MongoID
   x: [FilterFindOneAlarmXInput]
   _id: MongoID
 
@@ -6997,6 +7090,7 @@ input FilterFindOneCalendarInput {
   scale: String
   ttl: Float
   events: [MongoID]
+  todos: [MongoID]
   x: [FilterFindOneCalendarXInput]
   _id: MongoID
 
@@ -7061,6 +7155,7 @@ input FilterFindOneEventInput {
   allDay: Boolean
   floating: Boolean
   summary: String
+  description: FilterFindOneEventDescriptionInput
   priority: Float
   url: String
   attachments: [String]
@@ -7068,15 +7163,16 @@ input FilterFindOneEventInput {
   lastModified: String
   location: FilterFindOneEventLocationInput
   repeating: FilterFindOneEventRepeatingInput
-  description: FilterFindOneEventDescriptionInput
   organizer: FilterFindOneEventOrganizerInput
   attendees: [MongoID]
+  resources: [MongoID]
   alarms: [MongoID]
   categories: [FilterFindOneEventCategoriesInput]
   status: EnumEventStatus
   busystatus: EnumEventBusystatus
   transparency: EnumEventTransparency
-  pomodoro: MongoID
+  pomodoros: [MongoID]
+  class: EnumEventClass
   x: [FilterFindOneEventXInput]
   _id: MongoID
 
@@ -7210,9 +7306,11 @@ input FilterFindOneGroupInput {
   calendar: MongoID
   name: String
   photo: Buffer
+  organizer: MongoID
   members: [MongoID]
   resources: [MongoID]
   is_project: Boolean
+  class: EnumGroupClass
   _id: MongoID
 
   """
@@ -7259,6 +7357,7 @@ input FilterFindOneJournalInput {
   out_todos: [MongoID]
   attachments: [String]
   request_status: String
+  class: EnumJournalClass
   _id: MongoID
 
   """
@@ -7293,6 +7392,7 @@ input FilterFindOneNotificationInput {
   title: String
   body: String
   date: String
+  attendees: [MongoID]
   _id: MongoID
   created_at: Date
   updatedAt: Date
@@ -7366,7 +7466,7 @@ input FilterFindOneProject_idOperatorsInput {
 """
 """
 input FilterFindOneProjectInput {
-  pm_id: MongoID
+  organizer: MongoID
   members: [MongoID]
   todos: [MongoID]
   group_id: MongoID
@@ -7411,6 +7511,7 @@ input FilterFindOneResourceInput {
   freebusy: MongoID
   journals: [MongoID]
   timezone: String
+  class: EnumResourceClass
   _id: MongoID
 
   """
@@ -7445,7 +7546,7 @@ input FilterFindOneTodoInput {
   completed: Boolean
   status: EnumTodoStatus
   created: String
-  description: String
+  description: FilterFindOneEventDescriptionInput
   summary: String
   start_date: String
   geo_location: String
@@ -7460,8 +7561,12 @@ input FilterFindOneTodoInput {
   due: String
   resources: [MongoID]
   attendees: [MongoID]
+  alarms: [MongoID]
+  in_journals: [MongoID]
+  out_journals: [MongoID]
   categories: [String]
   attachments: [String]
+  class: EnumTodoClass
   _id: MongoID
 
   """
@@ -7529,18 +7634,16 @@ input FilterFindOneUserInput {
   residence: String
   photo: Buffer
   roles: EnumUserRoles
+  timezone: String
+  pomodoro_tolerance_time: Float
   owned_resources: [MongoID]
   freebusy: MongoID
-  timezone: String
   journals: [MongoID]
   todos: [MongoID]
-  alarms: [MongoID]
   pomodoros: [MongoID]
   notifications: [MongoID]
-  pomodoro_tolerance_time: Float
   groups: [MongoID]
-  private_calendar: MongoID
-  public_calendar: MongoID
+  calendar: MongoID
   projects: [MongoID]
   _id: MongoID
 
@@ -7604,6 +7707,8 @@ input FilterRemoveManyAlarmInput {
   description: String
   summary: String
   attendees: [MongoID]
+  related_event: MongoID
+  related_todo: MongoID
   x: [FilterRemoveManyAlarmXInput]
   _id: MongoID
 
@@ -7662,6 +7767,7 @@ input FilterRemoveManyCalendarInput {
   scale: String
   ttl: Float
   events: [MongoID]
+  todos: [MongoID]
   x: [FilterRemoveManyCalendarXInput]
   _id: MongoID
 
@@ -7726,6 +7832,7 @@ input FilterRemoveManyEventInput {
   allDay: Boolean
   floating: Boolean
   summary: String
+  description: FilterRemoveManyEventDescriptionInput
   priority: Float
   url: String
   attachments: [String]
@@ -7733,15 +7840,16 @@ input FilterRemoveManyEventInput {
   lastModified: String
   location: FilterRemoveManyEventLocationInput
   repeating: FilterRemoveManyEventRepeatingInput
-  description: FilterRemoveManyEventDescriptionInput
   organizer: FilterRemoveManyEventOrganizerInput
   attendees: [MongoID]
+  resources: [MongoID]
   alarms: [MongoID]
   categories: [FilterRemoveManyEventCategoriesInput]
   status: EnumEventStatus
   busystatus: EnumEventBusystatus
   transparency: EnumEventTransparency
-  pomodoro: MongoID
+  pomodoros: [MongoID]
+  class: EnumEventClass
   x: [FilterRemoveManyEventXInput]
   _id: MongoID
 
@@ -7875,9 +7983,11 @@ input FilterRemoveManyGroupInput {
   calendar: MongoID
   name: String
   photo: Buffer
+  organizer: MongoID
   members: [MongoID]
   resources: [MongoID]
   is_project: Boolean
+  class: EnumGroupClass
   _id: MongoID
 
   """
@@ -7924,6 +8034,7 @@ input FilterRemoveManyJournalInput {
   out_todos: [MongoID]
   attachments: [String]
   request_status: String
+  class: EnumJournalClass
   _id: MongoID
 
   """
@@ -7958,6 +8069,7 @@ input FilterRemoveManyNotificationInput {
   title: String
   body: String
   date: String
+  attendees: [MongoID]
   _id: MongoID
   created_at: Date
   updatedAt: Date
@@ -8031,7 +8143,7 @@ input FilterRemoveManyProject_idOperatorsInput {
 """
 """
 input FilterRemoveManyProjectInput {
-  pm_id: MongoID
+  organizer: MongoID
   members: [MongoID]
   todos: [MongoID]
   group_id: MongoID
@@ -8076,6 +8188,7 @@ input FilterRemoveManyResourceInput {
   freebusy: MongoID
   journals: [MongoID]
   timezone: String
+  class: EnumResourceClass
   _id: MongoID
 
   """
@@ -8110,7 +8223,7 @@ input FilterRemoveManyTodoInput {
   completed: Boolean
   status: EnumTodoStatus
   created: String
-  description: String
+  description: FilterRemoveManyEventDescriptionInput
   summary: String
   start_date: String
   geo_location: String
@@ -8125,8 +8238,12 @@ input FilterRemoveManyTodoInput {
   due: String
   resources: [MongoID]
   attendees: [MongoID]
+  alarms: [MongoID]
+  in_journals: [MongoID]
+  out_journals: [MongoID]
   categories: [String]
   attachments: [String]
+  class: EnumTodoClass
   _id: MongoID
 
   """
@@ -8194,18 +8311,16 @@ input FilterRemoveManyUserInput {
   residence: String
   photo: Buffer
   roles: EnumUserRoles
+  timezone: String
+  pomodoro_tolerance_time: Float
   owned_resources: [MongoID]
   freebusy: MongoID
-  timezone: String
   journals: [MongoID]
   todos: [MongoID]
-  alarms: [MongoID]
   pomodoros: [MongoID]
   notifications: [MongoID]
-  pomodoro_tolerance_time: Float
   groups: [MongoID]
-  private_calendar: MongoID
-  public_calendar: MongoID
+  calendar: MongoID
   projects: [MongoID]
   _id: MongoID
 
@@ -8269,6 +8384,8 @@ input FilterRemoveOneAlarmInput {
   description: String
   summary: String
   attendees: [MongoID]
+  related_event: MongoID
+  related_todo: MongoID
   x: [FilterRemoveOneAlarmXInput]
   _id: MongoID
 
@@ -8327,6 +8444,7 @@ input FilterRemoveOneCalendarInput {
   scale: String
   ttl: Float
   events: [MongoID]
+  todos: [MongoID]
   x: [FilterRemoveOneCalendarXInput]
   _id: MongoID
 
@@ -8391,6 +8509,7 @@ input FilterRemoveOneEventInput {
   allDay: Boolean
   floating: Boolean
   summary: String
+  description: FilterRemoveOneEventDescriptionInput
   priority: Float
   url: String
   attachments: [String]
@@ -8398,15 +8517,16 @@ input FilterRemoveOneEventInput {
   lastModified: String
   location: FilterRemoveOneEventLocationInput
   repeating: FilterRemoveOneEventRepeatingInput
-  description: FilterRemoveOneEventDescriptionInput
   organizer: FilterRemoveOneEventOrganizerInput
   attendees: [MongoID]
+  resources: [MongoID]
   alarms: [MongoID]
   categories: [FilterRemoveOneEventCategoriesInput]
   status: EnumEventStatus
   busystatus: EnumEventBusystatus
   transparency: EnumEventTransparency
-  pomodoro: MongoID
+  pomodoros: [MongoID]
+  class: EnumEventClass
   x: [FilterRemoveOneEventXInput]
   _id: MongoID
 
@@ -8540,9 +8660,11 @@ input FilterRemoveOneGroupInput {
   calendar: MongoID
   name: String
   photo: Buffer
+  organizer: MongoID
   members: [MongoID]
   resources: [MongoID]
   is_project: Boolean
+  class: EnumGroupClass
   _id: MongoID
 
   """
@@ -8589,6 +8711,7 @@ input FilterRemoveOneJournalInput {
   out_todos: [MongoID]
   attachments: [String]
   request_status: String
+  class: EnumJournalClass
   _id: MongoID
 
   """
@@ -8623,6 +8746,7 @@ input FilterRemoveOneNotificationInput {
   title: String
   body: String
   date: String
+  attendees: [MongoID]
   _id: MongoID
   created_at: Date
   updatedAt: Date
@@ -8696,7 +8820,7 @@ input FilterRemoveOneProject_idOperatorsInput {
 """
 """
 input FilterRemoveOneProjectInput {
-  pm_id: MongoID
+  organizer: MongoID
   members: [MongoID]
   todos: [MongoID]
   group_id: MongoID
@@ -8741,6 +8865,7 @@ input FilterRemoveOneResourceInput {
   freebusy: MongoID
   journals: [MongoID]
   timezone: String
+  class: EnumResourceClass
   _id: MongoID
 
   """
@@ -8775,7 +8900,7 @@ input FilterRemoveOneTodoInput {
   completed: Boolean
   status: EnumTodoStatus
   created: String
-  description: String
+  description: FilterRemoveOneEventDescriptionInput
   summary: String
   start_date: String
   geo_location: String
@@ -8790,8 +8915,12 @@ input FilterRemoveOneTodoInput {
   due: String
   resources: [MongoID]
   attendees: [MongoID]
+  alarms: [MongoID]
+  in_journals: [MongoID]
+  out_journals: [MongoID]
   categories: [String]
   attachments: [String]
+  class: EnumTodoClass
   _id: MongoID
 
   """
@@ -8859,18 +8988,16 @@ input FilterRemoveOneUserInput {
   residence: String
   photo: Buffer
   roles: EnumUserRoles
+  timezone: String
+  pomodoro_tolerance_time: Float
   owned_resources: [MongoID]
   freebusy: MongoID
-  timezone: String
   journals: [MongoID]
   todos: [MongoID]
-  alarms: [MongoID]
   pomodoros: [MongoID]
   notifications: [MongoID]
-  pomodoro_tolerance_time: Float
   groups: [MongoID]
-  private_calendar: MongoID
-  public_calendar: MongoID
+  calendar: MongoID
   projects: [MongoID]
   _id: MongoID
 
@@ -8934,6 +9061,8 @@ input FilterUpdateManyAlarmInput {
   description: String
   summary: String
   attendees: [MongoID]
+  related_event: MongoID
+  related_todo: MongoID
   x: [FilterUpdateManyAlarmXInput]
   _id: MongoID
 
@@ -8992,6 +9121,7 @@ input FilterUpdateManyCalendarInput {
   scale: String
   ttl: Float
   events: [MongoID]
+  todos: [MongoID]
   x: [FilterUpdateManyCalendarXInput]
   _id: MongoID
 
@@ -9056,6 +9186,7 @@ input FilterUpdateManyEventInput {
   allDay: Boolean
   floating: Boolean
   summary: String
+  description: FilterUpdateManyEventDescriptionInput
   priority: Float
   url: String
   attachments: [String]
@@ -9063,15 +9194,16 @@ input FilterUpdateManyEventInput {
   lastModified: String
   location: FilterUpdateManyEventLocationInput
   repeating: FilterUpdateManyEventRepeatingInput
-  description: FilterUpdateManyEventDescriptionInput
   organizer: FilterUpdateManyEventOrganizerInput
   attendees: [MongoID]
+  resources: [MongoID]
   alarms: [MongoID]
   categories: [FilterUpdateManyEventCategoriesInput]
   status: EnumEventStatus
   busystatus: EnumEventBusystatus
   transparency: EnumEventTransparency
-  pomodoro: MongoID
+  pomodoros: [MongoID]
+  class: EnumEventClass
   x: [FilterUpdateManyEventXInput]
   _id: MongoID
 
@@ -9205,9 +9337,11 @@ input FilterUpdateManyGroupInput {
   calendar: MongoID
   name: String
   photo: Buffer
+  organizer: MongoID
   members: [MongoID]
   resources: [MongoID]
   is_project: Boolean
+  class: EnumGroupClass
   _id: MongoID
 
   """
@@ -9254,6 +9388,7 @@ input FilterUpdateManyJournalInput {
   out_todos: [MongoID]
   attachments: [String]
   request_status: String
+  class: EnumJournalClass
   _id: MongoID
 
   """
@@ -9288,6 +9423,7 @@ input FilterUpdateManyNotificationInput {
   title: String
   body: String
   date: String
+  attendees: [MongoID]
   _id: MongoID
   created_at: Date
   updatedAt: Date
@@ -9361,7 +9497,7 @@ input FilterUpdateManyProject_idOperatorsInput {
 """
 """
 input FilterUpdateManyProjectInput {
-  pm_id: MongoID
+  organizer: MongoID
   members: [MongoID]
   todos: [MongoID]
   group_id: MongoID
@@ -9406,6 +9542,7 @@ input FilterUpdateManyResourceInput {
   freebusy: MongoID
   journals: [MongoID]
   timezone: String
+  class: EnumResourceClass
   _id: MongoID
 
   """
@@ -9440,7 +9577,7 @@ input FilterUpdateManyTodoInput {
   completed: Boolean
   status: EnumTodoStatus
   created: String
-  description: String
+  description: FilterUpdateManyEventDescriptionInput
   summary: String
   start_date: String
   geo_location: String
@@ -9455,8 +9592,12 @@ input FilterUpdateManyTodoInput {
   due: String
   resources: [MongoID]
   attendees: [MongoID]
+  alarms: [MongoID]
+  in_journals: [MongoID]
+  out_journals: [MongoID]
   categories: [String]
   attachments: [String]
+  class: EnumTodoClass
   _id: MongoID
 
   """
@@ -9524,18 +9665,16 @@ input FilterUpdateManyUserInput {
   residence: String
   photo: Buffer
   roles: EnumUserRoles
+  timezone: String
+  pomodoro_tolerance_time: Float
   owned_resources: [MongoID]
   freebusy: MongoID
-  timezone: String
   journals: [MongoID]
   todos: [MongoID]
-  alarms: [MongoID]
   pomodoros: [MongoID]
   notifications: [MongoID]
-  pomodoro_tolerance_time: Float
   groups: [MongoID]
-  private_calendar: MongoID
-  public_calendar: MongoID
+  calendar: MongoID
   projects: [MongoID]
   _id: MongoID
 
@@ -9599,6 +9738,8 @@ input FilterUpdateOneAlarmInput {
   description: String
   summary: String
   attendees: [MongoID]
+  related_event: MongoID
+  related_todo: MongoID
   x: [FilterUpdateOneAlarmXInput]
   _id: MongoID
 
@@ -9657,6 +9798,7 @@ input FilterUpdateOneCalendarInput {
   scale: String
   ttl: Float
   events: [MongoID]
+  todos: [MongoID]
   x: [FilterUpdateOneCalendarXInput]
   _id: MongoID
 
@@ -9721,6 +9863,7 @@ input FilterUpdateOneEventInput {
   allDay: Boolean
   floating: Boolean
   summary: String
+  description: FilterUpdateOneEventDescriptionInput
   priority: Float
   url: String
   attachments: [String]
@@ -9728,15 +9871,16 @@ input FilterUpdateOneEventInput {
   lastModified: String
   location: FilterUpdateOneEventLocationInput
   repeating: FilterUpdateOneEventRepeatingInput
-  description: FilterUpdateOneEventDescriptionInput
   organizer: FilterUpdateOneEventOrganizerInput
   attendees: [MongoID]
+  resources: [MongoID]
   alarms: [MongoID]
   categories: [FilterUpdateOneEventCategoriesInput]
   status: EnumEventStatus
   busystatus: EnumEventBusystatus
   transparency: EnumEventTransparency
-  pomodoro: MongoID
+  pomodoros: [MongoID]
+  class: EnumEventClass
   x: [FilterUpdateOneEventXInput]
   _id: MongoID
 
@@ -9870,9 +10014,11 @@ input FilterUpdateOneGroupInput {
   calendar: MongoID
   name: String
   photo: Buffer
+  organizer: MongoID
   members: [MongoID]
   resources: [MongoID]
   is_project: Boolean
+  class: EnumGroupClass
   _id: MongoID
 
   """
@@ -9919,6 +10065,7 @@ input FilterUpdateOneJournalInput {
   out_todos: [MongoID]
   attachments: [String]
   request_status: String
+  class: EnumJournalClass
   _id: MongoID
 
   """
@@ -9953,6 +10100,7 @@ input FilterUpdateOneNotificationInput {
   title: String
   body: String
   date: String
+  attendees: [MongoID]
   _id: MongoID
   created_at: Date
   updatedAt: Date
@@ -10026,7 +10174,7 @@ input FilterUpdateOneProject_idOperatorsInput {
 """
 """
 input FilterUpdateOneProjectInput {
-  pm_id: MongoID
+  organizer: MongoID
   members: [MongoID]
   todos: [MongoID]
   group_id: MongoID
@@ -10071,6 +10219,7 @@ input FilterUpdateOneResourceInput {
   freebusy: MongoID
   journals: [MongoID]
   timezone: String
+  class: EnumResourceClass
   _id: MongoID
 
   """
@@ -10105,7 +10254,7 @@ input FilterUpdateOneTodoInput {
   completed: Boolean
   status: EnumTodoStatus
   created: String
-  description: String
+  description: FilterUpdateOneEventDescriptionInput
   summary: String
   start_date: String
   geo_location: String
@@ -10120,8 +10269,12 @@ input FilterUpdateOneTodoInput {
   due: String
   resources: [MongoID]
   attendees: [MongoID]
+  alarms: [MongoID]
+  in_journals: [MongoID]
+  out_journals: [MongoID]
   categories: [String]
   attachments: [String]
+  class: EnumTodoClass
   _id: MongoID
 
   """
@@ -10189,18 +10342,16 @@ input FilterUpdateOneUserInput {
   residence: String
   photo: Buffer
   roles: EnumUserRoles
+  timezone: String
+  pomodoro_tolerance_time: Float
   owned_resources: [MongoID]
   freebusy: MongoID
-  timezone: String
   journals: [MongoID]
   todos: [MongoID]
-  alarms: [MongoID]
   pomodoros: [MongoID]
   notifications: [MongoID]
-  pomodoro_tolerance_time: Float
   groups: [MongoID]
-  private_calendar: MongoID
-  public_calendar: MongoID
+  calendar: MongoID
   projects: [MongoID]
   _id: MongoID
 
@@ -10273,6 +10424,8 @@ input UpdateByIdAlarmInput {
   description: String
   summary: String
   attendees: [MongoID]
+  related_event: MongoID
+  related_todo: MongoID
   x: [UpdateByIdAlarmXInput]
 }
 
@@ -10305,6 +10458,7 @@ input UpdateByIdCalendarInput {
   scale: String
   ttl: Float
   events: [MongoID]
+  todos: [MongoID]
   x: [UpdateByIdCalendarXInput]
 }
 
@@ -10343,6 +10497,7 @@ input UpdateByIdEventInput {
   allDay: Boolean
   floating: Boolean
   summary: String
+  description: UpdateByIdEventDescriptionInput
   priority: Float
   url: String
   attachments: [String]
@@ -10350,15 +10505,16 @@ input UpdateByIdEventInput {
   lastModified: String
   location: UpdateByIdEventLocationInput
   repeating: UpdateByIdEventRepeatingInput
-  description: UpdateByIdEventDescriptionInput
   organizer: UpdateByIdEventOrganizerInput
   attendees: [MongoID]
+  resources: [MongoID]
   alarms: [MongoID]
   categories: [UpdateByIdEventCategoriesInput]
   status: EnumEventStatus
   busystatus: EnumEventBusystatus
   transparency: EnumEventTransparency
-  pomodoro: MongoID
+  pomodoros: [MongoID]
+  class: EnumEventClass
   x: [UpdateByIdEventXInput]
 }
 
@@ -10440,9 +10596,11 @@ input UpdateByIdGroupInput {
   calendar: MongoID
   name: String
   photo: Buffer
+  organizer: MongoID
   members: [MongoID]
   resources: [MongoID]
   is_project: Boolean
+  class: EnumGroupClass
 }
 
 """
@@ -10463,6 +10621,7 @@ input UpdateByIdJournalInput {
   out_todos: [MongoID]
   attachments: [String]
   request_status: String
+  class: EnumJournalClass
 }
 
 """
@@ -10471,6 +10630,7 @@ input UpdateByIdNotificationInput {
   title: String
   body: String
   date: String
+  attendees: [MongoID]
   created_at: Date
   updatedAt: Date
 }
@@ -10492,7 +10652,7 @@ input UpdateByIdPomodoroInput {
 """
 """
 input UpdateByIdProjectInput {
-  pm_id: MongoID
+  organizer: MongoID
   members: [MongoID]
   todos: [MongoID]
   group_id: MongoID
@@ -10511,6 +10671,7 @@ input UpdateByIdResourceInput {
   freebusy: MongoID
   journals: [MongoID]
   timezone: String
+  class: EnumResourceClass
 }
 
 """
@@ -10519,7 +10680,7 @@ input UpdateByIdTodoInput {
   completed: Boolean
   status: EnumTodoStatus
   created: String
-  description: String
+  description: UpdateByIdEventDescriptionInput
   summary: String
   start_date: String
   geo_location: String
@@ -10534,8 +10695,12 @@ input UpdateByIdTodoInput {
   due: String
   resources: [MongoID]
   attendees: [MongoID]
+  alarms: [MongoID]
+  in_journals: [MongoID]
+  out_journals: [MongoID]
   categories: [String]
   attachments: [String]
+  class: EnumTodoClass
 }
 
 """
@@ -10565,18 +10730,16 @@ input UpdateByIdUserInput {
   residence: String
   photo: Buffer
   roles: EnumUserRoles
+  timezone: String
+  pomodoro_tolerance_time: Float
   owned_resources: [MongoID]
   freebusy: MongoID
-  timezone: String
   journals: [MongoID]
   todos: [MongoID]
-  alarms: [MongoID]
   pomodoros: [MongoID]
   notifications: [MongoID]
-  pomodoro_tolerance_time: Float
   groups: [MongoID]
-  private_calendar: MongoID
-  public_calendar: MongoID
+  calendar: MongoID
   projects: [MongoID]
 }
 
@@ -10600,6 +10763,8 @@ input UpdateManyAlarmInput {
   description: String
   summary: String
   attendees: [MongoID]
+  related_event: MongoID
+  related_todo: MongoID
   x: [UpdateManyAlarmXInput]
 }
 
@@ -10632,6 +10797,7 @@ input UpdateManyCalendarInput {
   scale: String
   ttl: Float
   events: [MongoID]
+  todos: [MongoID]
   x: [UpdateManyCalendarXInput]
 }
 
@@ -10670,6 +10836,7 @@ input UpdateManyEventInput {
   allDay: Boolean
   floating: Boolean
   summary: String
+  description: UpdateManyEventDescriptionInput
   priority: Float
   url: String
   attachments: [String]
@@ -10677,15 +10844,16 @@ input UpdateManyEventInput {
   lastModified: String
   location: UpdateManyEventLocationInput
   repeating: UpdateManyEventRepeatingInput
-  description: UpdateManyEventDescriptionInput
   organizer: UpdateManyEventOrganizerInput
   attendees: [MongoID]
+  resources: [MongoID]
   alarms: [MongoID]
   categories: [UpdateManyEventCategoriesInput]
   status: EnumEventStatus
   busystatus: EnumEventBusystatus
   transparency: EnumEventTransparency
-  pomodoro: MongoID
+  pomodoros: [MongoID]
+  class: EnumEventClass
   x: [UpdateManyEventXInput]
 }
 
@@ -10767,9 +10935,11 @@ input UpdateManyGroupInput {
   calendar: MongoID
   name: String
   photo: Buffer
+  organizer: MongoID
   members: [MongoID]
   resources: [MongoID]
   is_project: Boolean
+  class: EnumGroupClass
 }
 
 """
@@ -10790,6 +10960,7 @@ input UpdateManyJournalInput {
   out_todos: [MongoID]
   attachments: [String]
   request_status: String
+  class: EnumJournalClass
 }
 
 """
@@ -10798,6 +10969,7 @@ input UpdateManyNotificationInput {
   title: String
   body: String
   date: String
+  attendees: [MongoID]
   created_at: Date
   updatedAt: Date
 }
@@ -10819,7 +10991,7 @@ input UpdateManyPomodoroInput {
 """
 """
 input UpdateManyProjectInput {
-  pm_id: MongoID
+  organizer: MongoID
   members: [MongoID]
   todos: [MongoID]
   group_id: MongoID
@@ -10838,6 +11010,7 @@ input UpdateManyResourceInput {
   freebusy: MongoID
   journals: [MongoID]
   timezone: String
+  class: EnumResourceClass
 }
 
 """
@@ -10846,7 +11019,7 @@ input UpdateManyTodoInput {
   completed: Boolean
   status: EnumTodoStatus
   created: String
-  description: String
+  description: UpdateManyEventDescriptionInput
   summary: String
   start_date: String
   geo_location: String
@@ -10861,8 +11034,12 @@ input UpdateManyTodoInput {
   due: String
   resources: [MongoID]
   attendees: [MongoID]
+  alarms: [MongoID]
+  in_journals: [MongoID]
+  out_journals: [MongoID]
   categories: [String]
   attachments: [String]
+  class: EnumTodoClass
 }
 
 """
@@ -10892,18 +11069,16 @@ input UpdateManyUserInput {
   residence: String
   photo: Buffer
   roles: EnumUserRoles
+  timezone: String
+  pomodoro_tolerance_time: Float
   owned_resources: [MongoID]
   freebusy: MongoID
-  timezone: String
   journals: [MongoID]
   todos: [MongoID]
-  alarms: [MongoID]
   pomodoros: [MongoID]
   notifications: [MongoID]
-  pomodoro_tolerance_time: Float
   groups: [MongoID]
-  private_calendar: MongoID
-  public_calendar: MongoID
+  calendar: MongoID
   projects: [MongoID]
 }
 
@@ -10927,6 +11102,8 @@ input UpdateOneAlarmInput {
   description: String
   summary: String
   attendees: [MongoID]
+  related_event: MongoID
+  related_todo: MongoID
   x: [UpdateOneAlarmXInput]
 }
 
@@ -10959,6 +11136,7 @@ input UpdateOneCalendarInput {
   scale: String
   ttl: Float
   events: [MongoID]
+  todos: [MongoID]
   x: [UpdateOneCalendarXInput]
 }
 
@@ -10997,6 +11175,7 @@ input UpdateOneEventInput {
   allDay: Boolean
   floating: Boolean
   summary: String
+  description: UpdateOneEventDescriptionInput
   priority: Float
   url: String
   attachments: [String]
@@ -11004,15 +11183,16 @@ input UpdateOneEventInput {
   lastModified: String
   location: UpdateOneEventLocationInput
   repeating: UpdateOneEventRepeatingInput
-  description: UpdateOneEventDescriptionInput
   organizer: UpdateOneEventOrganizerInput
   attendees: [MongoID]
+  resources: [MongoID]
   alarms: [MongoID]
   categories: [UpdateOneEventCategoriesInput]
   status: EnumEventStatus
   busystatus: EnumEventBusystatus
   transparency: EnumEventTransparency
-  pomodoro: MongoID
+  pomodoros: [MongoID]
+  class: EnumEventClass
   x: [UpdateOneEventXInput]
 }
 
@@ -11094,9 +11274,11 @@ input UpdateOneGroupInput {
   calendar: MongoID
   name: String
   photo: Buffer
+  organizer: MongoID
   members: [MongoID]
   resources: [MongoID]
   is_project: Boolean
+  class: EnumGroupClass
 }
 
 """
@@ -11117,6 +11299,7 @@ input UpdateOneJournalInput {
   out_todos: [MongoID]
   attachments: [String]
   request_status: String
+  class: EnumJournalClass
 }
 
 """
@@ -11125,6 +11308,7 @@ input UpdateOneNotificationInput {
   title: String
   body: String
   date: String
+  attendees: [MongoID]
   created_at: Date
   updatedAt: Date
 }
@@ -11146,7 +11330,7 @@ input UpdateOnePomodoroInput {
 """
 """
 input UpdateOneProjectInput {
-  pm_id: MongoID
+  organizer: MongoID
   members: [MongoID]
   todos: [MongoID]
   group_id: MongoID
@@ -11165,6 +11349,7 @@ input UpdateOneResourceInput {
   freebusy: MongoID
   journals: [MongoID]
   timezone: String
+  class: EnumResourceClass
 }
 
 """
@@ -11173,7 +11358,7 @@ input UpdateOneTodoInput {
   completed: Boolean
   status: EnumTodoStatus
   created: String
-  description: String
+  description: UpdateOneEventDescriptionInput
   summary: String
   start_date: String
   geo_location: String
@@ -11188,8 +11373,12 @@ input UpdateOneTodoInput {
   due: String
   resources: [MongoID]
   attendees: [MongoID]
+  alarms: [MongoID]
+  in_journals: [MongoID]
+  out_journals: [MongoID]
   categories: [String]
   attachments: [String]
+  class: EnumTodoClass
 }
 
 """
@@ -11219,17 +11408,15 @@ input UpdateOneUserInput {
   residence: String
   photo: Buffer
   roles: EnumUserRoles
+  timezone: String
+  pomodoro_tolerance_time: Float
   owned_resources: [MongoID]
   freebusy: MongoID
-  timezone: String
   journals: [MongoID]
   todos: [MongoID]
-  alarms: [MongoID]
   pomodoros: [MongoID]
   notifications: [MongoID]
-  pomodoro_tolerance_time: Float
   groups: [MongoID]
-  private_calendar: MongoID
-  public_calendar: MongoID
+  calendar: MongoID
   projects: [MongoID]
 }
