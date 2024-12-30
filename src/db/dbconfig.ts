@@ -1,5 +1,3 @@
-import mongoose from "mongoose";
-
 export interface DBConfig {
   readonly protocol: string;
   readonly username: string;
