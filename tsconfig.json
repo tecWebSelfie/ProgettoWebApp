@@ -28,7 +28,8 @@
     "paths": {
       "@/db/*": ["./src/db/*"],
       "@/*": ["./*"],
-      "@/gql/*": ["./src/gql/*"]
+      "@/gql/*": ["./src/gql/*"],
+      "@/apolloLinks/*": ["./src/apolloLinks/*"]
     }
   },
   "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],

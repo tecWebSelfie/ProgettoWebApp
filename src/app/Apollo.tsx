@@ -3,11 +3,14 @@ import {
   InMemoryCache,
   ApolloProvider,
   gql,
+  split,
+  createHttpLink,
+  Operation,
 } from "@apollo/client";
-import { ReactElement } from "react";
+import { finalLink } from "@/apolloLinks/finalLink";
 
 const client = new ApolloClient({
-  uri: "http://localhost:3000/graphql",
+  link: finalLink,
   cache: new InMemoryCache(),
 });
 

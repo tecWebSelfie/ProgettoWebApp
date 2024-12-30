@@ -1848,7 +1848,7 @@ type Mutation {
 }
 
 type Subscription {
-  pippo(_id: MongoID!): User
+  subDemo: Int
 }
 
 """

@@ -38,6 +38,7 @@ app.prepare().then(() => {
       const { pathname } = parsedUrl;
 
       // pathname === "graphql/ws" ? wsHandler(req) : handle(req, res, parsedUrl);
+      handle(req, res, parsedUrl);
     } catch (err) {
       console.error("Error occurred handling", req.url, err);
       res.statusCode = 500;
@@ -49,7 +50,6 @@ app.prepare().then(() => {
   });
   const wsServer = new WebSocketServer({
     server: httpServer,
-    path: "/graphql/ws",
   });
 
   setWsServer(wsServer);

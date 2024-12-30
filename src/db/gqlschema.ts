@@ -477,7 +477,15 @@ schemaComposer.merge(todoSchema);
 schemaComposer.merge(userSchema);
 
 schemaComposer.Subscription.addFields({
-  pippo: userTC.getResolver("findById"),
+  subDemo: {
+    type: "Int",
+    subscribe: async function* () {
+      console.log("inside resolver");
+      for (let i = 0; i < 5; i++) {
+        yield i;
+      }
+    },
+  },
 });
 
 fs.writeFileSync(
