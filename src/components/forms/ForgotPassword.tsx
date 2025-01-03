@@ -33,8 +33,11 @@ export function ForgotPasswordForm() {
   const { toast } = useToast();
 
   const [formData, setFormData] = useState(() => {
-    const storedData = localStorage.getItem("forgot_pw_form_data");
-    return storedData ? JSON.parse(storedData) : { email: "" };
+    if (typeof window !== "undefined") {
+      const storedData = localStorage.getItem("forgot_pw_form_data");
+      return storedData ? JSON.parse(storedData) : { email: "" };
+    }
+    return { email: "" };
   });
 
   useEffect(() => {
@@ -57,7 +60,7 @@ export function ForgotPasswordForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
+      ...formData,
     },
   });
 
@@ -106,6 +109,7 @@ export function ForgotPasswordForm() {
                           placeholder="mario.rossi@mail.com"
                           type="email"
                           autoComplete="email"
+                          {...field}
                           value={formData.email}
                           name="email"
                           onChange={handleChange}
