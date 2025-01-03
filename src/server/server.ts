@@ -1,12 +1,15 @@
 import { dev } from "./dotEnv";
+import { dbConfig } from "../db/dbconfig";
 import { createServer } from "http";
+import { yoga } from "../app/graphql/yogaServer";
 import { parse } from "url";
 import next from "next";
-import { dbConfig } from "../db/dbconfig";
 import { WebSocketServer } from "ws";
 import { setWsServer } from "../app/graphql/ws/yogaWsServer";
 // import { wsHandler } from "../app/graphql/ws/yogaWsServer";
 import mongoose from "mongoose";
+import { useServer } from "graphql-ws/lib/use/ws";
+import { schema } from "@/db/gqlschema";
 
 /**
  * Loads environment variables from various .env files.
@@ -38,6 +41,7 @@ app.prepare().then(() => {
       const { pathname } = parsedUrl;
 
       // pathname === "graphql/ws" ? wsHandler(req) : handle(req, res, parsedUrl);
+      console.log("inside httpServer callback");
       handle(req, res, parsedUrl);
     } catch (err) {
       console.error("Error occurred handling", req.url, err);
@@ -50,6 +54,7 @@ app.prepare().then(() => {
   });
   const wsServer = new WebSocketServer({
     server: httpServer,
+    path: yoga.graphqlEndpoint,
   });
 
   setWsServer(wsServer);

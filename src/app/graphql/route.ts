@@ -3,7 +3,6 @@ import { yoga } from "./yogaServer";
 import { dbConfig } from "@/db/dbconfig";
 import mongoose from "mongoose";
 
-console.log(dbConfig.uri);
 mongoose.connect(dbConfig.uri);
 
 const routeHandler = auth(async (request) => {

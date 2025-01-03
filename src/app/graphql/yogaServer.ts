@@ -23,11 +23,11 @@ export const yoga = createYoga({
   schema: schema,
   logging: "debug",
   plugins: [
-    // eslint-disable-next-line
-    useGenericAuth({
-      mode: "protect-granular",
-      resolveUserFn,
-    }),
+    //eslint-disable-next-line
+    // useGenericAuth({
+    //   mode: "protect-granular",
+    //   resolveUserFn,
+    // }),
   ],
   fetchAPI: { Request: NextRequest, Response: Response, fetch },
   context,
