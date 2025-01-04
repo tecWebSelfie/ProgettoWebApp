@@ -1845,6 +1845,7 @@ type Mutation {
     filter: FilterRemoveManyFreebusyInput!
     limit: Int = 100
   ): RemoveManyFreebusyPayload
+  pubDemo(input: Int): Int
 }
 
 type Subscription {
