@@ -16,7 +16,6 @@ const config: CodegenConfig = {
     "src/gql/": {
       schema: "clientSchema.graphql",
       preset: "client",
-      plugins: ["typescript-react-apollo"],
     },
     "./graphql.schema.json": {
       plugins: ["introspection"],

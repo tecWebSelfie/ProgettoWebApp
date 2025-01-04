@@ -1,7 +1,7 @@
 extend type Query {
-  timeMachine: Date!
+  TimeMachine: Date!
 }
 
 extend type Mutation {
-  timeMachine: Date!
+  TimeMachine: Date!
 }
