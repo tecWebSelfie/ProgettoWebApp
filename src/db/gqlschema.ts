@@ -25,6 +25,8 @@ import {
   GraphQLList,
   GraphQLString,
 } from "graphql";
+import { createPubSub, Repeater } from "graphql-yoga";
+
 //import * as relations from "./models/relationsTmp";
 
 alarmTC.addRelation("Attendees", {
@@ -476,14 +478,27 @@ schemaComposer.merge(resourceSchema);
 schemaComposer.merge(todoSchema);
 schemaComposer.merge(userSchema);
 
+const pubSub = createPubSub<{
+  subDemo: [subDemo: number];
+}>();
+
 schemaComposer.Subscription.addFields({
   subDemo: {
     type: "Int",
-    subscribe: async function* () {
-      console.log("inside resolver");
-      for (let i = 0; i < 5; i++) {
-        yield i;
-      }
+    //resolve: (payload) => payload,
+    subscribe: () => Repeater.merge([0, pubSub.subscribe("subDemo")]),
+  },
+});
+
+schemaComposer.Mutation.addFields({
+  pubDemo: {
+    type: "Int",
+    resolve: async (_, { input }) => {
+      await pubSub.publish("subDemo", input);
+      return input;
+    },
+    args: {
+      input: "Int",
     },
   },
 });
