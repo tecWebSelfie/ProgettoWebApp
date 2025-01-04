@@ -30,4 +30,7 @@ export const yoga = createYoga({
   ],
   fetchAPI: { Request: NextRequest, Response: Response, fetch },
   context,
+  graphiql: {
+    subscriptionsProtocol: "GRAPHQL_SSE",
+  },
 });

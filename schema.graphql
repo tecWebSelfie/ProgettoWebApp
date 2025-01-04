@@ -1845,10 +1845,12 @@ type Mutation {
     filter: FilterRemoveManyFreebusyInput!
     limit: Int = 100
   ): RemoveManyFreebusyPayload
+  addN(input: Int): Int
 }
 
 type Subscription {
-  pippo(_id: MongoID!): User
+  demo: Int
+  n: Int
 }
 
 """
