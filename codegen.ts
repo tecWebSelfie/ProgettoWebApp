@@ -10,12 +10,13 @@ const config: CodegenConfig = {
   ],
 
   ignoreNoDocuments: true,
+
   verbose: true,
   generates: {
     "src/gql/": {
       schema: "clientSchema.graphql",
       preset: "client",
-      plugins: [],
+      plugins: ["typescript-react-apollo"],
     },
     "./graphql.schema.json": {
       plugins: ["introspection"],
