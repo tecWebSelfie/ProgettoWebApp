@@ -1,17 +1,10 @@
+import { dotEnvOutput } from "./dotEnv";
 import { createServer } from "http";
 import { parse } from "url";
 import next from "next";
 import { config as configEnv } from "dotenv";
 import { dbConfig } from "../db/dbconfig";
 import mongoose from "mongoose";
-
-/**
- * Loads environment variables from various .env files.
- * This ensures that environment variables are available throughout the application.
- */
-configEnv({
-  path: [".env", ".env.local", ".env.production", ".env.production.local"],
-});
 
 mongoose.connect(dbConfig.uri);
 
