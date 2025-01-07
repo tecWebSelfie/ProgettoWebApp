@@ -17,18 +17,24 @@ export default function SectionLayout({
   sidebar: React.ReactNode;
 }) {
   return (
-    <SidebarProvider className="gap-10">
-      <Sidebar
-        side="right"
-        collapsible="none"
-        variant="inset"
-        className="gap-4"
-      >
-        <SidebarInset>
-          <SidebarContent>{sidebar}</SidebarContent>
-        </SidebarInset>
-      </Sidebar>
-      <div className="w-full h-full">{main}</div>
-    </SidebarProvider>
+    <>
+      <SidebarProvider className="hidden md:flex gap-10">
+        <Sidebar
+          side="right"
+          collapsible="none"
+          variant="inset"
+          className="gap-4"
+        >
+          <SidebarInset>
+            <SidebarContent>{sidebar}</SidebarContent>
+          </SidebarInset>
+        </Sidebar>
+        <div className="w-full h-full">{main}</div>
+      </SidebarProvider>
+
+      <div className="flex flex-col gap-4">
+        {main} {sidebar}
+      </div>
+    </>
   );
 }

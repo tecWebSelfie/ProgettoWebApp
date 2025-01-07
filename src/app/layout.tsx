@@ -37,7 +37,7 @@ export default function RootLayout({
         >
           <Apollo>
             <AppBar />
-            <div>{children}</div>
+            <div className="p-4">{children}</div>
           </Apollo>
         </ThemeProvider>
       </body>
