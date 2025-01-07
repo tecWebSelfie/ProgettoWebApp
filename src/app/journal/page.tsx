@@ -7,14 +7,16 @@ import { useQuery } from "@apollo/client";
 import { JournalTextArea } from "@/src/components/JournalTextArea";
 
 const journalPageQuery = graphql(`
-  query journalPageQuery($journalId: MongoID!) {
+  query journalPageQuery($selectedJournalId: MongoID!) {
     ...journalTextAreaFragment
     ...journalsListFragment
   }
 `);
 
 export default function Journal() {
-  const { data, loading, error } = useQuery(journalPageQuery);
+  const { data, loading, error } = useQuery(journalPageQuery, {
+    variables: { selectedJournalId: "123" },
+  });
   return (
     <div className="md:w-full  flex flex-col md:flex-row md:justify-center gap-4 p-5">
       {data && <JournalTextArea journal={data} />}
