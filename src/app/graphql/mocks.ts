@@ -10,7 +10,7 @@ export const mocks = {
   }),
   Journal: () => ({
     summary: faker.book.title(),
-    description: "journal description",
+    description: faker.lorem.paragraph(),
     start_date: faker.date.recent().toISOString(),
     last_modified: faker.date.recent().toISOString(),
   }),
