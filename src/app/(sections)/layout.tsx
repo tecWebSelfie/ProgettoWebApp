@@ -26,7 +26,7 @@ export default function SectionLayout({
           className="gap-4"
         >
           <SidebarInset>
-            <SidebarContent>{sidebar}</SidebarContent>
+            <SidebarContent className="p-1">{sidebar}</SidebarContent>
           </SidebarInset>
         </Sidebar>
         <div className="w-full h-full">{main}</div>
