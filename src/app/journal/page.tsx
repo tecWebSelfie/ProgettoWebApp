@@ -1,14 +1,10 @@
 "use client";
 
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { JournalsList } from "@/src/components/JournalsList";
-import { graphql, useFragment } from "@/src/gql";
+import { graphql } from "@/src/gql";
 import { useQuery } from "@apollo/client";
 import { JournalTextArea } from "@/src/components/JournalTextArea";
-import { Types } from "mongoose";
 
 const journalPageQuery = graphql(`
   query journalPageQuery($journalId: MongoID!) {

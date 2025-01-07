@@ -7,7 +7,7 @@ import {
 import { print, GraphQLError } from "graphql";
 import { createClient, ClientOptions, Client } from "graphql-sse";
 
-class SSELink extends ApolloLink {
+export class SSELink extends ApolloLink {
   private client: Client;
 
   constructor(options: ClientOptions) {
@@ -30,5 +30,5 @@ class SSELink extends ApolloLink {
 }
 
 export const sseLink = new SSELink({
-  url: "http://localhost:3000/graphql/stream",
+  url: "http://localhost:3000/graphql",
 });
