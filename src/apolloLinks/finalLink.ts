@@ -16,7 +16,7 @@ export const finalLink = split(
   new HttpLink({ uri: "http://localhost:3000/graphql" }),
 );
 
-export const makeFinalLink = () =>
+export const createFinalLink = () =>
   split(
     checkIfOperationIsSubscription,
     new SSELink({ url: "http://localhost:3000/graphql" }),

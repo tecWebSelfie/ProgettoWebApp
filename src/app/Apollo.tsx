@@ -6,11 +6,11 @@ import {
   ApolloNextAppProvider,
 } from "@apollo/experimental-nextjs-app-support";
 import { gql, HttpLink } from "@apollo/client";
-import { finalLink, makeFinalLink } from "@/apolloLinks/finalLink";
+import { finalLink, createFinalLink } from "@/apolloLinks/finalLink";
 
 // have a function to create a client for you
 function makeClient() {
-  const finalLink = makeFinalLink();
+  const finalLink = createFinalLink();
   // const httpLink = new HttpLink({
   // this needs to be an absolute url, as relative urls cannot be used in SSR
   // uri: "http://localhost:3000/graphql",
