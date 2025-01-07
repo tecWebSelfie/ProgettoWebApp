@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { JournalsList } from "@/src/components/JournalsList";
 import { graphql, useFragment } from "@/src/gql";
-import { useQuery } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/client";
 import { JournalTextArea } from "@/src/components/JournalTextArea";
 import { Types } from "mongoose";
 
@@ -18,7 +18,7 @@ const journalPageQuery = graphql(`
 `);
 
 export default function Journal() {
-  const { data, loading, error } = useQuery(journalPageQuery, {
+  const { data, error } = useSuspenseQuery(journalPageQuery, {
     variables: { journalId: "123" },
   });
   return (
