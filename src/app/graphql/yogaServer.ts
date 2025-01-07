@@ -5,7 +5,7 @@ import { addMocksToSchema } from "@graphql-tools/mock";
 import { User } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { NextAuthRequest } from "next-auth/lib";
-import { mockedResolvers, mocks } from "./mocks";
+import { mocks } from "./mocks";
 
 //define here properties to inject in graphql contexts
 const context = {};
@@ -22,9 +22,7 @@ const resolveUserFn: ResolveUserFn<
 };
 
 export const yoga = createYoga({
-  schema: process.env.MOCKING
-    ? addMocksToSchema({ schema, mocks, preserveResolvers: true })
-    : schema,
+  schema: process.env.MOCKING ? addMocksToSchema({ schema, mocks }) : schema,
   plugins: [
     // eslint-disable-next-line
     useGenericAuth({
