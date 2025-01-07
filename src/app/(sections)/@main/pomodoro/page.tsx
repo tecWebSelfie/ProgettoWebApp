@@ -1,3 +1,3 @@
 export default function Pomodoro() {
-  return <div></div>;
+  return <div>Work in Progress...</div>;
 }

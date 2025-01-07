@@ -1,3 +1,5 @@
+"use client";
+
 import { JournalsList } from "@/src/components/JournalsList";
 import { Input } from "@/src/components/ui/input";
 import { JournalPageQueryDocument } from "@/src/gql/graphql";

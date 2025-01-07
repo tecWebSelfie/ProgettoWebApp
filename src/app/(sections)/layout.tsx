@@ -10,16 +10,14 @@ import {
 } from "@/src/components/ui/sidebar";
 
 export default function SectionLayout({
-  children,
   main,
   sidebar,
 }: {
-  children: React.ReactNode;
   main: React.ReactNode;
   sidebar: React.ReactNode;
 }) {
   return (
-    <SidebarProvider>
+    <SidebarProvider className="gap-10">
       <Sidebar
         side="right"
         collapsible="none"
@@ -30,7 +28,7 @@ export default function SectionLayout({
           <SidebarContent>{sidebar}</SidebarContent>
         </SidebarInset>
       </Sidebar>
-      <div className="w-full">{children ? children : main}</div>
+      <div className="w-full h-full">{main}</div>
     </SidebarProvider>
   );
 }

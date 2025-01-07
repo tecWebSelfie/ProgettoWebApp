@@ -18,14 +18,14 @@ const journalPageQuery = graphql(`
 `);
 
 export default function Journal() {
-  const { data, loading, error } = useQuery(journalPageQuery);
+  const { data, loading, error } = useQuery(journalPageQuery, {
+    variables: { journalId: "123" },
+  });
   return (
-    <div className="md:w-full  flex flex-col md:flex-row md:justify-center gap-4 p-5">
+    <>
+      {/*  <div className="md:w-full  flex flex-col md:flex-row md:justify-center gap-4 p-5"> */}
       {data && <JournalTextArea journal={data} />}
-      <div className="flex flex-col gap-4">
-        <Input placeholder="Search for a journal..." />
-        {data && <JournalsList journalsList={data} />}
-      </div>
-    </div>
+      {/* </div> */}
+    </>
   );
 }
