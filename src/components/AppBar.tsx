@@ -12,19 +12,19 @@ import { NavigationBarButton } from "./NavigationBarButton";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { SignUpOrLoginButton } from "./SignUpOrLoginButton";
 import { DarkModeToggle } from "./DarkModeToggle";
+import { ProfileBadge } from "./ProfileBadge";
+import { TimeMachine } from "./TimeMachine";
 
 export function AppBar() {
   return (
-    <div className="p-2 flex w-full justify-between border-solid shadow-md rounded">
+    <div className="flex p-2 justify-between border-solid shadow-md rounded">
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <Button asChild>
-              <Link href="/calendar">
-                <CiCalendar />
-                Calendar
-              </Link>
-            </Button>
+            <NavigationBarButton href="/calendar">
+              <CiCalendar />
+              <span className="hidden sm:inline">Calendar</span>
+            </NavigationBarButton>
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationBarButton
@@ -32,7 +32,7 @@ export function AppBar() {
               href="/journal"
             >
               <BsJournalBookmarkFill />
-              Journal
+              <span className="hidden sm:inline">Journal</span>
             </NavigationBarButton>
           </NavigationMenuItem>
           <NavigationMenuItem>
@@ -41,18 +41,15 @@ export function AppBar() {
               className="bg-red-700 hover:bg-red-800"
             >
               <GiTomato />
-              Pomodoro
+              <span className="hidden sm:inline">Pomodoro</span>
             </NavigationBarButton>
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
       <div className="flex gap-3 items-center">
-        <SignUpOrLoginButton />
+        <TimeMachine />
         <DarkModeToggle />
-        <Avatar>
-          <AvatarImage src="/avatar.jpg" alt="avatar" />
-          <AvatarFallback>JD</AvatarFallback>
-        </Avatar>
+        <ProfileBadge />
       </div>
     </div>
   );

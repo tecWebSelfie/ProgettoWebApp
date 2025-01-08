@@ -5,6 +5,15 @@ import "./globals.css";
 
 import { AppBar } from "../components/AppBar";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "../components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { Button } from "../components/ui/button";
+import { TimeMachine } from "../components/TimeMachine";
+import Apollo from "./Apollo";
 import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -28,9 +37,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AppBar />
-
-          {children}
+          <Apollo>
+            <AppBar />
+            <div>{children}</div>
+            <div className="fixed bottom-5 left-5"></div>
+          </Apollo>
           <Toaster />
         </ThemeProvider>
       </body>

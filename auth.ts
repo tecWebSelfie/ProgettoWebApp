@@ -106,7 +106,7 @@ async function fakeAuth(
 ) {
   return {
     email: "pippo@gmail.com",
-    name: "Mario",
+    name: "Mario Rossi",
     id: "1",
     scope: "read:default",
   };

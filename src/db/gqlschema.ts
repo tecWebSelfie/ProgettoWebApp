@@ -25,6 +25,8 @@ import {
   GraphQLList,
   GraphQLString,
 } from "graphql";
+import { setTimeout } from "timers/promises";
+import { createPubSub, Repeater } from "graphql-yoga";
 //import * as relations from "./models/relationsTmp";
 
 alarmTC.addRelation("Attendees", {
@@ -476,8 +478,39 @@ schemaComposer.merge(resourceSchema);
 schemaComposer.merge(todoSchema);
 schemaComposer.merge(userSchema);
 
+const pubSub = createPubSub<{
+  n: [n: number];
+}>();
+
 schemaComposer.Subscription.addFields({
-  pippo: userTC.getResolver("findById"),
+  demo: {
+    type: "Int",
+    resolve: (payload) => payload,
+    subscribe: async function* () {
+      for (let i = 0; i < 5; i++) {
+        await setTimeout(1000);
+        yield i;
+      }
+    },
+  },
+  n: {
+    type: "Int",
+    subscribe: () => Repeater.merge([0, pubSub.subscribe("n")]),
+    resolve: (payload) => payload,
+  },
+});
+
+schemaComposer.Mutation.addFields({
+  addN: {
+    type: "Int",
+    args: {
+      input: "Int",
+    },
+    resolve: async (_, { input }) => {
+      pubSub.publish("n", input);
+      return input;
+    },
+  },
 });
 
 fs.writeFileSync(
