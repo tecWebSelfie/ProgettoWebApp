@@ -483,10 +483,19 @@ const pubSub = createPubSub<{
 }>();
 
 schemaComposer.Subscription.addFields({
+  asyncDemo: {
+    type: "Int",
+    subscribe: async function* () {
+      for (let i = 0; i < 10; i++) {
+        yield i;
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+      }
+    },
+  },
   subDemo: {
     type: "Int",
-    //resolve: (payload) => payload,
     subscribe: () => Repeater.merge([0, pubSub.subscribe("subDemo")]),
+    resolve: (payload) => payload,
   },
 });
 
@@ -494,7 +503,7 @@ schemaComposer.Mutation.addFields({
   pubDemo: {
     type: "Int",
     resolve: async (_, { input }) => {
-      await pubSub.publish("subDemo", input);
+      pubSub.publish("subDemo", input);
       return input;
     },
     args: {

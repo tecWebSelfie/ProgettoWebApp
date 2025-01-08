@@ -38,7 +38,7 @@ app.prepare().then(() => {
       // Be sure to pass `true` as the second argument to `url.parse`.
       // This tells it to parse the query portion of the URL.
       const parsedUrl = parse(req.url!!, true);
-      const { pathname } = parsedUrl;
+      const { pathname, protocol } = parsedUrl;
 
       // pathname === "graphql/ws" ? wsHandler(req) : handle(req, res, parsedUrl);
       console.log("inside httpServer callback");

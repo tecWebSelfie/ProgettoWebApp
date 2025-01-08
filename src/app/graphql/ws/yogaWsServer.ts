@@ -7,6 +7,24 @@ export const setWsServer = (ws: WebSocketServer) => {
   // eslint-disable-next-line
   useServer(
     {
+      onDisconnect(ctx, code, reason) {
+        console.log("client disconnected");
+      },
+      onOperation(ctx, message, args, result) {
+        console.log("operation started");
+      },
+      onClose(ctx, code, reason) {
+        console.log("connection closed, code is: ", code);
+      },
+      onError(ctx, message, errors) {
+        console.log("error occurred");
+      },
+      onComplete(ctx) {
+        console.log("operation completed");
+      },
+      onConnect(ctx) {
+        console.log("trying to connect");
+      },
       onNext: (_, msg) => {
         console.log("onNext", msg.payload.data);
       },

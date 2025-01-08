@@ -1849,6 +1849,7 @@ type Mutation {
 }
 
 type Subscription {
+  asyncDemo: Int
   subDemo: Int
 }
 
