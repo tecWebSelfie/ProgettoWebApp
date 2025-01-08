@@ -32,6 +32,7 @@ export default function SectionLayout({
         <div className="w-full h-full">{main}</div>
       </SidebarProvider>
 
+      {/* for mobile */}
       <div className="flex flex-col gap-4">
         {main} {sidebar}
       </div>
