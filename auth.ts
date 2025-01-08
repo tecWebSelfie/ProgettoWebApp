@@ -4,23 +4,15 @@ import { z } from "zod";
 import { credentialModel } from "./src/db/models/credential";
 import bcrypt from "bcrypt";
 import { userModel } from "./src/db/models/user";
+import { emailSchema, passwordSchema } from "./src/validator";
 
 export const credentialsValidator = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z
-    .string()
-    .min(8, "Password must be at least 8 characters long")
-    .regex(
-      /^(?!.*(password|1234|qwerty)).*$/i,
-      "Password must not contain known weak words (es. '1234','password') ",
-    )
-    .regex(/[A-Z]/, "Password must contain at least one uppercase letter")
-    .regex(/[a-z]/, "Password must contain at least one lowercase letter")
-    .regex(/[0-9]/, "Password must contain at least one number")
-    .regex(/[@$!%*?&]/, "Password must contain at least one special character"),
+  email: emailSchema,
+  password: passwordSchema,
 });
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  pages: { signIn: "/login" },
   debug: process.env.NODE_ENV == "development",
   callbacks: {
     /**
