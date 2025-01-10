@@ -25,7 +25,7 @@ const client = new ApolloClient({
     typePolicies: {
       Query: {
         fields: {
-          TimeMachine: {
+          timeMachine: {
             read: () => timeMachine(),
           },
         },
@@ -34,7 +34,7 @@ const client = new ApolloClient({
   }),
   typeDefs: gql`
     extend type Query {
-      TimeMachine: Date!
+      timeMachine: Date!
     }
   `,
 });
