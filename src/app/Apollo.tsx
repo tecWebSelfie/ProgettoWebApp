@@ -8,6 +8,13 @@ import {
   makeVar,
 } from "@apollo/client";
 import { finalLink } from "@/apolloLinks/finalLink";
+import { timeMachine } from "../reactiveVars";
+// import tm from "timemachine";
+
+// tm.config({
+//   dateString: "Thu, 01 Jan 2022 00:00:00 GMT",
+//   tick: true,
+// });
 
 /*
 local variable implemented using Apollo's reactive variables.
@@ -16,7 +23,13 @@ local variable implemented using Apollo's reactive variables.
  to read it, call timeMachine()
 when updated, every component that uses it will re-render and active queries will re-fetch
 */
-const timeMachine = makeVar(new Date());
+
+// export const timeMachine = makeVar(new Date());
+
+//date Machine ticks every second
+// setInterval(() => {
+//   timeMachine(new Date(timeMachine().getTime() + 1000));
+// }, 1000);
 
 const client = new ApolloClient({
   uri: "http://localhost:3000/graphql",
