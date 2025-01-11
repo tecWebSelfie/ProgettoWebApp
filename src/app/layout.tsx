@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-import { AppBar } from "../components/AppBar";
+import { AppBar } from "@/components/AppBar";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import {
   Popover,
@@ -10,9 +10,11 @@ import {
   PopoverTrigger,
 } from "../components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
-import { Button } from "../components/ui/button";
-import { TimeMachine } from "../components/TimeMachine";
+import { Button } from "@/components/ui/button";
+import { TimeMachine } from "@/components/TimeMachine";
+import { StartTimeMachine } from "@/components/StartTimeMachine";
 import Apollo from "./Apollo";
+import { NoSsr } from "@/components/NoSsr";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <StartTimeMachine />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -36,6 +39,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Apollo>
+            {/* <NoSsr> */}
+
+            {/* </NoSsr> */}
             <AppBar />
             <div>{children}</div>
             <div className="fixed bottom-5 left-5"></div>
