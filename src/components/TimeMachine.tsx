@@ -5,24 +5,42 @@ import { Button } from "./ui/button";
 import { Calendar } from "./ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { FaRegHourglassHalf } from "react-icons/fa6";
+import { LuTimerReset } from "react-icons/lu";
+import { timeMachine } from "../reactiveVars";
+import { useReactiveVar } from "@apollo/client";
+import { Input } from "./ui/input";
 // import { TIME_MACHINE_FRAGMENT } from "@/localGql/localOperations";
 
 export function TimeMachine() {
-  const [date, setDate] = useState(new Date());
+  // const [date, setDate] = useState(new Date());
+  const timeMachineState = useReactiveVar(timeMachine);
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button>
           <FaRegHourglassHalf />
-          <span className="hidden md:inline">change date</span>
+          <span className="hidden md:inline">
+            {timeMachineState.toLocaleString()}
+          </span>
         </Button>
       </PopoverTrigger>
-      <PopoverContent>
+      <PopoverContent className="flex flex-col gap-5">
+        <Button onClick={() => timeMachine(new Date())}>
+          <LuTimerReset />
+          <span>Reset Time Machine</span>
+        </Button>
+        <Input
+          className="inline-block wrap"
+          type="time"
+          value={
+            timeMachineState.getHours() + ":" + timeMachineState.getMinutes()
+          }
+        />
         <Calendar
           mode="single"
-          selected={date}
+          selected={timeMachineState}
           required={true}
-          onSelect={(_, newDate) => setDate(newDate)}
+          onSelect={(_, newDate) => timeMachine(newDate)}
         />
       </PopoverContent>
     </Popover>
