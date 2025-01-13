@@ -32,10 +32,11 @@ export function TimeMachine() {
         </Button>
         <Input
           onChange={(e) => {
+            let [newHour, newMinute] = e.target.value.split(":");
             timeMachine(
               timeMachineState
-                .hour(parseInt(e.target.value.split(":")[0]))
-                .minute(parseInt(e.target.value.split(":")[1])),
+                .hour(parseInt(newHour))
+                .minute(parseInt(newMinute)),
             );
           }}
           className="inline-block wrap"
