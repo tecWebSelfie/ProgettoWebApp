@@ -31,6 +31,13 @@ export function TimeMachine() {
           <span>Reset Time Machine</span>
         </Button>
         <Input
+          onChange={(e) => {
+            timeMachine(
+              timeMachineState
+                .hour(parseInt(e.target.value.split(":")[0]))
+                .minute(parseInt(e.target.value.split(":")[1])),
+            );
+          }}
           className="inline-block wrap"
           type="time"
           value={timeMachineState.format("HH:mm")}
