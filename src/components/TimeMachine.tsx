@@ -9,6 +9,7 @@ import { LuTimerReset } from "react-icons/lu";
 import { timeMachine } from "../reactiveVars";
 import { useReactiveVar } from "@apollo/client";
 import { Input } from "./ui/input";
+import dayjs from "dayjs";
 // import { TIME_MACHINE_FRAGMENT } from "@/localGql/localOperations";
 
 export function TimeMachine() {
@@ -20,27 +21,25 @@ export function TimeMachine() {
         <Button>
           <FaRegHourglassHalf />
           <span className="hidden md:inline">
-            {timeMachineState.toLocaleString()}
+            {timeMachineState.format("DD/MM/YYYY HH:mm")}
           </span>
         </Button>
       </PopoverTrigger>
       <PopoverContent className="flex flex-col gap-5">
-        <Button onClick={() => timeMachine(new Date())}>
+        <Button onClick={() => timeMachine(dayjs())}>
           <LuTimerReset />
           <span>Reset Time Machine</span>
         </Button>
         <Input
           className="inline-block wrap"
           type="time"
-          value={
-            timeMachineState.getHours() + ":" + timeMachineState.getMinutes()
-          }
+          value={timeMachineState.format("HH:mm")}
         />
         <Calendar
           mode="single"
-          selected={timeMachineState}
+          selected={timeMachineState.toDate()}
           required={true}
-          onSelect={(_, newDate) => timeMachine(newDate)}
+          onSelect={(_, newDate) => timeMachine(dayjs(newDate))}
         />
       </PopoverContent>
     </Popover>

@@ -8,7 +8,7 @@ export const useStartTimeMachine = () => {
     if (!timerRef.current) {
       timerRef.current = true;
       setInterval(() => {
-        timeMachine(new Date(timeMachine().getTime() + 1000));
+        timeMachine(timeMachine().add(1, "second"));
       }, 1000);
     }
   }, []);
