@@ -22,9 +22,7 @@ const resolveUserFn: ResolveUserFn<
 };
 
 export const yoga = createYoga({
-  schema: process.env.MOCKING
-    ? addMocksToSchema({ schema, mocks, preserveResolvers: true })
-    : schema,
+  schema: process.env.MOCKING ? addMocksToSchema({ schema, mocks }) : schema,
   plugins: [
     // eslint-disable-next-line
     useGenericAuth({
