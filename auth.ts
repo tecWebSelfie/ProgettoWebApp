@@ -1,7 +1,6 @@
 import NextAuth, { User } from "next-auth";
 import Credentials, { CredentialInput } from "next-auth/providers/credentials";
 import { z } from "zod";
-import { credentialModel } from "./src/db/models/credential";
 import bcrypt from "bcrypt";
 import { userModel } from "./src/db/models/user";
 import { emailSchema, passwordSchema } from "./src/validator";
