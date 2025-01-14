@@ -32,10 +32,14 @@ export function TimeMachine() {
         </Button>
         <Input
           onChange={(e) => {
+            let [hours, minutes] = e.target.value
+              .split(":")
+              .map((x) => parseInt(x));
             timeMachine(
               timeMachineState
-                .hour(parseInt(e.target.value.split(":")[0]))
-                .minute(parseInt(e.target.value.split(":")[1])),
+                .startOf("day")
+                .add(hours, "hours")
+                .add(minutes, "minutes"),
             );
           }}
           className="inline-block wrap"
@@ -46,7 +50,13 @@ export function TimeMachine() {
           mode="single"
           selected={timeMachineState.toDate()}
           required={true}
-          onSelect={(_, newDate) => timeMachine(dayjs(newDate))}
+          onSelect={(_, newDate) =>
+            timeMachine(
+              dayjs(newDate)
+                .add(timeMachineState.hour(), "hours")
+                .add(timeMachineState.minute(), "minutes"),
+            )
+          }
         />
       </PopoverContent>
     </Popover>
