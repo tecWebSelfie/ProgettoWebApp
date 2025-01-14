@@ -33,7 +33,7 @@
       "@/serverActions/*": ["./src/serverActions/*"],
       "@/localGql/*": ["./src/app/localGql/*"],
       "@/apolloLinks/*": ["./src/apolloLinks/*"],
-      "@/hooks/*": ["./src/hooks/*"]
+      "@/hooks/*": ["./hooks/*"]
     }
   },
   "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
