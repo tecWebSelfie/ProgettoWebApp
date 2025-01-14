@@ -12,7 +12,7 @@ export const credentialsValidator = z.object({
 });
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  pages: { signIn: "/login" },
+  pages: { signIn: "/login", newUser: "/" },
   debug: process.env.NODE_ENV == "development",
   callbacks: {
     /**
@@ -54,13 +54,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         },
         password: { label: "Password", type: "password" },
       },
-      authorize: fakeAuth,
+      authorize: dbAuthentication,
+      /*async authorize(credentials) {
+        // Add your logic to validate credentials here
+        const user = await validateCredentials(credentials);
+        if (user) {
+          return user;
+        } else {
+          return null;
+        }
+          
+      },
+      */
     }),
   ],
 });
 
 async function dbAuthentication(
-  credentials: Partial<Record<"email" | "password", unknown>>,
+  credentials: Partial<Record<"email" | "password", string>>,
   request: Request,
 ) {
   const validatedCredentials = credentialsValidator.safeParse(credentials);
@@ -69,40 +80,40 @@ async function dbAuthentication(
     console.log("auth.ts" + validatedCredentials.error.message);
     return null;
   } else {
-    const credentialDoc = await credentialModel
+    const userDoc = await userModel
       .findOne({ email: validatedCredentials.data.email })
       .exec();
 
     if (
-      credentialDoc &&
+      userDoc &&
       (await bcrypt.compare(
         validatedCredentials.data.password,
-        credentialDoc.password,
+        userDoc.password,
       ))
     ) {
+      /*
       const userDoc = await userModel
         .findOne({ id: credentialDoc.userId })
         .exec();
+      */
 
-      if (userDoc) {
-        return {
-          email: userDoc.email,
-          name: userDoc.nickname,
-          image: userDoc.photo.toString(),
-          id: userDoc.id,
-          scope: "read:user",
-        };
+      return {
+        email: userDoc.email,
+        name: userDoc.username,
+        image: "pippo",
+        id: userDoc.id,
+        scope: "read:user",
+      };
 
-        //return null;
-      } else return null;
+      //return null;
     } else return null;
     //return {email : credentialsValidator.safeParse({email : credentials.email}).data?.email};
   }
 }
-
+/*
 async function fakeAuth(
   credentials: Partial<Record<"email" | "password", unknown>>,
-  request: Request,
+  request: Request
 ) {
   return {
     email: "pippo@gmail.com",
@@ -111,3 +122,4 @@ async function fakeAuth(
     scope: "read:default",
   };
 }
+*/
