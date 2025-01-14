@@ -34,23 +34,18 @@ export function ForgotPasswordForm() {
 
   const [formData, setFormData] = useState(() => {
     if (typeof window !== "undefined") {
-      const storedData = localStorage.getItem("forgot_pw_form_data");
+      const storedData = sessionStorage.getItem("forgot_pw_form_data");
       return storedData ? JSON.parse(storedData) : { email: "" };
     }
     return { email: "" };
   });
 
   useEffect(() => {
-    localStorage.setItem("forgot_pw_form_data", JSON.stringify(formData));
+    sessionStorage.setItem("forgot_pw_form_data", JSON.stringify(formData));
   }, [formData]);
 
-  const handleChange = (e: {
-    target: {
-      name: any;
-      value: any;
-    };
-  }) => {
-    const { name, value } = e.target;
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
     setFormData((prevState: any) => ({
       ...prevState,
       [name]: value,
@@ -60,7 +55,7 @@ export function ForgotPasswordForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      ...formData,
+      email: formData.email,
     },
   });
 
@@ -68,7 +63,7 @@ export function ForgotPasswordForm() {
     try {
       // Function to send reset email
       console.log(values);
-      localStorage.removeItem("forgot_pw_form_data");
+      sessionStorage.removeItem("forgot_pw_form_data");
       toast({
         title: "Password reset email sent. Please check your inbox.",
       });
@@ -84,7 +79,7 @@ export function ForgotPasswordForm() {
   }
 
   return (
-    <div className="flex min-h-[40vh] h-full w-full items-center justify-center px-4">
+    <div className="flex flex-col min-h-[50vh] h-full w-full items-center justify-center px-4">
       <Card className="mx-auto max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl">Forgot Password</CardTitle>
@@ -110,9 +105,11 @@ export function ForgotPasswordForm() {
                           type="email"
                           autoComplete="email"
                           {...field}
+                          onChange={(e) => {
+                            field.onChange(e);
+                            handleChange(e);
+                          }}
                           value={formData.email}
-                          name="email"
-                          onChange={handleChange}
                         />
                       </FormControl>
                       <FormMessage />
