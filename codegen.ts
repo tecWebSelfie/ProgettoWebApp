@@ -12,9 +12,10 @@ const config: CodegenConfig = {
   ignoreNoDocuments: true,
 
   verbose: true,
+  debug: true,
   generates: {
     "src/gql/": {
-      schema: "clientSchema.graphql",
+      schema: "./clientSchema.graphql",
       preset: "client",
     },
     "./graphql.schema.json": {

@@ -43,6 +43,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
     "datebook": "^8.0.1",
+    "dayjs": "^1.11.13",
     "dotenv": "^16.4.5",
     "graphql": "^16.9.0",
     "graphql-compose": "^9.0.11",

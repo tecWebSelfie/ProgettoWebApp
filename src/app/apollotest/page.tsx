@@ -2,7 +2,7 @@
 
 import { graphql } from "@/gql/gql";
 import Sumier from "./Sumier";
-import { useTestQueryQuery } from "@/src/gql/graphql";
+import { useQuery } from "@apollo/client";
 
 const TEST_QUERY = graphql(`
   query TestQuery {
@@ -15,7 +15,7 @@ const TEST_QUERY = graphql(`
 
 export default function ApolloTest() {
   //const { data, loading, error } = useQuery(TEST_QUERY);
-  const { data, loading, error } = useTestQueryQuery();
+  const { data, loading, error } = useQuery(TEST_QUERY);
   data?.event_findOne?._id;
   return (
     <div>

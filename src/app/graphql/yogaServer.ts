@@ -23,7 +23,7 @@ const resolveUserFn: ResolveUserFn<
 
 export const yoga = createYoga({
   schema: process.env.MOCKING
-    ? addMocksToSchema({ schema, mocks, resolvers: mockedResolvers })
+    ? addMocksToSchema({ schema, mocks, preserveResolvers: true })
     : schema,
   plugins: [
     // eslint-disable-next-line
