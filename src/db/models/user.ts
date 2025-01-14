@@ -17,8 +17,9 @@ import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 import { ICalAttendeeJSONData } from "ical-generator";
 
 interface IUser extends ICalAttendeeJSONData {
-  nickname: string;
+  username: string;
   email: string;
+  password: string;
   name: string;
   surname: string;
   birthday: Date;
@@ -39,7 +40,7 @@ interface IUser extends ICalAttendeeJSONData {
 }
 
 const userSchema = new Schema<IUser>({
-  nickname: {
+  username: {
     type: String,
     required: true,
     unique: true,
@@ -48,6 +49,10 @@ const userSchema = new Schema<IUser>({
     type: String,
     required: true,
     unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
   },
   name: {
     type: String,

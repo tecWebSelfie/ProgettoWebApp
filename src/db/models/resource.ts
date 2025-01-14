@@ -12,7 +12,7 @@ import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 import { ICalEventClass } from "ical-generator";
 
 interface IResource {
-  nickname: string;
+  username: string;
   description: string;
   location: string;
   geo_location: string;
@@ -26,7 +26,7 @@ interface IResource {
 }
 
 const resourceSchema = new Schema<IResource>({
-  nickname: String,
+  username: String,
   description: String,
   location: String,
   geo_location: String,
