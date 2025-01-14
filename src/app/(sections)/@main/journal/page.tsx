@@ -19,7 +19,7 @@ const journalPageQuery = graphql(`
 
 export default function Journal() {
   const { data, error } = useSuspenseQuery(journalPageQuery, {
-    variables: { journalId: "123" },
+    variables: { journalId: new Types.ObjectId() },
   });
   return (
     <>

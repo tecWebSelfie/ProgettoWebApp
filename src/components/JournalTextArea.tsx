@@ -36,7 +36,7 @@ export function JournalTextArea(props: {
   return (
     <div>
       <Input value={journal_findById?.summary || "Insert Title"} />
-      <Textarea>{journal_findById?.description || "Write here"}</Textarea>
+      <Textarea defaultValue={journal_findById?.description || "Write here"} />
       <Button>Save Note</Button>
     </div>
   );
