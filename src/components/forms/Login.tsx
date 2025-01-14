@@ -26,6 +26,8 @@ import { Input } from "@/components/ui/input";
 import * as React from "react";
 import { emailSchema, passwordSchema } from "../../validator";
 import { useState, useEffect } from "react";
+import { logIn } from "../../serverActions/logIn";
+import { useRouter } from "next/navigation";
 
 export const formSchema = z.object({
   email: emailSchema,
@@ -34,26 +36,22 @@ export const formSchema = z.object({
 
 export function LoginForm() {
   const { toast } = useToast();
+  const router = useRouter();
 
   const [formData, setFormData] = useState(() => {
     if (typeof window !== "undefined") {
-      const storedData = localStorage.getItem("login_form_data");
+      const storedData = sessionStorage.getItem("login_form_data");
       return storedData ? JSON.parse(storedData) : { email: "" };
     }
     return { email: "" };
   });
 
   useEffect(() => {
-    localStorage.setItem("login_form_data", JSON.stringify(formData));
+    sessionStorage.setItem("login_form_data", JSON.stringify(formData));
   }, [formData]);
 
-  const handleChange = (e: {
-    target: {
-      name: any;
-      value: any;
-    };
-  }) => {
-    const { name, value } = e.target;
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
     setFormData((prevState: any) => ({
       ...prevState,
       [name]: value,
@@ -63,7 +61,7 @@ export function LoginForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      ...formData,
+      email: formData.email,
       password: "",
     },
   });
@@ -72,11 +70,17 @@ export function LoginForm() {
     try {
       // Assuming an async login function
       console.log(values);
-      localStorage.removeItem("login_form_data");
-      toast({
+      const { email, password } = values;
+      await logIn("credentials", {
+        email,
+        password,
+      });
+
+      sessionStorage.removeItem("login_form_data");
+      /*toast({
         title: "Toast window",
         description: "Check se utile",
-      });
+      });*/
     } catch (error) {
       console.error("Form submission error", error);
       toast({
@@ -89,7 +93,7 @@ export function LoginForm() {
   }
   return (
     <>
-      <div className="flex flex-col min-h-[50vh] h-full w-full items-center justify-center px-4 ">
+      <div className="flex flex-col min-h-[50vh] h-full w-full items-center justify-center px-4 pt-4">
         <Card className="mx-auto max-w-md">
           <CardHeader>
             <CardTitle className="text-2xl">Login</CardTitle>
@@ -117,9 +121,11 @@ export function LoginForm() {
                             type="email"
                             autoComplete="email"
                             {...field}
+                            onChange={(e) => {
+                              field.onChange(e);
+                              handleChange(e);
+                            }}
                             value={formData.email}
-                            name="email"
-                            onChange={handleChange}
                           />
                         </FormControl>
                         <FormMessage />
