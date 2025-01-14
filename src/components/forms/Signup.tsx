@@ -37,38 +37,23 @@ import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { useState, useEffect } from "react";
-import { emailSchema, passwordSchema } from "../../validator";
+import * as validator from "../../validator";
+import { useRouter } from "next/navigation";
+import { signUp } from "../../serverActions/signUp";
+import dayjs from "dayjs";
 
 const formSchema = z
   .object({
-    name: z.string().min(2, "Name must be at least 2 characters long"),
-    surname: z.string().min(2, "Surname must be at least 2 characters long"),
-    birthday: z
-      .date()
-      .min(new Date("1900-01-01"), "Too old")
-      .max(new Date(), "Too young"),
-    location: z.string(),
-    photo: z
-      .any()
-      .nullable()
-      .refine((file) => !file || file.size < 5000000, {
-        message: "File can't be bigger than 5MB.",
-      })
-      .refine(
-        (file) =>
-          !file ||
-          ["image/jpeg", "image/png", "image/jpg"].includes(file?.type),
-        {
-          message: "File format must be either jpg, jpeg or png.",
-        },
-      ),
-    is_tech: z.boolean(),
-    username: z
-      .string()
-      .min(5, { message: "Username must be at least 5 characters long" }),
-    email: emailSchema,
-    password: passwordSchema,
-    confirmPassword: z.string(),
+    name: validator.nameSchema,
+    surname: validator.surname,
+    birthday: validator.birthday,
+    location: validator.location,
+    photo: validator.photo,
+    is_tech: validator.is_tech,
+    username: validator.username,
+    email: validator.emailSchema,
+    password: validator.passwordSchema,
+    confirmPassword: validator.confirmPassword,
   })
   .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],
@@ -80,6 +65,7 @@ export function SignupForm() {
   //const [inputName, setInputName] = useLocalStorage("name", null)
 
   const { toast } = useToast();
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState("first");
   const [locationSuggestions, setLocationSuggestions] = useState<string[]>([]);
 
@@ -92,14 +78,14 @@ export function SignupForm() {
       email: "",
     };
     if (typeof window !== "undefined") {
-      const storedData = localStorage.getItem("signup_form_data");
+      const storedData = sessionStorage.getItem("signup_form_data");
       return storedData ? JSON.parse(storedData) : formDataObj;
     }
     return formDataObj;
   });
 
   useEffect(() => {
-    localStorage.setItem("signup_form_data", JSON.stringify(formData));
+    sessionStorage.setItem("signup_form_data", JSON.stringify(formData));
   }, [formData]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -139,12 +125,16 @@ export function SignupForm() {
     }));
     setLocationSuggestions([]);
   };
-
+  const timeMachine = dayjs("2024-12-15"); //da sistemare con il merge della branchia timeMachine
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      ...formData,
-      birthday: new Date(),
+      name: formData.name,
+      surname: formData.surname,
+      location: formData.location,
+      username: formData.username,
+      email: formData.email,
+      birthday: timeMachine.toDate(),
       photo: undefined,
       is_tech: false,
       password: "",
@@ -156,11 +146,13 @@ export function SignupForm() {
     try {
       // Assuming an async registration function
       console.log(values);
-      //localStorage.removeItem("signup_form_data");
-      toast({
+      //sessionStorage.removeItem("signup_form_data");
+      /*toast({
         title: "Toast window",
         description: values.username,
-      });
+      });*/
+
+      signUp(values);
     } catch (error) {
       console.error("Form submission error", error);
       toast({
@@ -173,14 +165,18 @@ export function SignupForm() {
   }
   return (
     <>
-      <div className="flex min-h-[60vh] h-full w-full items-center justify-center px-4 py-7">
-        <Tabs value={activeTab} onValueChange={setActiveTab}>
+      <div className="flex flex-col min-h-[50vh] h-full w-full items-center justify-center py-5">
+        <Tabs
+          value={activeTab}
+          onValueChange={setActiveTab}
+          className="mx-auto max-w-md"
+        >
           <TabsList>
             <TabsTrigger value="first">Account</TabsTrigger>
             <TabsTrigger value="second">Password</TabsTrigger>
           </TabsList>
           <TabsContent value="first">
-            <Card className="mx-auto max-w-md">
+            <Card>
               <CardHeader>
                 <CardTitle className="text-2xl">Register</CardTitle>
                 <CardDescription>
@@ -193,7 +189,7 @@ export function SignupForm() {
                     onSubmit={form.handleSubmit(onSubmit)}
                     className="space-y-8"
                   >
-                    <div className="grid gap-4">
+                    <div className="flex flex-col gap-4">
                       {/* Name Field */}
                       <FormField
                         control={form.control}
@@ -203,10 +199,11 @@ export function SignupForm() {
                             <FormLabel htmlFor="name">Name*</FormLabel>
                             <FormControl>
                               <Input
+                                className="w-auto"
                                 id="name"
                                 placeholder="Mario"
                                 type="text"
-                                autoComplete="name"
+                                autoComplete="given-name"
                                 {...field}
                                 onChange={(e) => {
                                   field.onChange(e);
@@ -232,7 +229,7 @@ export function SignupForm() {
                                 id="surname"
                                 placeholder="Rossi"
                                 type="text"
-                                autoComplete="surname"
+                                autoComplete="family-name"
                                 {...field}
                                 onChange={(e) => {
                                   field.onChange(e);
@@ -252,13 +249,13 @@ export function SignupForm() {
                         name="location"
                         render={({ field }) => (
                           <FormItem className="grid gap-2">
-                            <FormLabel htmlFor="location">Location*</FormLabel>
+                            <FormLabel htmlFor="location">Location</FormLabel>
                             <FormControl>
                               <Input
                                 id="location"
                                 placeholder="Rome"
                                 type="text"
-                                autoComplete="location"
+                                autoComplete="address-level2"
                                 {...field}
                                 onChange={(e) => {
                                   field.onChange(e);
@@ -298,20 +295,6 @@ export function SignupForm() {
                         )}
                       />
 
-                      {/* Birthday Field 
-                  <FormField
-                    control={form.control}
-                    name="birthday"
-                    render={({ field }) => (
-                      <FormItem className="grid gap-2">
-                        <FormLabel htmlFor="birthday">Birthday*</FormLabel>
-                        <FormControl>
-                          <Input id="birthday" type="date" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />*/}
                       {/* Birthday Field */}
                       <FormField
                         control={form.control}
@@ -326,6 +309,7 @@ export function SignupForm() {
                                 <PopoverTrigger asChild>
                                   <FormControl>
                                     <Button
+                                      id="birthday"
                                       variant={"outline"}
                                       //className="w-fit pl-4 ml-4 text-center font-normal"
                                       className={cn(
@@ -338,6 +322,7 @@ export function SignupForm() {
                                       ) : (
                                         <span>Pick a date</span>
                                       )}
+                                      {/*field.value.toDateString()*/}
                                       <FaCalendar />
                                     </Button>
                                   </FormControl>
@@ -351,7 +336,7 @@ export function SignupForm() {
                                     selected={field.value}
                                     onSelect={field.onChange}
                                     disabled={(date) =>
-                                      date > new Date() ||
+                                      date > timeMachine.toDate() ||
                                       date < new Date("1900-01-01")
                                     }
                                     initialFocus
@@ -380,7 +365,7 @@ export function SignupForm() {
                                   type="file"
                                   accept="image/png, image/jpeg, image/jpg"
                                   //className="w-fit text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                                  className="w-fit ml-10 pt-1.5 pl-1 text-center"
+                                  className=" ml-10 pt-1.5 pl-1 text-center"
                                   onChange={(e) => {
                                     const file = e.target.files?.[0] || null;
                                     field.onChange(file);
@@ -408,6 +393,8 @@ export function SignupForm() {
                               </FormLabel>
                               <FormControl>
                                 <Switch
+                                  id="is_tech"
+                                  name="is_tech"
                                   checked={field.value}
                                   onCheckedChange={field.onChange}
                                 />
@@ -439,7 +426,7 @@ export function SignupForm() {
             </Card>
           </TabsContent>
           <TabsContent value="second">
-            <Card className="mx-auto max-w-md">
+            <Card>
               <CardHeader>
                 <CardTitle className="text-2xl">Register</CardTitle>
                 <CardDescription>
@@ -452,7 +439,7 @@ export function SignupForm() {
                     onSubmit={form.handleSubmit(onSubmit)}
                     className="space-y-8"
                   >
-                    <div className="grid gap-4">
+                    <div className="flex flex-col gap-4">
                       {/* username Field */}
                       <FormField
                         control={form.control}
@@ -511,7 +498,7 @@ export function SignupForm() {
                         name="password"
                         render={({ field }) => (
                           <FormItem className="grid gap-2">
-                            <FormLabel htmlFor="password">Password</FormLabel>
+                            <FormLabel htmlFor="password">Password*</FormLabel>
                             <FormControl>
                               <Input
                                 id="password"
@@ -533,7 +520,7 @@ export function SignupForm() {
                         render={({ field }) => (
                           <FormItem className="grid gap-2">
                             <FormLabel htmlFor="confirmPassword">
-                              Confirm Password
+                              Confirm Password*
                             </FormLabel>
                             <FormControl>
                               <Input
