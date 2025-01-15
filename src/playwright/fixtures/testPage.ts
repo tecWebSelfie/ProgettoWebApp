@@ -5,7 +5,7 @@ abstract class mPage {
   /**
    * The relative URL path for the page.
    */
-  private readonly urlPath: string;
+  private readonly urlPath = "/";
 
   constructor(private readonly page: any) {}
 
