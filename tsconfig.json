@@ -1,11 +1,14 @@
 {
   "compilerOptions": {
+    "typeRoots": ["./node_modules/@types", "./@types"],
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
+    "strictFunctionTypes": false,
     "noEmit": true,
     "incremental": true,
+    "target": "ESNext",
     "module": "ESNext",
     "esModuleInterop": true,
     "moduleResolution": "Node",
@@ -15,8 +18,23 @@
     "plugins": [
       {
         "name": "next"
+      },
+      {
+        "name": "@0no-co/graphqlsp",
+        "schema": "./schema.graphql"
       }
-    ]
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@/db/*": ["./src/db/*"],
+      "@/*": ["./*"],
+      "@/gql/*": ["./src/gql/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/serverActions/*": ["./src/serverActions/*"],
+      "@/localGql/*": ["./src/app/localGql/*"],
+      "@/apolloLinks/*": ["./src/apolloLinks/*"],
+      "@/hooks/*": ["./hooks/*"]
+    }
   },
   "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

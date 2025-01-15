@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter =
   (this && this.__awaiter) ||
   function (thisArg, _arguments, P, generator) {
@@ -46,9 +47,13 @@ var __generator =
       f,
       y,
       t,
-      g;
+      g = Object.create(
+        (typeof Iterator === "function" ? Iterator : Object).prototype,
+      );
     return (
-      (g = { next: verb(0), throw: verb(1), return: verb(2) }),
+      (g.next = verb(0)),
+      (g["throw"] = verb(1)),
+      (g["return"] = verb(2)),
       typeof Symbol === "function" &&
         (g[Symbol.iterator] = function () {
           return this;
@@ -131,30 +136,33 @@ var __generator =
       return { value: op[0] ? op[1] : void 0, done: true };
     }
   };
-import { createServer } from "http";
-import { parse } from "url";
-import next from "next";
-import { config as configEnv } from "dotenv";
+Object.defineProperty(exports, "__esModule", { value: true });
+var http_1 = require("http");
+var url_1 = require("url");
+var next_1 = require("next");
+var dotenv_1 = require("dotenv");
+var dbconfig_1 = require("../db/dbconfig");
 /**
  * Loads environment variables from various .env files.
  * This ensures that environment variables are available throughout the application.
  */
-configEnv({
+(0, dotenv_1.config)({
   path: [".env", ".env.local", ".env.production", ".env.production.local"],
 });
+mongoose.connect(dbconfig_1.dbConfig.uri);
 var dev = false;
 var hostname = process.env.HOSTNAME || "localhost";
-var port = parseInt(process.env.PORT) || 8000;
+var port = Number(process.env.PORT) || 8000;
 // when using middleware `hostname` and `port` must be provided below
-var app = next({ dev: dev, hostname: hostname, port: port });
+var app = (0, next_1.default)({ dev: dev, hostname: hostname, port: port });
 var handle = app.getRequestHandler();
 app.prepare().then(function () {
-  createServer(function (req, res) {
+  (0, http_1.createServer)(function (req, res) {
     return __awaiter(void 0, void 0, void 0, function () {
       var parsedUrl, pathname, query;
       return __generator(this, function (_a) {
         try {
-          parsedUrl = parse(req.url, true);
+          parsedUrl = (0, url_1.parse)(req.url, true);
           (pathname = parsedUrl.pathname), (query = parsedUrl.query);
           handle(req, res, parsedUrl);
         } catch (err) {

@@ -1,5 +1,10 @@
 .gitignore
 .gitattributes
 .prettierignore
+.husky/*
 *.drawio
 .env*
+*.png
+*.svg
+*.jpg
+*.avif
