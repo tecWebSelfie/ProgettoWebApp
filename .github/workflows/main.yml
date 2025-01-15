@@ -1,6 +1,10 @@
 name: CI/CD
 run-name: CI/CD workflow run by ${{github.actor}}
-on:
+on: 
+  workflow_dispatch:
+    inputs:
+      description:
+        default: ciao
   push:
     branches:
       - main
