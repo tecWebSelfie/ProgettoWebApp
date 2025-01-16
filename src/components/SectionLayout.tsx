@@ -6,11 +6,11 @@ export const SectionLayout: React.FC<{
   sidebar: React.ReactNode;
 }> = ({ main, sidebar }) => {
   return (
-    <SidebarProvider>
+    <SidebarProvider className="gap-2">
       <Sidebar collapsible="none">
-        <SidebarContent>{sidebar}</SidebarContent>
+        <SidebarContent className="px-14">{sidebar}</SidebarContent>
       </Sidebar>
-      {main}
+      <main>{main}</main>
     </SidebarProvider>
   );
 };
