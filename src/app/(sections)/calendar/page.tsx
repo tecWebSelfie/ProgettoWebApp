@@ -1,25 +1,25 @@
-import { JournalsList } from "@/src/components/JournalsList";
-import { JournalTextArea } from "@/src/components/JournalTextArea";
+"use client";
+
 import { SectionLayout } from "@/src/components/SectionLayout";
 import { graphql } from "@/src/gql";
 import { useSuspenseQuery } from "@apollo/client";
-import { Types } from "mongoose";
+import CalendarMain from "./CalendarMain";
+import CalendarSidebar from "./CalendarSidebar";
 
-const journalSectionQuery = graphql(`
-  query journalSection($journalId: MongoID!) {
-    ...journalTextAreaFragment
-    ...journalsListFragment
+//remember to perform section specific query
+const calendarSectionQuery = graphql(`
+  query calendarSection {
+    ...calendarMain
+    ...calendarSidebar
   }
 `);
 
-export default function JournalSection() {
-  const { data } = useSuspenseQuery(journalSectionQuery, {
-    variables: { journalId: new Types.ObjectId() },
-  });
+export default function CalendarSection() {
+  const { data } = useSuspenseQuery(calendarSectionQuery);
   return (
     <SectionLayout
-      main={<JournalTextArea journal={data} />}
-      sidebar={<JournalsList journalsList={data} />}
+      main={<CalendarMain parentDoc={data} />}
+      sidebar={<CalendarSidebar parentDoc={data} />}
     />
   );
 }

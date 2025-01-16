@@ -17,14 +17,12 @@ export function JournalsList(props: {
 }) {
   const journalsList = useFragment(journalsListFragment, props.journalsList);
   return (
-    <>
-      <ScrollArea>
-        <div className="flex flex-col gap-0.5">
-          {journalsList.journal_findMany.map((journalItem) => (
-            <JournalListItem key={journalItem._id} journal={journalItem} />
-          ))}
-        </div>
-      </ScrollArea>
-    </>
+    <ScrollArea>
+      <div className="flex flex-col gap-0.5">
+        {journalsList.journal_findMany.map((journalItem) => (
+          <JournalListItem key={journalItem._id} journal={journalItem} />
+        ))}
+      </div>
+    </ScrollArea>
   );
 }

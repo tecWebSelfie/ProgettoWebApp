@@ -6,11 +6,13 @@ import { SectionLayout } from "@/src/components/SectionLayout";
 import { graphql } from "@/src/gql";
 import { useSuspenseQuery } from "@apollo/client";
 import { Types } from "mongoose";
+import JournalSidebar from "./JournalSidebar";
+import JournalMain from "./JournalMain";
 
 const journalSectionQuery = graphql(`
   query journalSection($journalId: MongoID!) {
-    ...journalTextAreaFragment
-    ...journalsListFragment
+    ...journalMain
+    ...journalSidebar
   }
 `);
 
@@ -20,8 +22,8 @@ export default function JournalSection() {
   });
   return (
     <SectionLayout
-      main={<JournalTextArea journal={data} />}
-      sidebar={<JournalsList journalsList={data} />}
+      main={<JournalMain parentDoc={data} />}
+      sidebar={<JournalSidebar parentDoc={data} />}
     />
   );
 }
