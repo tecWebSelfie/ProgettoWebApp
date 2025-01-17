@@ -1,3 +1,5 @@
+"use client";
+
 import { useMutation } from "@apollo/client";
 import { graphql, FragmentType, useFragment } from "../gql";
 import { Button } from "./ui/button";
@@ -5,6 +7,9 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
 import { useState } from "react";
+import { getSession, useSession } from "next-auth/react";
+import { Types } from "mongoose";
+import { JournalSectionDocument } from "../gql/graphql";
 
 const journalTextAreaFragment = graphql(`
   fragment journalTextAreaFragment on Query {
@@ -18,8 +23,10 @@ const journalTextAreaFragment = graphql(`
 const saveJournalMutation = graphql(`
   mutation saveJournalMutation($newJournal: CreateOneJournalInput!) {
     journal_createOne(record: $newJournal) {
-      error {
-        message
+      record {
+        _id
+        summary
+        description
       }
     }
   }
@@ -28,6 +35,8 @@ const saveJournalMutation = graphql(`
 export function JournalTextArea(props: {
   journal: FragmentType<typeof journalTextAreaFragment>;
 }) {
+  const { data: session } = useSession();
+
   const { journal_findById } = useFragment(
     journalTextAreaFragment,
     props.journal,
@@ -39,8 +48,18 @@ export function JournalTextArea(props: {
     journal_findById?.summary || "Insert Title",
   );
 
-  const [saveJournal, { data, loading, error }] =
-    useMutation(saveJournalMutation);
+  const [saveJournal, { data, loading, error }] = useMutation(
+    saveJournalMutation,
+    {
+      variables: {
+        newJournal: {
+          organizer: session?.user.id,
+          summary: titleInput,
+          description: textAreaInput,
+        },
+      },
+    },
+  );
   return (
     <div>
       <Input
@@ -51,7 +70,25 @@ export function JournalTextArea(props: {
         onChange={(e) => setTextAreaInput(e.target.value)}
         defaultValue={textAreaInput}
       />
-      <Button>Save Note</Button>
+      <Button
+        onClick={() =>
+          saveJournal({
+            optimisticResponse: {
+              journal_createOne: {
+                record: {
+                  __typename: "Journal",
+                  _id: new Types.ObjectId(),
+                  summary: titleInput,
+                  description: textAreaInput,
+                },
+              },
+            },
+            refetchQueries: [JournalSectionDocument],
+          })
+        }
+      >
+        Save Note
+      </Button>
     </div>
   );
 }
