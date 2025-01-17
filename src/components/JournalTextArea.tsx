@@ -35,11 +35,18 @@ export function JournalTextArea(props: {
   const [textAreaInput, setTextAreaInput] = useState(
     journal_findById?.description || "Write here",
   );
+  const [titleInput, setTitleInput] = useState(
+    journal_findById?.summary || "Insert Title",
+  );
+
   const [saveJournal, { data, loading, error }] =
     useMutation(saveJournalMutation);
   return (
     <div>
-      <Input value={journal_findById?.summary || "Insert Title"} />
+      <Input
+        onChange={(e) => setTitleInput(e.target.value)}
+        value={titleInput}
+      />
       <Textarea
         onChange={(e) => setTextAreaInput(e.target.value)}
         defaultValue={textAreaInput}
