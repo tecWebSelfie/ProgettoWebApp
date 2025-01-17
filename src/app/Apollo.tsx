@@ -5,8 +5,8 @@ import {
   InMemoryCache,
   ApolloNextAppProvider,
 } from "@apollo/experimental-nextjs-app-support";
-import { gql, HttpLink } from "@apollo/client";
-import { finalLink, createFinalLink } from "@/apolloLinks/finalLink";
+import { gql } from "@apollo/client";
+import { createFinalLink } from "@/apolloLinks/finalLink";
 
 // have a function to create a client for you
 function makeClient() {
@@ -30,10 +30,6 @@ function makeClient() {
     link: finalLink,
     typeDefs: gql`
       extend type Query {
-        TimeMachine: Date!
-      }
-
-      extend type Mutation {
         TimeMachine: Date!
       }
     `,

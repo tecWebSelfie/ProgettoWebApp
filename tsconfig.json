@@ -33,6 +33,7 @@
       "@/serverActions/*": ["./src/serverActions/*"],
       "@/localGql/*": ["./src/app/localGql/*"],
       "@/apolloLinks/*": ["./src/apolloLinks/*"],
+      "@/hooks/*": ["./hooks/*"],
       "@/lib/*": ["./lib/*"]
     }
   },

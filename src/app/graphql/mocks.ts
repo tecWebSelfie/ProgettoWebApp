@@ -9,8 +9,8 @@ export const mocks = {
     nickname: faker.animal.bird(),
   }),
   Journal: () => ({
-    summary: "journal summary",
-    description: "journal description",
+    summary: faker.book.title(),
+    description: faker.lorem.paragraph(),
     start_date: faker.date.recent().toISOString(),
     last_modified: faker.date.recent().toISOString(),
   }),
