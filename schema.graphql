@@ -3449,8 +3449,6 @@ type GroupPagination {
 }
 
 type Journal {
-  start_date: String!
-  last_modified: String!
   organizer: MongoID!
   recurrence_id: String
   sequence: String
@@ -3466,6 +3464,8 @@ type Journal {
   request_status: String
   class: EnumJournalClass
   _id: MongoID!
+  start_date: Date
+  last_modified: Date
   Organizer: User
   Attendees(limit: Int = 100, sort: SortFindByIdsUserInput): [User!]!
   InputTodos(limit: Int = 100, sort: SortFindByIdsTodoInput): [Todo!]!
@@ -5257,8 +5257,6 @@ input CreateManyGroupInput {
 """
 """
 input CreateManyJournalInput {
-  start_date: String!
-  last_modified: String!
   organizer: MongoID!
   recurrence_id: String
   sequence: String
@@ -5273,6 +5271,8 @@ input CreateManyJournalInput {
   attachments: [String]
   request_status: String
   class: EnumJournalClass
+  start_date: Date
+  last_modified: Date
 }
 
 """
@@ -5473,8 +5473,6 @@ input CreateOneGroupInput {
 """
 """
 input CreateOneJournalInput {
-  start_date: String!
-  last_modified: String!
   organizer: MongoID!
   recurrence_id: String
   sequence: String
@@ -5489,6 +5487,8 @@ input CreateOneJournalInput {
   attachments: [String]
   request_status: String
   class: EnumJournalClass
+  start_date: Date
+  last_modified: Date
 }
 
 """
@@ -5990,8 +5990,6 @@ input FilterCountJournal_idOperatorsInput {
 """
 """
 input FilterCountJournalInput {
-  start_date: String
-  last_modified: String
   organizer: MongoID
   recurrence_id: String
   sequence: String
@@ -6007,6 +6005,8 @@ input FilterCountJournalInput {
   request_status: String
   class: EnumJournalClass
   _id: MongoID
+  start_date: Date
+  last_modified: Date
 
   """
   List of *indexed* fields that can be filtered via operators.
@@ -6667,8 +6667,6 @@ input FilterFindManyJournal_idOperatorsInput {
 """
 """
 input FilterFindManyJournalInput {
-  start_date: String
-  last_modified: String
   organizer: MongoID
   recurrence_id: String
   sequence: String
@@ -6684,6 +6682,8 @@ input FilterFindManyJournalInput {
   request_status: String
   class: EnumJournalClass
   _id: MongoID
+  start_date: Date
+  last_modified: Date
 
   """
   List of *indexed* fields that can be filtered via operators.
@@ -7344,8 +7344,6 @@ input FilterFindOneJournal_idOperatorsInput {
 """
 """
 input FilterFindOneJournalInput {
-  start_date: String
-  last_modified: String
   organizer: MongoID
   recurrence_id: String
   sequence: String
@@ -7361,6 +7359,8 @@ input FilterFindOneJournalInput {
   request_status: String
   class: EnumJournalClass
   _id: MongoID
+  start_date: Date
+  last_modified: Date
 
   """
   List of *indexed* fields that can be filtered via operators.
@@ -8021,8 +8021,6 @@ input FilterRemoveManyJournal_idOperatorsInput {
 """
 """
 input FilterRemoveManyJournalInput {
-  start_date: String
-  last_modified: String
   organizer: MongoID
   recurrence_id: String
   sequence: String
@@ -8038,6 +8036,8 @@ input FilterRemoveManyJournalInput {
   request_status: String
   class: EnumJournalClass
   _id: MongoID
+  start_date: Date
+  last_modified: Date
 
   """
   List of *indexed* fields that can be filtered via operators.
@@ -8698,8 +8698,6 @@ input FilterRemoveOneJournal_idOperatorsInput {
 """
 """
 input FilterRemoveOneJournalInput {
-  start_date: String
-  last_modified: String
   organizer: MongoID
   recurrence_id: String
   sequence: String
@@ -8715,6 +8713,8 @@ input FilterRemoveOneJournalInput {
   request_status: String
   class: EnumJournalClass
   _id: MongoID
+  start_date: Date
+  last_modified: Date
 
   """
   List of *indexed* fields that can be filtered via operators.
@@ -9375,8 +9375,6 @@ input FilterUpdateManyJournal_idOperatorsInput {
 """
 """
 input FilterUpdateManyJournalInput {
-  start_date: String
-  last_modified: String
   organizer: MongoID
   recurrence_id: String
   sequence: String
@@ -9392,6 +9390,8 @@ input FilterUpdateManyJournalInput {
   request_status: String
   class: EnumJournalClass
   _id: MongoID
+  start_date: Date
+  last_modified: Date
 
   """
   List of *indexed* fields that can be filtered via operators.
@@ -10052,8 +10052,6 @@ input FilterUpdateOneJournal_idOperatorsInput {
 """
 """
 input FilterUpdateOneJournalInput {
-  start_date: String
-  last_modified: String
   organizer: MongoID
   recurrence_id: String
   sequence: String
@@ -10069,6 +10067,8 @@ input FilterUpdateOneJournalInput {
   request_status: String
   class: EnumJournalClass
   _id: MongoID
+  start_date: Date
+  last_modified: Date
 
   """
   List of *indexed* fields that can be filtered via operators.
@@ -10608,8 +10608,6 @@ input UpdateByIdGroupInput {
 """
 """
 input UpdateByIdJournalInput {
-  start_date: String
-  last_modified: String
   organizer: MongoID
   recurrence_id: String
   sequence: String
@@ -10624,6 +10622,8 @@ input UpdateByIdJournalInput {
   attachments: [String]
   request_status: String
   class: EnumJournalClass
+  start_date: Date
+  last_modified: Date
 }
 
 """
@@ -10947,8 +10947,6 @@ input UpdateManyGroupInput {
 """
 """
 input UpdateManyJournalInput {
-  start_date: String
-  last_modified: String
   organizer: MongoID
   recurrence_id: String
   sequence: String
@@ -10963,6 +10961,8 @@ input UpdateManyJournalInput {
   attachments: [String]
   request_status: String
   class: EnumJournalClass
+  start_date: Date
+  last_modified: Date
 }
 
 """
@@ -11286,8 +11286,6 @@ input UpdateOneGroupInput {
 """
 """
 input UpdateOneJournalInput {
-  start_date: String
-  last_modified: String
   organizer: MongoID
   recurrence_id: String
   sequence: String
@@ -11302,6 +11300,8 @@ input UpdateOneJournalInput {
   attachments: [String]
   request_status: String
   class: EnumJournalClass
+  start_date: Date
+  last_modified: Date
 }
 
 """
