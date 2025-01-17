@@ -1,4 +1,6 @@
 import { Operation, split, HttpLink } from "@apollo/client";
+import { createPersistedQueryLink } from "@apollo/client/link/persisted-queries";
+import { hashSHA256 } from "@graphql-yoga/plugin-apq";
 import { getMainDefinition } from "@apollo/client/utilities";
 import { SSELink, sseLink } from "./sseLink";
 
@@ -17,8 +19,13 @@ export const finalLink = split(
 );
 
 export const createFinalLink = () =>
-  split(
-    checkIfOperationIsSubscription,
-    new SSELink({ url: "http://localhost:3000/graphql" }),
-    new HttpLink({ uri: "http://localhost:3000/graphql" }),
+  createPersistedQueryLink({
+    useGETForHashedQueries: true,
+    sha256: hashSHA256,
+  }).concat(
+    split(
+      checkIfOperationIsSubscription,
+      new SSELink({ url: "http://localhost:3000/graphql" }),
+      new HttpLink({ uri: "http://localhost:3000/graphql" }),
+    ),
   );
