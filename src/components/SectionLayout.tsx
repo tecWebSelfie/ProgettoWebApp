@@ -8,7 +8,7 @@ export const SectionLayout: React.FC<{
   return (
     <SidebarProvider className="gap-2">
       <Sidebar collapsible="none">
-        <SidebarContent className="px-14">{sidebar}</SidebarContent>
+        <SidebarContent>{sidebar}</SidebarContent>
       </Sidebar>
       <main>{main}</main>
     </SidebarProvider>
