@@ -10,7 +10,13 @@ import JournalSidebar from "./JournalSidebar";
 import JournalMain from "./JournalMain";
 
 const journalSectionQuery = graphql(`
-  query journalSection($journalId: MongoID!) {
+  query journalSection(
+    $journalId: MongoID!
+    $journalsPerPageInList: Int
+    $nextJournalCursorInList: String
+    $previousJournalCursorInList: String
+    $inputSearchString: String
+  ) {
     ...journalMain
     ...journalSidebar
   }
