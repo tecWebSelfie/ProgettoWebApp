@@ -36,7 +36,7 @@ const journalsListFragment = graphql(`
 
 const journalsListQuery = graphql(`
   query journalsListQuery(
-    $journalsPerPageInList: Int
+    $journalsPerPageInList: Int = 10
     $nextJournalCursorInList: String
     $previousJournalCursorInList: String
     $inputSearchString: String
