@@ -939,6 +939,84 @@ type Query {
     """
     sort: SortConnectionFreebusyEnum = _ID_DESC
   ): FreebusyConnection
+  message_count(
+    """
+    Filter by fields
+    """
+    filter: FilterCountMessageInput
+  ): Int
+  message_findById(_id: MongoID!): Message
+  message_findByIds(
+    _ids: [MongoID!]!
+    limit: Int = 100
+    sort: SortFindByIdsMessageInput
+  ): [Message!]!
+  message_findOne(
+    """
+    Filter by fields
+    """
+    filter: FilterFindOneMessageInput
+    skip: Int
+    sort: SortFindOneMessageInput
+  ): Message
+  message_findMany(
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyMessageInput
+    skip: Int
+    limit: Int = 100
+    sort: SortFindManyMessageInput
+  ): [Message!]!
+  message_dataLoader(_id: MongoID!): Message
+  message_dataLoaderMany(_ids: [MongoID!]!): [Message]!
+  message_pagination(
+    """
+    Page number for displaying
+    """
+    page: Int
+
+    """
+    """
+    perPage: Int = 20
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyMessageInput
+    sort: SortFindManyMessageInput
+  ): MessagePagination
+  message_connection(
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    first: Int
+
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    after: String
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    last: Int
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    before: String
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyMessageInput
+
+    """
+    Sort argument for data ordering
+    """
+    sort: SortConnectionMessageEnum = _ID_DESC
+  ): MessageConnection
 }
 
 type Mutation {
@@ -1845,6 +1923,82 @@ type Mutation {
     filter: FilterRemoveManyFreebusyInput!
     limit: Int = 100
   ): RemoveManyFreebusyPayload
+
+  """
+  Create one document with mongoose defaults, setters, hooks and validation
+  """
+  message_createOne(record: CreateOneMessageInput!): CreateOneMessagePayload
+
+  """
+  Creates Many documents with mongoose defaults, setters, hooks and validation
+  """
+  message_createMany(
+    records: [CreateManyMessageInput!]!
+  ): CreateManyMessagePayload
+
+  """
+  Update one document: 1) Retrieve one document by findById. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  message_updateById(
+    _id: MongoID!
+    record: UpdateByIdMessageInput!
+  ): UpdateByIdMessagePayload
+
+  """
+  Update one document: 1) Retrieve one document via findOne. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  message_updateOne(
+    record: UpdateOneMessageInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateOneMessageInput
+    sort: SortUpdateOneMessageInput
+    skip: Int
+  ): UpdateOneMessagePayload
+
+  """
+  Update many documents without returning them: Use Query.update mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  message_updateMany(
+    record: UpdateManyMessageInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateManyMessageInput
+    sort: SortUpdateManyMessageInput
+    skip: Int
+    limit: Int = 100
+  ): UpdateManyMessagePayload
+
+  """
+  Remove one document: 1) Retrieve one document and remove with hooks via findByIdAndRemove. 2) Return removed document.
+  """
+  message_removeById(_id: MongoID!): RemoveByIdMessagePayload
+
+  """
+  Remove one document: 1) Remove with hooks via findOneAndRemove. 2) Return removed document.
+  """
+  message_removeOne(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveOneMessageInput
+    sort: SortRemoveOneMessageInput
+  ): RemoveOneMessagePayload
+
+  """
+  Remove many documents without returning them: Use Query.remove mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  message_removeMany(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveManyMessageInput!
+    limit: Int = 100
+  ): RemoveManyMessagePayload
   addN(input: Int): Int
 }
 
@@ -2095,6 +2249,11 @@ enum SortConnectionJournalEnum {
   _ID_ASC
 }
 
+enum SortConnectionMessageEnum {
+  _ID_DESC
+  _ID_ASC
+}
+
 enum SortConnectionNotificationEnum {
   _ID_DESC
   _ID_ASC
@@ -2155,6 +2314,11 @@ enum SortFindByIdsGroupInput {
 }
 
 enum SortFindByIdsJournalInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindByIdsMessageInput {
   _ID_ASC
   _ID_DESC
 }
@@ -2223,6 +2387,11 @@ enum SortFindManyJournalInput {
   _ID_DESC
 }
 
+enum SortFindManyMessageInput {
+  _ID_ASC
+  _ID_DESC
+}
+
 enum SortFindManyNotificationInput {
   _ID_ASC
   _ID_DESC
@@ -2283,6 +2452,11 @@ enum SortFindOneGroupInput {
 }
 
 enum SortFindOneJournalInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortFindOneMessageInput {
   _ID_ASC
   _ID_DESC
 }
@@ -2351,6 +2525,11 @@ enum SortRemoveOneJournalInput {
   _ID_DESC
 }
 
+enum SortRemoveOneMessageInput {
+  _ID_ASC
+  _ID_DESC
+}
+
 enum SortRemoveOneNotificationInput {
   _ID_ASC
   _ID_DESC
@@ -2415,6 +2594,11 @@ enum SortUpdateManyJournalInput {
   _ID_DESC
 }
 
+enum SortUpdateManyMessageInput {
+  _ID_ASC
+  _ID_DESC
+}
+
 enum SortUpdateManyNotificationInput {
   _ID_ASC
   _ID_DESC
@@ -2475,6 +2659,11 @@ enum SortUpdateOneGroupInput {
 }
 
 enum SortUpdateOneJournalInput {
+  _ID_ASC
+  _ID_DESC
+}
+
+enum SortUpdateOneMessageInput {
   _ID_ASC
   _ID_DESC
 }
@@ -2823,6 +3012,28 @@ type CreateManyJournalPayload {
   error: ErrorInterface
 }
 
+type CreateManyMessagePayload {
+  """
+  Documents IDs
+  """
+  recordIds: [MongoID!]!
+
+  """
+  Created documents
+  """
+  records: [Message!]
+
+  """
+  Number of created documents
+  """
+  createdCount: Int!
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
 type CreateManyNotificationPayload {
   """
   Documents IDs
@@ -3050,6 +3261,23 @@ type CreateOneJournalPayload {
   Created document
   """
   record: Journal
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type CreateOneMessagePayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Created document
+  """
+  record: Message
 
   """
   Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
@@ -3527,6 +3755,71 @@ type JournalPagination {
   pageInfo: PaginationInfo!
 }
 
+type Message {
+  organizer: MongoID!
+  summary: String!
+  attendees: [MongoID]!
+  attachments: [String]
+  _id: MongoID!
+  created_at: Date
+  last_modified: Date
+}
+
+"""
+A connection to a list of items.
+"""
+type MessageConnection {
+  """
+  Total object count.
+  """
+  count: Int!
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  Information to aid in pagination.
+  """
+  edges: [MessageEdge!]!
+}
+
+"""
+An edge in a connection.
+"""
+type MessageEdge {
+  """
+  The item at the end of the edge
+  """
+  node: Message!
+
+  """
+  A cursor for use in pagination
+  """
+  cursor: String!
+}
+
+"""
+List of items with pagination.
+"""
+type MessagePagination {
+  """
+  Total object count.
+  """
+  count: Int
+
+  """
+  Array of objects.
+  """
+  items: [Message!]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PaginationInfo!
+}
+
 type Notification {
   title: String
   body: String
@@ -3865,6 +4158,23 @@ type RemoveByIdJournalPayload {
   error: ErrorInterface
 }
 
+type RemoveByIdMessagePayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Removed document
+  """
+  record: Message
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
 type RemoveByIdNotificationPayload {
   """
   Document ID
@@ -4028,6 +4338,18 @@ type RemoveManyGroupPayload {
 }
 
 type RemoveManyJournalPayload {
+  """
+  Affected documents number
+  """
+  numAffected: Int
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveManyMessagePayload {
   """
   Affected documents number
   """
@@ -4206,6 +4528,23 @@ type RemoveOneJournalPayload {
   Removed document
   """
   record: Journal
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type RemoveOneMessagePayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Removed document
+  """
+  record: Message
 
   """
   Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
@@ -4594,6 +4933,23 @@ type UpdateByIdJournalPayload {
   error: ErrorInterface
 }
 
+type UpdateByIdMessagePayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Updated document
+  """
+  record: Message
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
 type UpdateByIdNotificationPayload {
   """
   Document ID
@@ -4757,6 +5113,18 @@ type UpdateManyGroupPayload {
 }
 
 type UpdateManyJournalPayload {
+  """
+  Affected documents number
+  """
+  numAffected: Int
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
+type UpdateManyMessagePayload {
   """
   Affected documents number
   """
@@ -4942,6 +5310,23 @@ type UpdateOneJournalPayload {
   error: ErrorInterface
 }
 
+type UpdateOneMessagePayload {
+  """
+  Document ID
+  """
+  recordId: MongoID
+
+  """
+  Updated document
+  """
+  record: Message
+
+  """
+  Error that may occur during operation. If you request this field in GraphQL query, you will receive typed error in payload; otherwise error will be provided in root `errors` field of GraphQL response.
+  """
+  error: ErrorInterface
+}
+
 type UpdateOneNotificationPayload {
   """
   Document ID
@@ -5065,6 +5450,16 @@ type User {
   calendar: MongoID
   projects: [MongoID]
   _id: MongoID!
+  sentMessages(
+    skip: Int
+    limit: Int = 100
+    sort: SortFindManyMessageInput
+  ): [Message!]!
+  receivedMessages(
+    skip: Int
+    limit: Int = 100
+    sort: SortFindManyMessageInput
+  ): [Message!]!
   OwnedResources(
     limit: Int = 100
     sort: SortFindByIdsResourceInput
@@ -5272,6 +5667,17 @@ input CreateManyJournalInput {
   request_status: String
   class: EnumJournalClass
   start_date: Date
+  last_modified: Date
+}
+
+"""
+"""
+input CreateManyMessageInput {
+  organizer: MongoID!
+  summary: String!
+  attendees: [MongoID]!
+  attachments: [String]
+  created_at: Date
   last_modified: Date
 }
 
@@ -5488,6 +5894,17 @@ input CreateOneJournalInput {
   request_status: String
   class: EnumJournalClass
   start_date: Date
+  last_modified: Date
+}
+
+"""
+"""
+input CreateOneMessageInput {
+  organizer: MongoID!
+  summary: String!
+  attendees: [MongoID]!
+  attachments: [String]
+  created_at: Date
   last_modified: Date
 }
 
@@ -6021,6 +6438,43 @@ For performance reason this type contains only *indexed* fields.
 """
 input FilterCountJournalOperatorsInput {
   _id: FilterCountJournal_idOperatorsInput
+}
+
+input FilterCountMessage_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterCountMessageInput {
+  organizer: MongoID
+  summary: String
+  attendees: [MongoID]
+  attachments: [String]
+  _id: MongoID
+  created_at: Date
+  last_modified: Date
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterCountMessageOperatorsInput
+  OR: [FilterCountMessageInput!]
+  AND: [FilterCountMessageInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterCountMessageOperatorsInput {
+  _id: FilterCountMessage_idOperatorsInput
 }
 
 input FilterCountNotification_idOperatorsInput {
@@ -6700,6 +7154,43 @@ input FilterFindManyJournalOperatorsInput {
   _id: FilterFindManyJournal_idOperatorsInput
 }
 
+input FilterFindManyMessage_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterFindManyMessageInput {
+  organizer: MongoID
+  summary: String
+  attendees: [MongoID]
+  attachments: [String]
+  _id: MongoID
+  created_at: Date
+  last_modified: Date
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterFindManyMessageOperatorsInput
+  OR: [FilterFindManyMessageInput!]
+  AND: [FilterFindManyMessageInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterFindManyMessageOperatorsInput {
+  _id: FilterFindManyMessage_idOperatorsInput
+}
+
 input FilterFindManyNotification_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -7375,6 +7866,43 @@ For performance reason this type contains only *indexed* fields.
 """
 input FilterFindOneJournalOperatorsInput {
   _id: FilterFindOneJournal_idOperatorsInput
+}
+
+input FilterFindOneMessage_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterFindOneMessageInput {
+  organizer: MongoID
+  summary: String
+  attendees: [MongoID]
+  attachments: [String]
+  _id: MongoID
+  created_at: Date
+  last_modified: Date
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterFindOneMessageOperatorsInput
+  OR: [FilterFindOneMessageInput!]
+  AND: [FilterFindOneMessageInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterFindOneMessageOperatorsInput {
+  _id: FilterFindOneMessage_idOperatorsInput
 }
 
 input FilterFindOneNotification_idOperatorsInput {
@@ -8054,6 +8582,43 @@ input FilterRemoveManyJournalOperatorsInput {
   _id: FilterRemoveManyJournal_idOperatorsInput
 }
 
+input FilterRemoveManyMessage_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterRemoveManyMessageInput {
+  organizer: MongoID
+  summary: String
+  attendees: [MongoID]
+  attachments: [String]
+  _id: MongoID
+  created_at: Date
+  last_modified: Date
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterRemoveManyMessageOperatorsInput
+  OR: [FilterRemoveManyMessageInput!]
+  AND: [FilterRemoveManyMessageInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterRemoveManyMessageOperatorsInput {
+  _id: FilterRemoveManyMessage_idOperatorsInput
+}
+
 input FilterRemoveManyNotification_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -8729,6 +9294,43 @@ For performance reason this type contains only *indexed* fields.
 """
 input FilterRemoveOneJournalOperatorsInput {
   _id: FilterRemoveOneJournal_idOperatorsInput
+}
+
+input FilterRemoveOneMessage_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterRemoveOneMessageInput {
+  organizer: MongoID
+  summary: String
+  attendees: [MongoID]
+  attachments: [String]
+  _id: MongoID
+  created_at: Date
+  last_modified: Date
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterRemoveOneMessageOperatorsInput
+  OR: [FilterRemoveOneMessageInput!]
+  AND: [FilterRemoveOneMessageInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterRemoveOneMessageOperatorsInput {
+  _id: FilterRemoveOneMessage_idOperatorsInput
 }
 
 input FilterRemoveOneNotification_idOperatorsInput {
@@ -9408,6 +10010,43 @@ input FilterUpdateManyJournalOperatorsInput {
   _id: FilterUpdateManyJournal_idOperatorsInput
 }
 
+input FilterUpdateManyMessage_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterUpdateManyMessageInput {
+  organizer: MongoID
+  summary: String
+  attendees: [MongoID]
+  attachments: [String]
+  _id: MongoID
+  created_at: Date
+  last_modified: Date
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterUpdateManyMessageOperatorsInput
+  OR: [FilterUpdateManyMessageInput!]
+  AND: [FilterUpdateManyMessageInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterUpdateManyMessageOperatorsInput {
+  _id: FilterUpdateManyMessage_idOperatorsInput
+}
+
 input FilterUpdateManyNotification_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -10085,6 +10724,43 @@ input FilterUpdateOneJournalOperatorsInput {
   _id: FilterUpdateOneJournal_idOperatorsInput
 }
 
+input FilterUpdateOneMessage_idOperatorsInput {
+  gt: MongoID
+  gte: MongoID
+  lt: MongoID
+  lte: MongoID
+  ne: MongoID
+  in: [MongoID]
+  nin: [MongoID]
+  exists: Boolean
+}
+
+"""
+"""
+input FilterUpdateOneMessageInput {
+  organizer: MongoID
+  summary: String
+  attendees: [MongoID]
+  attachments: [String]
+  _id: MongoID
+  created_at: Date
+  last_modified: Date
+
+  """
+  List of *indexed* fields that can be filtered via operators.
+  """
+  _operators: FilterUpdateOneMessageOperatorsInput
+  OR: [FilterUpdateOneMessageInput!]
+  AND: [FilterUpdateOneMessageInput!]
+}
+
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterUpdateOneMessageOperatorsInput {
+  _id: FilterUpdateOneMessage_idOperatorsInput
+}
+
 input FilterUpdateOneNotification_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -10628,6 +11304,17 @@ input UpdateByIdJournalInput {
 
 """
 """
+input UpdateByIdMessageInput {
+  organizer: MongoID
+  summary: String
+  attendees: [MongoID]
+  attachments: [String]
+  created_at: Date
+  last_modified: Date
+}
+
+"""
+"""
 input UpdateByIdNotificationInput {
   title: String
   body: String
@@ -10967,6 +11654,17 @@ input UpdateManyJournalInput {
 
 """
 """
+input UpdateManyMessageInput {
+  organizer: MongoID
+  summary: String
+  attendees: [MongoID]
+  attachments: [String]
+  created_at: Date
+  last_modified: Date
+}
+
+"""
+"""
 input UpdateManyNotificationInput {
   title: String
   body: String
@@ -11301,6 +11999,17 @@ input UpdateOneJournalInput {
   request_status: String
   class: EnumJournalClass
   start_date: Date
+  last_modified: Date
+}
+
+"""
+"""
+input UpdateOneMessageInput {
+  organizer: MongoID
+  summary: String
+  attendees: [MongoID]
+  attachments: [String]
+  created_at: Date
   last_modified: Date
 }
 

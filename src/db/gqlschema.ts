@@ -18,6 +18,7 @@ import { graphqlschema as userSchema, userTC } from "./models/user";
 import { graphqlschema as todoSchema, todoTC } from "./models/todo";
 import { graphqlschema as journalSchema, journalTC } from "./models/journal";
 import { graphqlschema as freebusySchema, freebusyTC } from "./models/freebusy";
+import { graphqlschema as messageSchema, messageTC } from "./models/message";
 import {
   GraphQLDirective,
   DirectiveLocation,
@@ -27,6 +28,7 @@ import {
 } from "graphql";
 import { setTimeout } from "timers/promises";
 import { createPubSub, Repeater } from "graphql-yoga";
+import { pubSub } from "./pubSub";
 //import * as relations from "./models/relationsTmp";
 
 alarmTC.addRelation("Attendees", {
@@ -355,6 +357,24 @@ todoTC.addRelation("OutputJournals", {
   },
 });
 
+userTC.addRelation("sentMessages", {
+  resolver: () => messageTC.getResolver("findMany"),
+  prepareArgs: {
+    filter: (source) => ({ organizer: source._id }),
+  },
+  projection: {
+    _id: true,
+  },
+});
+userTC.addRelation("receivedMessages", {
+  resolver: () => messageTC.getResolver("findMany"),
+  prepareArgs: {
+    filter: (source) => ({ attendees: [source._id] }),
+  },
+  projection: {
+    _id: true,
+  },
+});
 userTC.addRelation("OwnedResources", {
   resolver: () => resourceTC.getResolver("findByIds"),
   prepareArgs: {
@@ -477,10 +497,7 @@ schemaComposer.merge(projectSchema);
 schemaComposer.merge(resourceSchema);
 schemaComposer.merge(todoSchema);
 schemaComposer.merge(userSchema);
-
-const pubSub = createPubSub<{
-  n: [n: number];
-}>();
+schemaComposer.merge(messageSchema);
 
 schemaComposer.Subscription.addFields({
   demo: {

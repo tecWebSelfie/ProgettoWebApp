@@ -5,6 +5,7 @@ import {
   freebusyModelName,
   groupModelName,
   journalModelName,
+  messageModelName,
   notificationModelName,
   pomodoroModelName,
   projectModelName,
