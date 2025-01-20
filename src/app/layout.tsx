@@ -17,6 +17,7 @@ import Apollo from "./Apollo";
 import { NoSsr } from "@/components/NoSsr";
 import NextAuthSession from "@/components/NextAuthSession";
 import { auth } from "@/auth";
+import ShadCnChat from "@/components/chat/ShadCnChat";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -49,6 +50,7 @@ export default async function RootLayout({
               <AppBar />
               <div className="p-4">{children}</div>
             </Apollo>
+            <ShadCnChat size="sm" />
           </NextAuthSession>
         </ThemeProvider>
       </body>
