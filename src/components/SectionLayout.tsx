@@ -10,7 +10,7 @@ export const SectionLayout: React.FC<{
       <Sidebar collapsible="none">
         <SidebarContent>{sidebar}</SidebarContent>
       </Sidebar>
-      <main>{main}</main>
+      <main className="w-full flex flex-col gap-3">{main}</main>
     </SidebarProvider>
   );
 };
