@@ -1,21 +1,17 @@
 import React, { useEffect } from "react";
 import { SidebarProvider, Sidebar, SidebarContent } from "./ui/sidebar";
+import { Card, CardContent } from "./ui/card";
 
 export const SectionLayout: React.FC<{
   main: React.ReactNode;
   sidebar: React.ReactNode;
 }> = ({ main, sidebar }) => {
   return (
-    <>
-      <SidebarProvider className="gap-2 hidden md:flex">
-        <Sidebar collapsible="none" className="md:basis-1/3">
-          <SidebarContent>{sidebar}</SidebarContent>
-        </Sidebar>
-        <main className="w-full flex flex-col gap-3">{main}</main>
-      </SidebarProvider>
-      <div className="flex flex-col gap-3 md:hidden">
-        {main} {sidebar}
-      </div>
-    </>
+    <div className="w-full h-full flex gap-4 flex-col md:flex-row">
+      <Card>
+        <CardContent>{sidebar}</CardContent>
+      </Card>
+      <main className="w-full">{main}</main>
+    </div>
   );
 };
