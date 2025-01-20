@@ -5,6 +5,7 @@ import { graphql, FragmentType, useFragment } from "../gql";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import { FaRegPaperPlane } from "react-icons/fa";
 import { Textarea } from "./ui/textarea";
 import { useState } from "react";
 import { getSession, useSession } from "next-auth/react";
@@ -61,16 +62,20 @@ export function JournalTextArea(props: {
     },
   );
   return (
-    <div>
+    <div className="flex flex-col space-y-4 items-center">
       <Input
+        className="text-2xl font-semibold"
         onChange={(e) => setTitleInput(e.target.value)}
         value={titleInput}
       />
       <Textarea
+        rows={20}
+        className="resize-none text-2xl"
         onChange={(e) => setTextAreaInput(e.target.value)}
         defaultValue={textAreaInput}
       />
       <Button
+        className="w-20"
         onClick={() =>
           saveJournal({
             optimisticResponse: {
@@ -87,7 +92,7 @@ export function JournalTextArea(props: {
           })
         }
       >
-        Save Note
+        <span>Save Note</span> <FaRegPaperPlane />;
       </Button>
     </div>
   );
