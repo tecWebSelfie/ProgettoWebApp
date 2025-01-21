@@ -6,6 +6,6 @@ export const dotEnvOutput = configEnv({
     ".env.local",
     ...(process.env.NODE_ENV === "production"
       ? [".env.production", ".env.production.local"]
-      : [".env.development", ".env.production.local"]),
+      : [".env.development", ".env.development.local"]),
   ],
 });
