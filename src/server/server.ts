@@ -1,3 +1,4 @@
+import "./dotEnv";
 import { createServer } from "http";
 import { parse } from "url";
 import next from "next";
@@ -15,7 +16,7 @@ configEnv({
 
 mongoose.connect(dbConfig.uri);
 
-const dev = false;
+const dev = process.env.NODE_ENV !== "production";
 const hostname = process.env.HOSTNAME || "localhost";
 const port = Number(process.env.PORT) || 8000;
 // when using middleware `hostname` and `port` must be provided below
