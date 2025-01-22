@@ -357,6 +357,15 @@ todoTC.addRelation("OutputJournals", {
   },
 });
 
+userTC.addRelation("Messages", {
+  resolver: () => messageTC.getResolver("findMany"),
+  prepareArgs: {
+    filter: (source) => ({ organizer: source._id }),
+  },
+  projection: {
+    _id: true,
+  },
+});
 userTC.addRelation("sentMessages", {
   resolver: () => messageTC.getResolver("findMany"),
   prepareArgs: {
@@ -482,6 +491,26 @@ userTC.addRelation("Projects", {
   },
   projection: {
     projects: true,
+  },
+});
+
+messageTC.addRelation("Organizer", {
+  resolver: () => userTC.getResolver("findById"),
+  prepareArgs: {
+    _id: (object) => object.organizer,
+  },
+  projection: {
+    organizer: true,
+  },
+});
+
+messageTC.addRelation("Attendees", {
+  resolver: () => userTC.getResolver("findByIds"),
+  prepareArgs: {
+    _ids: (object) => object.attendees,
+  },
+  projection: {
+    attendees: true,
   },
 });
 
