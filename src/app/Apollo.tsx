@@ -3,59 +3,58 @@
 import {
   ApolloClient,
   InMemoryCache,
-  ApolloProvider,
-  gql,
-  makeVar,
-} from "@apollo/client";
-import { finalLink } from "@/apolloLinks/finalLink";
-import { timeMachine } from "../reactiveVars";
-// import tm from "timemachine";
+  ApolloNextAppProvider,
+} from "@apollo/experimental-nextjs-app-support";
+import { gql } from "@apollo/client";
+import { createFinalLink } from "@/apolloLinks/finalLink";
 
-// tm.config({
-//   dateString: "Thu, 01 Jan 2022 00:00:00 GMT",
-//   tick: true,
+// have a function to create a client for you
+function makeClient() {
+  const finalLink = createFinalLink();
+  // const httpLink = new HttpLink({
+  // this needs to be an absolute url, as relative urls cannot be used in SSR
+  // uri: "http://localhost:3000/graphql",
+  // you can disable result caching here if you want to
+  // (this does not work if you are rendering your page with `export const dynamic = "force-static"`)
+  // fetchOptions: { cache: "no-store" },
+  // you can override the default `fetchOptions` on a per query basis
+  // via the `context` property on the options passed as a second argument
+  // to an Apollo Client data fetching hook, e.g.:
+  // const { data } = useSuspenseQuery(MY_QUERY, { context: { fetchOptions: { cache: "force-cache" }}});
+  // });
+
+  // use the `ApolloClient` from "@apollo/experimental-nextjs-app-support"
+  return new ApolloClient({
+    // use the `InMemoryCache` from "@apollo/experimental-nextjs-app-support"
+    cache: new InMemoryCache(),
+    link: finalLink,
+    typeDefs: gql`
+      extend type Query {
+        TimeMachine: Date!
+      }
+    `,
+  });
+}
+
+// const client = new ApolloClient({
+//   uri: "http://localhost:3000/graphql",
+//   link: finalLink,
+//   cache: new InMemoryCache(),
+//   typeDefs: gql`
+//     extend type Query {
+//       TimeMachine: Date!
+//     }
+
+//     extend type Mutation {
+//       TimeMachine: Date!
+//     }
+//   `,
 // });
 
-/*
-local variable implemented using Apollo's reactive variables.
- to use it in a component, import it and call useReactiveVar(timeMachine)
- to update it, call timeMachine(new Date())
- to read it, call timeMachine()
-when updated, every component that uses it will re-render and active queries will re-fetch
-*/
-
-// export const timeMachine = makeVar(new Date());
-
-//date Machine ticks every second
-// setInterval(() => {
-//   timeMachine(new Date(timeMachine().getTime() + 1000));
-// }, 1000);
-
-const client = new ApolloClient({
-  uri: "http://localhost:3000/graphql",
-  link: finalLink,
-  cache: new InMemoryCache({
-    typePolicies: {
-      Query: {
-        fields: {
-          timeMachine: {
-            read: () => timeMachine(),
-          },
-        },
-      },
-    },
-  }),
-  typeDefs: gql`
-    extend type Query {
-      timeMachine: Date!
-    }
-  `,
-});
-
-export default function Apollo({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return <ApolloProvider client={client}>{children}</ApolloProvider>;
+export default function Apollo({ children }: React.PropsWithChildren) {
+  return (
+    <ApolloNextAppProvider makeClient={makeClient}>
+      {children}
+    </ApolloNextAppProvider>
+  );
 }

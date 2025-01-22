@@ -7,8 +7,8 @@ const pomodoroMainFragment = graphql(`
   }
 `);
 
-// export default function PomodoroMain(props :{
-//     parentDoc : FragmentType<typeof pomodoroMainFragment>
-// }){
-//     return <div>Pomodoro Main</div>
-// }
+export default function PomodoroMain(props: {
+  parentDoc: FragmentType<typeof pomodoroMainFragment>;
+}) {
+  return <div>Pomodoro Main</div>;
+}

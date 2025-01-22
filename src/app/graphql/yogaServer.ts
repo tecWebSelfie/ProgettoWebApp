@@ -1,11 +1,12 @@
 import { ResolveUserFn, useGenericAuth } from "@envelop/generic-auth";
+import { useAPQ } from "@graphql-yoga/plugin-apq";
 import { YogaInitialContext, createYoga } from "graphql-yoga";
 import { schema } from "@/db/gqlschema";
 import { addMocksToSchema } from "@graphql-tools/mock";
 import { User } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 import { NextAuthRequest } from "next-auth/lib";
-import { mockedResolvers, mocks } from "./mocks";
+import { mocks } from "./mocks";
 
 //define here properties to inject in graphql contexts
 const context = {};
@@ -24,11 +25,13 @@ const resolveUserFn: ResolveUserFn<
 export const yoga = createYoga({
   schema: process.env.MOCKING ? addMocksToSchema({ schema, mocks }) : schema,
   plugins: [
-    // eslint-disable-next-line
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     useGenericAuth({
       mode: "protect-granular",
       resolveUserFn,
     }),
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useAPQ(),
   ],
   fetchAPI: { Request: NextRequest, Response: Response, fetch },
   context,

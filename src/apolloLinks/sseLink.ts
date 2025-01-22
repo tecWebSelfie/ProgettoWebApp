@@ -7,7 +7,7 @@ import {
 import { print, GraphQLError } from "graphql";
 import { createClient, ClientOptions, Client } from "graphql-sse";
 
-class SSELink extends ApolloLink {
+export class SSELink extends ApolloLink {
   private client: Client;
 
   constructor(options: ClientOptions) {

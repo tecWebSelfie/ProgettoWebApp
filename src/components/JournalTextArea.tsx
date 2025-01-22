@@ -14,7 +14,7 @@ import { JournalSectionDocument } from "../gql/graphql";
 
 const journalTextAreaFragment = graphql(`
   fragment journalTextAreaFragment on Query {
-    journal_findById(_id: $journalId) {
+    journal_findById(_id: $selectedJournalId) {
       summary
       description
     }
