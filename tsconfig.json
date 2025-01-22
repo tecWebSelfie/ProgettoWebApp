@@ -8,6 +8,7 @@
     "strictFunctionTypes": false,
     "noEmit": true,
     "incremental": true,
+    "noImplicitAny": false,
     "target": "ESNext",
     "module": "ESNext",
     "esModuleInterop": true,
