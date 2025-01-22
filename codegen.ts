@@ -17,10 +17,34 @@ const config: CodegenConfig = {
     "src/gql/": {
       schema: "./clientSchema.graphql",
       preset: "client",
+      config: {
+        strictScalars: true,
+        scalars: {
+          MongoID: {
+            input: "string | number",
+            output: "string | number",
+          },
+          Buffer: {
+            input: "Buffer",
+            output: "Buffer",
+          },
+          Date: {
+            input: "Date",
+            output: "Date",
+          },
+          RegExpAsString: {
+            input: "string",
+            output: "string",
+          },
+        },
+      },
     },
     "./graphql.schema.json": {
       plugins: ["introspection"],
     },
+  },
+  hooks: {
+    afterAllFileWrite: ["prettier --write"],
   },
 };
 
