@@ -36,28 +36,36 @@ interface IJournal {
   class: ICalEventClass;
 }
 
-const journalSchema = new Schema<IJournal>({
-  start_date: { type: String, required: true },
-  last_modified: { type: String, required: true },
-  organizer: {
-    type: Schema.Types.ObjectId,
-    ref: userModelName,
-    required: true,
+const journalSchema = new Schema<IJournal>(
+  {
+    //start_date: { type: String, required: true },
+    //last_modified: { type: String, required: true },
+    organizer: {
+      type: Schema.Types.ObjectId,
+      ref: userModelName,
+      required: true,
+    },
+    recurrence_id: { type: String },
+    sequence: { type: String },
+    summary: { type: String },
+    description: { type: String },
+    url: { type: String },
+    status: { type: String, enum: journalStatus },
+    categories: [{ type: String }],
+    attendees: [{ type: Schema.Types.ObjectId, ref: userModelName }],
+    in_todos: [{ type: Schema.Types.ObjectId, ref: todoModelName }],
+    out_todos: [{ type: Schema.Types.ObjectId, ref: todoModelName }],
+    attachments: [{ type: String }],
+    request_status: { type: String },
+    class: { type: String, enum: Object.values(ICalEventClass) },
   },
-  recurrence_id: { type: String },
-  sequence: { type: String },
-  summary: { type: String },
-  description: { type: String },
-  url: { type: String },
-  status: { type: String, enum: journalStatus },
-  categories: [{ type: String }],
-  attendees: [{ type: Schema.Types.ObjectId, ref: userModelName }],
-  in_todos: [{ type: Schema.Types.ObjectId, ref: todoModelName }],
-  out_todos: [{ type: Schema.Types.ObjectId, ref: todoModelName }],
-  attachments: [{ type: String }],
-  request_status: { type: String },
-  class: { type: String, enum: Object.values(ICalEventClass) },
-});
+  {
+    timestamps: {
+      createdAt: "start_date",
+      updatedAt: "last_modified",
+    },
+  },
+);
 
 export const journalTC = finalComposer<IJournal>(
   journalModelName,

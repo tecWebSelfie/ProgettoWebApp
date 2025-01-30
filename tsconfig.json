@@ -8,10 +8,11 @@
     "strictFunctionTypes": false,
     "noEmit": true,
     "incremental": true,
+    "noImplicitAny": false,
     "target": "ESNext",
     "module": "ESNext",
     "esModuleInterop": true,
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
@@ -33,7 +34,8 @@
       "@/serverActions/*": ["./src/serverActions/*"],
       "@/localGql/*": ["./src/app/localGql/*"],
       "@/apolloLinks/*": ["./src/apolloLinks/*"],
-      "@/hooks/*": ["./hooks/*"]
+      "@/hooks/*": ["./hooks/*"],
+      "@/lib/*": ["./lib/*"]
     }
   },
   "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],

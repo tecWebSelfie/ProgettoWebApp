@@ -25,6 +25,7 @@ export const resourceModelName = "Resource";
 export const todoModelName = "Todo";
 export const userModelName = "User";
 export const credentialModelName = "Credential";
+export const messageModelName = "Message";
 
 const iCalGeo = new Schema<ICalGeo>({
   lat: { type: Number, require: true },

@@ -1,19 +1,17 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { Button, ButtonProps } from "@/components/ui/button";
 import React from "react";
+import { propagateServerField } from "next/dist/server/lib/render-server";
 
 export function NavigationBarButton({
-  children = "Navigate",
   href = "/",
-  className,
+  ...props
 }: {
-  children: React.ReactNode;
-  href: string;
-  className?: string;
-}) {
+  href?: string;
+} & ButtonProps) {
   return (
-    <Button className={className} asChild>
-      <Link href={href}>{children}</Link>
+    <Button {...props} asChild>
+      <Link href={href}>{props.children}</Link>
     </Button>
   );
 }
