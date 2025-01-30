@@ -1,9 +1,11 @@
-import NextAuth, { User } from "next-auth";
+import NextAuth, { Session, User } from "next-auth";
 import Credentials, { CredentialInput } from "next-auth/providers/credentials";
 import { z } from "zod";
 import { credentialModel } from "./src/db/models/credential";
 import bcrypt from "bcrypt";
 import { userModel } from "./src/db/models/user";
+import { JWT } from "next-auth/jwt";
+import { authLogger, logger } from "./lib/pinoConfig";
 
 export const credentialsValidator = z.object({
   email: z.string().email("Email doesn't have an email format"),
@@ -28,18 +30,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Returned jwt is forwarded to session as parameters.
     Jwt is ciphered and you have to use secret to read it.
     */
-    async jwt({ user, token }) {
+    async jwt({ user, token }: { user: User; token: JWT }) {
       if (user) {
         token.scope = user.scope;
+        token.nickname = user.nickname;
+        token.surname = user.surname;
+        token.id = user.id;
       }
       return token;
     },
     // here you return session Object whit infos that you want to pass to the client. Be careful!
-    async session({ session, token }) {
+    async session({ session, token }: { session: Session; token: JWT }) {
       session.user.scope = token.scope;
-      console.log("session callback ");
-      console.log("token: " + token.scope);
-      console.log("session: " + session.user.scope);
+      session.user.nickname = token.nickname;
+      session.user.surname = token.surname;
+      session.user.id = token.id;
+      // authLogger.info({ session, token }, "during session callback");
+      // console.log("token: " + token.scope);
+      // console.log("session: " + session.user.scope);
       return session;
     },
     // authorized(params) {
@@ -70,7 +78,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 async function dbAuthentication(
   credentials: Partial<Record<"email" | "password", unknown>>,
   request: Request,
-) {
+): Promise<User | null> {
   const validatedCredentials = credentialsValidator.safeParse(credentials);
 
   if (!validatedCredentials.success) {
@@ -95,6 +103,7 @@ async function dbAuthentication(
       if (userDoc) {
         return {
           email: userDoc.email,
+          nickname: userDoc.nickname,
           name: userDoc.nickname,
           image: userDoc.photo.toString(),
           id: userDoc.id,
@@ -111,10 +120,12 @@ async function dbAuthentication(
 async function fakeAuth(
   credentials: Partial<Record<"email" | "password", unknown>>,
   request: Request,
-) {
+): Promise<User> {
   return {
-    email: "pippo@gmail.com",
-    name: "Mario Rossi",
+    email: "mario.rossi@gmail.com",
+    name: "Mario",
+    surname: "Rossi",
+    nickname: "Pippide",
     id: "1",
     scope: "read:default",
   };
