@@ -17,14 +17,14 @@ import { schemaComposer } from "graphql-compose";
 import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 import { ICalAttendeeJSONData } from "ical-generator";
 
-interface IUser extends ICalAttendeeJSONData {
+export interface IUser extends ICalAttendeeJSONData {
   nickname: string;
   email: string;
   name: string;
   surname: string;
   birthday: Date;
   residence: string;
-  photo: Buffer;
+  photo: string;
   roles: "user" | "tech";
   owned_resources: Types.ObjectId[];
   freebusy: Types.ObjectId;
@@ -60,7 +60,7 @@ const userSchema = new Schema<IUser>({
   },
   birthday: Date,
   residence: String,
-  photo: Buffer,
+  photo: String,
   roles: {
     type: String,
     enum: ["user", "tech"],
