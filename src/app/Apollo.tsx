@@ -5,7 +5,7 @@ import {
   InMemoryCache,
   ApolloNextAppProvider,
 } from "@apollo/experimental-nextjs-app-support";
-import { gql } from "@apollo/client";
+import { ApolloProvider, gql } from "@apollo/client";
 import { createFinalLink } from "@/apolloLinks/finalLink";
 
 // have a function to create a client for you
@@ -36,6 +36,8 @@ function makeClient() {
   });
 }
 
+const apolloClient = makeClient();
+
 // const client = new ApolloClient({
 //   uri: "http://localhost:3000/graphql",
 //   link: finalLink,
@@ -51,7 +53,11 @@ function makeClient() {
 //   `,
 // });
 
-export default function Apollo({ children }: React.PropsWithChildren) {
+export function Apollo({ children }: React.PropsWithChildren) {
+  return <ApolloProvider client={apolloClient}>{children}</ApolloProvider>;
+}
+
+export function ApolloWithSsr({ children }: React.PropsWithChildren) {
   return (
     <ApolloNextAppProvider makeClient={makeClient}>
       {children}
