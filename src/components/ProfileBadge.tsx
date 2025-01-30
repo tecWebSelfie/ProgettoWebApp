@@ -13,22 +13,25 @@ import {
 import { DropDownMenuItemLogout } from "./DropDownMenuItemLogout";
 import { Separator } from "./ui/separator";
 import { IoSettingsOutline } from "react-icons/io5";
+import { AvatarImg } from "@/components/AvatarImg";
+import { makeFragmentData } from "@/src/gql";
+import { AvatarImgFragmentDoc } from "@/gql/graphql";
 
 export async function ProfileBadge() {
   const session = await auth();
+  console.log("profile badge gets this session object: ", session?.user);
   return (
     <div className="flex gap-3 items-center">
       {!session && <SignUpOrLoginButton />}
-      {session && (
+      {session?.user.id && (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Avatar className="cursor-pointer">
-              <AvatarImage src="/avatar.jpg" alt="Profile Badge" />
-              <AvatarFallback>
-                {session.user.name?.charAt(0) +
-                  (session.user.name?.split(" ", 2)[1]?.charAt(0) || "")}
-              </AvatarFallback>
-            </Avatar>
+            <AvatarImg
+              avatarImgFragment={makeFragmentData(
+                { ...session.user, _id: session.user.id },
+                AvatarImgFragmentDoc,
+              )}
+            />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="mt-2">
             <DropdownMenuGroup>
