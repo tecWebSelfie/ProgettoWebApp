@@ -1,6 +1,7 @@
 .gitignore
 .gitattributes
 .prettierignore
+.husky/*
 *.drawio
 .env*
 *.png

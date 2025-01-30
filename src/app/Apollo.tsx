@@ -3,30 +3,64 @@
 import {
   ApolloClient,
   InMemoryCache,
-  ApolloProvider,
-  gql,
-} from "@apollo/client";
-import { finalLink } from "@/apolloLinks/finalLink";
+  ApolloNextAppProvider,
+} from "@apollo/experimental-nextjs-app-support";
+import { ApolloProvider, gql } from "@apollo/client";
+import { createFinalLink } from "@/apolloLinks/finalLink";
 
-const client = new ApolloClient({
-  uri: "http://localhost:3000/graphql",
-  link: finalLink,
-  cache: new InMemoryCache(),
-  typeDefs: gql`
-    extend type Query {
-      TimeMachine: Date!
-    }
+// have a function to create a client for you
+function makeClient() {
+  const finalLink = createFinalLink();
+  // const httpLink = new HttpLink({
+  // this needs to be an absolute url, as relative urls cannot be used in SSR
+  // uri: "http://localhost:3000/graphql",
+  // you can disable result caching here if you want to
+  // (this does not work if you are rendering your page with `export const dynamic = "force-static"`)
+  // fetchOptions: { cache: "no-store" },
+  // you can override the default `fetchOptions` on a per query basis
+  // via the `context` property on the options passed as a second argument
+  // to an Apollo Client data fetching hook, e.g.:
+  // const { data } = useSuspenseQuery(MY_QUERY, { context: { fetchOptions: { cache: "force-cache" }}});
+  // });
 
-    extend type Mutation {
-      TimeMachine: Date!
-    }
-  `,
-});
+  // use the `ApolloClient` from "@apollo/experimental-nextjs-app-support"
+  return new ApolloClient({
+    // use the `InMemoryCache` from "@apollo/experimental-nextjs-app-support"
+    cache: new InMemoryCache(),
+    link: finalLink,
+    typeDefs: gql`
+      extend type Query {
+        TimeMachine: Date!
+      }
+    `,
+  });
+}
 
-export default function Apollo({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return <ApolloProvider client={client}>{children}</ApolloProvider>;
+const apolloClient = makeClient();
+
+// const client = new ApolloClient({
+//   uri: "http://localhost:3000/graphql",
+//   link: finalLink,
+//   cache: new InMemoryCache(),
+//   typeDefs: gql`
+//     extend type Query {
+//       TimeMachine: Date!
+//     }
+
+//     extend type Mutation {
+//       TimeMachine: Date!
+//     }
+//   `,
+// });
+
+export function Apollo({ children }: React.PropsWithChildren) {
+  return <ApolloProvider client={apolloClient}>{children}</ApolloProvider>;
+}
+
+export function ApolloWithSsr({ children }: React.PropsWithChildren) {
+  return (
+    <ApolloNextAppProvider makeClient={makeClient}>
+      {children}
+    </ApolloNextAppProvider>
+  );
 }

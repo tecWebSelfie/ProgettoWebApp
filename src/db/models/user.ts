@@ -5,6 +5,7 @@ import {
   freebusyModelName,
   groupModelName,
   journalModelName,
+  messageModelName,
   notificationModelName,
   pomodoroModelName,
   projectModelName,
@@ -24,7 +25,7 @@ interface IUser extends ICalAttendeeJSONData {
   surname: string;
   birthday: Date;
   residence: string;
-  photo: Buffer;
+  photo: string;
   roles: "user" | "tech";
   owned_resources: Types.ObjectId[];
   freebusy: Types.ObjectId;
@@ -64,7 +65,7 @@ const userSchema = new Schema<IUser>({
   },
   birthday: Date,
   residence: String,
-  photo: Buffer,
+  photo: String,
   roles: {
     type: String,
     enum: ["user", "tech"],

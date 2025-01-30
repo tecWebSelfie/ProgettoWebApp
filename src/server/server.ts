@@ -1,3 +1,4 @@
+import "./dotEnv";
 import { createServer } from "http";
 import { parse } from "url";
 import next from "next";
@@ -5,17 +6,9 @@ import { config as configEnv } from "dotenv";
 import { dbConfig } from "../db/dbconfig";
 import mongoose from "mongoose";
 
-/**
- * Loads environment variables from various .env files.
- * This ensures that environment variables are available throughout the application.
- */
-configEnv({
-  path: [".env", ".env.local", ".env.production", ".env.production.local"],
-});
-
 mongoose.connect(dbConfig.uri);
 
-const dev = false;
+const dev = process.env.NODE_ENV !== "production";
 const hostname = process.env.HOSTNAME || "localhost";
 const port = Number(process.env.PORT) || 8000;
 // when using middleware `hostname` and `port` must be provided below
