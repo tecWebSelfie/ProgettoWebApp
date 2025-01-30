@@ -1017,6 +1017,19 @@ type Query {
     """
     sort: SortConnectionMessageEnum = _ID_DESC
   ): MessageConnection
+
+  """
+  get all messages sorted by creation date in descending order
+  """
+  message_messages(
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyMessageInput
+    skip: Int
+    limit: Int = 100
+    sort: SortFindManyMessageInput
+  ): [Message]
 }
 
 type Mutation {
@@ -2003,6 +2016,7 @@ type Mutation {
 }
 
 type Subscription {
+  newMessages: Message
   demo: Int
   n: Int
 }
@@ -3763,6 +3777,8 @@ type Message {
   _id: MongoID!
   created_at: Date
   last_modified: Date
+  Organizer: User
+  Attendees(limit: Int = 100, sort: SortFindByIdsUserInput): [User!]!
 }
 
 """
@@ -5436,7 +5452,7 @@ type User {
   surname: String
   birthday: Date
   residence: String
-  photo: Buffer
+  photo: String
   roles: EnumUserRoles
   timezone: String
   pomodoro_tolerance_time: Float
@@ -5450,16 +5466,20 @@ type User {
   calendar: MongoID
   projects: [MongoID]
   _id: MongoID!
-  sentMessages(
+
+  """
+  get all messages sorted by creation date in descending order
+  """
+  Messages(
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyMessageInput
     skip: Int
     limit: Int = 100
     sort: SortFindManyMessageInput
-  ): [Message!]!
-  receivedMessages(
-    skip: Int
-    limit: Int = 100
-    sort: SortFindManyMessageInput
-  ): [Message!]!
+  ): [Message]
+  conversation(attendeeId: MongoID!): [Message]
   OwnedResources(
     limit: Int = 100
     sort: SortFindByIdsResourceInput
@@ -5769,7 +5789,7 @@ input CreateManyUserInput {
   surname: String
   birthday: Date
   residence: String
-  photo: Buffer
+  photo: String
   roles: EnumUserRoles
   timezone: String
   pomodoro_tolerance_time: Float
@@ -5996,7 +6016,7 @@ input CreateOneUserInput {
   surname: String
   birthday: Date
   residence: String
-  photo: Buffer
+  photo: String
   roles: EnumUserRoles
   timezone: String
   pomodoro_tolerance_time: Float
@@ -6734,7 +6754,7 @@ input FilterCountUserInput {
   surname: String
   birthday: Date
   residence: String
-  photo: Buffer
+  photo: String
   roles: EnumUserRoles
   timezone: String
   pomodoro_tolerance_time: Float
@@ -7448,7 +7468,7 @@ input FilterFindManyUserInput {
   surname: String
   birthday: Date
   residence: String
-  photo: Buffer
+  photo: String
   roles: EnumUserRoles
   timezone: String
   pomodoro_tolerance_time: Float
@@ -8162,7 +8182,7 @@ input FilterFindOneUserInput {
   surname: String
   birthday: Date
   residence: String
-  photo: Buffer
+  photo: String
   roles: EnumUserRoles
   timezone: String
   pomodoro_tolerance_time: Float
@@ -8876,7 +8896,7 @@ input FilterRemoveManyUserInput {
   surname: String
   birthday: Date
   residence: String
-  photo: Buffer
+  photo: String
   roles: EnumUserRoles
   timezone: String
   pomodoro_tolerance_time: Float
@@ -9590,7 +9610,7 @@ input FilterRemoveOneUserInput {
   surname: String
   birthday: Date
   residence: String
-  photo: Buffer
+  photo: String
   roles: EnumUserRoles
   timezone: String
   pomodoro_tolerance_time: Float
@@ -10304,7 +10324,7 @@ input FilterUpdateManyUserInput {
   surname: String
   birthday: Date
   residence: String
-  photo: Buffer
+  photo: String
   roles: EnumUserRoles
   timezone: String
   pomodoro_tolerance_time: Float
@@ -11018,7 +11038,7 @@ input FilterUpdateOneUserInput {
   surname: String
   birthday: Date
   residence: String
-  photo: Buffer
+  photo: String
   roles: EnumUserRoles
   timezone: String
   pomodoro_tolerance_time: Float
@@ -11417,7 +11437,7 @@ input UpdateByIdUserInput {
   surname: String
   birthday: Date
   residence: String
-  photo: Buffer
+  photo: String
   roles: EnumUserRoles
   timezone: String
   pomodoro_tolerance_time: Float
@@ -11767,7 +11787,7 @@ input UpdateManyUserInput {
   surname: String
   birthday: Date
   residence: String
-  photo: Buffer
+  photo: String
   roles: EnumUserRoles
   timezone: String
   pomodoro_tolerance_time: Float
@@ -12117,7 +12137,7 @@ input UpdateOneUserInput {
   surname: String
   birthday: Date
   residence: String
-  photo: Buffer
+  photo: String
   roles: EnumUserRoles
   timezone: String
   pomodoro_tolerance_time: Float
