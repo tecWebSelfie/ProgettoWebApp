@@ -14,12 +14,19 @@ import { SignUpOrLoginButton } from "./SignUpOrLoginButton";
 import { DarkModeToggle } from "./DarkModeToggle";
 import { ProfileBadge } from "./ProfileBadge";
 import { TimeMachine } from "./TimeMachine";
+import { FaHome } from "react-icons/fa";
+import { NoSsr } from "@/components/NoSsr";
 
 export function AppBar() {
   return (
     <div className="flex p-2 justify-between border-solid shadow-md rounded">
       <NavigationMenu>
         <NavigationMenuList>
+          <NavigationMenuItem>
+            <NavigationBarButton variant="outline" href="/">
+              <FaHome />
+            </NavigationBarButton>
+          </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationBarButton href="/calendar">
               <CiCalendar />
@@ -48,7 +55,10 @@ export function AppBar() {
       </NavigationMenu>
       <div className="flex gap-3 items-center">
         <TimeMachine />
-        <DarkModeToggle />
+        <NoSsr>
+          <DarkModeToggle />
+        </NoSsr>
+
         <ProfileBadge />
       </div>
     </div>
