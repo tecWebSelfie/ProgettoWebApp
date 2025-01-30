@@ -27,10 +27,6 @@ export default function ShadCnChat(
           <AvatarFallback>MR</AvatarFallback>
         </Avatar>
         <h1 className="text-xl font-semibold">Mario Rossi</h1>
-        {/* <div className="flex gap-2 items-center pt-2">
-          <Button variant="secondary">New Chat</Button>
-          <Button variant="secondary">See FAQ</Button>
-        </div> */}
       </ExpandableChatHeader>
       <ExpandableChatBody>
         <ChatMessageList>

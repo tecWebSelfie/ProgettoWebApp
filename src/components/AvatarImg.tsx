@@ -5,6 +5,7 @@ import { FaUser } from "react-icons/fa";
 const avatarImgFragment = graphql(`
   fragment AvatarImg on User {
     _id
+    nickname
     name
     surname
     photo
@@ -14,7 +15,7 @@ const avatarImgFragment = graphql(`
 export function AvatarImg(props: {
   avatarImgFragment: FragmentType<typeof avatarImgFragment>;
 }) {
-  const { name, surname, photo } = useFragment(
+  const { nickname, name, surname, photo } = useFragment(
     avatarImgFragment,
     props.avatarImgFragment,
   );
@@ -25,7 +26,7 @@ export function AvatarImg(props: {
         alt={`${name} ${surname} profile badge`}
       />
       <AvatarFallback>
-        <FaUser />
+        {(name?.[0] ?? "") + (surname?.[0] ?? "") || nickname[0]}
       </AvatarFallback>
     </Avatar>
   );
