@@ -14,11 +14,15 @@ import { graphqlschema as pomodoroSchema, pomodoroTC } from "./models/pomodoro";
 import { graphqlschema as projectSchema, projectTC } from "./models/project";
 import { graphqlschema as resourceSchema, resourceTC } from "./models/resource";
 //import * as todoModel from "./models/todo";
-import { graphqlschema as userSchema, userTC } from "./models/user";
+import { IUser, graphqlschema as userSchema, userTC } from "./models/user";
 import { graphqlschema as todoSchema, todoTC } from "./models/todo";
 import { graphqlschema as journalSchema, journalTC } from "./models/journal";
 import { graphqlschema as freebusySchema, freebusyTC } from "./models/freebusy";
-import { graphqlschema as messageSchema, messageTC } from "./models/message";
+import {
+  messageModel,
+  graphqlschema as messageSchema,
+  messageTC,
+} from "./models/message";
 import {
   GraphQLDirective,
   DirectiveLocation,
@@ -27,8 +31,18 @@ import {
   GraphQLString,
 } from "graphql";
 import { setTimeout } from "timers/promises";
-import { createPubSub, Repeater } from "graphql-yoga";
 import { pubSub } from "./pubSub";
+import { Repeater } from "graphql-yoga";
+import next from "next";
+import {
+  QueryMessage_FindManyArgs,
+  QueryResolvers,
+  Resolvers,
+  ResolversTypes,
+  Scalars,
+  UserResolvers,
+} from "@/gql/resolvers-types";
+import { Types } from "mongoose";
 //import * as relations from "./models/relationsTmp";
 
 alarmTC.addRelation("Attendees", {
@@ -358,32 +372,64 @@ todoTC.addRelation("OutputJournals", {
 });
 
 userTC.addRelation("Messages", {
-  resolver: () => messageTC.getResolver("findMany"),
-  prepareArgs: {
-    filter: (source) => ({ organizer: source._id }),
-  },
+  //messsages in list are sent by the user or received by the user
+  resolver: () =>
+    messageTC
+      .getResolver<QueryMessage_FindManyArgs>("messages")
+      .wrapResolve((next) => async (rp) => {
+        rp.args.filter = {
+          organizer: rp.source._id,
+          OR: [{ attendees: [rp.source._id] }],
+        };
+        return await next(rp);
+      }),
+  // prepareArgs: {
+  //   filter: (source) => ({
+  //     organizer: source._id,
+  //     OR: { attendees: [source._id] },
+  //   }),
+  // },
   projection: {
     _id: true,
   },
 });
-userTC.addRelation("sentMessages", {
-  resolver: () => messageTC.getResolver("findMany"),
-  prepareArgs: {
-    filter: (source) => ({ organizer: source._id }),
+userTC.addRelation("conversation", {
+  type: [messageTC],
+  args: {
+    attendeeId: "MongoID!",
   },
+  resolve: async (
+    source,
+    args: { attendeeId: Scalars["MongoID"]["input"] },
+    ctx,
+    info,
+  ) =>
+    await messageModel
+      .find({ organizer: source._id, attendees: [args.attendeeId] })
+      .or([{ attendees: [source._id], organizer: args.attendeeId }])
+      .exec(),
   projection: {
     _id: true,
   },
 });
-userTC.addRelation("receivedMessages", {
-  resolver: () => messageTC.getResolver("findMany"),
-  prepareArgs: {
-    filter: (source) => ({ attendees: [source._id] }),
-  },
-  projection: {
-    _id: true,
-  },
-});
+// userTC.addRelation("sentMessages", {
+//   resolver: () => messageTC.getResolver("findMany"),
+//   prepareArgs: {
+//     filter: (source) => ({ organizer: source._id }),
+//   },
+//   projection: {
+//     _id: true,
+//   },
+// });
+// userTC.addRelation("receivedMessages", {
+//   resolver: () => messageTC.getResolver("findMany"),
+//   prepareArgs: {
+//     filter: (source) => ({ attendees: [source._id] }),
+//   },
+//   projection: {
+//     _id: true,
+//   },
+// });
 userTC.addRelation("OwnedResources", {
   resolver: () => resourceTC.getResolver("findByIds"),
   prepareArgs: {
