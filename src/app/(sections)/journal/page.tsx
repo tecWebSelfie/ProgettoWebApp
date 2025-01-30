@@ -11,7 +11,7 @@ import JournalMain from "./JournalMain";
 
 const journalSectionQuery = graphql(`
   query journalSection(
-    $journalId: MongoID!
+    $selectedJournalId: MongoID!
     $journalsPerPageInList: Int
     $nextJournalCursorInList: String
     $previousJournalCursorInList: String
@@ -24,7 +24,7 @@ const journalSectionQuery = graphql(`
 
 export default function JournalSection() {
   const { data } = useSuspenseQuery(journalSectionQuery, {
-    variables: { journalId: new Types.ObjectId() },
+    variables: { selectedJournalId: new Types.ObjectId().toString() },
   });
   return (
     <SectionLayout
