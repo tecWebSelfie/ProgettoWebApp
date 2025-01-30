@@ -1,3 +1,4 @@
+import { YogaContext } from "@/src/app/graphql/context";
 import {
   ObjectTypeComposer,
   ObjectTypeComposerFieldConfigDefinition,
@@ -56,10 +57,10 @@ interface RelationOption<T> {
   prepareArgs: ObjectTypeComposerRelationArgsMapper<T, any, any>;
 }
 
-export function finalComposer<T, TContext = any>(
+export function finalComposer<T>(
   name: string,
   schema: mongoose.Schema,
-  opts?: ComposeWithMongooseOpts<TContext>,
+  opts?: ComposeWithMongooseOpts<YogaContext>,
 ) {
   const model =
     (mongoose.models[name] as mongoose.Model<T>) ||
@@ -71,7 +72,7 @@ export function finalComposer<T, TContext = any>(
       : never;
 
   //return addRelations(composeWithMongoose<documentType>(model));
-  return composeWithMongoose<documentType>(model, opts);
+  return composeWithMongoose<documentType, YogaContext>(model, opts);
 }
 
 function addRel(

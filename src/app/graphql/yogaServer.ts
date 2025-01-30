@@ -1,21 +1,17 @@
 import { ResolveUserFn, useGenericAuth } from "@envelop/generic-auth";
 import { useAPQ } from "@graphql-yoga/plugin-apq";
-import { YogaInitialContext, createYoga } from "graphql-yoga";
+import { createYoga } from "graphql-yoga";
 import { schema } from "@/db/gqlschema";
 import { addMocksToSchema } from "@graphql-tools/mock";
 import { User } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
-import { NextAuthRequest } from "next-auth/lib";
 import { mocks } from "./mocks";
-
-//define here properties to inject in graphql contexts
-const context = {};
-
+import { myContext as context } from "./context";
+import type { YogaContext } from "./context";
 //this is the function that will be passed to genericAuth. It must return either the user object or null
-const resolveUserFn: ResolveUserFn<
-  User,
-  typeof context & YogaInitialContext & { request: NextAuthRequest }
-> = async function (context) {
+const resolveUserFn: ResolveUserFn<User, YogaContext> = async function (
+  context,
+) {
   console.log(
     "This output is in resolveUserFn(), " + context.request.auth?.user.scope,
   );
