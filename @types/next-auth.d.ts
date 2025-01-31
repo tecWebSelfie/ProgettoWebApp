@@ -3,7 +3,8 @@ import NextAuth, { DefaultSession, Session, User } from "next-auth";
 
 interface UserVisibleData {
   id?: string;
-  nickname: string;
+  username: string;
+  name?: string;
   surname?: string;
   scope: string; //used by genericAuth to define the user's role
 }

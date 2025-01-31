@@ -24,7 +24,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async jwt({ user, token }: { user: User; token: JWT }) {
       if (user) {
         token.scope = user.scope;
-        token.nickname = user.nickname;
+        token.email = user.email;
+        token.username = user.username;
+        token.name = user.name;
         token.surname = user.surname;
         token.id = user.id;
       }
@@ -33,7 +35,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     // here you return session Object whit infos that you want to pass to the client. Be careful!
     async session({ session, token }: { session: Session; token: JWT }) {
       session.user.scope = token.scope;
-      session.user.nickname = token.nickname;
+      session.user.username = token.username;
+      session.user.email = token.email;
+      session.user.name = token.name;
       session.user.surname = token.surname;
       session.user.id = token.id;
       // authLogger.info({ session, token }, "during session callback");
@@ -106,7 +110,9 @@ async function dbAuthentication(
 
       return {
         email: userDoc.email,
-        name: userDoc.username,
+        name: userDoc.name,
+        surname: userDoc.surname,
+        username: userDoc.username,
         image: "pippo",
         id: userDoc.id,
         scope: "read:user",

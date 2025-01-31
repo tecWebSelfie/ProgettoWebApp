@@ -12,7 +12,7 @@ mongoose.connect(dbConfig.uri).catch((error) => {
 });
 
 const routeHandler = auth(async (request) => {
-  console.log("I'm in route handler, user is: " + request.auth?.user.nickname);
+  console.log("I'm in route handler, user is: " + request.auth?.user.username);
   return await yoga.handle(request);
 });
 

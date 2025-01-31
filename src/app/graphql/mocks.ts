@@ -6,7 +6,7 @@ export const mocks = {
   User: () => ({
     name: faker.person.firstName(),
     surname: faker.person.lastName(),
-    nickname: faker.animal.bird(),
+    username: faker.animal.bird(),
   }),
   Journal: () => ({
     summary: faker.book.title(),

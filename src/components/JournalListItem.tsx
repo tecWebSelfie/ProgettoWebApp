@@ -9,7 +9,7 @@ const journalFragment = graphql(`
   fragment journalsListItem on Journal {
     summary
     Organizer {
-      nickname
+      username
     }
   }
 `);
@@ -24,7 +24,7 @@ export function JournalListItem(props: {
         <Button className="w-full justify-between">
           <Label>{summary}</Label>{" "}
           {Organizer && (
-            <Label className="text-gray-400">{Organizer.nickname}</Label>
+            <Label className="text-gray-400">{Organizer.username}</Label>
           )}
         </Button>
       )}
