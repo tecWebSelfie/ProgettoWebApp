@@ -1,7 +1,9 @@
+import { Resolvers } from "@/src/gql/resolvers-types";
 import { faker } from "@faker-js/faker";
+import { IMocks, IMockStore } from "@graphql-tools/mock";
 
 //This is mocked data for the graphql server
-export const mocks = {
+export const mocks: IMocks = {
   MongoID: () => faker.database.mongodbObjectId(),
   User: () => ({
     name: faker.person.firstName(),
@@ -17,4 +19,6 @@ export const mocks = {
 };
 
 //These are mocked resolvers for the graphql server
-export const mockedResolvers = {};
+export const mockedResolvers: (store: IMockStore) => Partial<Resolvers> = (
+  store,
+) => ({});
