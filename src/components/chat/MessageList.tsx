@@ -19,6 +19,7 @@ import {
 } from "../ui/chat/expandable-chat";
 import MessageListHeader from "./MessageListHeader";
 import { ChatInput } from "../ui/chat/chat-input";
+import ChatInputBox from "./ChatInputBox";
 import { Button } from "../ui/button";
 import { Send } from "lucide-react";
 
@@ -48,10 +49,9 @@ export default function MessageList(props: {
         )}
       </ChatMessageList>
       <ExpandableChatFooter>
-        <ChatInput placeholder="send a message..." />
-        <Button type="submit" size="icon">
-          <Send className="size-4" />
-        </Button>
+        {messagesList.organizer && (
+          <ChatInputBox chatInputBoxFragment={messagesList.organizer} />
+        )}
       </ExpandableChatFooter>
     </>
   );
