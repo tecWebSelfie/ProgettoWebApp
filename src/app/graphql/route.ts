@@ -6,7 +6,7 @@ import mongoose from "mongoose";
 console.log(dbConfig.uri);
 mongoose.connect(dbConfig.uri).catch((error) => {
   console.error(
-    "Mongoose can't connect. Check that you booted up your mongodb ;) ",
+    "Mongoose can't connect. Check that you booted up your mongodb ;) \n",
     error,
   );
 });
