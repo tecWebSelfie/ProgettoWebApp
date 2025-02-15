@@ -43,7 +43,7 @@ export default function ChatInputBox(
 
   const [chatInputValue, setChatInputValue] = useState("");
   return (
-    <>
+    <div className="flex flex-row items-end gap-3">
       <ChatInput
         value={chatInputValue}
         placeholder="send a message..."
@@ -76,6 +76,6 @@ export default function ChatInputBox(
       >
         <Send className="size-4" />
       </Button>
-    </>
+    </div>
   );
 }
