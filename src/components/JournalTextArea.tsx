@@ -82,7 +82,7 @@ export function JournalTextArea(props: {
               journal_createOne: {
                 record: {
                   __typename: "Journal",
-                  _id: new Types.ObjectId(),
+                  _id: new Types.ObjectId().toString(),
                   summary: titleInput,
                   description: textAreaInput,
                 },
