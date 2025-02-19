@@ -48,6 +48,7 @@ export default function MessageList(props: {
   const { subscribeToMore } = useQueryRefHandlers(props.messageListQueryRef);
   const { data: messagesList } = useReadQuery(props.messageListQueryRef);
 
+  //this is the subscription to new messages
   useEffect(() => {
     subscribeToMore({
       document: newMessagesSubscription,
