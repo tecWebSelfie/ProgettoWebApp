@@ -1,4 +1,4 @@
-import { schemaComposer } from "graphql-compose";
+import { schemaComposer } from "@/lib/schemaComposer";
 import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 import mongoose, { Model, Schema, Types } from "mongoose";
 import { messageModelName } from "./mongo_contract";

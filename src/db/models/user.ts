@@ -13,7 +13,7 @@ import {
   todoModelName,
   userModelName,
 } from "./mongo_contract";
-import { schemaComposer } from "graphql-compose";
+import { schemaComposer } from "@/lib/schemaComposer";
 import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 import { ICalAttendeeJSONData } from "ical-generator";
 

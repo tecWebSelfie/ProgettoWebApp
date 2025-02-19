@@ -1,4 +1,4 @@
-import { schemaComposer } from "graphql-compose";
+import { schemaComposer } from "@/lib/schemaComposer";
 import { Schema } from "mongoose";
 import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 

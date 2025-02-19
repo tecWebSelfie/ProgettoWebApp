@@ -6,7 +6,7 @@ import {
 import { calendarModelName, todoModelName } from "./mongo_contract";
 import { Schema, Types } from "mongoose";
 import { eventModelName } from "./mongo_contract";
-import { schemaComposer } from "graphql-compose";
+import { schemaComposer } from "@/lib/schemaComposer";
 import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 
 interface ICalendar extends ICalCalendarJSONData {

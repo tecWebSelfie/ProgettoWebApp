@@ -1,6 +1,6 @@
 import mongoose, { Schema, Types } from "mongoose";
 import { notificationModelName, userModelName } from "./mongo_contract";
-import { schemaComposer } from "graphql-compose";
+import { schemaComposer } from "@/lib/schemaComposer";
 import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 
 interface INotification {
