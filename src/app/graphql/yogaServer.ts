@@ -29,7 +29,7 @@ export const yoga = createYoga({
       resolveUserFn,
     }),
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    useAPQ(),
+    process.env.NODE_ENV === "development" ? useAPQ() : {},
   ],
   fetchAPI: { Request: NextRequest, Response: Response, fetch },
   context,
