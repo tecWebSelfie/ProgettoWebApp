@@ -15,6 +15,8 @@ export const authLogger = logger.child({ logger: "auth.js" });
 
 export const yogaRscLogger = logger.child({ logger: "YOGA RSC" });
 
+export const yogaAuthLogger = logger.child({ logger: "YOGA AUTH" });
+
 // const logger = pino({
 //   name: "Marco", //name of the logger
 //   level: "warn", //minimum level to log, default is "info", if you want to specify a custom level, you need to pass a customLevels object
