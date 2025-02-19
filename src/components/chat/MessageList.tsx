@@ -22,6 +22,20 @@ import { ChatInput } from "../ui/chat/chat-input";
 import ChatInputBox from "./ChatInputBox";
 import { Button } from "../ui/button";
 import { Send } from "lucide-react";
+import { useEffect } from "react";
+
+const newMessagesSubscription = graphql(`
+  subscription newMessages {
+    newMessages {
+      _id
+      Organizer {
+        _id
+        ...AvatarImg
+      }
+      ...chatMessage
+    }
+  }
+`);
 
 export default function MessageList(props: {
   messageListQueryRef: TransportedQueryRef<
@@ -31,7 +45,26 @@ export default function MessageList(props: {
   goBack: () => void;
   // messagesListFragment: FragmentType<typeof messagesListFragment>;
 }) {
+  const { subscribeToMore } = useQueryRefHandlers(props.messageListQueryRef);
   const { data: messagesList } = useReadQuery(props.messageListQueryRef);
+
+  useEffect(() => {
+    subscribeToMore({
+      document: newMessagesSubscription,
+      updateQuery(prev, { subscriptionData }) {
+        return Object.assign({}, prev, {
+          organizer: {
+            ...prev.organizer,
+            conversation: [
+              ...(prev.organizer?.conversation ?? []),
+              subscriptionData.data.newMessages,
+            ],
+          },
+        });
+      },
+    });
+  });
+
   return (
     <>
       <ExpandableChatHeader>
