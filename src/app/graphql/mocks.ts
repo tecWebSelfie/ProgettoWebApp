@@ -3,7 +3,7 @@ import { faker } from "@faker-js/faker";
 import { IMocks, IMockStore } from "@graphql-tools/mock";
 
 //This is mocked data for the graphql server
-export const mocks: IMocks = {
+export const mocks: IMocks<Resolvers> = {
   MongoID: () => faker.database.mongodbObjectId(),
   User: () => ({
     name: faker.person.firstName(),
