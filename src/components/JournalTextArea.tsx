@@ -1,7 +1,12 @@
 "use client";
 
 import { useMutation } from "@apollo/client";
-import { graphql, FragmentType, useFragment } from "../gql";
+import { Types } from "mongoose";
+import { useSession } from "next-auth/react";
+import { useState } from "react";
+import { FaRegPaperPlane } from "react-icons/fa";
+import { FragmentType, graphql, useFragment } from "../gql";
+import { JournalSectionDocument } from "../gql/graphql";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
