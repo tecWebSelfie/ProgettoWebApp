@@ -9,5 +9,10 @@
   "css.validate": false,
   "less.validate": false,
   "scss.validate": false,
-  "cSpell.words": ["pomodoro"]
+  "cSpell.words": ["pomodoro"],
+  "cSpell.diagnosticLevel": "Hint",
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "typescript": "typescriptreact"
+  }
 }
