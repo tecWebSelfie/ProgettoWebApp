@@ -9,13 +9,7 @@ import { FragmentType, graphql, useFragment } from "../gql";
 import { JournalSectionDocument } from "../gql/graphql";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { Label } from "./ui/label";
-import { FaRegPaperPlane } from "react-icons/fa";
 import { Textarea } from "./ui/textarea";
-import { useState } from "react";
-import { getSession, useSession } from "next-auth/react";
-import { Types } from "mongoose";
-import { JournalSectionDocument } from "../gql/graphql";
 
 const journalTextAreaFragment = graphql(`
   fragment journalTextAreaFragment on Query {
