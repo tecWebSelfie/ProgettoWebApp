@@ -28,8 +28,15 @@ function makeClient() {
     // use the `InMemoryCache` from "@apollo/experimental-nextjs-app-support"
     cache: new InMemoryCache({
       typePolicies: {
+        //this key sets how fetched queries are cached and merged
         User: {
           fields: {
+            Messages: {
+              // new messages of a user get merged with existing ones in the cache
+              merge(existing = [], incoming) {
+                return [...existing, ...incoming];
+              },
+            },
             conversation: {
               keyArgs: ["attendeeId"],
               merge(existing = [], incoming) {
