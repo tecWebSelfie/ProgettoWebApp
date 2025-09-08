@@ -4,7 +4,7 @@ import { Send } from "lucide-react";
 import { Button } from "../ui/button";
 import { ChatInput } from "../ui/chat/chat-input";
 import { FragmentType, graphql, useFragment } from "@/src/gql";
-import { useMutation, useSuspenseQuery } from "@apollo/client";
+import { ApolloCache, useMutation, useSuspenseQuery } from "@apollo/client";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 
@@ -20,9 +20,6 @@ const chatInputBoxMutation = graphql(`
       recordId
       record {
         summary
-      }
-      error {
-        message
       }
     }
   }
@@ -55,6 +52,7 @@ export default function ChatInputBox(
         onClick={() => {
           console.log("submitting message");
           submitMessage({
+            refetchQueries: ["messageList"],
             variables: {
               message: {
                 summary: chatInputValue,
@@ -68,8 +66,29 @@ export default function ChatInputBox(
                 record: {
                   summary: "hello",
                 },
-                error: null,
               },
+            },
+            update(cache, { data }) {
+              if (data?.message_createOne?.record) {
+                cache.writeFragment({
+                  fragment: graphql(`
+                    fragment addMessage on User {
+                      _id
+                      conversation(attendeeId: $attendeeId) {
+                        ...chatMessage
+                      }
+                    }
+                  `),
+                  fragmentName: "addMessage",
+                  variables: {
+                    attendeeId,
+                  },
+                  data: {
+                    _id: session.user.id,
+                    conversation: [data.message_createOne.record],
+                  },
+                });
+              }
             },
           });
         }}
