@@ -1,6 +1,5 @@
 import { useEffect, useRef } from "react";
 import { timeMachine } from "@/src/reactiveVars/timeMachine";
-import { time } from "console";
 
 export const useStartTimeMachine = () => {
   const timerRef = useRef(false);
