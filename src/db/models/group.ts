@@ -5,7 +5,7 @@ import {
   resourceModelName,
   userModelName,
 } from "./mongo_contract";
-import { schemaComposer } from "graphql-compose";
+import { schemaComposer } from "@/lib/schemaComposer";
 import { composeWithMongoose } from "graphql-compose-mongoose";
 import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 import { ICalEventClass } from "ical-generator";

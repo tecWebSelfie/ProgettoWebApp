@@ -549,84 +549,6 @@ type Query {
     """
     sort: SortConnectionPomodoroEnum = _ID_DESC
   ): PomodoroConnection
-  project_count(
-    """
-    Filter by fields
-    """
-    filter: FilterCountProjectInput
-  ): Int
-  project_findById(_id: MongoID!): Project
-  project_findByIds(
-    _ids: [MongoID!]!
-    limit: Int = 100
-    sort: SortFindByIdsProjectInput
-  ): [Project!]!
-  project_findOne(
-    """
-    Filter by fields
-    """
-    filter: FilterFindOneProjectInput
-    skip: Int
-    sort: SortFindOneProjectInput
-  ): Project
-  project_findMany(
-    """
-    Filter by fields
-    """
-    filter: FilterFindManyProjectInput
-    skip: Int
-    limit: Int = 100
-    sort: SortFindManyProjectInput
-  ): [Project!]!
-  project_dataLoader(_id: MongoID!): Project
-  project_dataLoaderMany(_ids: [MongoID!]!): [Project]!
-  project_pagination(
-    """
-    Page number for displaying
-    """
-    page: Int
-
-    """
-    """
-    perPage: Int = 20
-
-    """
-    Filter by fields
-    """
-    filter: FilterFindManyProjectInput
-    sort: SortFindManyProjectInput
-  ): ProjectPagination
-  project_connection(
-    """
-    Forward pagination argument for returning at most first edges
-    """
-    first: Int
-
-    """
-    Forward pagination argument for returning at most first edges
-    """
-    after: String
-
-    """
-    Backward pagination argument for returning at most last edges
-    """
-    last: Int
-
-    """
-    Backward pagination argument for returning at most last edges
-    """
-    before: String
-
-    """
-    Filter by fields
-    """
-    filter: FilterFindManyProjectInput
-
-    """
-    Sort argument for data ordering
-    """
-    sort: SortConnectionProjectEnum = _ID_DESC
-  ): ProjectConnection
   resource_count(
     """
     Filter by fields
@@ -1562,82 +1484,6 @@ type Mutation {
   """
   Create one document with mongoose defaults, setters, hooks and validation
   """
-  project_createOne(record: CreateOneProjectInput!): CreateOneProjectPayload
-
-  """
-  Creates Many documents with mongoose defaults, setters, hooks and validation
-  """
-  project_createMany(
-    records: [CreateManyProjectInput!]!
-  ): CreateManyProjectPayload
-
-  """
-  Update one document: 1) Retrieve one document by findById. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
-  """
-  project_updateById(
-    _id: MongoID!
-    record: UpdateByIdProjectInput!
-  ): UpdateByIdProjectPayload
-
-  """
-  Update one document: 1) Retrieve one document via findOne. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
-  """
-  project_updateOne(
-    record: UpdateOneProjectInput!
-
-    """
-    Filter by fields
-    """
-    filter: FilterUpdateOneProjectInput
-    sort: SortUpdateOneProjectInput
-    skip: Int
-  ): UpdateOneProjectPayload
-
-  """
-  Update many documents without returning them: Use Query.update mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
-  """
-  project_updateMany(
-    record: UpdateManyProjectInput!
-
-    """
-    Filter by fields
-    """
-    filter: FilterUpdateManyProjectInput
-    sort: SortUpdateManyProjectInput
-    skip: Int
-    limit: Int = 100
-  ): UpdateManyProjectPayload
-
-  """
-  Remove one document: 1) Retrieve one document and remove with hooks via findByIdAndRemove. 2) Return removed document.
-  """
-  project_removeById(_id: MongoID!): RemoveByIdProjectPayload
-
-  """
-  Remove one document: 1) Remove with hooks via findOneAndRemove. 2) Return removed document.
-  """
-  project_removeOne(
-    """
-    Filter by fields
-    """
-    filter: FilterRemoveOneProjectInput
-    sort: SortRemoveOneProjectInput
-  ): RemoveOneProjectPayload
-
-  """
-  Remove many documents without returning them: Use Query.remove mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
-  """
-  project_removeMany(
-    """
-    Filter by fields
-    """
-    filter: FilterRemoveManyProjectInput!
-    limit: Int = 100
-  ): RemoveManyProjectPayload
-
-  """
-  Create one document with mongoose defaults, setters, hooks and validation
-  """
   resource_createOne(record: CreateOneResourceInput!): CreateOneResourcePayload
 
   """
@@ -2044,11 +1890,6 @@ scalar Date
 The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
 """
 scalar Float
-
-"""
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
-"""
-scalar Int
 
 """
 The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.

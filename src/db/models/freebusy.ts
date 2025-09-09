@@ -5,7 +5,7 @@ import {
   ifbDateTime,
   userModelName,
 } from "./mongo_contract";
-import { schemaComposer } from "graphql-compose";
+import { schemaComposer } from "@/lib/schemaComposer";
 import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 
 //dtstamp / uid (obbligatori)

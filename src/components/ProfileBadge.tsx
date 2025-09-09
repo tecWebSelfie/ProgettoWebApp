@@ -15,7 +15,7 @@ import { Separator } from "./ui/separator";
 import { IoSettingsOutline } from "react-icons/io5";
 import { AvatarImg } from "@/components/AvatarImg";
 import { makeFragmentData } from "@/src/gql";
-import { AvatarImgFragmentDoc } from "@/gql/graphql";
+import { AvatarImgFragmentDoc } from "@/gql/graphql"; //this probably cause the AvatarImg fragment to be warned as duplicated in codegen
 
 export async function ProfileBadge() {
   const session = await auth();

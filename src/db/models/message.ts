@@ -1,9 +1,15 @@
-import { schemaComposer } from "graphql-compose";
+import { schemaComposer } from "@/lib/schemaComposer";
 import { finalComposer, getMongooseResolvers } from "./graphqlComposeUtilities";
 import mongoose, { Model, Schema, Types } from "mongoose";
 import { messageModelName } from "./mongo_contract";
 import { pubSub } from "../pubSub";
-import { QueryMessage_FindManyArgs } from "@/gql/resolvers-types";
+import {
+  CreateManyMessagePayloadResolvers,
+  QueryMessage_FindManyArgs,
+  Resolvers,
+} from "@/gql/resolvers-types";
+import { yogaAuthLogger } from "@/lib/pinoConfig";
+import { Repeater } from "graphql-yoga";
 
 //class
 //rrule
@@ -64,14 +70,20 @@ schemaComposer.Mutation.addFields({
     .getResolver("createOne")
     .wrapResolve((next) => async (rp) => {
       const res = await next(rp);
-      pubSub.publish("messages", res.record);
+      res.attendees.forEach((attendee) => {
+        pubSub.publish("user:messages", attendee, { message: res });
+      });
       return res;
     }),
   message_createMany: messageTC
-    .getResolver("createMany")
+    .getResolver<CreateManyMessagePayloadResolvers>("createMany")
     .wrapResolve((next) => async (rp) => {
       const res = await next(rp);
-      res.record.forEach((record) => pubSub.publish("messages", record));
+      res.record.forEach((record) => {
+        record.attendees.forEach((attendee) => {
+          pubSub.publish("user:messages", attendee, { message: record });
+        });
+      });
       return res;
     }),
 });
@@ -80,7 +92,18 @@ schemaComposer.Subscription.addFields({
   newMessages: {
     type: messageTC,
     resolve: (payload) => payload,
-    subscribe: () => pubSub.subscribe("messages"),
+    subscribe(source, args, ctx, info) {
+      yogaAuthLogger.info(
+        ctx.request.auth.user,
+        "inside newMessages subscription",
+      );
+      return ctx.request.auth.user.id
+        ? Repeater.merge([
+            null,
+            pubSub.subscribe("user:messages", ctx.request.auth.user.id),
+          ])
+        : null;
+    },
   },
 });
 

@@ -1,4 +1,4 @@
-import { schemaComposer } from "graphql-compose";
+import { schemaComposer } from "@/lib/schemaComposer";
 import fs from "fs";
 import path from "path";
 import { graphqlschema as alarmSchema, alarmTC } from "./models/alarm";

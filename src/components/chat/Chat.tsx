@@ -19,6 +19,7 @@ export const messageListQuery = graphql(`
   query messageList($organizerId: MongoID!, $attendeeId: MongoID!) {
     organizer: user_findById(_id: $organizerId) {
       _id
+      ...chatInputBox
       conversation(attendeeId: $attendeeId) {
         _id
         Organizer {
