@@ -5,7 +5,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/hooks/use-toast";
-import { ToastAction } from "@/components/ui/toast";
 import {
   Form,
   FormControl,
@@ -27,7 +26,8 @@ import * as React from "react";
 import { emailSchema, passwordSchema } from "../../validator";
 import { useState, useEffect } from "react";
 import { logIn } from "../../serverActions/logIn";
-import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 export const formSchema = z.object({
   email: emailSchema,
@@ -36,7 +36,16 @@ export const formSchema = z.object({
 
 export function LoginForm() {
   const { toast } = useToast();
-  const router = useRouter();
+
+  // redirect to the home if the user is already logged in
+  const { status } = useSession();
+  // useState because can't use redirect() inside a try/catch in onSubmit()
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    status === "authenticated" ? true : false,
+  );
+  if (isLoggedIn) {
+    redirect("/");
+  }
 
   const [formData, setFormData] = useState(() => {
     if (typeof window !== "undefined") {
@@ -68,8 +77,7 @@ export function LoginForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      // Assuming an async login function
-      console.log(values);
+      //console.log(values);
       const { email, password } = values;
       await logIn("credentials", {
         email,
@@ -77,20 +85,17 @@ export function LoginForm() {
       });
 
       sessionStorage.removeItem("login_form_data");
-      /*toast({
-        title: "Toast window",
-        description: "Check se utile",
-      });*/
+      setIsLoggedIn(true);
     } catch (error) {
-      console.error("Form submission error", error);
+      //console.error("Form submission error", error);
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
-        description: "There was a problem with your request.",
-        action: <ToastAction altText="Try again">Try again</ToastAction>,
+        description: "Check your credentials and try again.",
       });
     }
   }
+
   return (
     <>
       <div className="flex flex-col min-h-[50vh] h-full w-full items-center justify-center px-4 pt-4">
@@ -137,15 +142,7 @@ export function LoginForm() {
                     name="password"
                     render={({ field }) => (
                       <FormItem className="grid gap-2">
-                        <div className="flex justify-between items-center">
-                          <FormLabel htmlFor="password">Password*</FormLabel>
-                          <Link
-                            href="./forgot-password"
-                            className="ml-auto inline-block text-sm underline"
-                          >
-                            Forgot your password?
-                          </Link>
-                        </div>
+                        <FormLabel htmlFor="password">Password*</FormLabel>
                         <FormControl>
                           <Input
                             id="password"
@@ -155,7 +152,6 @@ export function LoginForm() {
                             {...field}
                           />
                         </FormControl>
-                        <FormMessage />
                       </FormItem>
                     )}
                   />

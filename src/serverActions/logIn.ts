@@ -3,7 +3,6 @@
 import { signIn } from "@/auth";
 import { dbConfig } from "@/db/dbconfig";
 import mongoose from "mongoose";
-import { redirect } from "next/navigation";
 
 mongoose.connect(dbConfig.uri);
 
@@ -15,5 +14,4 @@ export async function logIn(
   },
 ) {
   await signIn(provider, credentials);
-  redirect("/");
 }

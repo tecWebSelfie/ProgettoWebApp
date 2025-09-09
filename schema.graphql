@@ -2296,8 +2296,8 @@ enum SortConnectionTodoEnum {
 enum SortConnectionUserEnum {
   _ID_DESC
   _ID_ASC
-  NICKNAME_DESC
-  NICKNAME_ASC
+  USERNAME_DESC
+  USERNAME_ASC
   EMAIL_DESC
   EMAIL_ASC
 }
@@ -2365,8 +2365,8 @@ enum SortFindByIdsTodoInput {
 enum SortFindByIdsUserInput {
   _ID_ASC
   _ID_DESC
-  NICKNAME_ASC
-  NICKNAME_DESC
+  USERNAME_ASC
+  USERNAME_DESC
   EMAIL_ASC
   EMAIL_DESC
 }
@@ -2434,8 +2434,8 @@ enum SortFindManyTodoInput {
 enum SortFindManyUserInput {
   _ID_ASC
   _ID_DESC
-  NICKNAME_ASC
-  NICKNAME_DESC
+  USERNAME_ASC
+  USERNAME_DESC
   EMAIL_ASC
   EMAIL_DESC
 }
@@ -2503,8 +2503,8 @@ enum SortFindOneTodoInput {
 enum SortFindOneUserInput {
   _ID_ASC
   _ID_DESC
-  NICKNAME_ASC
-  NICKNAME_DESC
+  USERNAME_ASC
+  USERNAME_DESC
   EMAIL_ASC
   EMAIL_DESC
 }
@@ -2572,8 +2572,8 @@ enum SortRemoveOneTodoInput {
 enum SortRemoveOneUserInput {
   _ID_ASC
   _ID_DESC
-  NICKNAME_ASC
-  NICKNAME_DESC
+  USERNAME_ASC
+  USERNAME_DESC
   EMAIL_ASC
   EMAIL_DESC
 }
@@ -2641,8 +2641,8 @@ enum SortUpdateManyTodoInput {
 enum SortUpdateManyUserInput {
   _ID_ASC
   _ID_DESC
-  NICKNAME_ASC
-  NICKNAME_DESC
+  USERNAME_ASC
+  USERNAME_DESC
   EMAIL_ASC
   EMAIL_DESC
 }
@@ -2710,8 +2710,8 @@ enum SortUpdateOneTodoInput {
 enum SortUpdateOneUserInput {
   _ID_ASC
   _ID_DESC
-  NICKNAME_ASC
-  NICKNAME_DESC
+  USERNAME_ASC
+  USERNAME_DESC
   EMAIL_ASC
   EMAIL_DESC
 }
@@ -4671,7 +4671,7 @@ type RemoveOneUserPayload {
 }
 
 type Resource {
-  nickname: String
+  username: String
   description: String
   location: String
   geo_location: String
@@ -5446,8 +5446,9 @@ type UpdateOneUserPayload {
 }
 
 type User {
-  nickname: String!
+  username: String!
   email: String!
+  password: String!
   name: String
   surname: String
   birthday: Date
@@ -5738,7 +5739,7 @@ input CreateManyProjectInput {
 """
 """
 input CreateManyResourceInput {
-  nickname: String
+  username: String
   description: String
   location: String
   geo_location: String
@@ -5783,8 +5784,9 @@ input CreateManyTodoInput {
 """
 """
 input CreateManyUserInput {
-  nickname: String!
+  username: String!
   email: String!
+  password: String!
   name: String
   surname: String
   birthday: Date
@@ -5965,7 +5967,7 @@ input CreateOneProjectInput {
 """
 """
 input CreateOneResourceInput {
-  nickname: String
+  username: String
   description: String
   location: String
   geo_location: String
@@ -6010,8 +6012,9 @@ input CreateOneTodoInput {
 """
 """
 input CreateOneUserInput {
-  nickname: String!
+  username: String!
   email: String!
+  password: String!
   name: String
   surname: String
   birthday: Date
@@ -6623,7 +6626,7 @@ input FilterCountResource_idOperatorsInput {
 """
 """
 input FilterCountResourceInput {
-  nickname: String
+  username: String
   description: String
   location: String
   geo_location: String
@@ -6748,8 +6751,9 @@ input FilterCountUserEmailOperatorsInput {
 """
 """
 input FilterCountUserInput {
-  nickname: String
+  username: String
   email: String
+  password: String
   name: String
   surname: String
   birthday: Date
@@ -6777,7 +6781,16 @@ input FilterCountUserInput {
   AND: [FilterCountUserInput!]
 }
 
-input FilterCountUserNicknameOperatorsInput {
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterCountUserOperatorsInput {
+  username: FilterCountUserUsernameOperatorsInput
+  email: FilterCountUserEmailOperatorsInput
+  _id: FilterCountUser_idOperatorsInput
+}
+
+input FilterCountUserUsernameOperatorsInput {
   gt: String
   gte: String
   lt: String
@@ -6787,15 +6800,6 @@ input FilterCountUserNicknameOperatorsInput {
   nin: [String]
   regex: RegExpAsString
   exists: Boolean
-}
-
-"""
-For performance reason this type contains only *indexed* fields.
-"""
-input FilterCountUserOperatorsInput {
-  nickname: FilterCountUserNicknameOperatorsInput
-  email: FilterCountUserEmailOperatorsInput
-  _id: FilterCountUser_idOperatorsInput
 }
 
 input FilterFindManyAlarm_idOperatorsInput {
@@ -7337,7 +7341,7 @@ input FilterFindManyResource_idOperatorsInput {
 """
 """
 input FilterFindManyResourceInput {
-  nickname: String
+  username: String
   description: String
   location: String
   geo_location: String
@@ -7462,8 +7466,9 @@ input FilterFindManyUserEmailOperatorsInput {
 """
 """
 input FilterFindManyUserInput {
-  nickname: String
+  username: String
   email: String
+  password: String
   name: String
   surname: String
   birthday: Date
@@ -7491,7 +7496,16 @@ input FilterFindManyUserInput {
   AND: [FilterFindManyUserInput!]
 }
 
-input FilterFindManyUserNicknameOperatorsInput {
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterFindManyUserOperatorsInput {
+  username: FilterFindManyUserUsernameOperatorsInput
+  email: FilterFindManyUserEmailOperatorsInput
+  _id: FilterFindManyUser_idOperatorsInput
+}
+
+input FilterFindManyUserUsernameOperatorsInput {
   gt: String
   gte: String
   lt: String
@@ -7501,15 +7515,6 @@ input FilterFindManyUserNicknameOperatorsInput {
   nin: [String]
   regex: RegExpAsString
   exists: Boolean
-}
-
-"""
-For performance reason this type contains only *indexed* fields.
-"""
-input FilterFindManyUserOperatorsInput {
-  nickname: FilterFindManyUserNicknameOperatorsInput
-  email: FilterFindManyUserEmailOperatorsInput
-  _id: FilterFindManyUser_idOperatorsInput
 }
 
 input FilterFindOneAlarm_idOperatorsInput {
@@ -8051,7 +8056,7 @@ input FilterFindOneResource_idOperatorsInput {
 """
 """
 input FilterFindOneResourceInput {
-  nickname: String
+  username: String
   description: String
   location: String
   geo_location: String
@@ -8176,8 +8181,9 @@ input FilterFindOneUserEmailOperatorsInput {
 """
 """
 input FilterFindOneUserInput {
-  nickname: String
+  username: String
   email: String
+  password: String
   name: String
   surname: String
   birthday: Date
@@ -8205,7 +8211,16 @@ input FilterFindOneUserInput {
   AND: [FilterFindOneUserInput!]
 }
 
-input FilterFindOneUserNicknameOperatorsInput {
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterFindOneUserOperatorsInput {
+  username: FilterFindOneUserUsernameOperatorsInput
+  email: FilterFindOneUserEmailOperatorsInput
+  _id: FilterFindOneUser_idOperatorsInput
+}
+
+input FilterFindOneUserUsernameOperatorsInput {
   gt: String
   gte: String
   lt: String
@@ -8215,15 +8230,6 @@ input FilterFindOneUserNicknameOperatorsInput {
   nin: [String]
   regex: RegExpAsString
   exists: Boolean
-}
-
-"""
-For performance reason this type contains only *indexed* fields.
-"""
-input FilterFindOneUserOperatorsInput {
-  nickname: FilterFindOneUserNicknameOperatorsInput
-  email: FilterFindOneUserEmailOperatorsInput
-  _id: FilterFindOneUser_idOperatorsInput
 }
 
 input FilterRemoveManyAlarm_idOperatorsInput {
@@ -8765,7 +8771,7 @@ input FilterRemoveManyResource_idOperatorsInput {
 """
 """
 input FilterRemoveManyResourceInput {
-  nickname: String
+  username: String
   description: String
   location: String
   geo_location: String
@@ -8890,8 +8896,9 @@ input FilterRemoveManyUserEmailOperatorsInput {
 """
 """
 input FilterRemoveManyUserInput {
-  nickname: String
+  username: String
   email: String
+  password: String
   name: String
   surname: String
   birthday: Date
@@ -8919,7 +8926,16 @@ input FilterRemoveManyUserInput {
   AND: [FilterRemoveManyUserInput!]
 }
 
-input FilterRemoveManyUserNicknameOperatorsInput {
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterRemoveManyUserOperatorsInput {
+  username: FilterRemoveManyUserUsernameOperatorsInput
+  email: FilterRemoveManyUserEmailOperatorsInput
+  _id: FilterRemoveManyUser_idOperatorsInput
+}
+
+input FilterRemoveManyUserUsernameOperatorsInput {
   gt: String
   gte: String
   lt: String
@@ -8929,15 +8945,6 @@ input FilterRemoveManyUserNicknameOperatorsInput {
   nin: [String]
   regex: RegExpAsString
   exists: Boolean
-}
-
-"""
-For performance reason this type contains only *indexed* fields.
-"""
-input FilterRemoveManyUserOperatorsInput {
-  nickname: FilterRemoveManyUserNicknameOperatorsInput
-  email: FilterRemoveManyUserEmailOperatorsInput
-  _id: FilterRemoveManyUser_idOperatorsInput
 }
 
 input FilterRemoveOneAlarm_idOperatorsInput {
@@ -9479,7 +9486,7 @@ input FilterRemoveOneResource_idOperatorsInput {
 """
 """
 input FilterRemoveOneResourceInput {
-  nickname: String
+  username: String
   description: String
   location: String
   geo_location: String
@@ -9604,8 +9611,9 @@ input FilterRemoveOneUserEmailOperatorsInput {
 """
 """
 input FilterRemoveOneUserInput {
-  nickname: String
+  username: String
   email: String
+  password: String
   name: String
   surname: String
   birthday: Date
@@ -9633,7 +9641,16 @@ input FilterRemoveOneUserInput {
   AND: [FilterRemoveOneUserInput!]
 }
 
-input FilterRemoveOneUserNicknameOperatorsInput {
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterRemoveOneUserOperatorsInput {
+  username: FilterRemoveOneUserUsernameOperatorsInput
+  email: FilterRemoveOneUserEmailOperatorsInput
+  _id: FilterRemoveOneUser_idOperatorsInput
+}
+
+input FilterRemoveOneUserUsernameOperatorsInput {
   gt: String
   gte: String
   lt: String
@@ -9643,15 +9660,6 @@ input FilterRemoveOneUserNicknameOperatorsInput {
   nin: [String]
   regex: RegExpAsString
   exists: Boolean
-}
-
-"""
-For performance reason this type contains only *indexed* fields.
-"""
-input FilterRemoveOneUserOperatorsInput {
-  nickname: FilterRemoveOneUserNicknameOperatorsInput
-  email: FilterRemoveOneUserEmailOperatorsInput
-  _id: FilterRemoveOneUser_idOperatorsInput
 }
 
 input FilterUpdateManyAlarm_idOperatorsInput {
@@ -10193,7 +10201,7 @@ input FilterUpdateManyResource_idOperatorsInput {
 """
 """
 input FilterUpdateManyResourceInput {
-  nickname: String
+  username: String
   description: String
   location: String
   geo_location: String
@@ -10318,8 +10326,9 @@ input FilterUpdateManyUserEmailOperatorsInput {
 """
 """
 input FilterUpdateManyUserInput {
-  nickname: String
+  username: String
   email: String
+  password: String
   name: String
   surname: String
   birthday: Date
@@ -10347,7 +10356,16 @@ input FilterUpdateManyUserInput {
   AND: [FilterUpdateManyUserInput!]
 }
 
-input FilterUpdateManyUserNicknameOperatorsInput {
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterUpdateManyUserOperatorsInput {
+  username: FilterUpdateManyUserUsernameOperatorsInput
+  email: FilterUpdateManyUserEmailOperatorsInput
+  _id: FilterUpdateManyUser_idOperatorsInput
+}
+
+input FilterUpdateManyUserUsernameOperatorsInput {
   gt: String
   gte: String
   lt: String
@@ -10357,15 +10375,6 @@ input FilterUpdateManyUserNicknameOperatorsInput {
   nin: [String]
   regex: RegExpAsString
   exists: Boolean
-}
-
-"""
-For performance reason this type contains only *indexed* fields.
-"""
-input FilterUpdateManyUserOperatorsInput {
-  nickname: FilterUpdateManyUserNicknameOperatorsInput
-  email: FilterUpdateManyUserEmailOperatorsInput
-  _id: FilterUpdateManyUser_idOperatorsInput
 }
 
 input FilterUpdateOneAlarm_idOperatorsInput {
@@ -10907,7 +10916,7 @@ input FilterUpdateOneResource_idOperatorsInput {
 """
 """
 input FilterUpdateOneResourceInput {
-  nickname: String
+  username: String
   description: String
   location: String
   geo_location: String
@@ -11032,8 +11041,9 @@ input FilterUpdateOneUserEmailOperatorsInput {
 """
 """
 input FilterUpdateOneUserInput {
-  nickname: String
+  username: String
   email: String
+  password: String
   name: String
   surname: String
   birthday: Date
@@ -11061,7 +11071,16 @@ input FilterUpdateOneUserInput {
   AND: [FilterUpdateOneUserInput!]
 }
 
-input FilterUpdateOneUserNicknameOperatorsInput {
+"""
+For performance reason this type contains only *indexed* fields.
+"""
+input FilterUpdateOneUserOperatorsInput {
+  username: FilterUpdateOneUserUsernameOperatorsInput
+  email: FilterUpdateOneUserEmailOperatorsInput
+  _id: FilterUpdateOneUser_idOperatorsInput
+}
+
+input FilterUpdateOneUserUsernameOperatorsInput {
   gt: String
   gte: String
   lt: String
@@ -11071,15 +11090,6 @@ input FilterUpdateOneUserNicknameOperatorsInput {
   nin: [String]
   regex: RegExpAsString
   exists: Boolean
-}
-
-"""
-For performance reason this type contains only *indexed* fields.
-"""
-input FilterUpdateOneUserOperatorsInput {
-  nickname: FilterUpdateOneUserNicknameOperatorsInput
-  email: FilterUpdateOneUserEmailOperatorsInput
-  _id: FilterUpdateOneUser_idOperatorsInput
 }
 
 input FreebusyFreebusy_infosInput {
@@ -11370,7 +11380,7 @@ input UpdateByIdProjectInput {
 """
 """
 input UpdateByIdResourceInput {
-  nickname: String
+  username: String
   description: String
   location: String
   geo_location: String
@@ -11431,8 +11441,9 @@ input UpdateByIdTodoRepeatingInput {
 """
 """
 input UpdateByIdUserInput {
-  nickname: String
+  username: String
   email: String
+  password: String
   name: String
   surname: String
   birthday: Date
@@ -11720,7 +11731,7 @@ input UpdateManyProjectInput {
 """
 """
 input UpdateManyResourceInput {
-  nickname: String
+  username: String
   description: String
   location: String
   geo_location: String
@@ -11781,8 +11792,9 @@ input UpdateManyTodoRepeatingInput {
 """
 """
 input UpdateManyUserInput {
-  nickname: String
+  username: String
   email: String
+  password: String
   name: String
   surname: String
   birthday: Date
@@ -12070,7 +12082,7 @@ input UpdateOneProjectInput {
 """
 """
 input UpdateOneResourceInput {
-  nickname: String
+  username: String
   description: String
   location: String
   geo_location: String
@@ -12131,8 +12143,9 @@ input UpdateOneTodoRepeatingInput {
 """
 """
 input UpdateOneUserInput {
-  nickname: String
+  username: String
   email: String
+  password: String
   name: String
   surname: String
   birthday: Date
