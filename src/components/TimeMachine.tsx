@@ -6,7 +6,7 @@ import { Calendar } from "./ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { FaRegHourglassHalf } from "react-icons/fa6";
 import { LuTimerReset } from "react-icons/lu";
-import { timeMachine } from "../reactiveVars";
+import { timeMachine } from "@/src/reactiveVars/timeMachine";
 import { useReactiveVar } from "@apollo/client";
 import { Input } from "./ui/input";
 import dayjs from "dayjs";
@@ -21,6 +21,7 @@ export function TimeMachine() {
         <Button>
           <FaRegHourglassHalf />
           <span className="hidden md:inline">
+            {/* TODO: resolve hydration issue with time */}
             {timeMachineState.format("DD/MM/YYYY HH:mm")}
           </span>
         </Button>
