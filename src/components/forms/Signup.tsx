@@ -6,7 +6,12 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { ToastAction } from "@/components/ui/toast";
-import { FaArrowRight, FaArrowLeft, FaCalendar } from "react-icons/fa6";
+import {
+  FaArrowRight,
+  FaArrowLeft,
+  FaCalendar,
+  FaLocationArrow,
+} from "react-icons/fa6";
 import {
   Form,
   FormControl,
@@ -33,41 +38,32 @@ import {
 } from "@/components/ui/popover";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Calendar } from "@/components/ui/calendar";
-import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
 import { useState, useEffect } from "react";
 import * as validator from "../../validator";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { signUp } from "../../serverActions/signUp";
-import dayjs from "dayjs";
+import { useSession } from "next-auth/react";
+import { timeMachine } from "../../reactiveVars";
+import { useReactiveVar } from "@apollo/client";
+import { useGeolocation } from "@uidotdev/usehooks";
 
-const formSchema = z
-  .object({
-    name: validator.nameSchema,
-    surname: validator.surname,
-    birthday: validator.birthday,
-    location: validator.location,
-    photo: validator.photo,
-    is_tech: validator.is_tech,
-    username: validator.username,
-    email: validator.emailSchema,
-    password: validator.passwordSchema,
-    confirmPassword: validator.confirmPassword,
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    path: ["confirmPassword"],
-    message: "Passwords do not match",
-  });
+const formSchema = validator.signUpFormSchemaObj;
 
 export function SignupForm() {
-  //const [inputName, setInputName] = useState("")
-  //const [inputName, setInputName] = useLocalStorage("name", null)
+  // redirect to the home if the user is already logged in
+  const { data: session } = useSession();
+  if (session) {
+    redirect("/");
+  }
 
   const { toast } = useToast();
-  const router = useRouter();
   const [activeTab, setActiveTab] = useState("first");
   const [locationSuggestions, setLocationSuggestions] = useState<string[]>([]);
+
+  const timeMachineState = useReactiveVar(timeMachine);
+  //const [birthdayDate, setBirthdayDate] = useState(timeMachineState.toDate());
 
   const [formData, setFormData] = useState(() => {
     const formDataObj = {
@@ -88,6 +84,25 @@ export function SignupForm() {
     sessionStorage.setItem("signup_form_data", JSON.stringify(formData));
   }, [formData]);
 
+  const geoLocation = useGeolocation();
+  const searchLocationName = async () => {
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?lat=${geoLocation.latitude}&lon=${geoLocation.longitude}&zoom=13&format=jsonv2`,
+      );
+      const data = await response.json();
+
+      form.setValue("location", data.display_name);
+
+      setFormData((prevState: any) => ({
+        ...prevState,
+        location: data.display_name,
+      }));
+    } catch (error) {
+      console.error("Error in searchLocationName: " + error);
+    }
+  };
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData((prevState: any) => ({
@@ -107,9 +122,9 @@ export function SignupForm() {
     }
     try {
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+        `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
           query,
-        )}&type=city&limit=5`,
+        )}&type=city&limit=3&format=jsonv2`,
       );
       const data = await response.json();
       const suggestions = data.map((item: any) => item.display_name);
@@ -123,9 +138,11 @@ export function SignupForm() {
       ...prevState,
       location: suggestion,
     }));
+    form.setValue("location", suggestion);
     setLocationSuggestions([]);
   };
-  const timeMachine = dayjs("2024-12-15"); //da sistemare con il merge della branchia timeMachine
+
+  //const timeMachine = dayjs("2024-12-15"); //da sistemare con il merge della branchia timeMachine
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -134,7 +151,7 @@ export function SignupForm() {
       location: formData.location,
       username: formData.username,
       email: formData.email,
-      birthday: timeMachine.toDate(),
+      birthday: timeMachineState.toDate(),
       photo: undefined,
       is_tech: false,
       password: "",
@@ -144,15 +161,15 @@ export function SignupForm() {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      // Assuming an async registration function
       console.log(values);
-      //sessionStorage.removeItem("signup_form_data");
+      sessionStorage.removeItem("signup_form_data");
+      // Assuming an async registration function
+      signUp(values);
+
       /*toast({
         title: "Toast window",
         description: values.username,
       });*/
-
-      signUp(values);
     } catch (error) {
       console.error("Form submission error", error);
       toast({
@@ -250,20 +267,30 @@ export function SignupForm() {
                         render={({ field }) => (
                           <FormItem className="grid gap-2">
                             <FormLabel htmlFor="location">Location</FormLabel>
-                            <FormControl>
-                              <Input
-                                id="location"
-                                placeholder="Rome"
-                                type="text"
-                                autoComplete="address-level2"
-                                {...field}
-                                onChange={(e) => {
-                                  field.onChange(e);
-                                  handleChange(e);
-                                }}
-                                value={formData.location}
-                              />
-                            </FormControl>
+                            <div className="flex gap-2 w-auto">
+                              <FormControl>
+                                <Input
+                                  id="location"
+                                  placeholder="Rome"
+                                  type="text"
+                                  autoComplete="address-level2"
+                                  {...field}
+                                  onChange={(e) => {
+                                    field.onChange(e);
+                                    handleChange(e);
+                                  }}
+                                  value={formData.location}
+                                />
+                              </FormControl>
+                              <Button
+                                variant="outline"
+                                type="button"
+                                size="icon"
+                                onClick={searchLocationName}
+                              >
+                                <FaLocationArrow />
+                              </Button>
+                            </div>
                             <FormMessage />
                             {locationSuggestions.length > 0 && (
                               <Popover>
@@ -311,18 +338,19 @@ export function SignupForm() {
                                     <Button
                                       id="birthday"
                                       variant={"outline"}
-                                      //className="w-fit pl-4 ml-4 text-center font-normal"
+                                      className="w-fit pl-4 ml-4 text-center font-normal"
+                                    >
+                                      {/*
                                       className={cn(
                                         "w-fit pl-3 ml-4 text-center font-normal",
-                                        !field.value && "text-muted-foreground",
-                                      )}
-                                    >
+                                        !field.value && "text-muted-foreground"
+                                      )  }
+                                      */}
                                       {field.value ? (
-                                        format(field.value, "PPP")
+                                        timeMachineState.format("DD/MM/YYYY")
                                       ) : (
                                         <span>Pick a date</span>
                                       )}
-                                      {/*field.value.toDateString()*/}
                                       <FaCalendar />
                                     </Button>
                                   </FormControl>
@@ -335,12 +363,27 @@ export function SignupForm() {
                                     mode="single"
                                     selected={field.value}
                                     onSelect={field.onChange}
-                                    disabled={(date) =>
-                                      date > timeMachine.toDate() ||
-                                      date < new Date("1900-01-01")
-                                    }
+                                    fromDate={timeMachineState
+                                      .subtract(1, "year")
+                                      .toDate()}
+                                    toDate={timeMachineState.toDate()}
                                     initialFocus
                                   />
+                                  {/*
+                                   <Calendar
+                                    mode="single"
+                                    selected={formData.birthday}
+                                    onSelect={(e, data) => {
+                                      field.onChange(e);
+                                      form.setValue("birthday", data);
+                                    }}
+                                    fromDate={timeMachineState
+                                      .subtract(150, "year")
+                                      .toDate()}
+                                    toDate={timeMachineState.toDate()}
+                                    initialFocus
+                                  />
+                                  */}
                                 </PopoverContent>
                               </Popover>
                               <FormMessage />
@@ -407,7 +450,9 @@ export function SignupForm() {
 
                       <Button
                         type="button"
-                        onClick={() => setActiveTab("second")}
+                        onClick={() => {
+                          setActiveTab("second");
+                        }}
                       >
                         Continue <FaArrowRight />
                       </Button>
