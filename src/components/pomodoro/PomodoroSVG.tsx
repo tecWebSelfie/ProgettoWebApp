@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./PomodoroCore.css";
+import "./Pomodoro.css";
 
 const CharacterSVG = () => {
   const [eyesState, setEyesState] = useState("open"); // 'open', 'closed', or 'blinking'

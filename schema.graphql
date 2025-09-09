@@ -952,6 +952,84 @@ type Query {
     limit: Int = 100
     sort: SortFindManyMessageInput
   ): [Message]
+  project_count(
+    """
+    Filter by fields
+    """
+    filter: FilterCountProjectInput
+  ): Int
+  project_findById(_id: MongoID!): Project
+  project_findByIds(
+    _ids: [MongoID!]!
+    limit: Int = 100
+    sort: SortFindByIdsProjectInput
+  ): [Project!]!
+  project_findOne(
+    """
+    Filter by fields
+    """
+    filter: FilterFindOneProjectInput
+    skip: Int
+    sort: SortFindOneProjectInput
+  ): Project
+  project_findMany(
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyProjectInput
+    skip: Int
+    limit: Int = 100
+    sort: SortFindManyProjectInput
+  ): [Project!]!
+  project_dataLoader(_id: MongoID!): Project
+  project_dataLoaderMany(_ids: [MongoID!]!): [Project]!
+  project_pagination(
+    """
+    Page number for displaying
+    """
+    page: Int
+
+    """
+    """
+    perPage: Int = 20
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyProjectInput
+    sort: SortFindManyProjectInput
+  ): ProjectPagination
+  project_connection(
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    first: Int
+
+    """
+    Forward pagination argument for returning at most first edges
+    """
+    after: String
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    last: Int
+
+    """
+    Backward pagination argument for returning at most last edges
+    """
+    before: String
+
+    """
+    Filter by fields
+    """
+    filter: FilterFindManyProjectInput
+
+    """
+    Sort argument for data ordering
+    """
+    sort: SortConnectionProjectEnum = _ID_DESC
+  ): ProjectConnection
 }
 
 type Mutation {
@@ -1858,6 +1936,82 @@ type Mutation {
     filter: FilterRemoveManyMessageInput!
     limit: Int = 100
   ): RemoveManyMessagePayload
+
+  """
+  Create one document with mongoose defaults, setters, hooks and validation
+  """
+  project_createOne(record: CreateOneProjectInput!): CreateOneProjectPayload
+
+  """
+  Creates Many documents with mongoose defaults, setters, hooks and validation
+  """
+  project_createMany(
+    records: [CreateManyProjectInput!]!
+  ): CreateManyProjectPayload
+
+  """
+  Update one document: 1) Retrieve one document by findById. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  project_updateById(
+    _id: MongoID!
+    record: UpdateByIdProjectInput!
+  ): UpdateByIdProjectPayload
+
+  """
+  Update one document: 1) Retrieve one document via findOne. 2) Apply updates to mongoose document. 3) Mongoose applies defaults, setters, hooks and validation. 4) And save it.
+  """
+  project_updateOne(
+    record: UpdateOneProjectInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateOneProjectInput
+    sort: SortUpdateOneProjectInput
+    skip: Int
+  ): UpdateOneProjectPayload
+
+  """
+  Update many documents without returning them: Use Query.update mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  project_updateMany(
+    record: UpdateManyProjectInput!
+
+    """
+    Filter by fields
+    """
+    filter: FilterUpdateManyProjectInput
+    sort: SortUpdateManyProjectInput
+    skip: Int
+    limit: Int = 100
+  ): UpdateManyProjectPayload
+
+  """
+  Remove one document: 1) Retrieve one document and remove with hooks via findByIdAndRemove. 2) Return removed document.
+  """
+  project_removeById(_id: MongoID!): RemoveByIdProjectPayload
+
+  """
+  Remove one document: 1) Remove with hooks via findOneAndRemove. 2) Return removed document.
+  """
+  project_removeOne(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveOneProjectInput
+    sort: SortRemoveOneProjectInput
+  ): RemoveOneProjectPayload
+
+  """
+  Remove many documents without returning them: Use Query.remove mongoose method. Do not apply mongoose defaults, setters, hooks and validation.
+  """
+  project_removeMany(
+    """
+    Filter by fields
+    """
+    filter: FilterRemoveManyProjectInput!
+    limit: Int = 100
+  ): RemoveManyProjectPayload
   addN(input: Int): Int
 }
 
@@ -1866,16 +2020,6 @@ type Subscription {
   demo: Int
   n: Int
 }
-
-"""
-The `Boolean` scalar type represents `true` or `false`.
-"""
-scalar Boolean
-
-"""
-The `Boolean` scalar type represents `true` or `false`.
-"""
-scalar Boolean
 
 """
 The `Boolean` scalar type represents `true` or `false`.
@@ -1915,21 +2059,22 @@ The `String` scalar type represents textual data, represented as UTF-8 character
 scalar String
 
 """
-The `String` scalar type represents textual data, represented as UTF-8 character sequences. The String type is most often used by GraphQL to represent free-form human-readable text.
 """
-scalar String
-
 enum EnumAlarmRelatesTo {
   END
   START
 }
 
+"""
+"""
 enum EnumAlarmType {
   display
   audio
   email
 }
 
+"""
+"""
 enum EnumCalendarMethod {
   PUBLISH
   REQUEST
@@ -1941,6 +2086,8 @@ enum EnumCalendarMethod {
   DECLINECOUNTER
 }
 
+"""
+"""
 enum EnumEventBusystatus {
   FREE
   TENTATIVE
@@ -1948,12 +2095,16 @@ enum EnumEventBusystatus {
   OOF
 }
 
+"""
+"""
 enum EnumEventClass {
   PUBLIC
   PRIVATE
   CONFIDENTIAL
 }
 
+"""
+"""
 enum EnumEventRepeatingByDay {
   SU
   MO
@@ -1964,6 +2115,8 @@ enum EnumEventRepeatingByDay {
   SA
 }
 
+"""
+"""
 enum EnumEventRepeatingFreq {
   SECONDLY
   MINUTELY
@@ -1974,6 +2127,8 @@ enum EnumEventRepeatingFreq {
   YEARLY
 }
 
+"""
+"""
 enum EnumEventRepeatingStartOfWeek {
   SU
   MO
@@ -1984,17 +2139,23 @@ enum EnumEventRepeatingStartOfWeek {
   SA
 }
 
+"""
+"""
 enum EnumEventStatus {
   CONFIRMED
   TENTATIVE
   CANCELLED
 }
 
+"""
+"""
 enum EnumEventTransparency {
   TRANSPARENT
   OPAQUE
 }
 
+"""
+"""
 enum EnumFreebusyFreebusy_infosType {
   FREE
   BUSY_UNAVAILABLE
@@ -2002,36 +2163,48 @@ enum EnumFreebusyFreebusy_infosType {
   BUSY_TENTATIVE
 }
 
+"""
+"""
 enum EnumGroupClass {
   PUBLIC
   PRIVATE
   CONFIDENTIAL
 }
 
+"""
+"""
 enum EnumJournalClass {
   PUBLIC
   PRIVATE
   CONFIDENTIAL
 }
 
+"""
+"""
 enum EnumJournalStatus {
   CANCELLED
   FINAL
   DRAFT
 }
 
+"""
+"""
 enum EnumResourceClass {
   PUBLIC
   PRIVATE
   CONFIDENTIAL
 }
 
+"""
+"""
 enum EnumTodoClass {
   PUBLIC
   PRIVATE
   CONFIDENTIAL
 }
 
+"""
+"""
 enum EnumTodoRepeatingByDay {
   SU
   MO
@@ -2042,6 +2215,8 @@ enum EnumTodoRepeatingByDay {
   SA
 }
 
+"""
+"""
 enum EnumTodoRepeatingFreq {
   SECONDLY
   MINUTELY
@@ -2052,6 +2227,8 @@ enum EnumTodoRepeatingFreq {
   YEARLY
 }
 
+"""
+"""
 enum EnumTodoRepeatingStartOfWeek {
   SU
   MO
@@ -2062,6 +2239,8 @@ enum EnumTodoRepeatingStartOfWeek {
   SA
 }
 
+"""
+"""
 enum EnumTodoStatus {
   CANCELLED
   IN_PROGRESS
@@ -2069,71 +2248,99 @@ enum EnumTodoStatus {
   NEEDS_ACTION
 }
 
+"""
+"""
 enum EnumUserRoles {
   user
   tech
 }
 
+"""
+"""
 enum SortConnectionAlarmEnum {
   _ID_DESC
   _ID_ASC
 }
 
+"""
+"""
 enum SortConnectionCalendarEnum {
   _ID_DESC
   _ID_ASC
 }
 
+"""
+"""
 enum SortConnectionEventEnum {
   _ID_DESC
   _ID_ASC
 }
 
+"""
+"""
 enum SortConnectionFreebusyEnum {
   _ID_DESC
   _ID_ASC
 }
 
+"""
+"""
 enum SortConnectionGroupEnum {
   _ID_DESC
   _ID_ASC
 }
 
+"""
+"""
 enum SortConnectionJournalEnum {
   _ID_DESC
   _ID_ASC
 }
 
+"""
+"""
 enum SortConnectionMessageEnum {
   _ID_DESC
   _ID_ASC
 }
 
+"""
+"""
 enum SortConnectionNotificationEnum {
   _ID_DESC
   _ID_ASC
 }
 
+"""
+"""
 enum SortConnectionPomodoroEnum {
   _ID_DESC
   _ID_ASC
 }
 
+"""
+"""
 enum SortConnectionProjectEnum {
   _ID_DESC
   _ID_ASC
 }
 
+"""
+"""
 enum SortConnectionResourceEnum {
   _ID_DESC
   _ID_ASC
 }
 
+"""
+"""
 enum SortConnectionTodoEnum {
   _ID_DESC
   _ID_ASC
 }
 
+"""
+"""
 enum SortConnectionUserEnum {
   _ID_DESC
   _ID_ASC
@@ -2143,66 +2350,92 @@ enum SortConnectionUserEnum {
   EMAIL_ASC
 }
 
+"""
+"""
 enum SortFindByIdsAlarmInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindByIdsCalendarInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindByIdsEventInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindByIdsFreebusyInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindByIdsGroupInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindByIdsJournalInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindByIdsMessageInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindByIdsNotificationInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindByIdsPomodoroInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindByIdsProjectInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindByIdsResourceInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindByIdsTodoInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindByIdsUserInput {
   _ID_ASC
   _ID_DESC
@@ -2212,66 +2445,92 @@ enum SortFindByIdsUserInput {
   EMAIL_DESC
 }
 
+"""
+"""
 enum SortFindManyAlarmInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindManyCalendarInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindManyEventInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindManyFreebusyInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindManyGroupInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindManyJournalInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindManyMessageInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindManyNotificationInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindManyPomodoroInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindManyProjectInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindManyResourceInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindManyTodoInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindManyUserInput {
   _ID_ASC
   _ID_DESC
@@ -2281,66 +2540,92 @@ enum SortFindManyUserInput {
   EMAIL_DESC
 }
 
+"""
+"""
 enum SortFindOneAlarmInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindOneCalendarInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindOneEventInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindOneFreebusyInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindOneGroupInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindOneJournalInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindOneMessageInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindOneNotificationInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindOnePomodoroInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindOneProjectInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindOneResourceInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindOneTodoInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortFindOneUserInput {
   _ID_ASC
   _ID_DESC
@@ -2350,66 +2635,92 @@ enum SortFindOneUserInput {
   EMAIL_DESC
 }
 
+"""
+"""
 enum SortRemoveOneAlarmInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortRemoveOneCalendarInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortRemoveOneEventInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortRemoveOneFreebusyInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortRemoveOneGroupInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortRemoveOneJournalInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortRemoveOneMessageInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortRemoveOneNotificationInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortRemoveOnePomodoroInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortRemoveOneProjectInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortRemoveOneResourceInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortRemoveOneTodoInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortRemoveOneUserInput {
   _ID_ASC
   _ID_DESC
@@ -2419,66 +2730,92 @@ enum SortRemoveOneUserInput {
   EMAIL_DESC
 }
 
+"""
+"""
 enum SortUpdateManyAlarmInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortUpdateManyCalendarInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortUpdateManyEventInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortUpdateManyFreebusyInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortUpdateManyGroupInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortUpdateManyJournalInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortUpdateManyMessageInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortUpdateManyNotificationInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortUpdateManyPomodoroInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortUpdateManyProjectInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortUpdateManyResourceInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortUpdateManyTodoInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortUpdateManyUserInput {
   _ID_ASC
   _ID_DESC
@@ -2488,66 +2825,92 @@ enum SortUpdateManyUserInput {
   EMAIL_DESC
 }
 
+"""
+"""
 enum SortUpdateOneAlarmInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortUpdateOneCalendarInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortUpdateOneEventInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortUpdateOneFreebusyInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortUpdateOneGroupInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortUpdateOneJournalInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortUpdateOneMessageInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortUpdateOneNotificationInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortUpdateOnePomodoroInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortUpdateOneProjectInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortUpdateOneResourceInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortUpdateOneTodoInput {
   _ID_ASC
   _ID_DESC
 }
 
+"""
+"""
 enum SortUpdateOneUserInput {
   _ID_ASC
   _ID_DESC
@@ -2557,6 +2920,8 @@ enum SortUpdateOneUserInput {
   EMAIL_DESC
 }
 
+"""
+"""
 interface ErrorInterface {
   """
   Generic error message
@@ -2564,6 +2929,8 @@ interface ErrorInterface {
   message: String
 }
 
+"""
+"""
 type Alarm {
   type: EnumAlarmType!
   trigger: String!
@@ -2583,6 +2950,8 @@ type Alarm {
   Todo: Event
 }
 
+"""
+"""
 type AlarmAttach {
   uri: String
   mime: String
@@ -2644,18 +3013,24 @@ type AlarmPagination {
   pageInfo: PaginationInfo!
 }
 
+"""
+"""
 type AlarmRepeat {
   times: Float
   interval: Float
   _id: MongoID
 }
 
+"""
+"""
 type AlarmX {
   key: String
   value: String
   _id: MongoID
 }
 
+"""
+"""
 type Calendar {
   prodId: String!
   method: EnumCalendarMethod
@@ -2729,12 +3104,16 @@ type CalendarPagination {
   pageInfo: PaginationInfo!
 }
 
+"""
+"""
 type CalendarX {
   key: String
   value: String
   _id: MongoID
 }
 
+"""
+"""
 type CreateManyAlarmPayload {
   """
   Documents IDs
@@ -2757,6 +3136,8 @@ type CreateManyAlarmPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type CreateManyCalendarPayload {
   """
   Documents IDs
@@ -2779,6 +3160,8 @@ type CreateManyCalendarPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type CreateManyEventPayload {
   """
   Documents IDs
@@ -2801,6 +3184,8 @@ type CreateManyEventPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type CreateManyFreebusyPayload {
   """
   Documents IDs
@@ -2823,6 +3208,8 @@ type CreateManyFreebusyPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type CreateManyGroupPayload {
   """
   Documents IDs
@@ -2845,6 +3232,8 @@ type CreateManyGroupPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type CreateManyJournalPayload {
   """
   Documents IDs
@@ -2867,6 +3256,8 @@ type CreateManyJournalPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type CreateManyMessagePayload {
   """
   Documents IDs
@@ -2889,6 +3280,8 @@ type CreateManyMessagePayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type CreateManyNotificationPayload {
   """
   Documents IDs
@@ -2911,6 +3304,8 @@ type CreateManyNotificationPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type CreateManyPomodoroPayload {
   """
   Documents IDs
@@ -2933,6 +3328,8 @@ type CreateManyPomodoroPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type CreateManyProjectPayload {
   """
   Documents IDs
@@ -2955,6 +3352,8 @@ type CreateManyProjectPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type CreateManyResourcePayload {
   """
   Documents IDs
@@ -2977,6 +3376,8 @@ type CreateManyResourcePayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type CreateManyTodoPayload {
   """
   Documents IDs
@@ -2999,6 +3400,8 @@ type CreateManyTodoPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type CreateManyUserPayload {
   """
   Documents IDs
@@ -3021,6 +3424,8 @@ type CreateManyUserPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type CreateOneAlarmPayload {
   """
   Document ID
@@ -3038,6 +3443,8 @@ type CreateOneAlarmPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type CreateOneCalendarPayload {
   """
   Document ID
@@ -3055,6 +3462,8 @@ type CreateOneCalendarPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type CreateOneEventPayload {
   """
   Document ID
@@ -3072,6 +3481,8 @@ type CreateOneEventPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type CreateOneFreebusyPayload {
   """
   Document ID
@@ -3089,6 +3500,8 @@ type CreateOneFreebusyPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type CreateOneGroupPayload {
   """
   Document ID
@@ -3106,6 +3519,8 @@ type CreateOneGroupPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type CreateOneJournalPayload {
   """
   Document ID
@@ -3123,6 +3538,8 @@ type CreateOneJournalPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type CreateOneMessagePayload {
   """
   Document ID
@@ -3140,6 +3557,8 @@ type CreateOneMessagePayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type CreateOneNotificationPayload {
   """
   Document ID
@@ -3157,6 +3576,8 @@ type CreateOneNotificationPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type CreateOnePomodoroPayload {
   """
   Document ID
@@ -3174,6 +3595,8 @@ type CreateOnePomodoroPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type CreateOneProjectPayload {
   """
   Document ID
@@ -3191,6 +3614,8 @@ type CreateOneProjectPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type CreateOneResourcePayload {
   """
   Document ID
@@ -3208,6 +3633,8 @@ type CreateOneResourcePayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type CreateOneTodoPayload {
   """
   Document ID
@@ -3225,6 +3652,8 @@ type CreateOneTodoPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type CreateOneUserPayload {
   """
   Document ID
@@ -3242,6 +3671,8 @@ type CreateOneUserPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type Event {
   sequence: Float!
   start: String!
@@ -3278,6 +3709,8 @@ type Event {
   Resources(limit: Int = 100, sort: SortFindByIdsResourceInput): [Resource!]!
 }
 
+"""
+"""
 type EventCategories {
   name: String
   _id: MongoID
@@ -3303,6 +3736,8 @@ type EventConnection {
   edges: [EventEdge!]!
 }
 
+"""
+"""
 type EventDescription {
   plain: String
   html: String
@@ -3324,6 +3759,8 @@ type EventEdge {
   cursor: String!
 }
 
+"""
+"""
 type EventLocation {
   title: String
   address: String
@@ -3332,12 +3769,16 @@ type EventLocation {
   _id: MongoID
 }
 
+"""
+"""
 type EventLocationGeo {
   lat: Float
   lon: Float
   _id: MongoID
 }
 
+"""
+"""
 type EventOrganizer {
   email: String
   name: String
@@ -3366,6 +3807,8 @@ type EventPagination {
   pageInfo: PaginationInfo!
 }
 
+"""
+"""
 type EventRepeating {
   freq: EnumEventRepeatingFreq
   count: Float
@@ -3380,12 +3823,16 @@ type EventRepeating {
   _id: MongoID
 }
 
+"""
+"""
 type EventX {
   key: String
   value: String
   _id: MongoID
 }
 
+"""
+"""
 type Freebusy {
   start_date: String!
   end_date: String!
@@ -3434,6 +3881,8 @@ type FreebusyEdge {
   cursor: String!
 }
 
+"""
+"""
 type FreebusyFreebusy_infos {
   date: String
   type: EnumFreebusyFreebusy_infosType
@@ -3460,6 +3909,8 @@ type FreebusyPagination {
   pageInfo: PaginationInfo!
 }
 
+"""
+"""
 type Group {
   calendar: MongoID
   name: String
@@ -3531,6 +3982,8 @@ type GroupPagination {
   pageInfo: PaginationInfo!
 }
 
+"""
+"""
 type Journal {
   organizer: MongoID!
   recurrence_id: String
@@ -3610,6 +4063,8 @@ type JournalPagination {
   pageInfo: PaginationInfo!
 }
 
+"""
+"""
 type Message {
   organizer: MongoID!
   summary: String!
@@ -3677,6 +4132,8 @@ type MessagePagination {
   pageInfo: PaginationInfo!
 }
 
+"""
+"""
 type Notification {
   title: String
   body: String
@@ -3768,6 +4225,8 @@ type PageInfo {
   endCursor: String
 }
 
+"""
+"""
 type PaginationInfo {
   currentPage: Int!
   perPage: Int!
@@ -3777,6 +4236,8 @@ type PaginationInfo {
   hasPreviousPage: Boolean
 }
 
+"""
+"""
 type Pomodoro {
   study_time: Float
   remaining_study_time: Float
@@ -3846,6 +4307,8 @@ type PomodoroPagination {
   pageInfo: PaginationInfo!
 }
 
+"""
+"""
 type Project {
   organizer: MongoID
   members: [MongoID]
@@ -3913,6 +4376,8 @@ type ProjectPagination {
   pageInfo: PaginationInfo!
 }
 
+"""
+"""
 type RemoveByIdAlarmPayload {
   """
   Document ID
@@ -3930,6 +4395,8 @@ type RemoveByIdAlarmPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveByIdCalendarPayload {
   """
   Document ID
@@ -3947,6 +4414,8 @@ type RemoveByIdCalendarPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveByIdEventPayload {
   """
   Document ID
@@ -3964,6 +4433,8 @@ type RemoveByIdEventPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveByIdFreebusyPayload {
   """
   Document ID
@@ -3981,6 +4452,8 @@ type RemoveByIdFreebusyPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveByIdGroupPayload {
   """
   Document ID
@@ -3998,6 +4471,8 @@ type RemoveByIdGroupPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveByIdJournalPayload {
   """
   Document ID
@@ -4015,6 +4490,8 @@ type RemoveByIdJournalPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveByIdMessagePayload {
   """
   Document ID
@@ -4032,6 +4509,8 @@ type RemoveByIdMessagePayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveByIdNotificationPayload {
   """
   Document ID
@@ -4049,6 +4528,8 @@ type RemoveByIdNotificationPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveByIdPomodoroPayload {
   """
   Document ID
@@ -4066,6 +4547,8 @@ type RemoveByIdPomodoroPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveByIdProjectPayload {
   """
   Document ID
@@ -4083,6 +4566,8 @@ type RemoveByIdProjectPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveByIdResourcePayload {
   """
   Document ID
@@ -4100,6 +4585,8 @@ type RemoveByIdResourcePayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveByIdTodoPayload {
   """
   Document ID
@@ -4117,6 +4604,8 @@ type RemoveByIdTodoPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveByIdUserPayload {
   """
   Document ID
@@ -4134,6 +4623,8 @@ type RemoveByIdUserPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveManyAlarmPayload {
   """
   Affected documents number
@@ -4146,6 +4637,8 @@ type RemoveManyAlarmPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveManyCalendarPayload {
   """
   Affected documents number
@@ -4158,6 +4651,8 @@ type RemoveManyCalendarPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveManyEventPayload {
   """
   Affected documents number
@@ -4170,6 +4665,8 @@ type RemoveManyEventPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveManyFreebusyPayload {
   """
   Affected documents number
@@ -4182,6 +4679,8 @@ type RemoveManyFreebusyPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveManyGroupPayload {
   """
   Affected documents number
@@ -4194,6 +4693,8 @@ type RemoveManyGroupPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveManyJournalPayload {
   """
   Affected documents number
@@ -4206,6 +4707,8 @@ type RemoveManyJournalPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveManyMessagePayload {
   """
   Affected documents number
@@ -4218,6 +4721,8 @@ type RemoveManyMessagePayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveManyNotificationPayload {
   """
   Affected documents number
@@ -4230,6 +4735,8 @@ type RemoveManyNotificationPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveManyPomodoroPayload {
   """
   Affected documents number
@@ -4242,6 +4749,8 @@ type RemoveManyPomodoroPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveManyProjectPayload {
   """
   Affected documents number
@@ -4254,6 +4763,8 @@ type RemoveManyProjectPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveManyResourcePayload {
   """
   Affected documents number
@@ -4266,6 +4777,8 @@ type RemoveManyResourcePayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveManyTodoPayload {
   """
   Affected documents number
@@ -4278,6 +4791,8 @@ type RemoveManyTodoPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveManyUserPayload {
   """
   Affected documents number
@@ -4290,6 +4805,8 @@ type RemoveManyUserPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveOneAlarmPayload {
   """
   Document ID
@@ -4307,6 +4824,8 @@ type RemoveOneAlarmPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveOneCalendarPayload {
   """
   Document ID
@@ -4324,6 +4843,8 @@ type RemoveOneCalendarPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveOneEventPayload {
   """
   Document ID
@@ -4341,6 +4862,8 @@ type RemoveOneEventPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveOneFreebusyPayload {
   """
   Document ID
@@ -4358,6 +4881,8 @@ type RemoveOneFreebusyPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveOneGroupPayload {
   """
   Document ID
@@ -4375,6 +4900,8 @@ type RemoveOneGroupPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveOneJournalPayload {
   """
   Document ID
@@ -4392,6 +4919,8 @@ type RemoveOneJournalPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveOneMessagePayload {
   """
   Document ID
@@ -4409,6 +4938,8 @@ type RemoveOneMessagePayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveOneNotificationPayload {
   """
   Document ID
@@ -4426,6 +4957,8 @@ type RemoveOneNotificationPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveOnePomodoroPayload {
   """
   Document ID
@@ -4443,6 +4976,8 @@ type RemoveOnePomodoroPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveOneProjectPayload {
   """
   Document ID
@@ -4460,6 +4995,8 @@ type RemoveOneProjectPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveOneResourcePayload {
   """
   Document ID
@@ -4477,6 +5014,8 @@ type RemoveOneResourcePayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveOneTodoPayload {
   """
   Document ID
@@ -4494,6 +5033,8 @@ type RemoveOneTodoPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type RemoveOneUserPayload {
   """
   Document ID
@@ -4511,6 +5052,8 @@ type RemoveOneUserPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type Resource {
   username: String
   description: String
@@ -4585,6 +5128,8 @@ type ResourcePagination {
   pageInfo: PaginationInfo!
 }
 
+"""
+"""
 type Todo {
   completed: Boolean
   status: EnumTodoStatus
@@ -4674,6 +5219,8 @@ type TodoPagination {
   pageInfo: PaginationInfo!
 }
 
+"""
+"""
 type TodoRepeating {
   freq: EnumTodoRepeatingFreq
   count: Float
@@ -4688,6 +5235,8 @@ type TodoRepeating {
   _id: MongoID
 }
 
+"""
+"""
 type UpdateByIdAlarmPayload {
   """
   Document ID
@@ -4705,6 +5254,8 @@ type UpdateByIdAlarmPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateByIdCalendarPayload {
   """
   Document ID
@@ -4722,6 +5273,8 @@ type UpdateByIdCalendarPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateByIdEventPayload {
   """
   Document ID
@@ -4739,6 +5292,8 @@ type UpdateByIdEventPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateByIdFreebusyPayload {
   """
   Document ID
@@ -4756,6 +5311,8 @@ type UpdateByIdFreebusyPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateByIdGroupPayload {
   """
   Document ID
@@ -4773,6 +5330,8 @@ type UpdateByIdGroupPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateByIdJournalPayload {
   """
   Document ID
@@ -4790,6 +5349,8 @@ type UpdateByIdJournalPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateByIdMessagePayload {
   """
   Document ID
@@ -4807,6 +5368,8 @@ type UpdateByIdMessagePayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateByIdNotificationPayload {
   """
   Document ID
@@ -4824,6 +5387,8 @@ type UpdateByIdNotificationPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateByIdPomodoroPayload {
   """
   Document ID
@@ -4841,6 +5406,8 @@ type UpdateByIdPomodoroPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateByIdProjectPayload {
   """
   Document ID
@@ -4858,6 +5425,8 @@ type UpdateByIdProjectPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateByIdResourcePayload {
   """
   Document ID
@@ -4875,6 +5444,8 @@ type UpdateByIdResourcePayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateByIdTodoPayload {
   """
   Document ID
@@ -4892,6 +5463,8 @@ type UpdateByIdTodoPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateByIdUserPayload {
   """
   Document ID
@@ -4909,6 +5482,8 @@ type UpdateByIdUserPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateManyAlarmPayload {
   """
   Affected documents number
@@ -4921,6 +5496,8 @@ type UpdateManyAlarmPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateManyCalendarPayload {
   """
   Affected documents number
@@ -4933,6 +5510,8 @@ type UpdateManyCalendarPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateManyEventPayload {
   """
   Affected documents number
@@ -4945,6 +5524,8 @@ type UpdateManyEventPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateManyFreebusyPayload {
   """
   Affected documents number
@@ -4957,6 +5538,8 @@ type UpdateManyFreebusyPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateManyGroupPayload {
   """
   Affected documents number
@@ -4969,6 +5552,8 @@ type UpdateManyGroupPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateManyJournalPayload {
   """
   Affected documents number
@@ -4981,6 +5566,8 @@ type UpdateManyJournalPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateManyMessagePayload {
   """
   Affected documents number
@@ -4993,6 +5580,8 @@ type UpdateManyMessagePayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateManyNotificationPayload {
   """
   Affected documents number
@@ -5005,6 +5594,8 @@ type UpdateManyNotificationPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateManyPomodoroPayload {
   """
   Affected documents number
@@ -5017,6 +5608,8 @@ type UpdateManyPomodoroPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateManyProjectPayload {
   """
   Affected documents number
@@ -5029,6 +5622,8 @@ type UpdateManyProjectPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateManyResourcePayload {
   """
   Affected documents number
@@ -5041,6 +5636,8 @@ type UpdateManyResourcePayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateManyTodoPayload {
   """
   Affected documents number
@@ -5053,6 +5650,8 @@ type UpdateManyTodoPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateManyUserPayload {
   """
   Affected documents number
@@ -5065,6 +5664,8 @@ type UpdateManyUserPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateOneAlarmPayload {
   """
   Document ID
@@ -5082,6 +5683,8 @@ type UpdateOneAlarmPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateOneCalendarPayload {
   """
   Document ID
@@ -5099,6 +5702,8 @@ type UpdateOneCalendarPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateOneEventPayload {
   """
   Document ID
@@ -5116,6 +5721,8 @@ type UpdateOneEventPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateOneFreebusyPayload {
   """
   Document ID
@@ -5133,6 +5740,8 @@ type UpdateOneFreebusyPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateOneGroupPayload {
   """
   Document ID
@@ -5150,6 +5759,8 @@ type UpdateOneGroupPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateOneJournalPayload {
   """
   Document ID
@@ -5167,6 +5778,8 @@ type UpdateOneJournalPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateOneMessagePayload {
   """
   Document ID
@@ -5184,6 +5797,8 @@ type UpdateOneMessagePayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateOneNotificationPayload {
   """
   Document ID
@@ -5201,6 +5816,8 @@ type UpdateOneNotificationPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateOnePomodoroPayload {
   """
   Document ID
@@ -5218,6 +5835,8 @@ type UpdateOnePomodoroPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateOneProjectPayload {
   """
   Document ID
@@ -5235,6 +5854,8 @@ type UpdateOneProjectPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateOneResourcePayload {
   """
   Document ID
@@ -5252,6 +5873,8 @@ type UpdateOneResourcePayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateOneTodoPayload {
   """
   Document ID
@@ -5269,6 +5892,8 @@ type UpdateOneTodoPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type UpdateOneUserPayload {
   """
   Document ID
@@ -5286,6 +5911,8 @@ type UpdateOneUserPayload {
   error: ErrorInterface
 }
 
+"""
+"""
 type User {
   username: String!
   email: String!
@@ -5395,24 +6022,32 @@ type UserPagination {
   pageInfo: PaginationInfo!
 }
 
+"""
+"""
 input AlarmAttachInput {
   uri: String
   mime: String
   _id: MongoID
 }
 
+"""
+"""
 input AlarmRepeatInput {
   times: Float
   interval: Float
   _id: MongoID
 }
 
+"""
+"""
 input AlarmXInput {
   key: String
   value: String
   _id: MongoID
 }
 
+"""
+"""
 input CalendarXInput {
   key: String
   value: String
@@ -5875,23 +6510,31 @@ input CreateOneUserInput {
   projects: [MongoID]
 }
 
+"""
+"""
 input EventCategoriesInput {
   name: String
   _id: MongoID
 }
 
+"""
+"""
 input EventDescriptionInput {
   plain: String
   html: String
   _id: MongoID
 }
 
+"""
+"""
 input EventLocationGeoInput {
   lat: Float
   lon: Float
   _id: MongoID
 }
 
+"""
+"""
 input EventLocationInput {
   title: String
   address: String
@@ -5900,6 +6543,8 @@ input EventLocationInput {
   _id: MongoID
 }
 
+"""
+"""
 input EventOrganizerInput {
   email: String
   name: String
@@ -5908,6 +6553,8 @@ input EventOrganizerInput {
   _id: MongoID
 }
 
+"""
+"""
 input EventRepeatingInput {
   freq: EnumEventRepeatingFreq
   count: Float
@@ -5922,12 +6569,16 @@ input EventRepeatingInput {
   _id: MongoID
 }
 
+"""
+"""
 input EventXInput {
   key: String
   value: String
   _id: MongoID
 }
 
+"""
+"""
 input FilterCountAlarm_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -5995,6 +6646,8 @@ input FilterCountAlarmXInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterCountCalendar_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -6046,6 +6699,8 @@ input FilterCountCalendarXInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterCountEvent_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -6172,6 +6827,8 @@ input FilterCountEventXInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterCountFreebusy_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -6218,6 +6875,8 @@ input FilterCountFreebusyOperatorsInput {
   _id: FilterCountFreebusy_idOperatorsInput
 }
 
+"""
+"""
 input FilterCountGroup_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -6257,6 +6916,8 @@ input FilterCountGroupOperatorsInput {
   _id: FilterCountGroup_idOperatorsInput
 }
 
+"""
+"""
 input FilterCountJournal_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -6304,6 +6965,8 @@ input FilterCountJournalOperatorsInput {
   _id: FilterCountJournal_idOperatorsInput
 }
 
+"""
+"""
 input FilterCountMessage_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -6341,6 +7004,8 @@ input FilterCountMessageOperatorsInput {
   _id: FilterCountMessage_idOperatorsInput
 }
 
+"""
+"""
 input FilterCountNotification_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -6378,6 +7043,8 @@ input FilterCountNotificationOperatorsInput {
   _id: FilterCountNotification_idOperatorsInput
 }
 
+"""
+"""
 input FilterCountPomodoro_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -6418,6 +7085,8 @@ input FilterCountPomodoroOperatorsInput {
   _id: FilterCountPomodoro_idOperatorsInput
 }
 
+"""
+"""
 input FilterCountProject_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -6453,6 +7122,8 @@ input FilterCountProjectOperatorsInput {
   _id: FilterCountProject_idOperatorsInput
 }
 
+"""
+"""
 input FilterCountResource_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -6495,6 +7166,8 @@ input FilterCountResourceOperatorsInput {
   _id: FilterCountResource_idOperatorsInput
 }
 
+"""
+"""
 input FilterCountTodo_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -6566,6 +7239,8 @@ input FilterCountTodoRepeatingInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterCountUser_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -6577,6 +7252,8 @@ input FilterCountUser_idOperatorsInput {
   exists: Boolean
 }
 
+"""
+"""
 input FilterCountUserEmailOperatorsInput {
   gt: String
   gte: String
@@ -6631,6 +7308,8 @@ input FilterCountUserOperatorsInput {
   _id: FilterCountUser_idOperatorsInput
 }
 
+"""
+"""
 input FilterCountUserUsernameOperatorsInput {
   gt: String
   gte: String
@@ -6643,6 +7322,8 @@ input FilterCountUserUsernameOperatorsInput {
   exists: Boolean
 }
 
+"""
+"""
 input FilterFindManyAlarm_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -6710,6 +7391,8 @@ input FilterFindManyAlarmXInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterFindManyCalendar_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -6761,6 +7444,8 @@ input FilterFindManyCalendarXInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterFindManyEvent_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -6887,6 +7572,8 @@ input FilterFindManyEventXInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterFindManyFreebusy_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -6933,6 +7620,8 @@ input FilterFindManyFreebusyOperatorsInput {
   _id: FilterFindManyFreebusy_idOperatorsInput
 }
 
+"""
+"""
 input FilterFindManyGroup_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -6972,6 +7661,8 @@ input FilterFindManyGroupOperatorsInput {
   _id: FilterFindManyGroup_idOperatorsInput
 }
 
+"""
+"""
 input FilterFindManyJournal_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -7019,6 +7710,8 @@ input FilterFindManyJournalOperatorsInput {
   _id: FilterFindManyJournal_idOperatorsInput
 }
 
+"""
+"""
 input FilterFindManyMessage_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -7056,6 +7749,8 @@ input FilterFindManyMessageOperatorsInput {
   _id: FilterFindManyMessage_idOperatorsInput
 }
 
+"""
+"""
 input FilterFindManyNotification_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -7093,6 +7788,8 @@ input FilterFindManyNotificationOperatorsInput {
   _id: FilterFindManyNotification_idOperatorsInput
 }
 
+"""
+"""
 input FilterFindManyPomodoro_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -7133,6 +7830,8 @@ input FilterFindManyPomodoroOperatorsInput {
   _id: FilterFindManyPomodoro_idOperatorsInput
 }
 
+"""
+"""
 input FilterFindManyProject_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -7168,6 +7867,8 @@ input FilterFindManyProjectOperatorsInput {
   _id: FilterFindManyProject_idOperatorsInput
 }
 
+"""
+"""
 input FilterFindManyResource_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -7210,6 +7911,8 @@ input FilterFindManyResourceOperatorsInput {
   _id: FilterFindManyResource_idOperatorsInput
 }
 
+"""
+"""
 input FilterFindManyTodo_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -7281,6 +7984,8 @@ input FilterFindManyTodoRepeatingInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterFindManyUser_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -7292,6 +7997,8 @@ input FilterFindManyUser_idOperatorsInput {
   exists: Boolean
 }
 
+"""
+"""
 input FilterFindManyUserEmailOperatorsInput {
   gt: String
   gte: String
@@ -7346,6 +8053,8 @@ input FilterFindManyUserOperatorsInput {
   _id: FilterFindManyUser_idOperatorsInput
 }
 
+"""
+"""
 input FilterFindManyUserUsernameOperatorsInput {
   gt: String
   gte: String
@@ -7358,6 +8067,8 @@ input FilterFindManyUserUsernameOperatorsInput {
   exists: Boolean
 }
 
+"""
+"""
 input FilterFindOneAlarm_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -7425,6 +8136,8 @@ input FilterFindOneAlarmXInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterFindOneCalendar_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -7476,6 +8189,8 @@ input FilterFindOneCalendarXInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterFindOneEvent_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -7602,6 +8317,8 @@ input FilterFindOneEventXInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterFindOneFreebusy_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -7648,6 +8365,8 @@ input FilterFindOneFreebusyOperatorsInput {
   _id: FilterFindOneFreebusy_idOperatorsInput
 }
 
+"""
+"""
 input FilterFindOneGroup_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -7687,6 +8406,8 @@ input FilterFindOneGroupOperatorsInput {
   _id: FilterFindOneGroup_idOperatorsInput
 }
 
+"""
+"""
 input FilterFindOneJournal_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -7734,6 +8455,8 @@ input FilterFindOneJournalOperatorsInput {
   _id: FilterFindOneJournal_idOperatorsInput
 }
 
+"""
+"""
 input FilterFindOneMessage_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -7771,6 +8494,8 @@ input FilterFindOneMessageOperatorsInput {
   _id: FilterFindOneMessage_idOperatorsInput
 }
 
+"""
+"""
 input FilterFindOneNotification_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -7808,6 +8533,8 @@ input FilterFindOneNotificationOperatorsInput {
   _id: FilterFindOneNotification_idOperatorsInput
 }
 
+"""
+"""
 input FilterFindOnePomodoro_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -7848,6 +8575,8 @@ input FilterFindOnePomodoroOperatorsInput {
   _id: FilterFindOnePomodoro_idOperatorsInput
 }
 
+"""
+"""
 input FilterFindOneProject_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -7883,6 +8612,8 @@ input FilterFindOneProjectOperatorsInput {
   _id: FilterFindOneProject_idOperatorsInput
 }
 
+"""
+"""
 input FilterFindOneResource_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -7925,6 +8656,8 @@ input FilterFindOneResourceOperatorsInput {
   _id: FilterFindOneResource_idOperatorsInput
 }
 
+"""
+"""
 input FilterFindOneTodo_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -7996,6 +8729,8 @@ input FilterFindOneTodoRepeatingInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterFindOneUser_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -8007,6 +8742,8 @@ input FilterFindOneUser_idOperatorsInput {
   exists: Boolean
 }
 
+"""
+"""
 input FilterFindOneUserEmailOperatorsInput {
   gt: String
   gte: String
@@ -8061,6 +8798,8 @@ input FilterFindOneUserOperatorsInput {
   _id: FilterFindOneUser_idOperatorsInput
 }
 
+"""
+"""
 input FilterFindOneUserUsernameOperatorsInput {
   gt: String
   gte: String
@@ -8073,6 +8812,8 @@ input FilterFindOneUserUsernameOperatorsInput {
   exists: Boolean
 }
 
+"""
+"""
 input FilterRemoveManyAlarm_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -8140,6 +8881,8 @@ input FilterRemoveManyAlarmXInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterRemoveManyCalendar_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -8191,6 +8934,8 @@ input FilterRemoveManyCalendarXInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterRemoveManyEvent_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -8317,6 +9062,8 @@ input FilterRemoveManyEventXInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterRemoveManyFreebusy_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -8363,6 +9110,8 @@ input FilterRemoveManyFreebusyOperatorsInput {
   _id: FilterRemoveManyFreebusy_idOperatorsInput
 }
 
+"""
+"""
 input FilterRemoveManyGroup_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -8402,6 +9151,8 @@ input FilterRemoveManyGroupOperatorsInput {
   _id: FilterRemoveManyGroup_idOperatorsInput
 }
 
+"""
+"""
 input FilterRemoveManyJournal_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -8449,6 +9200,8 @@ input FilterRemoveManyJournalOperatorsInput {
   _id: FilterRemoveManyJournal_idOperatorsInput
 }
 
+"""
+"""
 input FilterRemoveManyMessage_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -8486,6 +9239,8 @@ input FilterRemoveManyMessageOperatorsInput {
   _id: FilterRemoveManyMessage_idOperatorsInput
 }
 
+"""
+"""
 input FilterRemoveManyNotification_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -8523,6 +9278,8 @@ input FilterRemoveManyNotificationOperatorsInput {
   _id: FilterRemoveManyNotification_idOperatorsInput
 }
 
+"""
+"""
 input FilterRemoveManyPomodoro_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -8563,6 +9320,8 @@ input FilterRemoveManyPomodoroOperatorsInput {
   _id: FilterRemoveManyPomodoro_idOperatorsInput
 }
 
+"""
+"""
 input FilterRemoveManyProject_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -8598,6 +9357,8 @@ input FilterRemoveManyProjectOperatorsInput {
   _id: FilterRemoveManyProject_idOperatorsInput
 }
 
+"""
+"""
 input FilterRemoveManyResource_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -8640,6 +9401,8 @@ input FilterRemoveManyResourceOperatorsInput {
   _id: FilterRemoveManyResource_idOperatorsInput
 }
 
+"""
+"""
 input FilterRemoveManyTodo_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -8711,6 +9474,8 @@ input FilterRemoveManyTodoRepeatingInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterRemoveManyUser_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -8722,6 +9487,8 @@ input FilterRemoveManyUser_idOperatorsInput {
   exists: Boolean
 }
 
+"""
+"""
 input FilterRemoveManyUserEmailOperatorsInput {
   gt: String
   gte: String
@@ -8776,6 +9543,8 @@ input FilterRemoveManyUserOperatorsInput {
   _id: FilterRemoveManyUser_idOperatorsInput
 }
 
+"""
+"""
 input FilterRemoveManyUserUsernameOperatorsInput {
   gt: String
   gte: String
@@ -8788,6 +9557,8 @@ input FilterRemoveManyUserUsernameOperatorsInput {
   exists: Boolean
 }
 
+"""
+"""
 input FilterRemoveOneAlarm_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -8855,6 +9626,8 @@ input FilterRemoveOneAlarmXInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterRemoveOneCalendar_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -8906,6 +9679,8 @@ input FilterRemoveOneCalendarXInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterRemoveOneEvent_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -9032,6 +9807,8 @@ input FilterRemoveOneEventXInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterRemoveOneFreebusy_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -9078,6 +9855,8 @@ input FilterRemoveOneFreebusyOperatorsInput {
   _id: FilterRemoveOneFreebusy_idOperatorsInput
 }
 
+"""
+"""
 input FilterRemoveOneGroup_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -9117,6 +9896,8 @@ input FilterRemoveOneGroupOperatorsInput {
   _id: FilterRemoveOneGroup_idOperatorsInput
 }
 
+"""
+"""
 input FilterRemoveOneJournal_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -9164,6 +9945,8 @@ input FilterRemoveOneJournalOperatorsInput {
   _id: FilterRemoveOneJournal_idOperatorsInput
 }
 
+"""
+"""
 input FilterRemoveOneMessage_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -9201,6 +9984,8 @@ input FilterRemoveOneMessageOperatorsInput {
   _id: FilterRemoveOneMessage_idOperatorsInput
 }
 
+"""
+"""
 input FilterRemoveOneNotification_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -9238,6 +10023,8 @@ input FilterRemoveOneNotificationOperatorsInput {
   _id: FilterRemoveOneNotification_idOperatorsInput
 }
 
+"""
+"""
 input FilterRemoveOnePomodoro_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -9278,6 +10065,8 @@ input FilterRemoveOnePomodoroOperatorsInput {
   _id: FilterRemoveOnePomodoro_idOperatorsInput
 }
 
+"""
+"""
 input FilterRemoveOneProject_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -9313,6 +10102,8 @@ input FilterRemoveOneProjectOperatorsInput {
   _id: FilterRemoveOneProject_idOperatorsInput
 }
 
+"""
+"""
 input FilterRemoveOneResource_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -9355,6 +10146,8 @@ input FilterRemoveOneResourceOperatorsInput {
   _id: FilterRemoveOneResource_idOperatorsInput
 }
 
+"""
+"""
 input FilterRemoveOneTodo_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -9426,6 +10219,8 @@ input FilterRemoveOneTodoRepeatingInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterRemoveOneUser_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -9437,6 +10232,8 @@ input FilterRemoveOneUser_idOperatorsInput {
   exists: Boolean
 }
 
+"""
+"""
 input FilterRemoveOneUserEmailOperatorsInput {
   gt: String
   gte: String
@@ -9491,6 +10288,8 @@ input FilterRemoveOneUserOperatorsInput {
   _id: FilterRemoveOneUser_idOperatorsInput
 }
 
+"""
+"""
 input FilterRemoveOneUserUsernameOperatorsInput {
   gt: String
   gte: String
@@ -9503,6 +10302,8 @@ input FilterRemoveOneUserUsernameOperatorsInput {
   exists: Boolean
 }
 
+"""
+"""
 input FilterUpdateManyAlarm_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -9570,6 +10371,8 @@ input FilterUpdateManyAlarmXInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterUpdateManyCalendar_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -9621,6 +10424,8 @@ input FilterUpdateManyCalendarXInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterUpdateManyEvent_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -9747,6 +10552,8 @@ input FilterUpdateManyEventXInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterUpdateManyFreebusy_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -9793,6 +10600,8 @@ input FilterUpdateManyFreebusyOperatorsInput {
   _id: FilterUpdateManyFreebusy_idOperatorsInput
 }
 
+"""
+"""
 input FilterUpdateManyGroup_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -9832,6 +10641,8 @@ input FilterUpdateManyGroupOperatorsInput {
   _id: FilterUpdateManyGroup_idOperatorsInput
 }
 
+"""
+"""
 input FilterUpdateManyJournal_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -9879,6 +10690,8 @@ input FilterUpdateManyJournalOperatorsInput {
   _id: FilterUpdateManyJournal_idOperatorsInput
 }
 
+"""
+"""
 input FilterUpdateManyMessage_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -9916,6 +10729,8 @@ input FilterUpdateManyMessageOperatorsInput {
   _id: FilterUpdateManyMessage_idOperatorsInput
 }
 
+"""
+"""
 input FilterUpdateManyNotification_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -9953,6 +10768,8 @@ input FilterUpdateManyNotificationOperatorsInput {
   _id: FilterUpdateManyNotification_idOperatorsInput
 }
 
+"""
+"""
 input FilterUpdateManyPomodoro_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -9993,6 +10810,8 @@ input FilterUpdateManyPomodoroOperatorsInput {
   _id: FilterUpdateManyPomodoro_idOperatorsInput
 }
 
+"""
+"""
 input FilterUpdateManyProject_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -10028,6 +10847,8 @@ input FilterUpdateManyProjectOperatorsInput {
   _id: FilterUpdateManyProject_idOperatorsInput
 }
 
+"""
+"""
 input FilterUpdateManyResource_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -10070,6 +10891,8 @@ input FilterUpdateManyResourceOperatorsInput {
   _id: FilterUpdateManyResource_idOperatorsInput
 }
 
+"""
+"""
 input FilterUpdateManyTodo_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -10141,6 +10964,8 @@ input FilterUpdateManyTodoRepeatingInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterUpdateManyUser_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -10152,6 +10977,8 @@ input FilterUpdateManyUser_idOperatorsInput {
   exists: Boolean
 }
 
+"""
+"""
 input FilterUpdateManyUserEmailOperatorsInput {
   gt: String
   gte: String
@@ -10206,6 +11033,8 @@ input FilterUpdateManyUserOperatorsInput {
   _id: FilterUpdateManyUser_idOperatorsInput
 }
 
+"""
+"""
 input FilterUpdateManyUserUsernameOperatorsInput {
   gt: String
   gte: String
@@ -10218,6 +11047,8 @@ input FilterUpdateManyUserUsernameOperatorsInput {
   exists: Boolean
 }
 
+"""
+"""
 input FilterUpdateOneAlarm_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -10285,6 +11116,8 @@ input FilterUpdateOneAlarmXInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterUpdateOneCalendar_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -10336,6 +11169,8 @@ input FilterUpdateOneCalendarXInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterUpdateOneEvent_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -10462,6 +11297,8 @@ input FilterUpdateOneEventXInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterUpdateOneFreebusy_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -10508,6 +11345,8 @@ input FilterUpdateOneFreebusyOperatorsInput {
   _id: FilterUpdateOneFreebusy_idOperatorsInput
 }
 
+"""
+"""
 input FilterUpdateOneGroup_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -10547,6 +11386,8 @@ input FilterUpdateOneGroupOperatorsInput {
   _id: FilterUpdateOneGroup_idOperatorsInput
 }
 
+"""
+"""
 input FilterUpdateOneJournal_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -10594,6 +11435,8 @@ input FilterUpdateOneJournalOperatorsInput {
   _id: FilterUpdateOneJournal_idOperatorsInput
 }
 
+"""
+"""
 input FilterUpdateOneMessage_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -10631,6 +11474,8 @@ input FilterUpdateOneMessageOperatorsInput {
   _id: FilterUpdateOneMessage_idOperatorsInput
 }
 
+"""
+"""
 input FilterUpdateOneNotification_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -10668,6 +11513,8 @@ input FilterUpdateOneNotificationOperatorsInput {
   _id: FilterUpdateOneNotification_idOperatorsInput
 }
 
+"""
+"""
 input FilterUpdateOnePomodoro_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -10708,6 +11555,8 @@ input FilterUpdateOnePomodoroOperatorsInput {
   _id: FilterUpdateOnePomodoro_idOperatorsInput
 }
 
+"""
+"""
 input FilterUpdateOneProject_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -10743,6 +11592,8 @@ input FilterUpdateOneProjectOperatorsInput {
   _id: FilterUpdateOneProject_idOperatorsInput
 }
 
+"""
+"""
 input FilterUpdateOneResource_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -10785,6 +11636,8 @@ input FilterUpdateOneResourceOperatorsInput {
   _id: FilterUpdateOneResource_idOperatorsInput
 }
 
+"""
+"""
 input FilterUpdateOneTodo_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -10856,6 +11709,8 @@ input FilterUpdateOneTodoRepeatingInput {
   _id: MongoID
 }
 
+"""
+"""
 input FilterUpdateOneUser_idOperatorsInput {
   gt: MongoID
   gte: MongoID
@@ -10867,6 +11722,8 @@ input FilterUpdateOneUser_idOperatorsInput {
   exists: Boolean
 }
 
+"""
+"""
 input FilterUpdateOneUserEmailOperatorsInput {
   gt: String
   gte: String
@@ -10921,6 +11778,8 @@ input FilterUpdateOneUserOperatorsInput {
   _id: FilterUpdateOneUser_idOperatorsInput
 }
 
+"""
+"""
 input FilterUpdateOneUserUsernameOperatorsInput {
   gt: String
   gte: String
@@ -10933,12 +11792,16 @@ input FilterUpdateOneUserUsernameOperatorsInput {
   exists: Boolean
 }
 
+"""
+"""
 input FreebusyFreebusy_infosInput {
   date: String
   type: EnumFreebusyFreebusy_infosType
   _id: MongoID
 }
 
+"""
+"""
 input TodoRepeatingInput {
   freq: EnumTodoRepeatingFreq
   count: Float
