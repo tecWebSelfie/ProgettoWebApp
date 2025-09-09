@@ -21,7 +21,6 @@ export function TimeMachine() {
         <Button>
           <FaRegHourglassHalf />
           <span className="hidden md:inline">
-            {/* TODO: resolve hydration issue with time */}
             {timeMachineState.format("DD/MM/YYYY HH:mm")}
           </span>
         </Button>

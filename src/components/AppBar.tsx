@@ -54,8 +54,8 @@ export function AppBar() {
         </NavigationMenuList>
       </NavigationMenu>
       <div className="flex gap-3 items-center">
-        <TimeMachine />
         <NoSsr>
+          <TimeMachine />
           <DarkModeToggle />
         </NoSsr>
 
