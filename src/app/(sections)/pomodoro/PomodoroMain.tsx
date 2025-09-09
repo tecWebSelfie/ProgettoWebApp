@@ -1,5 +1,6 @@
 import { graphql } from "@/src/gql";
 import { FragmentType } from "@/src/gql";
+import { Pomodoro } from "@/src/components/pomodoro/Pomodoro";
 
 const pomodoroMainFragment = graphql(`
   fragment pomodoroMain on Query {
@@ -10,5 +11,5 @@ const pomodoroMainFragment = graphql(`
 export default function PomodoroMain(props: {
   parentDoc: FragmentType<typeof pomodoroMainFragment>;
 }) {
-  return <div>Pomodoro Main</div>;
+  return <Pomodoro />;
 }

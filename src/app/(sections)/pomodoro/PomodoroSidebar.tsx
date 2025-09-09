@@ -1,5 +1,6 @@
 import { graphql } from "@/src/gql";
 import { FragmentType } from "@/src/gql";
+import { PomodoroList } from "@/src/components/pomodoro/PomodoroList";
 
 const pomodoroSidebarFragment = graphql(`
   fragment pomodoroSidebar on Query {
@@ -10,5 +11,5 @@ const pomodoroSidebarFragment = graphql(`
 export default function PomodoroSidebar(props: {
   parentDoc: FragmentType<typeof pomodoroSidebarFragment>;
 }) {
-  return <div>Pomodoro Sidebar</div>;
+  return <PomodoroList />;
 }

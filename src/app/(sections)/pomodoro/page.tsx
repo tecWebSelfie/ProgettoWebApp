@@ -2,11 +2,12 @@
 
 import { SectionLayout } from "@/src/components/SectionLayout";
 import { graphql } from "@/src/gql";
-import PomodoroMain from "./PomodoroSidebar";
+import PomodoroMain from "./PomodoroMain";
 import { useSuspenseQuery } from "@apollo/client";
 import PomodoroSidebar from "./PomodoroSidebar";
 
 //remember to perform section specific query
+
 const pomodoroSectionQuery = graphql(`
   query pomodoroSection {
     ...pomodoroMain

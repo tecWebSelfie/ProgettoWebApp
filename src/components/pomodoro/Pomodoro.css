@@ -1,0 +1,133 @@
+@keyframes pulse-pomo {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes shake-pomo {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70% {
+    transform: translateX(-8px);
+  }
+  20%,
+  40%,
+  60% {
+    transform: translateX(8px);
+  }
+  80% {
+    transform: translateX(6px);
+  }
+  90% {
+    transform: translateX(-6px);
+  }
+}
+
+@keyframes bounce-pomo {
+  0% {
+    animation-timing-function: ease-in;
+    opacity: 0;
+    transform: translateY(-250px);
+  }
+  38% {
+    animation-timing-function: ease-out;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  55% {
+    animation-timing-function: ease-in;
+    transform: translateY(-65px);
+  }
+  72% {
+    animation-timing-function: ease-out;
+    transform: translateY(0);
+  }
+  81% {
+    animation-timing-function: ease-in;
+    transform: translateY(-28px);
+  }
+  90% {
+    animation-timing-function: ease-out;
+    transform: translateY(0);
+  }
+  95% {
+    animation-timing-function: ease-in;
+    transform: translateY(-8px);
+  }
+  100% {
+    animation-timing-function: ease-out;
+    transform: translateY(0);
+  }
+}
+
+.animate-bounce-pomo {
+  animation: bounce-pomo 3s ease-in 3s 1 normal none;
+}
+
+.animate-pulse-pomo {
+  animation: pulse-pomo 3s ease-in 0s infinite normal none;
+}
+
+.animate-shake-pomo {
+  animation: shake-pomo 2s ease-in 0s 1 normal none;
+}
+
+/* --- CSS for Pomodoro Character SVG --- */
+.st0 {
+  fill: #eac3b5;
+}
+.st1 {
+  fill: #f2d4c7;
+}
+.st2 {
+  fill: #ffede5;
+}
+.st3 {
+  fill: #c95b5e;
+}
+
+/* --- CSS for Eye Animation --- */
+#left-eyelid,
+#right-eyelid {
+  transform-origin: center bottom;
+  transition: transform 0.3s ease-in-out;
+  fill: #ffede5;
+}
+
+.eyes-closed #left-eyelid,
+.eyes-closed #right-eyelid {
+  transform: scaleY(0.1);
+}
+
+.eyes-open #left-eyelid,
+.eyes-open #right-eyelid {
+  transform: scaleY(0);
+}
+
+@keyframes blink-eyes {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.blinking-eyes #left-eyelid,
+.blinking-eyes #right-eyelid {
+  animation: blink-eyes 4s linear 1s infinite normal none;
+}
