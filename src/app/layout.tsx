@@ -40,7 +40,9 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <StartTimeMachine />
+        <NoSsr>
+          <StartTimeMachine />
+        </NoSsr>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
