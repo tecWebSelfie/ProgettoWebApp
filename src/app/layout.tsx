@@ -4,9 +4,7 @@ import "./globals.css";
 
 import { AppBar } from "@/components/AppBar";
 import { ThemeProvider } from "@/components/ThemeProvider";
-import { StartTimeMachine } from "@/components/StartTimeMachine";
 import { ApolloWithSsr as Apollo } from "./Apollo";
-import { NoSsr } from "@/components/NoSsr";
 import { graphql } from "@/src/gql";
 import NextAuthSession from "@/components/NextAuthSession";
 import { auth } from "@/auth";
@@ -40,9 +38,6 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <NoSsr>
-          <StartTimeMachine />
-        </NoSsr>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
